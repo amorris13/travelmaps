@@ -1,0 +1,88 @@
+[
+    {
+        "name": "Loire Cycling",
+        "startDate": "2025-05-21",
+        "endDate": "2025-05-26",
+        "waypoints": [
+            {
+                "name": "Orleans",
+                "location": {
+                    "lat": 47.878,
+                    "lng": 1.903
+                },
+                "transitMode": "CYCLING"
+            },
+            {
+                "name": "Meung-sur-Loire",
+                "location": {
+                    "lat": 47.826,
+                    "lng": 1.695
+                },
+                "transitMode": "CYCLING"
+            },
+            {
+                "name": "Saint-Dye-sur-Loire",
+                "location": {
+                    "lat": 47.655,
+                    "lng": 1.488
+                },
+                "transitMode": "CYCLING"
+            },
+            {
+                "name": "Chateau de Chambord",
+                "location": {
+                    "lat": 47.615,
+                    "lng": 1.516
+                },
+                "transitMode": "CYCLING"
+            },
+            {
+                "name": "Chateau de Blois",
+                "location": {
+                    "lat": 47.585,
+                    "lng": 1.331
+                },
+                "transitMode": "CYCLING"
+            },
+            {
+                "name": "Molineuf",
+                "location": {
+                    "lat": 47.578,
+                    "lng": 1.215
+                },
+                "transitMode": "CYCLING"
+            },
+            {
+                "name": "Chateau de Chaumont",
+                "location": {
+                    "lat": 47.479,
+                    "lng": 1.182
+                },
+                "transitMode": "CYCLING"
+            },
+            {
+                "name": "Amboise",
+                "location": {
+                    "lat": 47.413,
+                    "lng": 0.985
+                },
+                "transitMode": "CYCLING"
+            },
+            {
+                "name": "Chateau de Chenonceau",
+                "location": {
+                    "lat": 47.325,
+                    "lng": 1.070
+                },
+                "transitMode": "CYCLING"
+            },
+            {
+                "name": "Tours",
+                "location": {
+                    "lat": 47.388,
+                    "lng": 0.689
+                }
+            }
+        ]
+    }
+]
