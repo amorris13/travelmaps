@@ -7,21 +7,28 @@ async function main() {
     const data = await fs.readFile('./test_data.json', { encoding: 'utf8' });
     const json = JSON.parse(data);
 
+    // Geocode the waypoints if not already populated.
+    const geocodes = [];
+    for (var travel of json) {
+        for (var waypoint of travel.waypoints) {
+            geocodes.push(updateCoordinates(waypoint));
+        }
+    }
+    await Promise.all(geocodes);
+
+    // Generate directions between the waypoints
+    const directions = [];
     for (var travel of json) {
         var prevLocation
         for (var waypoint of travel.waypoints) {
-            // Geocode the waypoints if not already populated.
-            await updateCoordinates(waypoint);
-
-            // Generate directions between the waypoints
             if (prevLocation) {
-                await updatePolyline(prevLocation, waypoint);
+                directions.push(updatePolyline(prevLocation, waypoint));
             }
 
             prevLocation = waypoint.location;
         }
     }
-
+    await Promise.all(directions);
 
 
 
