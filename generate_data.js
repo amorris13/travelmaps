@@ -2,9 +2,10 @@
 
 const fs = require('node:fs/promises');
 
+const filename = './test_data.json';
+
 async function main() {
-    // TODO: pass filename in as command line parameter
-    const data = await fs.readFile('./test_data.json', { encoding: 'utf8' });
+    const data = await fs.readFile(filename, { encoding: 'utf8' });
     const json = JSON.parse(data);
 
     // Geocode the waypoints if not already populated.
@@ -33,7 +34,7 @@ async function main() {
 
 
 
-    await fs.writeFile('./test_data.json', JSON.stringify(json, null, 4));
+    await fs.writeFile(filename, JSON.stringify(json, null, 4));
 
 }
 
