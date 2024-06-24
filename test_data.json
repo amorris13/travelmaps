@@ -13,7 +13,7 @@
             },
             {
                 "name": "Meung-sur-Loire",
-                "transitMode": "cycling",
+                "mode": "bicycling",
                 "location": {
                     "lng": 1.694864,
                     "lat": 47.824142
@@ -22,7 +22,7 @@
             },
             {
                 "name": "Saint-Dye-sur-Loire",
-                "transitMode": "cycling",
+                "mode": "bicycling",
                 "location": {
                     "lng": 1.488723,
                     "lat": 47.65585

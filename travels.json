@@ -7,81 +7,90 @@
             {
                 "name": "Orleans",
                 "location": {
-                    "lat": 47.878,
-                    "lng": 1.903
-                },
-                "transitMode": "CYCLING"
+                    "lat": 47.9032335,
+                    "lng": 1.9085203
+                }
             },
             {
                 "name": "Meung-sur-Loire",
+                "mode": "bicycling",
                 "location": {
-                    "lat": 47.826,
-                    "lng": 1.695
+                    "lat": 47.82700699999999,
+                    "lng": 1.697432
                 },
-                "transitMode": "CYCLING"
+                "polyline": "ebkcHgwsJbBdPL|AFnBRLdAI?xG`@h@b@l@D?lAMj@E?fA?~AGZI\\MPD?bAp@~BrAZT^\\d@PdBVnA@dBCr@Cb@ENlFL`FB|@B|H`@xDCtAOvAQnDAbXAz^Cdh@CnF@b@FHV?zBHlHRhJTtAA@fAr@n@HRd@tFVvHRzH\\`Gv@xJl@pGXrB\\`Bx@dFt@nFTxAPv@@ZHXHJL@LGJQTa@b@Y`A[^G`AG`ABx@PTRTV?hAGj@@nAPnBZfBlAvEzAdFt@jCLp@N|AD`BAdBRdC^pCx@fFvAjG|C~KvDjKhA|DbAzDh@pBRd@j@jAdA~AdA~@hBhA`@d@^t@f@lATt@\\rA`AtD\\|@Vd@pBlCjApBpBlERNR?\\Sd@g@ZSNEVAh@BXHLJZb@n@rBl@rANNRDf@I`Bk@fBm@rBWt@_@tCaCf@e@P]dByDNQ@BBFJLRFpCF~BDvDXt@Fv@zD?\\ZnAH\\hAGP?TBLB^ICZ?ZPXVJP?`@YDERnBj@xFFJL@xAi@Dd@X`Bx@nDdCjK|AzHj@bDv@hCf@hAx@|BPv@bBtIn@hEr@vDHXLVAH?HDJ?x@R~DRlBj@fDPxARpEJrCd@zJF`DHhHBlGInPHtNF~APbCRtBZzBhAjGZ`BFp@l@vK@dBIjAi@fEm@pCiB`Gy@|Ck@dDc@dEA`DBhCN~GH~ADTr@`Bt@bCJr@Bx@UrCe@~FS|E]dJ@VxCvMBp@Hv@@p@j@pKFl@p@xC|@hDt@vCNn@pAnD`@|@^pAhAnEdCtIfC|H`@jAXoAZ{@Ri@Z^h@p@Zb@lBhCpBbD|BhF|CvHn@|B|@s@F@n@tALB`C|IzAdGtAjFd@xAZ`A`ChGtAfEhB`G^nA|A`DlD~GvB|DnBjDbBbClCbDdArAtB`CdFdElAdA~CbC|D|DtCrCLr@f@hAFZFt@OnA_@z@K`AB~BHlB?tE@lCJxCf@dHz@hNVpDp@rGXzApArG\\fBnB`J`BtGzAdFf@|AdBzFRp@h@fAR^^\\j@n@bEdFXf@~@fCzArFbApE\\jAfBxDlAlCfBnCz@|AdAxA^r@l@pANn@Ff@IfCFt@nApAzDvEvCjDb@fAn@dAhCnDlA`A~ClDxArBnBbCzBfCh@j@HTJ|@L^R^HJVP`Ad@t@x@LJXHFRHNt@d@tAt@`DnAhAz@tBnBvApAPXHNADGNUl@y@rBkDvIeBtEyC`Iy@rBMZMLgB`@wBd@i@AmBDy@B"
             },
             {
                 "name": "Saint-Dye-sur-Loire",
+                "mode": "bicycling",
                 "location": {
-                    "lat": 47.655,
-                    "lng": 1.488
+                    "lat": 47.6553479,
+                    "lng": 1.487246
                 },
-                "transitMode": "CYCLING"
+                "polyline": "ye|bHcpjIbEGxDs@`Aa@vAxDBfAAl@NGb@KVB|@b@nCzC`@RfAJjCb@xEfCdGlGnA|A`ChEtBfElF|HtBfDxDtFjBfDnBjDtBtBlBnAnCxA~@RhCv@hDrJhB~C~@~BrD~CnAyExBxAzDnE`BbCrDzFZQRNvI`MjAhA`HdNjD|G@ZQzAFTfIdNfClEH\\i@|FA`@zAK|Ba@`M{DlCw@^Ot@[F^bAzDTrAP|AJj@rAjDx@tBbAvDd@pBp@hBNrCnBrBpAhGrAjFxC~E`AtB|@zCJt@l@jEhBjGt@tBHtBFpA`BfDfA|BjAlDx@tAl@p@xAd@d@HlArAtCjFtAvBlCnBtCrCx@dAhBhDn@r@pAfBl@zApDdOt@bDf@tAF\\c@v@_@l@k@zAd@F|BbBnErCT@fBn@jEhB`JxDdA|Ah@n@zBd@pCh@fFzBlKvEdD`BtBvApEbC~@z@jGzCzGlCl@`Ct@|@xCxBzCzBDQ`AqDL[VKh@TfF`CvHdE`EhAlD~@`DhAvDbApDEj@J`ErB~EbBjCLdDMpHBtE|@`Dl@vBHfB`ApFvE`J~GrCvClD~DdEdFdB~CzA|CdCdCfBvCjB~DfAhDn@rBd@vCF~BBp@d@zAd@h@~CxBrAdBp@rC^nB\\lGrArFv@`C`@xBbAdC|AzCXfAJnApBhKvHpa@lAhHx@zFfBlIxA`Ef@`F\\~HhA|IDlC^hE\\jDKfAWb@e@d@KLJP`AdBfAfCfBbEpAhBBb@Sj@?d@Z\\|@jALb@vBvB~BzBfF~EpC`ClBv@jG`BjBXfAPjDGvASnBe@pGoDdAe@|F_D~EqC`B_ATOb@AVFHHt@dDp@pApAdAj@Jn@IdA]rAaAjBDbJz@hBJlAIlExAjDpApHxCtFbCzG`D~@l@h@n@zJnPxArDxFfOn@v@bAv@hAlAfBlDdBhEbBpFfCrHd@xAzBrGrAzC|@nCRfCu@nM]jI@l@j@fFj@xB~B`G`@hAvBpFzCdHhAtBvE|GxH|F|JbH|FbEx@hAp@~AbEzJx@fCbIdX~IzYdAnDLf@RM|C}BdH}FxBgB`JcH|B_BfDoCx@s@LZ\\v@|BfFb@p@v@Rx@RhAwAd@i@Rj@~A`Ez@lBdD`F~AnB|@fBrA|Dh@d@vAl@lA`@`@Jd@jA|@pCpC`KzGtWbBdHT`B[\\qCdCoB`BNn@v@hC`EzNrDnNbBdGr@`Cd@fBg@\\Wp@^tAtBtEbCpIlAxFVdALJjBq@b@Qf@rCvAjI`BnJdFrZTfD@|Bj@|Cj@hB"
             },
             {
                 "name": "Chateau de Chambord",
+                "mode": "bicycling",
                 "location": {
-                    "lat": 47.615,
-                    "lng": 1.516
+                    "lat": 47.6158089,
+                    "lng": 1.5169189
                 },
-                "transitMode": "CYCLING"
+                "polyline": "euzaHcnaHc@uAOm@[qAGq@?e@VKp@[d@WrBiBnBuAl@_@jAm@`CyAvB{A|E}DhBuAfAo@`E}A|CuA~A}@jFeDbGsDt@e@\\KdGyAz@Qj@CvGExFCbABl@HvAV|@bCRj@h@vAfBvEl@rA\\dA`BrEhAtCLDBAvA}Ax@}@pCuCtC}C|@_A^e@@GOkAJw@Tc@TQ~@q@n@]v@?JEv@k@~@q@|C_C~BkBrA_Ab@g@|@u@TWDc@@m@Dc@L?pAPJ]p@cAn@@vAGlCQjBOzPmA~Gc@tEYfGW\\GLKd@m@hB}B\\m@lAcAd@w@\\k@lCyDVNJ@xB{@L@t@v@xCvCNFjCKPA?K?W]oFo@mJsD_i@Su@\\[p@MGiBA]ImBPGlAO?[FAb@A?c@DCLIJKJKJWJo@DaANiAf@aB^u@FUCUD[EW{A{CuAnB^v@AJ?B"
             },
             {
                 "name": "Blois",
+                "mode": "bicycling",
                 "location": {
-                    "lat": 47.585,
-                    "lng": 1.331
+                    "lat": 47.58609209999999,
+                    "lng": 1.3359475
                 },
-                "transitMode": "CYCLING"
+                "polyline": "a~raH{ggH@O_@w@T]b@m@Zc@Vd@bArB@FBXAF?RAPGTc@|@c@`BI`@KhBMl@Y^YR?b@E?e@B?ZUBw@JQFJjCDdA@b@KBg@HEBUV@LJXf@hG~@nMvC~b@FfB?LZCn@MLAVJb@@VJZx@Pj@TJl@S@Dp@xFPtAXvAf@rCx@zFbBhMh@jE^vCTjB\\`BdAtFZ`BfAtFfAhFp@jCbAbD\\dAt@dB~@~BlBvEhC|Gv@`BdAxBj@bAbCdEn@~@tD~F|C|EXd@`@d@ZP^JZp@fBhDvB~D^t@L^FRHVh@t@f@h@rAb@`Cj@h@Nf@\\j@|@nA|Bt@`At@v@t@p@lAtA~@lAXh@t@dBdAlDhApDvAdDvD`IhDjH~BhFrAtCf@pAVhAPfAFrBJrJDtD@x@NlDVrDLjA^bBPt@NV~@bARr@h@hCPjAFpCPzB\\dD\\xCT`Bd@xB`@hBNd@X`@b@\\v@\\d@ZXXVh@J^Jx@RtERvFXhGl@vPHrARfDd@nD\\~BZhBp@fCr@hBnA~C`AbC`@hAf@nBx@dErA~Gb@jB\\`Aj@~@n@t@z@fA^x@^jA~@|E|@hFb@fC^rAz@xBlBrE`C~F~@pC~@`DbBxFTn@d@~@hCvFfB~D`BnEbBnDhAxB`@fA~@dE\\tAjA|Cv@|B^~ARjAHn@LpBEfHB`DLjDR`FBx@Lt@R|A~@bKFvBA`FRnCVtB`AdILx@N^z@v@dB~ARVVd@Rn@PlA^bI?pAC`AQhBY|AmDxLg@tBOnAIvCBbKBzCGlEIrBc@rE]~CSfAk@fDu@bGq@`HKr@Sz@u@bC[zAOnBK~Ce@zIWnFEhBCfEAjECPBj@HpCBLPf@DXPvA?b@AXENCFCPBRFNJDF?@?RZPTLh@VjAd@rA`@fAxC|G`DdH|AlDd@hAd@z@fA|Ad@v@Zp@ZtArAdIHn@FtADhBDtBBRBTWb@iAnB}@xAK\\iB`Dq@fAgAlBoCtEiGvKcAnAMJUPE?I?I@QLKTCP?^@Da@~@s@vA[j@GRgBvCeBvCuCzEkF|IoC`F}@tA{BrDsChF[p@o@|@aDtFkBbDcBnC"
             },
             {
                 "name": "Molineuf",
+                "mode": "bicycling",
                 "location": {
-                    "lat": 47.578,
-                    "lng": 1.215
+                    "lat": 47.577854,
+                    "lng": 1.216418
                 },
-                "transitMode": "CYCLING"
+                "polyline": "idmaH_}cG_G`Kg@x@LlATrBVnBLn@fA`DNx@N~@Gf@u@b@{@f@WNITCx@Eb@?xADh@LvBVxAZp@TZtAzAzCtDLNHLCFQP_Al@gBfA{CjBSTDVJJzFDXA@^HJDVCNGFG?KGESC?CFCxC@d@Fr@Px@ALE@GL?L@X?JQBsANKFfA~B|FdLz@dBFRGHINCT@TFRHLNFJ?JCJGdAhMx@hJ`AtLfBdTxAbQpBhV^hEAjABTMJUrAKp@Uz@[z@E\\@p@A`@?n@IDOJMRE`@BfABREBI@Hz@LjAt@tGhBrQxFpl@V~CFtDEnEg@vRSrJWbJEhBIpAOrA{DvSgBfJWpBG`AOfEWnKC|AAtDJlP@pCHxOJhJJhGN|ClAfJ`@bEBlACzFAzCB`CFx@t@~GlBtQxBxSrFdi@Ft@?hBTZDPN|Aj@`Hf@dEj@`Cj@tBlArDx@~BnBpE~A`EZ`AJl@Jv@Fx@?dACjAG`A]jCCj@FhABz@?fAInBE~@En@Kj@[nAAL]^e@h@QHIA?L?PGJq@|@gBxB"
             },
             {
                 "name": "Chateau de Chaumont",
+                "mode": "bicycling",
                 "location": {
-                    "lat": 47.479,
-                    "lng": 1.182
+                    "lat": 47.4790621,
+                    "lng": 1.1819672
                 },
-                "transitMode": "CYCLING"
+                "polyline": "opkaHmqlFrCoDHMBO?UNATOx@_Ab@Ih@IzAM~BGz@Ed@KvB{@r@[|@a@r@U|@SdCa@tAQxAKjAAn@B|@J\\Hz@\\v@d@b@d@v@dAfAtBzAtB|AbCdAnBXl@ZZTHVEbG_DvAs@`@ORhB\\zCX`Bj@lCRv@bAtDPVPNRD`A?fBIXI^[x@{@\\^p@d@v@z@lBpCzBlDtBfDvBfDbBxBr@~@nAfBfDtF\\\\NHl@N`@Ab@En@?z@HdALnAD|@?ZE\\Mn@_@`@Qb@Gd@Bd@J~@R`@Hb@LZRZ\\jArBfB|Ct@x@bB|@fCzA`Bn@^N^X\\`@Vh@bAfC|@vBXf@`@f@v@fAd@~@`ArCl@jB`@~AfAvFVz@b@j@ZL\\Dz@@zFBzAJtAVb@J~B|@TLfAn@lA|@vEtDv@b@j@TtEv@vS|CdBRz@An@Gn@ErFi@jBSxFk@dAEj@?hCHz@B`I^b@BrBXfAVp@ZVRPVTd@Xt@PTTNf@Nt@LjBTdBHh@?j@G~A[l@MZAP@ZNRRNZZ~A`@~A`@fAd@xAJx@H|@Lb@FH\\RZKxBeArAe@t@Kx@GhAA^AdAFhC?f@AbAG|A_@fDkAjDcAb@InASf@Iv@YfBm@`B_@r@KnBWnAUlBs@l@[TSZ[z@_Br@oAFEPGZB~@d@r@`@h@NlAVpALX@VClDo@b@QHIb@m@h@cA\\[XOn@O\\FfDnB|@`@jATf@Xj@^TFn@BjBHd@FVEJGbBcAh@fB`BlFNOhCwAxAeAlB{AlBaBxAeAr@_@~@c@t@YbB}@zBsAlAw@pAaAZGNBJLj@rARl@zAbFfBxEdAjC\\tAnAdGpClLf@`CbAbE~B`Ip@|BJGn@q@`@a@l@s@TSFEYiB@EZOVzABLFXPQb@e@|BmCIWt@}@b@i@fCsBvG}EfAy@jAy@r@]PIB@BBB@F@PGLW?M?G?EXg@\\WjDsCzCcCzIyG~BaBNKFAL@VPBtA~@zJVvBf@~C`@KhAQx@CZFl@Np@T^\\ZL^Fr@G`BWVIXSXMVa@bAkA`@WfEaAj@KX?HDVRPd@FVPb@LJNHRDFCBRpAvAX`@JR@HAh@Kf@Yf@yAxCgA~Bq@dBKL?P_@jH@h@WI_@MEHi@bAe@h@m@^a@Ja@Tw@n@i@n@y@xAy@~A"
             },
             {
                 "name": "Amboise",
+                "mode": "bicycling",
                 "location": {
-                    "lat": 47.413,
-                    "lng": 0.985
+                    "lat": 47.413326,
+                    "lng": 0.9844069999999999
                 },
-                "transitMode": "CYCLING"
+                "polyline": "{fx`Hm{eFvAqCl@_Af@e@t@k@r@UZOf@g@f@u@Xk@`@LTHDt@TbDPfE?~@MrAc@`CAz@Hp@h@lEPjBLfAJbCHtCXnC`@vCN|@\\pAv@nCHPRTPJP?B?BZ@ZHbBFt@d@rC~@|DZjAPdAHlAL`DLx@Pz@Ht@Aj@C\\UjASp@Sd@Y`@o@l@[P_@?c@Da@Jk@Lo@ZQFKMAJEJKHEBNx@b@bCXvBxA`HhBrIx@vDxBlKfGnYPn@`@`Ah@dAl@|ARfALjAVvCXhBdA|EThAlBfLhGn_@lAxItCfUp@~DRt@HPHPE@ICa@UICG@EDWn@{@jBu@jBARFnCHjCNfAr@dFV~BAlAKbCMpDShC?~@@XDVZz@d@`CX|ATtAX~Bl@nCR~@`@tAZjBz@nE~@~EbAtF|@rFl@|Er@|FdAlHh@jE`@bEn@~FNfBNnCh@pG\\lEtAfNt@zGPfBRvDFnCBpAAhA?nAE~@Kx@CTCr@Bb@HdA@rABx@L|@Pb@t@~Dx@rEh@`DfAdHNFbGeCzIsDDEDM?KL|@`@fC^lBDd@CREFk@VMJCT~E~UjIp`@pCzMXdAvArGd@pB~@zDdCcB~AiAbBmAPUz@cBDIRQPCr@AP?Fj@d@`DhA`I|CfQjEzWzAxIxB~KdAnEbBlGj@`ClAhGfBnIbA~ErBdJrCfLzBpJhCrLzA~GPr@fAxD`GbR~BxHj@zBr@tEjEzY`AdGnApFz@dD`ArCb@fA^z@jA`C|BzD|B|D|DvGT\\tBrDrA`C`@x@x@tCrDrNjDlNhBjI~BhKV|@d@`A`CrEnAlCbBpEdAvCfArBvAhCH^v@jBd@jAx@vBdBnEfBxD~KlVzCnGzAfChAfBVj@dB~ElDbK~A|Ed@lBdBdHbGjUnBzHhAfFtB~KVtAn@xBdCjHRl@X\\p@zBj@hBZ|@`@u@Vm@La@EC[QMKKM"
             },
             {
                 "name": "Chateau de Chenonceau",
+                "mode": "bicycling",
                 "location": {
-                    "lat": 47.325,
-                    "lng": 1.070
+                    "lat": 47.3248696,
+                    "lng": 1.0703005
                 },
-                "transitMode": "CYCLING"
+                "polyline": "skk`Huh_ERTTNPHH]Fa@Bu@HsCLyBPaBzA\\ZIXDtBDhDNTZb@b@AXzBj@d@Lt@R`@DvACd@DbAXlEzA`@Pn@a@hBoAZKv@E`DC|@@jBCbIM`FSzFS|BExC@|@S~@]b@Gx@At@?[iHWmJI}CnAS~Bc@|Ba@fCWdCOzGaAb@GfAOlAOZ?f@HbD?fCEnA@Ha@GYUe@CO_@g@q@_BSw@[wB]yCdDI~GGzMM~AsMbE_]|B}QfHgl@tCyUdAaILg@Dk@vAaMbHek@vIcs@zFce@fF}a@vD_[~Dc\\lJmv@|BeRtAwL`@wC^oC\\JdA\\hCx@xDlAxLvDrH|BxH`CtIlChLtD|J~CxRhGhCz@hCt@fBl@fBd@v@V~@Vh@N`A`@tBn@~Ah@jA^jBl@ZTXd@hApB`AbBj@fAdAlBvBbB|@v@r@x@nC|CtBxBxBtB`Aj@zAp@bBx@VNfAz@~@d@jAZ~Ab@I}AU}FAOIi@qAwECQ|@y@RSz@}@~CwCVU`@KvBg@fAs@bBsA\\]lA_B`@w@@M\\[t@{@d@m@f@q@PAnCRnABhDRt@Fb@]tA_A|DwC`BkA~G{Et@o@dA{@Sk@b@@^@RO^WnAw@`D}BlEaDtCuBdBmAlB{A~AgANK"
             },
             {
                 "name": "Tours",
+                "mode": "bicycling",
                 "location": {
-                    "lat": 47.388,
-                    "lng": 0.689
-                }
+                    "lat": 47.3882691,
+                    "lng": 0.6896474
+                },
+                "polyline": "cdz_H{_pEaYlSkCdBkDrC_HzEKlAQ`IEbOGlH[fLu@tOOdGBxAXpHBlDTpD?rFCv@]~@_@^GF@N`@BfDl@TBEn@KxCS|Fg@nSiBvg@_AtSm@pRk@hKwCve@yCjYc@zD{BfQwA~IaAxB}CnF{AlDo@dCY~A_AfIOhH_@`HiAjKcB`MaArJKxCOpDq@`G_@nCOfEQjCe@lCa@pCcAjGaAvHInDFvCJvFj@pKh@dMZtEQbEYzCq@~DwDdTw@rFcB|MQfCGtEs@lKe@nHgBvWe@vHi@vE}A~GmAbE_DpMeB|M]dHoA~ImB|QkA`MwDtWcBrLaBxNmCrW}Cr[cBrO}@tCMvAQASPQn@yAlKeA`GoF`WC|DQnB}BfKgArLQ|EKnAUfAgAnCkCrDkAbAeE`BiAx@mDpEqEfHqAvCaBhFeBrEsAnBeDxCcPtK}@hAkAtBiAzC_E|NuB`I{AxG_CzMsAfD}D|H_CnFu@|Cw@zHc@rA{AnCmGhKiDfEaObN_HrGsCzDoA|A{EjCoE|C{BdAyDvAeBh@g@Hw@@{AOwCDkADkBXkEhAyBhAsAp@gG~Ca@l@YhAGfAHjCH~B?dEM~UWrC]bA[VMf@Tf@`@nCh@rGWRWTIXFd@Bn@QzA@`@a@Be@Ee@LQlAu@f@gAh@SKVnAn@t@Z|AKz@Ij@N~Bv@lERnCJz@r@bE`@~@Jb@BrAF~CFtE`@vKd@nPb@p\\FzEDr@BrBEVFnEv@hTR|DLTH?A`AA\\UlEo@rFiEbTkAvFYEeAhEuCdMqAhEs@jAkBnBaAhCiBzCc@hAKtBuAzH_A~Ci@bB}@bBsAnAW`@y@lBa@rCYbAo@dAu@tBiAnBeGbKk@lBgAdFeBfJo@rCIn@DHHKN]XPKzCCjAUEIHCXTfD?|@]xCiB|Ne@bDu@xCu@dHQvDKpEUVQd@E|FC~QFvEDjCL`FR~Dh@bLRbIq@jNa@hDG|@AdAmAfHyAbKm@~Am@zGt@hSMrALxAHzB`@rBd@`IjAhLjAnF|@tITpE\\vC`@bA`@nBLzD`AxJv@|EXhFrC~S^jHClLPfH|@fFHfCxApExAvElCdJnA|GfBvHf@bCNxB^rI@tTIjZ@lLKtEHfCBxDC~CHbBA|DKtGIlGAdCFxAQx@ElCGv@I\\Bd@^RPGDIr@JfAGzCm@vBeA^SF@zGjLtBbFtDvJRjAr@tJj@hItArR`AbMPt@VbD@RJdBR@VAVMXw@Aw@tDoAAWl@UhA]"
             }
         ]
     }
