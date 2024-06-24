@@ -7,11 +7,25 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "Generate Data",
             "skipFiles": [
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}/generate_data.js",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Generate SVG",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "args": [
+                "--filename=travels.json",
+                "--tripname=Loire Cycling"
+            ],
+            "program": "${workspaceFolder}/generate_svg.js",
             "envFile": "${workspaceFolder}/.env"
         }
     ]
