@@ -67,7 +67,7 @@ function generateTripSvg(trip) {
     const canvas = SVG(document.documentElement);
     canvas.viewbox(0, 0, SIDE_PX, SIDE_PX);
 
-    const color = 'red';
+    const color = '#C61016';
     canvas.style('.line', { fill: 'none', 'stroke-width': 4, stroke: color, 'stroke-linejoin': 'round', 'stroke-dasharray': '8 4' });
     canvas.style('.waypoint', { r: 8, fill: color });
     canvas.style('.label', {
