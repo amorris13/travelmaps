@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const fs = require('node:fs/promises');
+import fs from 'node:fs/promises';
 
 const filename = './travels.json';
 

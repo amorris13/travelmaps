@@ -39,13 +39,22 @@
                 "polyline": "euzaHcnaHc@uAOm@[qAGq@?e@VKp@[d@WrBiBnBuAl@_@jAm@`CyAvB{A|E}DhBuAfAo@`E}A|CuA~A}@jFeDbGsDt@e@\\KdGyAz@Qj@CvGExFCbABl@HvAV|@bCRj@h@vAfBvEl@rA\\dA`BrEhAtCLDBAvA}Ax@}@pCuCtC}C|@_A^e@@GOkAJw@Tc@TQ~@q@n@]v@?JEv@k@~@q@|C_C~BkBrA_Ab@g@|@u@TWDc@@m@Dc@L?pAPJ]p@cAn@@vAGlCQjBOzPmA~Gc@tEYfGW\\GLKd@m@hB}B\\m@lAcAd@w@\\k@lCyDVNJ@xB{@L@t@v@xCvCNFjCKPA?K?W]oFo@mJsD_i@Su@\\[p@MGiBA]ImBPGlAO?[FAb@A?c@DCLIJKJKJWJo@DaANiAf@aB^u@FUCUD[EW{A{CuAnB^v@AJ?B"
             },
             {
+                "name": "Chateau de Cheverny",
+                "mode": "bicycling",
+                "location": {
+                    "lat": 47.5001931,
+                    "lng": 1.4579959
+                },
+                "polyline": "a~raH{ggH@O_@w@T]b@m@x@mApAiBnAgBv@cAZc@MOOOMMBU@Q?MGe@Um@C_@Dc@rByCv@aAHEDCLbCJpBDr@VlEFd@Np@^bAN\\p@w@p@w@RQNGv@OhAWhF_BrEwADJLN`C|@~An@Fw@Lu@DM^]TKXCVBXCb@Ib@CH?TKj@g@TAb@Kp@SZEb@Ov@c@\\I^EbA?jBEr@URIZi@TUnAm@p@c@PCZILKt@c@l@Qx@KzAGb@M^SlAu@rAYXBPC\\[^QLAx@CfAWVMRE~Ac@dBo@pDsAvAg@^WRWXMl@@xBu@pAi@j@Mt@G`@IHCTU\\Ql@Qv@SxAa@zAk@ZA`@_@b@WZ?RCrAa@bA[b@MPKHYTq@X_@JIZD^Rh@Hn@@LAFILORKZSPER?ZBN?ZSx@s@ZQjAOREl@a@Vm@XQj@GTAn@DHBHHJBb@Ih@SbBUnBNdBE~A@x@GlACRIhAKt@EEGo@mAYe@IQ`BUxDi@vDi@`SuCbNqBfNuBnIkAhLaBnX_EtO}BlMmBzEw@n@Sx@c@zE}CrEyC|JmGb@QLA@@BDB@J@FI@G@CZWXIN@f@Lv@V`@JXBf@BnA@fB?@BFBDC@En@QXI^QpBoAhGwDjB_Af@WzAk@v@Q|Ae@XMj@Uh@A\\DXRZh@p@nBxAjDhEfKXp@`@zA~A|Gf@zBJ~@d@bF`@|Cv@dEXnBZlF@d@?rAGrEOvEMdAYpA}@~C[xBm@tJAdCBhAXpDbArMn@tFr@xEVlAl@zBl@|BPr@RbALfALrAf@jEd@|DJzADnCPxLHhCTtBfC|Oz@tF`@|Al@bBT`Af@rENlAJ^TZVL\\DlAEXBv@Tz@V\\BZ@xAEP?XFXL`@`@RRPj@r@rCl@fBp@hArAlBh@vAl@`C~@rD|@rC|B|Fr@bBfG`MrSbb@rClFj@l@hC`C|@t@hBfBdCzClAlArAdAnAz@lAr@tAl@|CbAdBp@nAj@vA|@|@p@t@l@zCbCvCjCdAbAbAbB`@dAh@`B^|ATfBV`Gr@fP\\xCf@pCr@fCj@tAlAxBf@n@rEnF|@fAr@p@l@`@fB`A`Af@d@\\~@|@vAbBpAfBVj@Tx@VfBDz@?lAEp@Ah@@rBB~AT~ARl@Zh@fAfA`AhAhBnCbAfBrAlCh@dALPlAaC~A_DrAkD|EcAr@MtBU~Du@fDm@jJeBDA?FBLDDF?~Ck@jB[b@AfDRGbEHZJl@Bj@kDo@"
+            },
+            {
                 "name": "Blois",
                 "mode": "bicycling",
                 "location": {
                     "lat": 47.58609209999999,
                     "lng": 1.3359475
                 },
-                "polyline": "a~raH{ggH@O_@w@T]b@m@Zc@Vd@bArB@FBXAF?RAPGTc@|@c@`BI`@KhBMl@Y^YR?b@E?e@B?ZUBw@JQFJjCDdA@b@KBg@HEBUV@LJXf@hG~@nMvC~b@FfB?LZCn@MLAVJb@@VJZx@Pj@TJl@S@Dp@xFPtAXvAf@rCx@zFbBhMh@jE^vCTjB\\`BdAtFZ`BfAtFfAhFp@jCbAbD\\dAt@dB~@~BlBvEhC|Gv@`BdAxBj@bAbCdEn@~@tD~F|C|EXd@`@d@ZP^JZp@fBhDvB~D^t@L^FRHVh@t@f@h@rAb@`Cj@h@Nf@\\j@|@nA|Bt@`At@v@t@p@lAtA~@lAXh@t@dBdAlDhApDvAdDvD`IhDjH~BhFrAtCf@pAVhAPfAFrBJrJDtD@x@NlDVrDLjA^bBPt@NV~@bARr@h@hCPjAFpCPzB\\dD\\xCT`Bd@xB`@hBNd@X`@b@\\v@\\d@ZXXVh@J^Jx@RtERvFXhGl@vPHrARfDd@nD\\~BZhBp@fCr@hBnA~C`AbC`@hAf@nBx@dErA~Gb@jB\\`Aj@~@n@t@z@fA^x@^jA~@|E|@hFb@fC^rAz@xBlBrE`C~F~@pC~@`DbBxFTn@d@~@hCvFfB~D`BnEbBnDhAxB`@fA~@dE\\tAjA|Cv@|B^~ARjAHn@LpBEfHB`DLjDR`FBx@Lt@R|A~@bKFvBA`FRnCVtB`AdILx@N^z@v@dB~ARVVd@Rn@PlA^bI?pAC`AQhBY|AmDxLg@tBOnAIvCBbKBzCGlEIrBc@rE]~CSfAk@fDu@bGq@`HKr@Sz@u@bC[zAOnBK~Ce@zIWnFEhBCfEAjECPBj@HpCBLPf@DXPvA?b@AXENCFCPBRFNJDF?@?RZPTLh@VjAd@rA`@fAxC|G`DdH|AlDd@hAd@z@fA|Ad@v@Zp@ZtArAdIHn@FtADhBDtBBRBTWb@iAnB}@xAK\\iB`Dq@fAgAlBoCtEiGvKcAnAMJUPE?I?I@QLKTCP?^@Da@~@s@vA[j@GRgBvCeBvCuCzEkF|IoC`F}@tA{BrDsChF[p@o@|@aDtFkBbDcBnC"
+                "polyline": "gj|`Hgw{GxJhB~Dp@b@DC^CfAGhGDjFJpFLvELpCBjABbAEPi@x@k@|@w@xAOXk@pBkAdFeCvLoBzJu@dESpAM^Md@`@\\DtARbBVjENpCy@vBgApCgExK{@bCy@dBcAjCsAxDk@dA_@b@OPS^m@xCSnAEz@?pAEf@INILg@`@y@r@WZw@lCeAjEOhAGvBGb@]p@uBfCeCxCMRM`@GlAIj@_@fAoBnGeAzDOn@}@~D_@`Ba@`B_@lASt@Iv@AdBAtECxDIjC_@bEWjCOt@gBo@mBk@cB[gBSi@Gi@BQDMJOd@C`ADjBXfGLfBPrANvA]@WCg@Mc@OcEoBy@i@g@[q@UsA]g@Gg@AcBHmBNq@D_ACmAUc@KK?I@Uh@yCnHUj@MNEBWDc@U_@]e@]c@Uq@Me@?O@WHUTmApCm@vAc@~@]lACLCFWOi@QOKs@o@a@SeA[iA[m@Mw@EeA?aABk@EADe@v@}@~AWr@o@nAcAt@q@^mA^qATaBd@uAd@{@V}Ar@cAd@q@`@SP_@Te@X[R@P@pA?t@@~C?z@@l@I^k@dCC\\C^@x@FhCEpAM|F@z@B`@JtA`@dEv@xGpBzO`@bCLh@Rt@Th@|@hB|@`BzBjEx@vA\\f@mBnD_AhBEXWn@Kz@AFIAo@SWUWWMEUB_@Z_@Ze@lA{@bCV\\p@~@e@l@}@tAu@jA}ApC_AxA]^u@X}Bt@k@Nm@Hk@Lu@VkBhAs@v@u@rAgBpE_B~DkAjCNn@l@hB\\jAg@ZmAj@yDtBkB~@e@N[DSiCGaDA_BG}@WT{F~EgG`FSD_@GsHXc@DgABkBJcGVqOt@eJd@aXnAwVjAoZxA]?UJa@POJ@Tm@H[J_@Fc@?_@KQOE??E@OAME_@M_@QUOKQCW@[PQTK\\E`@@ZD`@JZLPDDBB?P?d@IZ[j@a@b@w@|@i@`AaG`KoDdG{@xAgAhBwAjCsHbMs@pAy@lA_BtCmApBuCbFaFrIwDvGq@fA_@d@cA`BgAlB}@zA_DlFSj@{BvDqAzB_BlCaHvLe@|@SNi@v@i@d@U?QJMTEP?^@DKVu@dBo@hAGRU`@iB|CaA|AsBdDgGjKeD`GaAxAqBdDqCdFMXQ^WXaDrFMTo@fAyC~EOZ"
             },
             {
                 "name": "Molineuf",
