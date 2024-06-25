@@ -67,6 +67,13 @@ function generateTripSvg(trip) {
     const canvas = SVG(document.documentElement);
     canvas.viewbox(0, 0, SIDE_PX, SIDE_PX);
 
+    const color = 'red';
+    canvas.style('.line', { fill: 'none', 'stroke-width': 4, stroke: color, 'stroke-linejoin': 'round', 'stroke-dasharray': '8 4' });
+    canvas.style('.waypoint', { r: 8, fill: color });
+    canvas.style('.label', {
+        fontFamily: 'Helvetica', fontSize: '18pt', fill: color
+    });
+
     // Add lines for each leg
     for (const waypoint of trip.waypoints) {
         if (!waypoint.polyline) {
@@ -76,23 +83,19 @@ function generateTripSvg(trip) {
         const transformedPolyline = decodedPolyline.map(latlng =>
             toMercator(latlng[1], latlng[0]).transform(transform).toArray());
 
-        canvas.polyline(transformedPolyline).fill('none').stroke({ width: 4, color: 'red', linejoin: 'round' });
+        canvas.polyline(transformedPolyline).addClass('line');
     }
 
     // Add marker for each waypoint
     for (const waypoint of trip.waypoints) {
         const point = toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform);
-        canvas.circle(16).cx(point.x).cy(point.y).fill('red');
+        canvas.circle().cx(point.x).cy(point.y).addClass('waypoint');
     }
 
     // Add label for each waypoint
     for (const waypoint of trip.waypoints) {
         const point = toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform);
-        canvas.text(waypoint.name).font({
-            family: 'Helvetica'
-            , size: 24
-            , fill: 'red'
-        }).x(point.x).y(point.y);
+        canvas.text(waypoint.name).x(point.x).y(point.y).addClass('label');
     }
 
     // get your svg as string
