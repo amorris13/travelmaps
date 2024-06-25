@@ -61,8 +61,16 @@ function generateTripSvg(trip) {
     // create canvas
     const canvas = SVG(document.documentElement);
 
-    // use svg.js as normal
-    canvas.rect(100, 100).fill('yellow').move(50, 50);
+    for (const waypoint of trip.waypoints) {
+        if (!waypoint.polyline) {
+            continue;
+        }
+        const decodedPolyline = polyline.decode(waypoint.polyline);
+        const transformedPolyline = decodedPolyline.map(latlng =>
+            toMercator(latlng[1], latlng[0]).transform(transform).toArray());
+
+        canvas.polyline(transformedPolyline).fill('none').stroke({ width: 4, color: 'red', linejoin: 'round' });
+    }
 
     // get your svg as string
     console.log(canvas.svg());
