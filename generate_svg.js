@@ -2,9 +2,8 @@
 
 import parseArgs from 'minimist';
 import { createSVGWindow } from 'svgdom'
-import { SVG, registerWindow } from '@svgdotjs/svg.js'
+import { SVG, registerWindow, Point, Matrix, PointArray } from '@svgdotjs/svg.js'
 import fs from 'node:fs/promises';
-import { Point, Box } from './geom.js';
 import polyline from '@mapbox/polyline';
 
 const SIDE_PX = 1200;
@@ -37,15 +36,17 @@ function generateTripSvg(trip) {
     const brLatLng = fromMercator(brMercator);
     console.log(tlLatLng, brLatLng);
 
-    const boundingBox = Box.fromTLBR(tlMercator, brMercator);
+    const boundingBox = new PointArray([[tlMercator.x, tlMercator.y], [brMercator.x, brMercator.y]]).bbox();
     console.log(boundingBox);
-    const expandedBoundingBox = boundingBox.scaleAroundCenter(1.2);
+    const expandedBoundingBox = boundingBox.transform(new Matrix().scale(1.2, boundingBox.cx, boundingBox.cy));
     console.log(expandedBoundingBox);
 
-    const targetSVGBox = new Box(0, 0, SIDE_PX, SIDE_PX);
-    const transform = expandedBoundingBox.computeTransformTo(targetSVGBox);
+    const transform = new Matrix()
+        .translate(-expandedBoundingBox.cx, -expandedBoundingBox.cy)
+        .lmultiply(new Matrix().scale(Math.min(SIDE_PX / expandedBoundingBox.width, SIDE_PX / expandedBoundingBox.height)))
+        .lmultiply(new Matrix().translate(SIDE_PX / 2, SIDE_PX / 2));
 
-    console.log(transform.applyToPoint(tlMercator), transform.applyToPoint(brMercator));
+    console.log(tlMercator.transform(transform), brMercator.transform(transform));
 
 
     // convert latlng to canvas coordinate. Convert to normalized mercator then transform to svg coordinates
