@@ -78,7 +78,7 @@ export class Box {
     }
 
     computeTransformTo(b2) {
-        // assume b2 has the same aspect ratio as this.
-        return new Transform(this.getCenter().negate(), b2.getWidth() / this.getWidth(), b2.getCenter());
+        const scale = Math.min(b2.getWidth() / this.getWidth(), b2.getHeight() / this.getHeight());
+        return new Transform(this.getCenter().negate(), scale, b2.getCenter());
     }
 }
