@@ -9,17 +9,25 @@ import polyline from '@mapbox/polyline';
 const SIDE_PX = 1200;
 
 async function main() {
-    var argv = parseArgs(process.argv.slice(2));
+    var argv = parseArgs(process.argv.slice(2), { boolean: ['staticmap'] });
     const filename = argv.filename;
     const tripname = argv.tripname;
+    const fetchStaticMap = argv.staticmap;
 
     const data = await fs.readFile(filename, { encoding: 'utf8' });
     const json = JSON.parse(data);
     const tripJson = json.find(trip => trip.name === tripname);
 
-    const svg = generateTripSvg(tripJson);
+    const tripSvg = generateTripSvg(tripJson);
 
-    await fs.writeFile(toSnakeCase(tripname) + ".svg", svg);
+    await fs.mkdir('output', { recursive: true });
+    await fs.writeFile('output/' + toSnakeCase(tripname) + ".svg", tripSvg.svg);
+
+    if (fetchStaticMap) {
+        const staticMap = await fetchStaticMapMapbox(tripSvg.boundingBox);
+        const staticMapBuffer = Buffer.from(await staticMap.arrayBuffer());
+        await fs.writeFile('output/' + toSnakeCase(tripname) + ".png", staticMapBuffer);
+    }
 }
 
 function generateTripSvg(trip) {
@@ -48,9 +56,6 @@ function generateTripSvg(trip) {
 
     console.log(tlMercator.transform(transform), brMercator.transform(transform));
 
-
-    // convert latlng to canvas coordinate. Convert to normalized mercator then transform to svg coordinates
-
     // returns a window with a document and an svg root node
     const window = createSVGWindow();
     const document = window.document;
@@ -60,6 +65,7 @@ function generateTripSvg(trip) {
 
     // create canvas
     const canvas = SVG(document.documentElement);
+    canvas.viewbox(0, 0, SIDE_PX, SIDE_PX);
 
     for (const waypoint of trip.waypoints) {
         if (!waypoint.polyline) {
@@ -74,7 +80,7 @@ function generateTripSvg(trip) {
 
     // get your svg as string
     console.log(canvas.svg());
-    return canvas.svg();
+    return { svg: canvas.svg(), boundingBox: expandedBoundingBox };
 }
 
 // Compute trip bounds
@@ -107,6 +113,24 @@ function toSnakeCase(str) {
         .replace(/([a-z])([A-Z])/g, '$1_$2')
         .replace(/\s+/g, '_')
         .toLowerCase();
+}
+
+async function fetchStaticMapMapbox(boundingBox) {
+    const yExpandFactor = 1.05;
+    const expandBottom = new Matrix().scale(1, yExpandFactor, boundingBox.x, boundingBox.y);
+    const ySide = SIDE_PX * yExpandFactor;
+
+    const staticMapBoundingBox = boundingBox.transform(expandBottom);
+
+    const tlLatLng = fromMercator({ x: staticMapBoundingBox.x, y: staticMapBoundingBox.y });
+    const brLatLng = fromMercator({ x: staticMapBoundingBox.x2, y: staticMapBoundingBox.y2 });
+
+    const url = `https://api.mapbox.com/styles/v1/mapbox/light-v11/static/[${tlLatLng.lng},${brLatLng.lat},${brLatLng.lng},${tlLatLng.lat}]/${SIDE_PX}x${ySide}@2x?access_token=${process.env.MAPBOX_ACCESS_TOKEN}`;
+
+    const response = await fetch(url);
+    const staticMapPng = await response.blob();
+
+    return staticMapPng;
 }
 
 main();

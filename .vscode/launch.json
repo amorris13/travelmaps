@@ -27,6 +27,21 @@
             ],
             "program": "${workspaceFolder}/generate_svg.js",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Generate SVG and Map",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "args": [
+                "--filename=travels.json",
+                "--tripname=Loire Cycling",
+                "--staticmap"
+            ],
+            "program": "${workspaceFolder}/generate_svg.js",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }
