@@ -68,10 +68,21 @@ function generateTripSvg(trip) {
     canvas.viewbox(0, 0, SIDE_PX, SIDE_PX);
 
     const color = '#C61016';
-    canvas.style('.line', { fill: 'none', 'stroke-width': 4, stroke: color, 'stroke-linejoin': 'round', 'stroke-dasharray': '8 4' });
-    canvas.style('.waypoint', { r: 8, fill: color });
+    canvas.style('.line', {
+        fill: 'none',
+        'stroke-width': 4,
+        stroke: color,
+        'stroke-linejoin': 'round',
+        'stroke-dasharray': '8 4'
+    });
+    canvas.style('.waypoint', {
+        r: 8,
+        fill: color
+    });
     canvas.style('.label', {
-        fontFamily: 'Helvetica', fontSize: '18pt', fill: color
+        fontFamily: 'Helvetica',
+        fontSize: '18pt',
+        fill: color
     });
 
     // Add lines for each leg
