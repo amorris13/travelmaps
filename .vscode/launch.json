@@ -23,7 +23,6 @@
             ],
             "args": [
                 "--filename=travels.json",
-                "--tripname=Loire Cycling"
             ],
             "program": "${workspaceFolder}/generate_svg.js",
             "envFile": "${workspaceFolder}/.env"
@@ -37,7 +36,7 @@
             ],
             "args": [
                 "--filename=travels.json",
-                "--tripname=Loire Cycling",
+                "--tripname=South of France",
                 "--staticmap"
             ],
             "program": "${workspaceFolder}/generate_svg.js",

@@ -10,8 +10,8 @@ async function main() {
 
     // Geocode the waypoints if not already populated.
     const geocodes = [];
-    for (var travel of json) {
-        for (var waypoint of travel.waypoints) {
+    for (let travel of json) {
+        for (let waypoint of travel.waypoints) {
             geocodes.push(updateCoordinatesGoogle(waypoint));
         }
     }
@@ -19,9 +19,9 @@ async function main() {
 
     // Generate directions between the waypoints
     const directions = [];
-    for (var travel of json) {
-        var prevWaypoint
-        for (var waypoint of travel.waypoints) {
+    for (let travel of json) {
+        let prevWaypoint
+        for (let waypoint of travel.waypoints) {
             if (prevWaypoint) {
                 directions.push(updatePolylineGoogle(prevWaypoint, waypoint));
             }
@@ -45,7 +45,6 @@ async function updateCoordinatesMapbox(waypoint) {
     const response = await fetch(`https://api.mapbox.com/search/geocode/v6/forward?q=${encodeURIComponent(waypoint.name)}&access_token=${process.env.MAPBOX_ACCESS_TOKEN}`);
     const jsonResponse = await response.json();
     const coordinates = jsonResponse.features[0].geometry.coordinates;
-    console.log(waypoint.name + ': ' + JSON.stringify(coordinates));
     waypoint.location = { lng: coordinates[0], lat: coordinates[1] }
 }
 
@@ -54,12 +53,14 @@ async function updateCoordinatesGoogle(waypoint) {
         return;
     }
     const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(waypoint.name)}&key=${process.env.GOOGLE_MAPS_API_KEY}`;
-    console.log(url);
     const response = await fetch(url);
     const jsonResponse = await response.json();
-    const coordinates = jsonResponse.results[0].geometry.location;
-    console.log(waypoint.name + ': ' + JSON.stringify(coordinates));
-    waypoint.location = coordinates;
+    if (jsonResponse.status === 'OK') {
+        waypoint.location = jsonResponse.results[0].geometry.location;
+    } else {
+        console.log(`Error in geocode for ${waypoint.name}`);
+        console.log(url);
+    }
 }
 
 async function updatePolylineMapbox(prevWaypoint, waypoint) {
@@ -71,21 +72,25 @@ async function updatePolylineMapbox(prevWaypoint, waypoint) {
     const jsonResponse = await fetch(`https://api.mapbox.com/directions/v5/mapbox/${mode}/${prevWaypoint.location.lng}%2C${prevWaypoint.location.lat}%3B${waypoint.location.lng}%2C${waypoint.location.lat}?alternatives=false&continue_straight=false&geometries=polyline&overview=simplified&steps=false&access_token=${process.env.MAPBOX_ACCESS_TOKEN}`);
     const directions = await jsonResponse.json();
     waypoint.polyline = directions.routes[0].geometry;
-    console.log(`${prevLocation.name} -> ${waypoint.name}: ${waypoint.polyline}`);
 }
 
 async function updatePolylineGoogle(prevWaypoint, waypoint) {
     if (waypoint.polyline) {
         return;
     }
+    if (!prevWaypoint.location || !waypoint.location) {
+        return;
+    }
 
     const url = `https://maps.googleapis.com/maps/api/directions/json?mode=${waypoint.mode}&origin=${prevWaypoint.location.lat},${prevWaypoint.location.lng}&destination=${waypoint.location.lat},${waypoint.location.lng}&key=${process.env.GOOGLE_MAPS_API_KEY}`;
-    console.log(url);
     const response = await fetch(url);
     const jsonResponse = await response.json();
-    console.log(JSON.stringify(jsonResponse, null, 2));
-    waypoint.polyline = jsonResponse.routes[0].overview_polyline.points;
-    console.log(`${prevWaypoint.name} -> ${waypoint.name}: ${waypoint.polyline}`);
+    if (jsonResponse.status === 'OK') {
+        waypoint.polyline = jsonResponse.routes[0].overview_polyline.points;
+    } else {
+        console.log(`Error in directions for ${prevWaypoint.name} to  ${waypoint.name}`);
+        console.log(url);
+    }
 }
 
 

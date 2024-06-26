@@ -125,8 +125,12 @@ function generateTripSvg(trip) {
 
     // Add label for each waypoint
     for (const waypoint of trip.waypoints) {
+        if (waypoint.hideLabel) {
+            continue;
+        }
         const point = toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform);
-        const labelWidth = pixelWidth(waypoint.name, { font: 'helvetica', size: labelFontSizePx });
+        const displayName = waypoint.displayName || waypoint.name;
+        const labelWidth = pixelWidth(displayName, { font: 'helvetica', size: labelFontSizePx });
         const labelHeight = labelFontSizePx * 3 / 4;
 
         // bottom right
@@ -143,7 +147,7 @@ function generateTripSvg(trip) {
             } else {
                 canvas.rect(labelWidth, labelHeight).at(offsetPoint).opacity(0.2).fill(intersects ? 'red' : 'green').addClass('labelRect');
                 shapes.push(shapeInfo);
-                canvas.text(waypoint.name).at(offsetPoint).addClass('label');
+                canvas.text(displayName).at(offsetPoint).addClass('label');
                 break;
             }
         }
