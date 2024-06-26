@@ -56,7 +56,7 @@ function generateTripSvg(trip) {
 
     const boundingBox = new SVG.PointArray([[tlMercator.x, tlMercator.y], [brMercator.x, brMercator.y]]).bbox();
     console.log(boundingBox);
-    const expandedBoundingBox = boundingBox.transform(new SVG.Matrix().scale(1.2, boundingBox.cx, boundingBox.cy));
+    const expandedBoundingBox = boundingBox.transform(new SVG.Matrix().scale(1.2, 1.4, boundingBox.cx, boundingBox.cy));
     console.log(expandedBoundingBox);
 
     const transform = new SVG.Matrix()
