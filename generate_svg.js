@@ -43,29 +43,18 @@ async function main() {
 
 function generateTripSvg(trip) {
     const tripBounds = computerTripBounds(trip);
-    console.log(tripBounds);
 
     // Convert trip bounds to mercator projection
     const tlMercator = toMercator(tripBounds.minLng, tripBounds.maxLat);
     const brMercator = toMercator(tripBounds.maxLng, tripBounds.minLat);
-    console.log(tlMercator, brMercator);
-
-    // For Testing Only
-    const tlLatLng = fromMercator(tlMercator);
-    const brLatLng = fromMercator(brMercator);
-    console.log(tlLatLng, brLatLng);
 
     const boundingBox = new SVG.PointArray([[tlMercator.x, tlMercator.y], [brMercator.x, brMercator.y]]).bbox();
-    console.log(boundingBox);
     const expandedBoundingBox = boundingBox.transform(new SVG.Matrix().scale(1.2, 1.4, boundingBox.cx, boundingBox.cy));
-    console.log(expandedBoundingBox);
 
     const transform = new SVG.Matrix()
         .translate(-expandedBoundingBox.cx, -expandedBoundingBox.cy)
         .lmultiply(new SVG.Matrix().scale(Math.min(SIDE_PX / expandedBoundingBox.width, SIDE_PX / expandedBoundingBox.height)))
         .lmultiply(new SVG.Matrix().translate(SIDE_PX / 2, SIDE_PX / 2));
-
-    console.log(tlMercator.transform(transform), brMercator.transform(transform));
 
     // returns a window with a document and an svg root node
     const window = createSVGWindow();
@@ -196,7 +185,6 @@ function hasIntersections(shapes, testShape) {
     for (const shape of shapes) {
         const intersect = Intersection.intersect(shape, testShape)
         if (intersect.points.length > 0) {
-            console.log(intersect);
             return true;
         }
     }
