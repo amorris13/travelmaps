@@ -2,11 +2,21 @@
 
 import parseArgs from 'minimist';
 import { createSVGWindow } from 'svgdom'
-import { SVG, registerWindow, Point, Matrix, PointArray } from '@svgdotjs/svg.js'
+import { SVG, registerWindow, Point, Matrix, PointArray, extend, Element } from '@svgdotjs/svg.js'
 import fs from 'node:fs/promises';
 import polyline from '@mapbox/polyline';
+import pixelWidth from 'string-pixel-width';
 
 const SIDE_PX = 1200;
+
+extend(Element, {
+    at: function (point) {
+        return this.x(point.x).y(point.y);
+    },
+    centerAt: function (point) {
+        return this.cx(point.x).cy(point.y);
+    }
+})
 
 async function main() {
     var argv = parseArgs(process.argv.slice(2), { boolean: ['staticmap'] });
@@ -72,6 +82,7 @@ function generateTripSvg(trip) {
         fill: 'none',
         'stroke-width': 4,
         stroke: color,
+        'stroke-opacity': 0.8,
         'stroke-linejoin': 'round',
         'stroke-dasharray': '8 4'
     });
@@ -79,9 +90,10 @@ function generateTripSvg(trip) {
         r: 8,
         fill: color
     });
+    const labelFontSizePx = 24;
     canvas.style('.label', {
         fontFamily: 'Helvetica',
-        fontSize: '18pt',
+        fontSize: labelFontSizePx + 'px',
         fill: color
     });
 
@@ -100,13 +112,17 @@ function generateTripSvg(trip) {
     // Add marker for each waypoint
     for (const waypoint of trip.waypoints) {
         const point = toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform);
-        canvas.circle().cx(point.x).cy(point.y).addClass('waypoint');
+        canvas.circle().centerAt(point).addClass('waypoint');
     }
 
     // Add label for each waypoint
     for (const waypoint of trip.waypoints) {
         const point = toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform);
-        canvas.text(waypoint.name).x(point.x).y(point.y).addClass('label');
+        const labelWidth = pixelWidth(waypoint.name, { font: 'helvetica', size: labelFontSizePx });
+        const labelHeight = labelFontSizePx;
+        const offsetPoint = point.transform(new Matrix().translate(6, 6));
+        canvas.rect(labelWidth, labelHeight).at(offsetPoint).opacity(0.2);
+        canvas.text(waypoint.name).at(offsetPoint).addClass('label');
     }
 
     // get your svg as string

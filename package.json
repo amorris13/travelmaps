@@ -4,6 +4,7 @@
     "@mapbox/polyline": "^1.2.1",
     "@svgdotjs/svg.js": "^3.2.3",
     "minimist": "^1.2.8",
+    "string-pixel-width": "^1.11.0",
     "svgdom": "^0.1.19",
     "svgjs": "^2.6.2",
     "transformation-matrix": "^2.16.1"
