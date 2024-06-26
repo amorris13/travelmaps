@@ -3,6 +3,7 @@
   "dependencies": {
     "@mapbox/polyline": "^1.2.1",
     "@svgdotjs/svg.js": "^3.2.3",
+    "kld-intersections": "^0.7.0",
     "minimist": "^1.2.8",
     "string-pixel-width": "^1.11.0",
     "svgdom": "^0.1.19",

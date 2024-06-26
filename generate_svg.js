@@ -6,6 +6,7 @@ import * as SVG from '@svgdotjs/svg.js'
 import fs from 'node:fs/promises';
 import polyline from '@mapbox/polyline';
 import pixelWidth from 'string-pixel-width';
+import { ShapeInfo, Intersection } from "kld-intersections";
 
 const SIDE_PX = 1200;
 
@@ -19,7 +20,7 @@ SVG.extend(SVG.Element, {
 })
 
 async function main() {
-    var argv = parseArgs(process.argv.slice(2), { boolean: ['staticmap'] });
+    const argv = parseArgs(process.argv.slice(2), { boolean: ['staticmap'] });
     const filename = argv.filename;
     const tripname = argv.tripname;
     const fetchStaticMap = argv.staticmap;
@@ -87,8 +88,9 @@ function generateTripSvg(trip) {
         'stroke-dasharray': '12 8',
         'stroke-linecap': 'round'
     });
+    const markerRadius = 8;
     canvas.style('.waypoint', {
-        r: 8,
+        r: markerRadius,
         fill: color
     });
     const labelFontSizePx = 24;
@@ -97,6 +99,11 @@ function generateTripSvg(trip) {
         fontSize: labelFontSizePx + 'px',
         fill: color
     });
+    canvas.style('.labelRect', {
+        display: 'none'
+    });
+
+    const shapes = [];
 
     // Add lines for each leg
     for (const waypoint of trip.waypoints) {
@@ -108,22 +115,40 @@ function generateTripSvg(trip) {
             toMercator(latlng[1], latlng[0]).transform(transform).toArray());
 
         canvas.polyline(transformedPolyline).addClass('line');
+        shapes.push(ShapeInfo.polyline(transformedPolyline));
     }
 
     // Add marker for each waypoint
     for (const waypoint of trip.waypoints) {
         const point = toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform);
         canvas.circle().centerAt(point).addClass('waypoint');
+        // shapes.push(ShapeInfo.circle(point, markerRadius));
     }
 
     // Add label for each waypoint
     for (const waypoint of trip.waypoints) {
         const point = toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform);
         const labelWidth = pixelWidth(waypoint.name, { font: 'helvetica', size: labelFontSizePx });
-        const labelHeight = labelFontSizePx;
-        const offsetPoint = point.transform(new SVG.Matrix().translate(6, 6));
-        canvas.rect(labelWidth, labelHeight).at(offsetPoint).opacity(0.2);
-        canvas.text(waypoint.name).at(offsetPoint).addClass('label');
+        const labelHeight = labelFontSizePx * 3 / 4;
+
+        // bottom right
+        const markerOffset = markerRadius * 3 / 4;
+        const labelOffsetOptions = generateLabelOffsetOptions(markerOffset, labelWidth, labelHeight);
+        for (let i = 0; i < labelOffsetOptions.length; i++) {
+            const labelOffset = labelOffsetOptions[i];
+            const offsetPoint = point.transform(labelOffset);
+            const buffer = 2;
+            const shapeInfo = ShapeInfo.rectangle(offsetPoint.x - buffer, offsetPoint.y - buffer, labelWidth + 2 * buffer, labelHeight + 2 * buffer);
+            const intersects = hasIntersections(shapes, shapeInfo);
+            if (intersects && i < labelOffsetOptions.length - 1) {
+                continue;
+            } else {
+                canvas.rect(labelWidth, labelHeight).at(offsetPoint).opacity(0.2).fill(intersects ? 'red' : 'green').addClass('labelRect');
+                shapes.push(shapeInfo);
+                canvas.text(waypoint.name).at(offsetPoint).addClass('label');
+                break;
+            }
+        }
     }
 
     // get your svg as string
@@ -153,6 +178,31 @@ function fromMercator(p) {
     const lat = 360 * Math.atan(Math.exp(-p.y * Math.PI)) / Math.PI - 90;
     return { lng, lat };
 }
+
+function generateLabelOffsetOptions(markerOffset, labelWidth, labelHeight) {
+    return [
+        // bottom right
+        new SVG.Matrix().translate(markerOffset, markerOffset),
+        // top right
+        new SVG.Matrix().translate(markerOffset, - markerOffset - labelHeight),
+        // top left
+        new SVG.Matrix().translate(-markerOffset - labelWidth, -markerOffset - labelHeight),
+        // bottom left
+        new SVG.Matrix().translate(-markerOffset - labelWidth, markerOffset)
+    ];
+}
+
+function hasIntersections(shapes, testShape) {
+    for (const shape of shapes) {
+        const intersect = Intersection.intersect(shape, testShape)
+        if (intersect.points.length > 0) {
+            console.log(intersect);
+            return true;
+        }
+    }
+    return false;
+}
+
 
 
 // Convert string to snake case
