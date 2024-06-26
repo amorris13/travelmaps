@@ -27,17 +27,26 @@ async function main() {
 
     const data = await fs.readFile(filename, { encoding: 'utf8' });
     const json = JSON.parse(data);
-    const tripJson = json.find(trip => trip.name === tripname);
+    if (tripname) {
+        const tripJson = json.find(trip => trip.name === tripname);
+        processTrip(tripJson, fetchStaticMap);
+    } else {
+        for (const trip of json) {
+            processTrip(trip, fetchStaticMap);
+        }
+    }
+}
 
+async function processTrip(tripJson, fetchStaticMap) {
     const tripSvg = generateTripSvg(tripJson);
 
     await fs.mkdir('output', { recursive: true });
-    await fs.writeFile('output/' + toSnakeCase(tripname) + ".svg", tripSvg.svg);
+    await fs.writeFile('output/' + toSnakeCase(tripJson.name) + ".svg", tripSvg.svg);
 
     if (fetchStaticMap) {
         const staticMap = await fetchStaticMapMapbox(tripSvg.boundingBox);
         const staticMapBuffer = Buffer.from(await staticMap.arrayBuffer());
-        await fs.writeFile('output/' + toSnakeCase(tripname) + ".png", staticMapBuffer);
+        await fs.writeFile('output/' + toSnakeCase(tripJson.name) + ".png", staticMapBuffer);
     }
 }
 
