@@ -2,14 +2,14 @@
 
 import parseArgs from 'minimist';
 import { createSVGWindow } from 'svgdom'
-import { SVG, registerWindow, Point, Matrix, PointArray, extend, Element } from '@svgdotjs/svg.js'
+import * as SVG from '@svgdotjs/svg.js'
 import fs from 'node:fs/promises';
 import polyline from '@mapbox/polyline';
 import pixelWidth from 'string-pixel-width';
 
 const SIDE_PX = 1200;
 
-extend(Element, {
+SVG.extend(SVG.Element, {
     at: function (point) {
         return this.x(point.x).y(point.y);
     },
@@ -54,15 +54,15 @@ function generateTripSvg(trip) {
     const brLatLng = fromMercator(brMercator);
     console.log(tlLatLng, brLatLng);
 
-    const boundingBox = new PointArray([[tlMercator.x, tlMercator.y], [brMercator.x, brMercator.y]]).bbox();
+    const boundingBox = new SVG.PointArray([[tlMercator.x, tlMercator.y], [brMercator.x, brMercator.y]]).bbox();
     console.log(boundingBox);
-    const expandedBoundingBox = boundingBox.transform(new Matrix().scale(1.2, boundingBox.cx, boundingBox.cy));
+    const expandedBoundingBox = boundingBox.transform(new SVG.Matrix().scale(1.2, boundingBox.cx, boundingBox.cy));
     console.log(expandedBoundingBox);
 
-    const transform = new Matrix()
+    const transform = new SVG.Matrix()
         .translate(-expandedBoundingBox.cx, -expandedBoundingBox.cy)
-        .lmultiply(new Matrix().scale(Math.min(SIDE_PX / expandedBoundingBox.width, SIDE_PX / expandedBoundingBox.height)))
-        .lmultiply(new Matrix().translate(SIDE_PX / 2, SIDE_PX / 2));
+        .lmultiply(new SVG.Matrix().scale(Math.min(SIDE_PX / expandedBoundingBox.width, SIDE_PX / expandedBoundingBox.height)))
+        .lmultiply(new SVG.Matrix().translate(SIDE_PX / 2, SIDE_PX / 2));
 
     console.log(tlMercator.transform(transform), brMercator.transform(transform));
 
@@ -71,10 +71,10 @@ function generateTripSvg(trip) {
     const document = window.document;
 
     // register window and document
-    registerWindow(window, document);
+    SVG.registerWindow(window, document);
 
     // create canvas
-    const canvas = SVG(document.documentElement);
+    const canvas = SVG.SVG(document.documentElement);
     canvas.viewbox(0, 0, SIDE_PX, SIDE_PX);
 
     const color = '#C61016';
@@ -84,7 +84,8 @@ function generateTripSvg(trip) {
         stroke: color,
         'stroke-opacity': 0.8,
         'stroke-linejoin': 'round',
-        'stroke-dasharray': '8 4'
+        'stroke-dasharray': '12 8',
+        'stroke-linecap': 'round'
     });
     canvas.style('.waypoint', {
         r: 8,
@@ -120,7 +121,7 @@ function generateTripSvg(trip) {
         const point = toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform);
         const labelWidth = pixelWidth(waypoint.name, { font: 'helvetica', size: labelFontSizePx });
         const labelHeight = labelFontSizePx;
-        const offsetPoint = point.transform(new Matrix().translate(6, 6));
+        const offsetPoint = point.transform(new SVG.Matrix().translate(6, 6));
         canvas.rect(labelWidth, labelHeight).at(offsetPoint).opacity(0.2);
         canvas.text(waypoint.name).at(offsetPoint).addClass('label');
     }
@@ -143,7 +144,7 @@ function toMercator(lng, lat) {
     const x = lng / 180;
     const y = Math.log(Math.tan(((90 + lat) * Math.PI) / 360)) / (Math.PI / 180);
     const y2 = - y / 180;
-    return new Point(x, y2);
+    return new SVG.Point(x, y2);
 }
 
 // Convert from mercator to lat and lng
@@ -164,7 +165,7 @@ function toSnakeCase(str) {
 
 async function fetchStaticMapMapbox(boundingBox) {
     const yExpandFactor = 1.05;
-    const expandBottom = new Matrix().scale(1, yExpandFactor, boundingBox.x, boundingBox.y);
+    const expandBottom = new SVG.Matrix().scale(1, yExpandFactor, boundingBox.x, boundingBox.y);
     const ySide = SIDE_PX * yExpandFactor;
 
     const staticMapBoundingBox = boundingBox.transform(expandBottom);
