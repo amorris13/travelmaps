@@ -9,6 +9,7 @@ import pixelWidth from 'string-pixel-width';
 import { ShapeInfo, Intersection } from "kld-intersections";
 
 const SIDE_PX = 1200;
+const Y_EXPAND_FACTOR = 1.05;
 
 SVG.extend(SVG.Element, {
     at: function (point) {
@@ -38,16 +39,25 @@ async function main() {
 }
 
 async function processTrip(tripJson, fetchStaticMap) {
-    const tripSvg = generateTripSvg(tripJson);
-
     await fs.mkdir('output', { recursive: true });
-    await fs.writeFile('output/' + toSnakeCase(tripJson.name) + ".svg", tripSvg.svg);
 
+    const tripSvg = generateTripSvg(tripJson);
+    await writeFileAndLog('output/' + toSnakeCase(tripJson.name) + ".svg", tripSvg.svgCanvas.svg());
+
+    const mapFileName = 'output/' + toSnakeCase(tripJson.name) + ".png";
     if (fetchStaticMap) {
         const staticMap = await fetchStaticMapMapbox(tripSvg.boundingBox);
         const staticMapBuffer = Buffer.from(await staticMap.arrayBuffer());
-        await fs.writeFile('output/' + toSnakeCase(tripJson.name) + ".png", staticMapBuffer);
+        await writeFileAndLog(mapFileName, staticMapBuffer);
     }
+
+    tripSvg.svgCanvas.image(toSnakeCase(tripJson.name) + ".png").size(SIDE_PX, SIDE_PX * Y_EXPAND_FACTOR).back();
+    await writeFileAndLog('output/' + toSnakeCase(tripJson.name) + "-withmap.svg", tripSvg.svgCanvas.svg());
+}
+
+async function writeFileAndLog(filename, data) {
+    await fs.writeFile(filename, data);
+    console.log(`Wrote ${filename}`);
 }
 
 function generateTripSvg(trip) {
@@ -154,8 +164,7 @@ function generateTripSvg(trip) {
     }
 
     // get your svg as string
-    console.log(canvas.svg());
-    return { svg: canvas.svg(), boundingBox: expandedBoundingBox };
+    return { svgCanvas: canvas, boundingBox: expandedBoundingBox };
 }
 
 // Compute trip bounds
@@ -215,9 +224,8 @@ function toSnakeCase(str) {
 }
 
 async function fetchStaticMapMapbox(boundingBox) {
-    const yExpandFactor = 1.05;
-    const expandBottom = new SVG.Matrix().scale(1, yExpandFactor, boundingBox.x, boundingBox.y);
-    const ySide = SIDE_PX * yExpandFactor;
+    const expandBottom = new SVG.Matrix().scale(1, Y_EXPAND_FACTOR, boundingBox.x, boundingBox.y);
+    const ySide = SIDE_PX * Y_EXPAND_FACTOR;
 
     const staticMapBoundingBox = boundingBox.transform(expandBottom);
 
