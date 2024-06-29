@@ -1,5 +1,120 @@
 [
     {
+        "name": "South America",
+        "startDate": "2014-09-14",
+        "endDate": "2014-10-04",
+        "waypoints": [
+            {
+                "name": "Rio de Janeiro",
+                "location": {
+                    "lat": -22.9068467,
+                    "lng": -43.1728965
+                }
+            },
+            {
+                "name": "Campo Grande",
+                "mode": "flying",
+                "location": {
+                    "lat": -20.4648517,
+                    "lng": -54.6218477
+                },
+                "polyline": "x~xjCreofGo}{M|b{dA"
+            },
+            {
+                "name": "Passo do Lontra",
+                "displayName": "Pantanal",
+                "mode": "driving",
+                "location": {
+                    "lat": -19.5751513,
+                    "lng": -57.0375421
+                },
+                "polyline": "b`|{BzhklIlCx]~Mfi@aCrIeEpHyNhn@iBdi@kPvc@cApQgBhGkGzGaHvPgDnR{Alh@}Avs@uAlo@_BrEcBdGt@jFfAnDAdNuAzl@fChIbNpKpa@~[zIvLn`@peAxTpk@bXxu@tA`]g@fMzBxGvEtwAbDrX|JtU`CtZjIh_CrA|OnErLfZlWlBnFQvHyRfWqC`RlD`PfKnZSzMsFpIa_@nOsQxKcEzSgMdQeQpO}I?{NeEy_@pGoiAhV{`Azr@uPnNaGzJ_F~NuFrUkB|RL|`@kNjpAuc@t~Dh@~QbSlw@t@fVmFrSmQv_@qXhq@sFj`@NtMlCjMnPv\\lE~WwGjpA}LlyByIlcBhBzXdI|n@dQbuAng@daErp@rgFpv@hfGxS|bBr]h`AhjAtwC`EdOfAfN|C|_@AjJiEhPqq@vtAis@xnAqFlN}AtOrDhZpErI|j@v`@hfCp|Ata@|XjDtFpVxdA~aAbmEjuBzmJzL`j@jMnq@Z|B|Pbp@rb@zlBbgAf|EpfAbzE~DhW_@~LeF~RiMbb@sGx^kM`t@eUb_Ab@nWjNx]vG~NdBtKo@vJiD|HwGrFsHjBqSm@kLdBiIrE{HlNsN|j@{Kzb@yYb{@sh@rvAkaAnbCiOb]{C|NE`g@{@foByHdhCm`@bsN_EtbAwQxrCwCb]bIb_@oA`{@sCvy@MjCJbMBpM~BxNjEzUpW|vAlEhXMnOeMreAcI`_EiJxmE}@p^kClNkg@naAkhDhrGgjFd}Jwh@b~@qkAjkB_OrUgV~_@oNlKmRjJgBlHt@~JwCfQmEhPaJvMi`@~a@ot@jx@wi@fl@uQxP}k@zQ{c@td@}UfXkHbKcCdO\\nc@n@fr@wAzNwHdOm`@`r@mIhSmR~o@wy@jfCe]|`AsMv^mHpZaHlk@mIb\\iSnq@{]h`A}}@zbCshAvyCycAdpCwh@xvAwPhd@kL`Sih@bf@in@tk@k|@rkAcV`\\yHlKsCnIsDzRq@fAYbHsQ`hA}BdKke@hw@k_A~}A}fBlxC}i@r`AeBtS`DtpEnA|jBAtOkB|GqNbMyQxMyHdLoj@hnB{}A`rFsyCjjKiCzMm@tUaEfrBuIndEmB|v@uEvMkc@de@isAdvA}kBhpBcwAfzA}Y|Z}j@zb@mmCprBoaEtwCwd@b\\ydArc@kx@n]uy@`^_zBvw@qhEp{AyuL~`EmlEjxAgIjG{Ppb@k{@j_C}[~|@cJbLkw@j_@cwChtA{nK`aFu_JzfEcT`Lkr@v[aZ`Bo{DvKk}@dCacBdGgOD"
+            },
+            {
+                "name": "Iguazu Falls",
+                "mode": "flying",
+                "location": {
+                    "lat": -25.695259,
+                    "lng": -54.4366662
+                },
+                "polyline": "tgnvBrcc{Itijd@m~zN"
+            },
+            {
+                "name": "Lima",
+                "mode": "flying",
+                "location": {
+                    "lat": -12.0466888,
+                    "lng": -77.04308859999999
+                },
+                "polyline": "jry{CddgkIqvhrAbi~hC"
+            },
+            {
+                "name": "Cuzco",
+                "mode": "flying",
+                "location": {
+                    "lat": -13.53195,
+                    "lng": -71.96746259999999
+                },
+                "polyline": "xzohAhnfuMzaaHui~]"
+            },
+            {
+                "name": "Machu Picchu",
+                "mode": "transit",
+                "location": {
+                    "lat": -13.1631988,
+                    "lng": -72.5452621
+                },
+                "polyline": "t}qqArcgvLwHLmDfEqZLmCxPbCgAcBh@k@w@YrD?xC~Ci@RBpBgAjF}AqAtCaV`qAc@bLtOpY}IpIb@fFm@tMqEoJ}JoGsRrGO}GmEaDSiGwM_AaJlEk]|GbBto@`@fNo@pN}@|HlEbBmCxAyAtHwUpb@{A|FjCjJlNpRwRnJhA|CgBbBiCxCFzLxIhIaSnEgI~FqLfZ}Gx^yOjd@sMrVyEfItAbDzA|DoBjJ`@nXeQtp@m`@fnAmTjxAbOjw@n@rn@uVze@cFhn@iRva@_d@dg@oHvK{In\\_R~o@kX|cAnC`XyQpI{Cz_@~@~ObJrg@oD`b@kMf{@aGh@qEzGgM~V_QV}a@xGst@qS{\\fByHpAmj@aBsElCmEgCeHdBwHdHqEvEaRnG}M~Fm\\tAu^fKe@~NqQlTiMlLuJ|IsLbQaHjGaEzGkGpBw\\rNWvCkDtGeDzBec@jHwg@~VgS`DcJy@qR`A}F}DeQ_G{^eQiIi@qOkJkm@aKkNScUjEaHvEiOrA_SFcQfJmHm@ya@nBg^`Dog@_GaG{FqW}HoQyK_l@sJwK|DyFkEcFoJm@sGeIoN{c@cVaUvVaC`KmTzx@eIdb@uMfe@sPnf@r@vC`Wno@sL{A_DyC_E``@vDlJbVbTh@hGmDnFo{@ncA}`@dcAy^|CmZlQuW|Vwn@lbA}Efr@eDbm@}@zp@cIti@{@fi@nFtVk[dUaJfFyAjKIzNfDvG}@vCqJdPpEnU}ExJgAxXHb_@tElSlKjOzS`b@pBjJ|NxJfLlP~BdT`P|ZuCn\\aGzFqDrGJnKGtFgFtGp@rM}D`VKrN|CzGwDtc@hCfNuE~M}FpSea@zJ}KlC}CfE{@pLmF|GkFnAgTkByKfFwUvAaYLoJ|DkHcC{R`KeA~Uz@dOvEfA|BfDvJvBrWb@zDpSEtMz@vNlBnL{BlDm`@xFyG|AaNfW{BbHgGdBiNgEoO|IqObKoI~B_EbLsEhReLfJmMxGeLnT]pRwD~KlFlOjLtEx\\dB`KyJhO{CdMtQFbQ{BdIJ`]iDnNbBlGh@zTbFtTrA`UqGdMgSjH}Rg@iQ}c@{KwG{[RaZqHyGqFoFIyIcCkL|C}GS_GlDmAx@?|ACt@_ApBeCfPzNnSvSfFfEfBrBxJ[rChBjApEkGe@dBuD|QfEmKjCiDkCdRqIxIjBcAjJyGnDoL@xCmEpOsEnEnHuGvHqLmHfToCzChDcChIgMfAyD_@lBoChIqClHlLkRt@cBmAbKyD`HpJmLb@uAaA~IaHrJcA~AuBdAkCdDkFrC"
+            },
+            {
+                "name": "Cuzco",
+                "mode": "transit",
+                "hideLabel": true,
+                "location": {
+                    "lat": -13.53195,
+                    "lng": -71.96746259999999
+                },
+                "polyline": "z|ioAr~wyLhLmJ|LiOv@wJiGhL{EnEzCoF~CyK{C|GwHxIjGcNRmDuNpSrDuHhFaOsH|LsHbHlEgHpE}LCkCeCzHwI~ImDjC~C}D~DqEZiIjByGoCjCuChLDoJtD{HkBfAsExDQkMkJ{HkTyHqImNw@oIhBmPxB@dHcDxJ@nIkC`GhBfIb@lZfNx^~AfHm@pNxOvIbVb@lDrFvAdT_EjJ{CjAeEdE_GOmJgHi_@mCi]hEwV{@cOlCkJ[kNcEmRuGwEiJtAqMxLiXoCaF~@kGmCwI}OHgDtB}Mj@iKzIgQxNaKdLgKxDuK|IkUxSeIpTgNdP~D~E}CjFgStKgLn]oE`JeCt@qDeDmUmAob@oDsDyJm@gRIqDiEgI_EhBy]G{FpLeFrFsAtDxB|IeAtBaCbQ[rZUnIaDbKaBxFxBvH]tFuFdEoSft@gUvIy\\gB}J~DmYsEg_@zEcY_AuPzGoNT_QzK_OxBm\\kNcUuC}RyGeMsFcKwHqDuFsG@mFsQq\\_IiOyH{RLcRGuf@lDgIbAmKqDyJ[gDbIwKlAuHqD{PlBkMhDyCdUyO`JuEeA}SoCyHbAmOnIs|@VsThCsw@bGgdAbt@qiAtl@cc@`_@kDj\\q{@b{@edA`KyQgGgKoUaVfDeFzB}FuCkCtAgO|IhE`F|@SqBwWso@xWqw@`G}_@nS}r@hLeg@fHmK`M{LdDtA|NrGlL`I~EtExCxKjA|HzHxInGpAvNyBpWxCrWzLnUtJfPnIde@|FhMy@nr@yEtJ`AhKqH`_@mCxNmA~NcFz]oBfs@dPrHlFxWrHnG`HzGdAxS`Jf]DtIe@rY_Lnk@mUlR{AdGaGAgFbJyEzYcKxGmK~NoPtIwHpH{KbQ}MvIsLGuHXyExGmChi@cJvTyDzRuHhGuDlAkEdPmGjGzBlH_Efe@tDzEgBxGLpQyBj\\tFde@nLtXeHxFj@hOkE|Na[rJaCdPq{AqL{u@tCmb@zC}BxL}DN_IoCkNbPgn@hQep@tO_k@tRi[dc@kg@xJgU~Ea_@dDe\\tR}[~@mW}Lwq@wCsd@|Q_kApWcy@vNcf@xKwa@EqKzAaX_DmItKsSnJ}UxPuq@fPsc@|R}KxJsD}JyHpAgNjDwBm@gG`LsApDiHmRiZ|Qg_@pEsRpF}@aEaDdCmRiCs]aAcc@pBuD`^{HdD_CtOp@lAhJrFhCOpGlTeI`JrN~AzCfAqA[iQn@sClFcIsBoD}F}Lo@Bg@uF~RonAtK{T}GiAkD}Bi@jDmEbC~@iMjJoBbNIpG}D`@MxAEtEE"
+            },
+            {
+                "name": "Santiago",
+                "mode": "flying",
+                "location": {
+                    "lat": -33.4488897,
+                    "lng": -70.6692655
+                },
+                "polyline": "t}qqArcgvLz_qxBup|F"
+            },
+            {
+                "name": "Easter Island",
+                "mode": "flying",
+                "location": {
+                    "lat": -27.112723,
+                    "lng": -109.3496865
+                },
+                "polyline": "p~ckE|qinLapte@rwakF"
+            },
+            {
+                "name": "Papeete",
+                "mode": "flying",
+                "location": {
+                    "lat": -17.5324608,
+                    "lng": -149.5677151
+                },
+                "polyline": "nmndDpjlzSscny@tantF"
+            },
+            {
+                "name": "Taha'a",
+                "mode": "flying",
+                "location": {
+                    "lat": -16.6094815,
+                    "lng": -151.5019256
+                },
+                "polyline": "zh_jBfm{o[sgsDxwxJ"
+            }
+        ]
+    },
+    {
         "name": "Bath",
         "startDate": "2015-04-15",
         "endDate": "2015-04-16",
@@ -264,12 +379,12 @@
             {
                 "name": "Pamukkale, Turkey",
                 "displayName": "Pamukkale",
-                "mode": "driving",
+                "mode": "flying",
                 "location": {
                     "lat": 37.9136957,
                     "lng": 29.1187097
                 },
-                "polyline": "ay|jFe`usEsRxb@fa@fYjv@|`@eS|s@xfAvbA|Lxs@p@tRbE~Pxa@vaAmSbcCmFj}CEp{A{^blBjNlp@`vAnd@tsCdrBldBbyAnhAlfAtSzvAtx@tvGnJvtGjhApzFuSnoBtV|bC~i@paCb]liBjYfyE~b@~jEbbA|tJ`nBbuFjxAfkE`k@zjDjk@v{Azr@vmExLzlB|jAxiAz~@jkBtW~dB`eAf_Dp\\d`Cpg@fkA`Mn{Aj`BbjClo@ls@t`@gTbi@nOx\\DrJfh@pTvpA~{AdnChw@voEvmDzlSlaDbvShsCjbVvAfkDt^`sBsWjqEhAtmDn`@`xDz~Aj{EjkE~lKtvAliDxmBj|IbiCllMdnB`kGzfG~kJtbCdwD`VvrDlpA~pPxtDnpPnnA~iIn`@x}DxyArhFbeBryHpg@xgG~N~pBwOnNiFzBea@nN}aB~x@_~@~cBej@naCc_Al|Co_B`oC_lA~KqvCxDs_Afd@}eFjdBwlDiA_|@zs@uK|\\gqE|eCqaBj`EetApsQlX`dEq`Bz~Ekt@tuC|L~|BQpjBkv@h_Bon@hqAcfA`vDg`@`bFgw@`wEipBplJ`Y~cFz[zgDcHpcAyX`yCnPbgBrb@vgBaZt`Dy^v~Ik]fkE`Pv`CnBrdCce@huB|RnyBghAx{Kgw@jiDiz@v{Ew}@f}Con@fyBgg@hpCeb@fnCkt@n}B}_B`_D}pAzmF}wFx~G{fBzlCsgAtq@uaFxdFerIf|Fs^zh@oXttCmt@xoEa_CxsNug@xjH{R~nBfN|aEvZtiB`BznBfcBb}AhaBxdCh~@v~@|_FheEdlHznHtdGtsH`wD~wDzdA|~@h~@kJlm@xdApb@hIxy@n{@dlBn}BvmA`cEldAlsE~[nxA`dBppC`dApj@ll@h`C}IrmCpQhaBf{Ah|Dh`D~~Gf{BnjHzyD`bJh{@rhA`gCndCvi@hkBlEla@z]bGzLr\\iCl|A~R|uAg_@`gAxa@vqA~{@teBzWhQoRpdAci@j_@jcCt]zm@tf@ni@jL~|AvYdq@ldA|oAfsAmUj_A|_@doBd{AbwH|FlkFfiCv{KfX~yA`mBnaDdxChvDjdCt~Al_ExrCnyA`k@~_BhnClqCfdG`tCzuD~z@`|@t^vgDwKzfJeYdjN@jyDwkAtrDq_@|_D~a@thE`XpoFrMhuBntB||InYdaHyAp{Aaa@yB_w@ar@_K{h@aO~c@d@bcBxg@zvAgDbqAnGhdCePheCu}@`zCedBfvGqeAvaA}pBpp@cmCjs@{s@na@"
+                "polyline": "so}jFggvsE~npCh__b@"
             },
             {
                 "name": "Ephesus Archaeological Site, Turkey",

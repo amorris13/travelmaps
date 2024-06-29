@@ -36,7 +36,7 @@
             ],
             "args": [
                 "--filename=travels.json",
-                "--tripname=South of France",
+                "--tripname=South America",
                 "--staticmap"
             ],
             "program": "${workspaceFolder}/generate_svg.js",
