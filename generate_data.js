@@ -51,11 +51,10 @@ async function updateCoordinatesMapbox(waypoint) {
   if (waypoint.location) {
     return;
   }
-  const response = await fetch(
-    `https://api.mapbox.com/search/geocode/v6/forward?q=${encodeURIComponent(
-      waypoint.name
-    )}&access_token=${process.env.MAPBOX_ACCESS_TOKEN}`
-  );
+  const url = new URL("https://api.mapbox.com/search/geocode/v6/forward");
+  url.searchParams.append("q", encodeURIComponent(waypoint.name));
+  url.searchParams.append("access_token", process.env.MAPBOX_ACCESS_TOKEN);
+  const response = await fetch(url);
   const jsonResponse = await response.json();
   const coordinates = jsonResponse.features[0].geometry.coordinates;
   waypoint.location = { lng: coordinates[0], lat: coordinates[1] };
@@ -65,9 +64,9 @@ async function updateCoordinatesGoogle(waypoint) {
   if (waypoint.location) {
     return;
   }
-  const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-    waypoint.name
-  )}&key=${process.env.GOOGLE_MAPS_API_KEY}`;
+  const url = new URL("https://maps.googleapis.com/maps/api/geocode/json");
+  url.searchParams.append("address", encodeURIComponent(waypoint.name));
+  url.searchParams.append("key", process.env.GOOGLE_MAPS_API_KEY);
   const response = await fetch(url);
   const jsonResponse = await response.json();
   if (jsonResponse.status === "OK") {
@@ -99,7 +98,19 @@ async function updatePolylineGoogle(prevWaypoint, waypoint) {
     return;
   }
 
-  const url = `https://maps.googleapis.com/maps/api/directions/json?mode=${waypoint.mode}&origin=${prevWaypoint.location.lat},${prevWaypoint.location.lng}&destination=${waypoint.location.lat},${waypoint.location.lng}&key=${process.env.GOOGLE_MAPS_API_KEY}`;
+  const url = new URL("https://maps.googleapis.com/maps/api/directions/json");
+  console.log(url.toString());
+  url.searchParams.append("mode", waypoint.mode);
+  url.searchParams.append(
+    "origin",
+    `${prevWaypoint.location.lat},${prevWaypoint.location.lng}`
+  );
+  url.searchParams.append(
+    "destination",
+    `${waypoint.location.lat},${waypoint.location.lng}`
+  );
+  url.searchParams.append("key", process.env.GOOGLE_MAPS_API_KEY);
+  console.log(url.toString());
   const response = await fetch(url);
   const jsonResponse = await response.json();
   if (jsonResponse.status === "OK") {
