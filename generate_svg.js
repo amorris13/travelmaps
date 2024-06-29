@@ -122,8 +122,18 @@ function generateTripSvg(trip) {
         const transformedPolyline = decodedPolyline.map(latlng =>
             toMercator(latlng[1], latlng[0]).transform(transform).toArray());
 
-        canvas.polyline(transformedPolyline).addClass('line');
-        shapes.push(ShapeInfo.polyline(transformedPolyline));
+        if (transformedPolyline.length == 2) {
+            const r = distanceBetweenPoints(new SVG.Point(transformedPolyline[0]), new SVG.Point(transformedPolyline[1])) * 1.3;
+            const pathArray = new SVG.PathArray([
+                ['M', transformedPolyline[0][0], transformedPolyline[0][1]],
+                ['A', r, r, 0, 0, 0, transformedPolyline[1][0], transformedPolyline[1][1]]
+            ]);
+            canvas.path(pathArray).addClass('line').addClass(waypoint.mode);
+            shapes.push(ShapeInfo.path(pathArray.toString()));
+        } else {
+            canvas.polyline(transformedPolyline).addClass('line').addClass(waypoint.mode);
+            shapes.push(ShapeInfo.polyline(transformedPolyline));
+        }
     }
 
     // Add marker for each waypoint
@@ -221,6 +231,12 @@ function toSnakeCase(str) {
         .replace(/([a-z])([A-Z])/g, '$1_$2')
         .replace(/\s+/g, '_')
         .toLowerCase();
+}
+
+function distanceBetweenPoints(point1, point2) {
+    const dx = point1.x - point2.x;
+    const dy = point1.y - point2.y;
+    return Math.sqrt(dx * dx + dy * dy);
 }
 
 async function fetchStaticMapMapbox(boundingBox) {

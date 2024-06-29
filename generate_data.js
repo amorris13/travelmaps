@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 
 import fs from 'node:fs/promises';
+import polyline from '@mapbox/polyline';
 
 const filename = './travels.json';
+
+const DIRECTIONS_MODES = ['walking', 'driving', 'bicycling', 'transit'];
 
 async function main() {
     const data = await fs.readFile(filename, { encoding: 'utf8' });
@@ -23,7 +26,14 @@ async function main() {
         let prevWaypoint
         for (let waypoint of travel.waypoints) {
             if (prevWaypoint) {
-                directions.push(updatePolylineGoogle(prevWaypoint, waypoint));
+                if (DIRECTIONS_MODES.includes(waypoint.mode)) {
+                    directions.push(updatePolylineGoogle(prevWaypoint, waypoint));
+                } else {
+                    waypoint.polyline = polyline.encode(
+                        [[prevWaypoint.location.lat, prevWaypoint.location.lng],
+                        [waypoint.location.lat, waypoint.location.lng]],
+                        5);
+                }
             }
 
             prevWaypoint = waypoint;
