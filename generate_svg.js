@@ -167,7 +167,7 @@ function generateTripSvg(trip) {
   for (const waypoint of trip.waypoints) {
     const point = toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform);
     canvas.circle().centerAt(point).addClass("waypoint");
-    // shapes.push(ShapeInfo.circle(point, markerRadius));
+    shapes.push(ShapeInfo.circle(point, markerRadius));
   }
 
   // Add label for each waypoint
@@ -248,7 +248,7 @@ function generateLabelOffsetOptions(markerRadius, labelWidth, labelHeight) {
 
   const options = [];
 
-  for (let additionalOffset = 0; additionalOffset <= 8; additionalOffset += 2) {
+  for (let additionalOffset = 4; additionalOffset <= 16; additionalOffset += 4) {
     const offset = markerOffset + additionalOffset;
     options.push(
       // bottom right
@@ -258,9 +258,20 @@ function generateLabelOffsetOptions(markerRadius, labelWidth, labelHeight) {
       // top left
       new SVG.Matrix().translate(-offset - labelWidth, -offset - labelHeight),
       // bottom left
-      new SVG.Matrix().translate(-offset - labelWidth, offset)
+      new SVG.Matrix().translate(-offset - labelWidth, offset),
+      // bottom
+      new SVG.Matrix().translate(-labelWidth / 2, offset),
+      // top
+      new SVG.Matrix().translate(-labelWidth / 2, -offset - labelHeight),
+      // left
+      new SVG.Matrix().translate(-offset - labelWidth, -labelHeight / 2),
+      // right
+      new SVG.Matrix().translate(offset, -labelHeight / 2)
     );
   }
+
+  // Option of last resort
+  options.push(new SVG.Matrix().translate(markerOffset, markerOffset));
 
   return options;
 }
