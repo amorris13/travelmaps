@@ -1,34 +1,34 @@
 [
-    {
-        "name": "Loire Cycling",
-        "startDate": "2025-05-21",
-        "endDate": "2025-05-26",
-        "waypoints": [
-            {
-                "name": "Orleans",
-                "location": {
-                    "lng": 1.906351,
-                    "lat": 47.898994
-                }
-            },
-            {
-                "name": "Meung-sur-Loire",
-                "mode": "bicycling",
-                "location": {
-                    "lng": 1.694864,
-                    "lat": 47.824142
-                },
-                "polyline": "ugjcHuisJ~DrMnAzs@c@xvBh_@bEjg@hqC~O|h@tZbj@fFgAtDhGxUiP`Hh@xNtDtGvPjZd~ApAtmAhFfi@{I~f@bDl]wAta@~_@fy@~k@zqBdw@xcApChdA|Qxv@lb@vbAzg@hq@vX`SuQpd@UvPrCv@"
-            },
-            {
-                "name": "Saint-Dye-sur-Loire",
-                "mode": "bicycling",
-                "location": {
-                    "lng": 1.488723,
-                    "lat": 47.65585
-                },
-                "polyline": "{s{bH{_jIb`@zLby@jhBhsAh_BrT{P`e@d}A`s@nkAzz@pd@jpDlhE~yA`qC~`@dWlk@kSlkAz^|r@z}ArDns@lp@du@v_@dlAdc@m[tOnUlhAncDhN||@"
-            }
-        ]
-    }
+  {
+    "name": "Loire Cycling",
+    "startDate": "2025-05-21",
+    "endDate": "2025-05-26",
+    "waypoints": [
+      {
+        "name": "Orleans",
+        "location": {
+          "lng": 1.906351,
+          "lat": 47.898994
+        }
+      },
+      {
+        "name": "Meung-sur-Loire",
+        "mode": "bicycling",
+        "location": {
+          "lng": 1.694864,
+          "lat": 47.824142
+        },
+        "polyline": "ugjcHuisJ~DrMnAzs@c@xvBh_@bEjg@hqC~O|h@tZbj@fFgAtDhGxUiP`Hh@xNtDtGvPjZd~ApAtmAhFfi@{I~f@bDl]wAta@~_@fy@~k@zqBdw@xcApChdA|Qxv@lb@vbAzg@hq@vX`SuQpd@UvPrCv@"
+      },
+      {
+        "name": "Saint-Dye-sur-Loire",
+        "mode": "bicycling",
+        "location": {
+          "lng": 1.488723,
+          "lat": 47.65585
+        },
+        "polyline": "{s{bH{_jIb`@zLby@jhBhsAh_BrT{P`e@d}A`s@nkAzz@pd@jpDlhE~yA`qC~`@dWlk@kSlkAz^|r@z}ArDns@lp@du@v_@dlAdc@m[tOnUlhAncDhN||@"
+      }
+    ]
+  }
 ]

@@ -1,46 +1,34 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Generate Data",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "program": "${workspaceFolder}/generate_data.js",
-            "envFile": "${workspaceFolder}/.env"
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Generate SVG",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "args": [
-                "--filename=travels.json",
-            ],
-            "program": "${workspaceFolder}/generate_svg.js",
-            "envFile": "${workspaceFolder}/.env"
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Generate SVG and Map",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "args": [
-                "--filename=travels.json",
-                "--tripname=SE Asia",
-                "--staticmap"
-            ],
-            "program": "${workspaceFolder}/generate_svg.js",
-            "envFile": "${workspaceFolder}/.env"
-        }
-    ]
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Generate Data",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/generate_data.js",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Generate SVG",
+      "skipFiles": ["<node_internals>/**"],
+      "args": ["--filename=travels.json"],
+      "program": "${workspaceFolder}/generate_svg.js",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Generate SVG and Map",
+      "skipFiles": ["<node_internals>/**"],
+      "args": ["--filename=travels.json", "--tripname=SE Asia", "--staticmap"],
+      "program": "${workspaceFolder}/generate_svg.js",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
 }
