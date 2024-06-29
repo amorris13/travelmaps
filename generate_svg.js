@@ -77,8 +77,14 @@ function generateTripSvg(trip) {
     [tlMercator.x, tlMercator.y],
     [brMercator.x, brMercator.y],
   ]).bbox();
+  const maxSize = Math.max(boundingBox.width, boundingBox.height);
   const expandedBoundingBox = boundingBox.transform(
-    new SVG.Matrix().scale(1.2, 1.4, boundingBox.cx, boundingBox.cy)
+    new SVG.Matrix().scale(
+      (1.1 * maxSize) / boundingBox.width,
+      (1.2 * maxSize) / boundingBox.height,
+      boundingBox.cx,
+      boundingBox.cy
+    )
   );
 
   const transform = new SVG.Matrix()
@@ -127,6 +133,7 @@ function generateTripSvg(trip) {
   });
 
   const shapes = [];
+  shapes.push(ShapeInfo.rectangle(0, 0, SIDE_PX, SIDE_PX));
 
   // Add lines for each leg
   for (const waypoint of trip.waypoints) {
@@ -176,9 +183,7 @@ function generateTripSvg(trip) {
     });
     const labelHeight = (labelFontSizePx * 3) / 4;
 
-    // bottom right
-    const markerOffset = (markerRadius * 3) / 4;
-    const labelOffsetOptions = generateLabelOffsetOptions(markerOffset, labelWidth, labelHeight);
+    const labelOffsetOptions = generateLabelOffsetOptions(markerRadius, labelWidth, labelHeight);
     for (let i = 0; i < labelOffsetOptions.length; i++) {
       const labelOffset = labelOffsetOptions[i];
       const offsetPoint = point.transform(labelOffset);
@@ -238,17 +243,26 @@ function fromMercator(p) {
   return { lng, lat };
 }
 
-function generateLabelOffsetOptions(markerOffset, labelWidth, labelHeight) {
-  return [
-    // bottom right
-    new SVG.Matrix().translate(markerOffset, markerOffset),
-    // top right
-    new SVG.Matrix().translate(markerOffset, -markerOffset - labelHeight),
-    // top left
-    new SVG.Matrix().translate(-markerOffset - labelWidth, -markerOffset - labelHeight),
-    // bottom left
-    new SVG.Matrix().translate(-markerOffset - labelWidth, markerOffset),
-  ];
+function generateLabelOffsetOptions(markerRadius, labelWidth, labelHeight) {
+  const markerOffset = Math.ceil(markerRadius / Math.SQRT2);
+
+  const options = [];
+
+  for (let additionalOffset = 0; additionalOffset <= 8; additionalOffset += 2) {
+    const offset = markerOffset + additionalOffset;
+    options.push(
+      // bottom right
+      new SVG.Matrix().translate(offset, offset),
+      // top right
+      new SVG.Matrix().translate(offset, -offset - labelHeight),
+      // top left
+      new SVG.Matrix().translate(-offset - labelWidth, -offset - labelHeight),
+      // bottom left
+      new SVG.Matrix().translate(-offset - labelWidth, offset)
+    );
+  }
+
+  return options;
 }
 
 function hasIntersections(shapes, testShape) {
@@ -292,6 +306,7 @@ async function fetchStaticMapMapbox(boundingBox) {
 
   const url = `https://api.mapbox.com/styles/v1/mapbox/light-v11/static/[${tlLatLng.lng},${brLatLng.lat},${brLatLng.lng},${tlLatLng.lat}]/${SIDE_PX}x${ySide}@2x?access_token=${process.env.MAPBOX_ACCESS_TOKEN}`;
 
+  console.log(url);
   const response = await fetch(url);
   const staticMapPng = await response.blob();
 

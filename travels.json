@@ -173,7 +173,7 @@
         "polyline": "ouhrF`rqWe`@hKxCsL}DmI_CcZeLuNlBiKXqBwB_C{BqEcFeCwDoGcFgs@oKsb@aPoa@qGej@wFc^_R{`@gZcZoYeg@uNgJcQqFma@aWyV}]m[kq@iYqZgDeO|DeKoHeE_YiStCgP_@qNcIaXgr@_mByKmKx@uFhQ{g@|JcZbOmm@|Fu^bG_KzWwYfj@wX|KmGtG{JqWisAcr@wbBm^w{@sRc|@iTmaAiRugAoFeeAkQkjDi@c{@k@kPsM{c@aUew@u^akA}p@{wBob@clAgr@mvAoKa^_ZmsAq}@wcEgVskACgA`JmLrHkPdb@ye@vq@sg@ty@um@|Vs[pQ}b@bSqiApLoe@lMwX|P{TnQsApFiFhAwIsGuO}DuEmEoScGij@RgZjHoj@zIm`@fTam@bGmf@c@kq@iJgh@wFyOaUe^kQeO}b@}XkWkYeMcWmM_j@yIslBsK_fA{@io@dA}cBqO_cB|A_qAtPcdAr[iaArRedA~Cec@Wwm@rBahAhNsbBny@u|DzDut@eCej@cEsWiMwa@ki@ksAiMq`@w^_dBuPchBiIww@gLsj@u\\moA{SmqBe\\axDiN}kBiPix@{ZwdA}QwvAuLmqAiJey@z@s]hG_y@xCuWbIoWrOk~@~PwtBmCml@_D}PaAxCcD`OyCkCwQuMkTsRyS_a@wQyXuTcRkZaN_b@cVm]gj@i`@mx@k\\er@ePub@eGab@m@s^fD{i@VyYuFae@aM_[}KcNsq@ml@i^_[qPqTiGqPcDeY~Aae@vE{UlCwYJ_gAIon@Ngh@fD_b@tLig@`Vyy@rNqs@xW}mC~H_z@`K{tBjCym@jEgb@nLyWrPoRlTu[bUkp@jFe_@jBcb@aD_~@uEcn@Ret@zKat@nQa|@bJe`BxE_pAiCcs@yE{UgNo]eUkl@wEmZuBeg@oIem@sUii@{Qcm@eI}UqUm]cJuYyLqV{RuVkf@{x@sMcb@gOi`@yB_SRmYvDqY`He`@jR_c@jLe\\zDe_@hCew@Ryy@cG_`@uEq_@}Asw@{Eu|@_Kqr@?}i@xFin@nBs`@bKae@xCsXk@id@hB}j@xAme@nIu`@~Kan@Z{d@|@kt@xEkq@hAeZ{B_`@wDkQoJmV{OsS}ZwVmLgPaYmg@aa@oYqMkXiBq^hEw\\rBec@aB{d@nD}j@nNijAd@kUeHai@qLecA_IaqAyDag@vBcs@tAyq@{Iki@_Wih@eJk]qByYnAg_@vHe]~Ku]xCkt@tCw}AtM}j@|@}ZfDoTpN_e@rJ{Z"
       },
       {
-        "name": "Terual",
+        "name": "Teruel",
         "mode": "driving",
         "location": {
           "lat": 40.3456879,
@@ -531,6 +531,7 @@
       },
       {
         "name": "Linderhof Palace",
+        "displayName": "Linderhof",
         "mode": "driving",
         "location": {
           "lat": 47.5716123,
