@@ -42,10 +42,7 @@ async function processTrip(tripJson, fetchStaticMap) {
   await fs.mkdir("output", { recursive: true });
 
   const tripSvg = generateTripSvg(tripJson);
-  await writeFileAndLog(
-    "output/" + toSnakeCase(tripJson.name) + ".svg",
-    tripSvg.svgCanvas.svg()
-  );
+  await writeFileAndLog("output/" + toSnakeCase(tripJson.name) + ".svg", tripSvg.svgCanvas.svg());
 
   const mapFileName = "output/" + toSnakeCase(tripJson.name) + ".png";
   if (fetchStaticMap) {
@@ -88,10 +85,7 @@ function generateTripSvg(trip) {
     .translate(-expandedBoundingBox.cx, -expandedBoundingBox.cy)
     .lmultiply(
       new SVG.Matrix().scale(
-        Math.min(
-          SIDE_PX / expandedBoundingBox.width,
-          SIDE_PX / expandedBoundingBox.height
-        )
+        Math.min(SIDE_PX / expandedBoundingBox.width, SIDE_PX / expandedBoundingBox.height)
       )
     )
     .lmultiply(new SVG.Matrix().translate(SIDE_PX / 2, SIDE_PX / 2));
@@ -152,34 +146,19 @@ function generateTripSvg(trip) {
         ) * 1.3;
       const pathArray = new SVG.PathArray([
         ["M", transformedPolyline[0][0], transformedPolyline[0][1]],
-        [
-          "A",
-          r,
-          r,
-          0,
-          0,
-          0,
-          transformedPolyline[1][0],
-          transformedPolyline[1][1],
-        ],
+        ["A", r, r, 0, 0, 0, transformedPolyline[1][0], transformedPolyline[1][1]],
       ]);
       canvas.path(pathArray).addClass("line").addClass(waypoint.mode);
       shapes.push(ShapeInfo.path(pathArray.toString()));
     } else {
-      canvas
-        .polyline(transformedPolyline)
-        .addClass("line")
-        .addClass(waypoint.mode);
+      canvas.polyline(transformedPolyline).addClass("line").addClass(waypoint.mode);
       shapes.push(ShapeInfo.polyline(transformedPolyline));
     }
   }
 
   // Add marker for each waypoint
   for (const waypoint of trip.waypoints) {
-    const point = toMercator(
-      waypoint.location.lng,
-      waypoint.location.lat
-    ).transform(transform);
+    const point = toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform);
     canvas.circle().centerAt(point).addClass("waypoint");
     // shapes.push(ShapeInfo.circle(point, markerRadius));
   }
@@ -189,10 +168,7 @@ function generateTripSvg(trip) {
     if (waypoint.hideLabel) {
       continue;
     }
-    const point = toMercator(
-      waypoint.location.lng,
-      waypoint.location.lat
-    ).transform(transform);
+    const point = toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform);
     const displayName = waypoint.displayName || waypoint.name;
     const labelWidth = pixelWidth(displayName, {
       font: "helvetica",
@@ -202,11 +178,7 @@ function generateTripSvg(trip) {
 
     // bottom right
     const markerOffset = (markerRadius * 3) / 4;
-    const labelOffsetOptions = generateLabelOffsetOptions(
-      markerOffset,
-      labelWidth,
-      labelHeight
-    );
+    const labelOffsetOptions = generateLabelOffsetOptions(markerOffset, labelWidth, labelHeight);
     for (let i = 0; i < labelOffsetOptions.length; i++) {
       const labelOffset = labelOffsetOptions[i];
       const offsetPoint = point.transform(labelOffset);
@@ -273,10 +245,7 @@ function generateLabelOffsetOptions(markerOffset, labelWidth, labelHeight) {
     // top right
     new SVG.Matrix().translate(markerOffset, -markerOffset - labelHeight),
     // top left
-    new SVG.Matrix().translate(
-      -markerOffset - labelWidth,
-      -markerOffset - labelHeight
-    ),
+    new SVG.Matrix().translate(-markerOffset - labelWidth, -markerOffset - labelHeight),
     // bottom left
     new SVG.Matrix().translate(-markerOffset - labelWidth, markerOffset),
   ];
@@ -307,12 +276,7 @@ function distanceBetweenPoints(point1, point2) {
 }
 
 async function fetchStaticMapMapbox(boundingBox) {
-  const expandBottom = new SVG.Matrix().scale(
-    1,
-    Y_EXPAND_FACTOR,
-    boundingBox.x,
-    boundingBox.y
-  );
+  const expandBottom = new SVG.Matrix().scale(1, Y_EXPAND_FACTOR, boundingBox.x, boundingBox.y);
   const ySide = SIDE_PX * Y_EXPAND_FACTOR;
 
   const staticMapBoundingBox = boundingBox.transform(expandBottom);

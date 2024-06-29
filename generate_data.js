@@ -101,14 +101,8 @@ async function updatePolylineGoogle(prevWaypoint, waypoint) {
   const url = new URL("https://maps.googleapis.com/maps/api/directions/json");
   console.log(url.toString());
   url.searchParams.append("mode", waypoint.mode);
-  url.searchParams.append(
-    "origin",
-    `${prevWaypoint.location.lat},${prevWaypoint.location.lng}`
-  );
-  url.searchParams.append(
-    "destination",
-    `${waypoint.location.lat},${waypoint.location.lng}`
-  );
+  url.searchParams.append("origin", `${prevWaypoint.location.lat},${prevWaypoint.location.lng}`);
+  url.searchParams.append("destination", `${waypoint.location.lat},${waypoint.location.lng}`);
   url.searchParams.append("key", process.env.GOOGLE_MAPS_API_KEY);
   console.log(url.toString());
   const response = await fetch(url);
@@ -116,9 +110,7 @@ async function updatePolylineGoogle(prevWaypoint, waypoint) {
   if (jsonResponse.status === "OK") {
     waypoint.polyline = jsonResponse.routes[0].overview_polyline.points;
   } else {
-    console.log(
-      `Error in directions for ${prevWaypoint.name} to  ${waypoint.name}`
-    );
+    console.log(`Error in directions for ${prevWaypoint.name} to  ${waypoint.name}`);
     console.log(url);
   }
 }
