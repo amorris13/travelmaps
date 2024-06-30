@@ -44,7 +44,7 @@ async function main() {
   }
   await Promise.all(directions);
 
-  await fs.writeFile(filename, JSON.stringify(json, null, 4));
+  await fs.writeFile(filename, JSON.stringify(json, null, 2));
 }
 
 async function updateCoordinatesMapbox(waypoint) {
@@ -73,7 +73,7 @@ async function updateCoordinatesGoogle(waypoint) {
     waypoint.location = jsonResponse.results[0].geometry.location;
   } else {
     console.log(`Error in geocode for ${waypoint.name}`);
-    console.log(url);
+    console.log(url.toString());
   }
 }
 
@@ -111,7 +111,7 @@ async function updatePolylineGoogle(prevWaypoint, waypoint) {
     waypoint.polyline = jsonResponse.routes[0].overview_polyline.points;
   } else {
     console.log(`Error in directions for ${prevWaypoint.name} to  ${waypoint.name}`);
-    console.log(url);
+    console.log(url.toString());
   }
 }
 
