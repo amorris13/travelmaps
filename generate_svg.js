@@ -54,6 +54,7 @@ async function processTrip(tripJson, fetchStaticMap) {
   tripSvg.svgCanvas
     .image(toSnakeCase(tripJson.name) + ".png")
     .size(SIDE_PX, SIDE_PX * Y_EXPAND_FACTOR)
+    .opacity(0.5)
     .back();
   await writeFileAndLog(
     "output/" + toSnakeCase(tripJson.name) + "-withmap.svg",
@@ -166,7 +167,7 @@ function generateTripSvg(trip) {
   // Add marker for each waypoint
   for (const waypoint of trip.waypoints) {
     const point = toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform);
-    canvas.circle().centerAt(point).addClass("waypoint");
+    canvas.circle().radius(markerRadius).centerAt(point).addClass("waypoint");
     shapes.push(ShapeInfo.circle(point, markerRadius));
   }
 
@@ -315,7 +316,9 @@ async function fetchStaticMapMapbox(boundingBox) {
     y: staticMapBoundingBox.y2,
   });
 
-  const url = `https://api.mapbox.com/styles/v1/mapbox/light-v11/static/[${tlLatLng.lng},${brLatLng.lat},${brLatLng.lng},${tlLatLng.lat}]/${SIDE_PX}x${ySide}@2x?access_token=${process.env.MAPBOX_ACCESS_TOKEN}`;
+  const style = "amorris13/clybhht7e00m601r4dwk57m95";
+  // "mapbox/light-v11"
+  const url = `https://api.mapbox.com/styles/v1/${style}/static/[${tlLatLng.lng},${brLatLng.lat},${brLatLng.lng},${tlLatLng.lat}]/${SIDE_PX}x${ySide}@2x?access_token=${process.env.MAPBOX_ACCESS_TOKEN}`;
 
   console.log(url);
   const response = await fetch(url);
