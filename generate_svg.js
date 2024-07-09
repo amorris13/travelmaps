@@ -7,6 +7,7 @@ import fs from "node:fs/promises";
 import polyline from "@mapbox/polyline";
 import pixelWidth from "string-pixel-width";
 import { ShapeInfo, Intersection } from "kld-intersections";
+import seedrandom from "seedrandom";
 
 const SIDE_PX = 1200;
 const Y_EXPAND_FACTOR = 1.05;
@@ -172,44 +173,43 @@ function generateTripSvg(trip) {
   }
 
   // Add label for each waypoint
-  for (const waypoint of trip.waypoints) {
-    if (waypoint.hideLabel) {
-      continue;
-    }
-    const point = toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform);
-    const displayName = waypoint.displayName || waypoint.name;
-    const labelWidth = pixelWidth(displayName, {
-      font: "helvetica",
-      size: labelFontSizePx,
-    });
-    const labelHeight = (labelFontSizePx * 3) / 4;
 
-    const labelOffsetOptions = generateLabelOffsetOptions(markerRadius, labelWidth, labelHeight);
-    for (let i = 0; i < labelOffsetOptions.length; i++) {
-      const labelOffset = labelOffsetOptions[i];
-      const offsetPoint = point.transform(labelOffset);
-      const buffer = 2;
-      const shapeInfo = ShapeInfo.rectangle(
-        offsetPoint.x - buffer,
-        offsetPoint.y - buffer,
-        labelWidth + 2 * buffer,
-        labelHeight + 2 * buffer
+  const rng = seedrandom("travelmaps");
+  const labelPoints = trip.waypoints
+    .filter((waypoint) => !waypoint.hideLabel)
+    .map((waypoint) => ({
+      name: waypoint.displayName || waypoint.name,
+      point: toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform),
+    }));
+  const numAttempts = 100;
+  for (let attempt = 0; attempt < numAttempts; attempt++) {
+    const labelPlacements = calculateLabelPositions(
+      rng,
+      labelPoints,
+      markerRadius,
+      labelFontSizePx,
+      shapes
+    );
+    const numIntersections = labelPlacements.filter((label) => label.intersects).length;
+    if (attempt == numAttempts - 1 || labelPlacements.every((label) => !label.intersects)) {
+      console.log(
+        `Successful attempt ${attempt + 1} of ${numAttempts} with ${numIntersections} intersections`
       );
-      const intersects = hasIntersections(shapes, shapeInfo);
-      if (intersects && i < labelOffsetOptions.length - 1) {
-        continue;
-      } else {
+      for (const labelPlacement of labelPlacements) {
         canvas
-          .rect(labelWidth, labelHeight)
-          .at(offsetPoint)
+          .rect(labelPlacement.width, labelPlacement.height)
+          .at(labelPlacement.point)
           .opacity(0.2)
-          .fill(intersects ? "red" : "green")
+          .fill(labelPlacement.intersects ? "red" : "green")
           .addClass("labelRect");
-        shapes.push(shapeInfo);
-        canvas.text(displayName).at(offsetPoint).addClass("label");
-        break;
+        shapes.push(labelPlacement.shape);
+        canvas.text(labelPlacement.label.name).at(labelPlacement.point).addClass("label");
       }
+      break;
     }
+    console.log(
+      `Failed attempt ${attempt + 1} of ${numAttempts} with ${numIntersections} intersections`
+    );
   }
 
   // get your svg as string
@@ -244,37 +244,80 @@ function fromMercator(p) {
   return { lng, lat };
 }
 
-function generateLabelOffsetOptions(markerRadius, labelWidth, labelHeight) {
-  const markerOffset = Math.ceil(markerRadius / Math.SQRT2);
+function calculateLabelPositions(rng, labels, markerRadius, labelFontSizePx, existingShapes) {
+  const shapes = [...existingShapes];
+  const shuffledLabels = [...labels];
+  shuffleArray(shuffledLabels, rng);
+  const result = [];
+  for (const label of shuffledLabels) {
+    const labelWidth = pixelWidth(label.name, {
+      font: "helvetica",
+      size: labelFontSizePx,
+    });
+    const labelHeight = (labelFontSizePx * 3) / 4;
 
-  const options = [];
-
-  for (let additionalOffset = 4; additionalOffset <= 16; additionalOffset += 4) {
-    const offset = markerOffset + additionalOffset;
-    options.push(
-      // bottom right
-      new SVG.Matrix().translate(offset, offset),
-      // top right
-      new SVG.Matrix().translate(offset, -offset - labelHeight),
-      // top left
-      new SVG.Matrix().translate(-offset - labelWidth, -offset - labelHeight),
-      // bottom left
-      new SVG.Matrix().translate(-offset - labelWidth, offset),
-      // bottom
-      new SVG.Matrix().translate(-labelWidth / 2, offset),
-      // top
-      new SVG.Matrix().translate(-labelWidth / 2, -offset - labelHeight),
-      // left
-      new SVG.Matrix().translate(-offset - labelWidth, -labelHeight / 2),
-      // right
-      new SVG.Matrix().translate(offset, -labelHeight / 2)
-    );
+    const markerOffset = Math.ceil(markerRadius / Math.SQRT2);
+    let hasPlaced = false;
+    const maxAdditionalOffset = 16;
+    for (
+      let additionalOffset = 4;
+      !hasPlaced && additionalOffset <= maxAdditionalOffset;
+      additionalOffset += 4
+    ) {
+      const offset = markerOffset + additionalOffset;
+      const labelOffsetOptions = generateLabelOffsetOptions(offset, labelWidth, labelHeight);
+      shuffleArray(labelOffsetOptions, rng);
+      for (let i = 0; !hasPlaced && i < labelOffsetOptions.length; i++) {
+        const labelOffset = labelOffsetOptions[i];
+        const offsetPoint = label.point.transform(labelOffset);
+        const buffer = 2;
+        const shapeInfo = ShapeInfo.rectangle(
+          offsetPoint.x - buffer,
+          offsetPoint.y - buffer,
+          labelWidth + 2 * buffer,
+          labelHeight + 2 * buffer
+        );
+        const intersects = hasIntersections(shapes, shapeInfo);
+        if (
+          !intersects ||
+          (i == labelOffsetOptions.length - 1 && additionalOffset == maxAdditionalOffset)
+        ) {
+          shapes.push(shapeInfo);
+          result.push({
+            label,
+            width: labelWidth,
+            height: labelHeight,
+            point: offsetPoint,
+            shape: shapeInfo,
+            intersects,
+          });
+          hasPlaced = true;
+        }
+      }
+    }
   }
+  return result;
+}
 
-  // Option of last resort
-  options.push(new SVG.Matrix().translate(markerOffset, markerOffset));
-
-  return options;
+function generateLabelOffsetOptions(offset, labelWidth, labelHeight) {
+  return [
+    // bottom right
+    new SVG.Matrix().translate(offset, offset),
+    // top right
+    new SVG.Matrix().translate(offset, -offset - labelHeight),
+    // top left
+    new SVG.Matrix().translate(-offset - labelWidth, -offset - labelHeight),
+    // bottom left
+    new SVG.Matrix().translate(-offset - labelWidth, offset),
+    // bottom
+    new SVG.Matrix().translate(-labelWidth / 2, offset * 1.4),
+    // top
+    new SVG.Matrix().translate(-labelWidth / 2, -offset * 1.4 - labelHeight),
+    // left
+    new SVG.Matrix().translate(-offset * 1.4 - labelWidth, -labelHeight / 2),
+    // right
+    new SVG.Matrix().translate(offset * 1.4, -labelHeight / 2),
+  ];
 }
 
 function hasIntersections(shapes, testShape) {
@@ -299,6 +342,13 @@ function distanceBetweenPoints(point1, point2) {
   const dx = point1.x - point2.x;
   const dy = point1.y - point2.y;
   return Math.sqrt(dx * dx + dy * dy);
+}
+
+function shuffleArray(array, rng) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
 }
 
 async function fetchStaticMapMapbox(boundingBox) {

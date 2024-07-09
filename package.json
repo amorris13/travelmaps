@@ -6,6 +6,7 @@
     "kld-affine": "^2.1.1",
     "kld-intersections": "^0.7.0",
     "minimist": "^1.2.8",
+    "seedrandom": "^3.0.5",
     "string-pixel-width": "^1.11.0",
     "svgdom": "^0.1.19",
     "svgjs": "^2.6.2",
