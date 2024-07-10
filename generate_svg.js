@@ -69,6 +69,7 @@ async function writeFileAndLog(filename, data) {
 }
 
 function generateTripSvg(trip) {
+  console.log(`Generating SVG for ${trip.name}`);
   const tripBounds = computerTripBounds(trip);
 
   // Convert trip bounds to mercator projection
@@ -135,7 +136,6 @@ function generateTripSvg(trip) {
   });
 
   const shapes = [];
-  shapes.push(ShapeInfo.rectangle(0, 0, SIDE_PX, SIDE_PX));
 
   // Add lines for each leg
   for (const waypoint of trip.waypoints) {
@@ -155,7 +155,7 @@ function generateTripSvg(trip) {
         ) * 1.3;
       const pathArray = new SVG.PathArray([
         ["M", transformedPolyline[0][0], transformedPolyline[0][1]],
-        ["A", r, r, 0, 0, 0, transformedPolyline[1][0], transformedPolyline[1][1]],
+        ["A", r, r, 0, 0, 1, transformedPolyline[1][0], transformedPolyline[1][1]],
       ]);
       canvas.path(pathArray).addClass("line").addClass(waypoint.mode);
       shapes.push(ShapeInfo.path(pathArray.toString()));
@@ -181,7 +181,8 @@ function generateTripSvg(trip) {
       name: waypoint.displayName || waypoint.name,
       point: toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform),
     }));
-  const numAttempts = 100;
+  const numAttempts = 50;
+  var bestLabelPlacement;
   for (let attempt = 0; attempt < numAttempts; attempt++) {
     const labelPlacements = calculateLabelPositions(
       rng,
@@ -190,26 +191,23 @@ function generateTripSvg(trip) {
       labelFontSizePx,
       shapes
     );
-    const numIntersections = labelPlacements.filter((label) => label.intersects).length;
-    if (attempt == numAttempts - 1 || labelPlacements.every((label) => !label.intersects)) {
-      console.log(
-        `Successful attempt ${attempt + 1} of ${numAttempts} with ${numIntersections} intersections`
-      );
-      for (const labelPlacement of labelPlacements) {
-        canvas
-          .rect(labelPlacement.width, labelPlacement.height)
-          .at(labelPlacement.point)
-          .opacity(0.2)
-          .fill(labelPlacement.intersects ? "red" : "green")
-          .addClass("labelRect");
-        shapes.push(labelPlacement.shape);
-        canvas.text(labelPlacement.label.name).at(labelPlacement.point).addClass("label");
-      }
-      break;
+    if (!bestLabelPlacement || compareLabelPlacement(labelPlacements, bestLabelPlacement) > 0) {
+      bestLabelPlacement = labelPlacements;
     }
-    console.log(
-      `Failed attempt ${attempt + 1} of ${numAttempts} with ${numIntersections} intersections`
-    );
+  }
+
+  // console.log(
+  //   `Chose placement with ${bestLabelPlacement.numberOfIntersections} intersections and average offset of ${bestLabelPlacement.averageOffset} and min separation of ${bestLabelPlacement.minimumLabelSeparation}`
+  // );
+  for (const labelPlacement of bestLabelPlacement.result) {
+    canvas
+      .rect(labelPlacement.width, labelPlacement.height)
+      .at(labelPlacement.point)
+      .opacity(0.2)
+      .fill(labelPlacement.intersects ? "red" : "green")
+      .addClass("labelRect");
+    shapes.push(labelPlacement.shape);
+    canvas.text(labelPlacement.label.name).at(labelPlacement.point).addClass("label");
   }
 
   // get your svg as string
@@ -265,11 +263,17 @@ function calculateLabelPositions(rng, labels, markerRadius, labelFontSizePx, exi
       additionalOffset += 4
     ) {
       const offset = markerOffset + additionalOffset;
-      const labelOffsetOptions = generateLabelOffsetOptions(offset, labelWidth, labelHeight);
+      const labelOffsetOptions = generateLabelOffsetOptions(
+        label.point,
+        offset,
+        labelWidth,
+        labelHeight,
+        SIDE_PX,
+        SIDE_PX
+      );
       shuffleArray(labelOffsetOptions, rng);
       for (let i = 0; !hasPlaced && i < labelOffsetOptions.length; i++) {
-        const labelOffset = labelOffsetOptions[i];
-        const offsetPoint = label.point.transform(labelOffset);
+        const offsetPoint = labelOffsetOptions[i];
         const buffer = 2;
         const shapeInfo = ShapeInfo.rectangle(
           offsetPoint.x - buffer,
@@ -277,6 +281,7 @@ function calculateLabelPositions(rng, labels, markerRadius, labelFontSizePx, exi
           labelWidth + 2 * buffer,
           labelHeight + 2 * buffer
         );
+
         const intersects = hasIntersections(shapes, shapeInfo);
         if (
           !intersects ||
@@ -288,6 +293,7 @@ function calculateLabelPositions(rng, labels, markerRadius, labelFontSizePx, exi
             width: labelWidth,
             height: labelHeight,
             point: offsetPoint,
+            offset: offset,
             shape: shapeInfo,
             intersects,
           });
@@ -296,10 +302,60 @@ function calculateLabelPositions(rng, labels, markerRadius, labelFontSizePx, exi
       }
     }
   }
-  return result;
+  return {
+    result,
+    numberOfIntersections: numberOfIntersections(result),
+    averageOffset: Math.sqrt(calculateOffsetSum(result) / result.length),
+    minimumLabelSeparation: calculateLabelSeparation(result),
+  };
 }
 
-function generateLabelOffsetOptions(offset, labelWidth, labelHeight) {
+/** Returns positive if a is better than b */
+function compareLabelPlacement(a, b) {
+  if (a.numberOfIntersections > b.numberOfIntersections) {
+    return -1;
+  } else if (a.numberOfIntersections < b.numberOfIntersections) {
+    return 1;
+  }
+  return scoreLabelPlacement(a) - scoreLabelPlacement(b);
+}
+
+function numberOfIntersections(labelPlacements) {
+  return labelPlacements.filter((label) => label.intersects).length;
+}
+
+// Higher is better
+function scoreLabelPlacement(labelPlacements) {
+  return -1000 * labelPlacements.averageOffset + labelPlacements.minimumLabelSeparation;
+}
+
+function calculateOffsetSum(labelPlacements) {
+  return labelPlacements.map((label) => label.offset * label.offset).reduce((a, b) => a + b, 0);
+}
+
+function calculateLabelSeparation(labelPlacements) {
+  var buffer = 0;
+  for (; buffer < 100; buffer++) {
+    const shapes = [];
+    for (const labelPlacement of labelPlacements) {
+      const testShape = ShapeInfo.rectangle(
+        labelPlacement.point.x - buffer,
+        labelPlacement.point.y - buffer,
+        labelPlacement.width + 2 * buffer,
+        labelPlacement.height + 2 * buffer
+      );
+
+      if (hasIntersections(shapes, testShape)) {
+        return buffer;
+      } else {
+        shapes.push(testShape);
+      }
+    }
+  }
+  return buffer;
+}
+
+function generateLabelOffsetOptions(point, offset, labelWidth, labelHeight, maxWidth, maxHeight) {
   return [
     // bottom right
     new SVG.Matrix().translate(offset, offset),
@@ -310,14 +366,23 @@ function generateLabelOffsetOptions(offset, labelWidth, labelHeight) {
     // bottom left
     new SVG.Matrix().translate(-offset - labelWidth, offset),
     // bottom
-    new SVG.Matrix().translate(-labelWidth / 2, offset * 1.4),
+    new SVG.Matrix().translate(-labelWidth / 2, offset * Math.SQRT2),
     // top
-    new SVG.Matrix().translate(-labelWidth / 2, -offset * 1.4 - labelHeight),
+    new SVG.Matrix().translate(-labelWidth / 2, -offset * Math.SQRT2 - labelHeight),
     // left
-    new SVG.Matrix().translate(-offset * 1.4 - labelWidth, -labelHeight / 2),
+    new SVG.Matrix().translate(-offset * Math.SQRT2 - labelWidth, -labelHeight / 2),
     // right
-    new SVG.Matrix().translate(offset * 1.4, -labelHeight / 2),
-  ];
+    new SVG.Matrix().translate(offset * Math.SQRT2, -labelHeight / 2),
+  ]
+    .map((matrix) => point.transform(matrix))
+    .filter((point) => {
+      return (
+        point.x + labelWidth <= maxWidth &&
+        point.y + labelHeight <= maxHeight &&
+        point.x >= 0 &&
+        point.y >= 0
+      );
+    });
 }
 
 function hasIntersections(shapes, testShape) {
