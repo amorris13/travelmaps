@@ -11,6 +11,32 @@ import seedrandom from "seedrandom";
 
 const SIDE_PX = 1200;
 const Y_EXPAND_FACTOR = 1.05;
+const REGIONS = {
+  UK: {
+    north: 59,
+    east: 1.9,
+    south: 49,
+    west: -11,
+  },
+  Europe: {
+    north: 63,
+    east: 39,
+    south: 28,
+    west: -15,
+  },
+  Australia: {
+    north: -10,
+    east: 155,
+    south: -44,
+    west: 112,
+  },
+  World: {
+    north: 75,
+    east: 180,
+    south: -60,
+    west: -180,
+  },
+};
 
 SVG.extend(SVG.Element, {
   at: function (point) {
@@ -34,12 +60,40 @@ async function main() {
     processTrip(tripJson, fetchStaticMap);
   } else {
     // Process each trip
-    for (const trip of json) {
-      processTrip(trip, fetchStaticMap);
+    // for (const trip of json) {
+    //   processTrip(trip, fetchStaticMap);
+    // }
+
+    if (fetchStaticMap) {
+      for (const [region, bounds] of Object.entries(REGIONS)) {
+        const boundingBox = latlngToMercatorBbox(bounds);
+        const staticMap = await fetchStaticMapMapbox(boundingBox);
+        const staticMapBuffer = Buffer.from(await staticMap.arrayBuffer());
+        const regionMapFileName = "output/" + toSnakeCase(region) + ".png";
+        await writeFileAndLog(regionMapFileName, staticMapBuffer);
+      }
     }
 
-    // Process each year
     // Group trips by year
+    const tripsByYear = Map.groupBy(json, (trip) => new Date(trip.startDate).getFullYear());
+    for (const [year, tripsForYear] of tripsByYear) {
+      //  - Group trips by region
+      const tripsByRegion = Map.groupBy(tripsForYear, (trip) => {
+        const tripBounds = computerTripBounds(trip);
+        return Object.keys(REGIONS).find((region) => {
+          const regionBounds = REGIONS[region];
+          return (
+            tripBounds.north <= regionBounds.north &&
+            tripBounds.east <= regionBounds.east &&
+            tripBounds.south >= regionBounds.south &&
+            tripBounds.west >= regionBounds.west
+          );
+        });
+      });
+      for (const [region, tripsForRegion] of tripsByRegion) {
+        processRegion(`${year}-${region}`, region, REGIONS[region], tripsForRegion);
+      }
+    }
   }
 }
 
@@ -73,17 +127,11 @@ async function writeFileAndLog(filename, data) {
 }
 
 function generateTripSvg(trip) {
-  console.log(`Generating SVG for ${trip.name}`);
+  console.log(`Generating Trip SVG for ${trip.name}`);
   const tripBounds = computerTripBounds(trip);
 
   // Convert trip bounds to mercator projection
-  const tlMercator = toMercator(tripBounds.minLng, tripBounds.maxLat);
-  const brMercator = toMercator(tripBounds.maxLng, tripBounds.minLat);
-
-  const boundingBox = new SVG.PointArray([
-    [tlMercator.x, tlMercator.y],
-    [brMercator.x, brMercator.y],
-  ]).bbox();
+  const boundingBox = latlngToMercatorBbox(tripBounds);
   const maxSize = Math.max(boundingBox.width, boundingBox.height);
   const expandedBoundingBox = boundingBox.transform(
     new SVG.Matrix().scale(
@@ -217,16 +265,163 @@ function generateTripSvg(trip) {
   return { svgCanvas: canvas, boundingBox: expandedBoundingBox };
 }
 
+async function processRegion(name, regionName, regionBounds, trips) {
+  await fs.mkdir("output", { recursive: true });
+
+  const regionSvg = generateRegionSvg(name, regionBounds, trips);
+  await writeFileAndLog("output/" + toSnakeCase(name) + ".svg", regionSvg.svg());
+
+  const box = regionSvg.viewbox();
+  regionSvg
+    .image(toSnakeCase(regionName) + ".png")
+    .size(box.width, box.height * Y_EXPAND_FACTOR)
+    .opacity(0.5)
+    .back();
+  await writeFileAndLog("output/" + toSnakeCase(name) + "-withmap.svg", regionSvg.svg());
+}
+
+function generateRegionSvg(name, regionBounds, trips) {
+  console.log(`Generating Overview SVG for ${name}`);
+
+  // Convert trip bounds to mercator projection
+  const boundingBox = latlngToMercatorBbox(regionBounds);
+  const scale = SIDE_PX / Math.max(boundingBox.width, boundingBox.height);
+  const widthPx = boundingBox.width * scale;
+  const heightPx = boundingBox.height * scale;
+
+  const transform = new SVG.Matrix()
+    .translate(-boundingBox.cx, -boundingBox.cy)
+    .lmultiply(new SVG.Matrix().scale(scale))
+    .lmultiply(new SVG.Matrix().translate(widthPx / 2, heightPx / 2));
+
+  // returns a window with a document and an svg root node
+  const window = createSVGWindow();
+  const document = window.document;
+
+  // register window and document
+  SVG.registerWindow(window, document);
+
+  // create canvas
+  const canvas = SVG.SVG(document.documentElement);
+  canvas.viewbox(0, 0, widthPx, heightPx);
+
+  const color = "#C61016";
+  canvas.style(".line", {
+    fill: "none",
+    "stroke-width": 4,
+    stroke: color,
+    "stroke-opacity": 0.8,
+    "stroke-linejoin": "round",
+    "stroke-linecap": "round",
+  });
+  const markerRadius = 8;
+  canvas.style(".waypoint", {
+    r: markerRadius,
+    fill: color,
+  });
+  const labelFontSizePx = 24;
+  canvas.style(".label", {
+    fontFamily: "Helvetica",
+    fontSize: labelFontSizePx + "px",
+    fill: color,
+  });
+  canvas.style(".labelRect", {
+    display: "none",
+  });
+
+  const shapes = [];
+
+  // Add lines/markers for each trip
+  for (const trip of trips) {
+    if (trip.waypoints.length == 1) {
+      const waypoint = trip.waypoints[0];
+      const point = toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform);
+      canvas.circle().radius(markerRadius).centerAt(point).addClass("waypoint");
+      shapes.push(ShapeInfo.circle(point, markerRadius));
+    } else {
+      const pathArray = new SVG.PathArray();
+      for (const waypoint of trip.waypoints) {
+        if (!waypoint.polyline) {
+          continue;
+        }
+        const decodedPolyline = polyline.decode(waypoint.polyline);
+        const transformedPolyline = decodedPolyline.map((latlng) =>
+          toMercator(latlng[1], latlng[0]).transform(transform).toArray()
+        );
+
+        if (transformedPolyline.length == 2) {
+          const r =
+            distanceBetweenPoints(
+              new SVG.Point(transformedPolyline[0]),
+              new SVG.Point(transformedPolyline[1])
+            ) * 1.3;
+          const arcPathArray = [
+            ["M", transformedPolyline[0][0], transformedPolyline[0][1]],
+            ["A", r, r, 0, 0, 1, transformedPolyline[1][0], transformedPolyline[1][1]],
+          ];
+          pathArray.push(...arcPathArray);
+        } else {
+          const polylinePathArray = transformedPolyline.map((point) => ["L", point[0], point[1]]);
+          polylinePathArray[0][0] = "M";
+          pathArray.push(...polylinePathArray);
+        }
+      }
+      canvas.path(pathArray).addClass("line");
+      shapes.push(ShapeInfo.path(pathArray.toString()));
+    }
+  }
+
+  // // Add label for each trip
+
+  // const rng = seedrandom("travelmaps");
+  // const labelPoints = trip.waypoints
+  //   .filter((waypoint) => !waypoint.hideLabel)
+  //   .map((waypoint) => ({
+  //     name: waypoint.displayName || waypoint.name,
+  //     point: toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform),
+  //   }));
+  // const numAttempts = 50;
+  // var bestLabelPlacement;
+  // for (let attempt = 0; attempt < numAttempts; attempt++) {
+  //   const labelPlacements = calculateLabelPositions(
+  //     rng,
+  //     labelPoints,
+  //     markerRadius,
+  //     labelFontSizePx,
+  //     shapes
+  //   );
+  //   if (!bestLabelPlacement || compareLabelPlacement(labelPlacements, bestLabelPlacement) > 0) {
+  //     bestLabelPlacement = labelPlacements;
+  //   }
+  // }
+
+  // // console.log(
+  // //   `Chose placement with ${bestLabelPlacement.numberOfIntersections} intersections and average offset of ${bestLabelPlacement.averageOffset} and min separation of ${bestLabelPlacement.minimumLabelSeparation}`
+  // // );
+  // for (const labelPlacement of bestLabelPlacement.result) {
+  //   canvas
+  //     .rect(labelPlacement.width, labelPlacement.height)
+  //     .at(labelPlacement.point)
+  //     .opacity(0.2)
+  //     .fill(labelPlacement.intersects ? "red" : "green")
+  //     .addClass("labelRect");
+  //   shapes.push(labelPlacement.shape);
+  //   canvas.text(labelPlacement.label.name).at(labelPlacement.point).addClass("label");
+  // }
+
+  return canvas;
+}
+
 // Compute trip bounds
 function computerTripBounds(trip) {
   const lngs = trip.waypoints.map((waypoint) => waypoint.location.lng);
   const lats = trip.waypoints.map((waypoint) => waypoint.location.lat);
 
   return {
-    minLng: Math.min(...lngs),
-    maxLng: Math.max(...lngs),
-    minLat: Math.min(...lats),
-    maxLat: Math.max(...lats),
+    west: Math.min(...lngs),
+    east: Math.max(...lngs),
+    south: Math.min(...lats),
+    north: Math.max(...lats),
   };
 }
 
@@ -236,6 +431,16 @@ function toMercator(lng, lat) {
   const y = Math.log(Math.tan(((90 + lat) * Math.PI) / 360)) / (Math.PI / 180);
   const y2 = -y / 180;
   return new SVG.Point(x, y2);
+}
+
+function latlngToMercatorBbox(bounds) {
+  const tlMercator = toMercator(bounds.west, bounds.north);
+  const brMercator = toMercator(bounds.east, bounds.south);
+
+  return new SVG.PointArray([
+    [tlMercator.x, tlMercator.y],
+    [brMercator.x, brMercator.y],
+  ]).bbox();
 }
 
 // Convert from mercator to lat and lng
@@ -420,8 +625,10 @@ function shuffleArray(array, rng) {
 }
 
 async function fetchStaticMapMapbox(boundingBox) {
+  const scale = SIDE_PX / Math.max(boundingBox.width, boundingBox.height);
+  const widthPx = Math.ceil(boundingBox.width * scale);
+  const heightPx = Math.ceil(boundingBox.height * scale * Y_EXPAND_FACTOR);
   const expandBottom = new SVG.Matrix().scale(1, Y_EXPAND_FACTOR, boundingBox.x, boundingBox.y);
-  const ySide = SIDE_PX * Y_EXPAND_FACTOR;
 
   const staticMapBoundingBox = boundingBox.transform(expandBottom);
 
@@ -436,7 +643,7 @@ async function fetchStaticMapMapbox(boundingBox) {
 
   const style = "amorris13/clybhht7e00m601r4dwk57m95";
   // "mapbox/light-v11"
-  const url = `https://api.mapbox.com/styles/v1/${style}/static/[${tlLatLng.lng},${brLatLng.lat},${brLatLng.lng},${tlLatLng.lat}]/${SIDE_PX}x${ySide}@2x?access_token=${process.env.MAPBOX_ACCESS_TOKEN}`;
+  const url = `https://api.mapbox.com/styles/v1/${style}/static/[${tlLatLng.lng},${brLatLng.lat},${brLatLng.lng},${tlLatLng.lat}]/${widthPx}x${heightPx}@2x?access_token=${process.env.MAPBOX_ACCESS_TOKEN}`;
 
   console.log(url);
   const response = await fetch(url);
