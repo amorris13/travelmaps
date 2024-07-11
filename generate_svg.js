@@ -33,9 +33,13 @@ async function main() {
     const tripJson = json.find((trip) => trip.name === tripname);
     processTrip(tripJson, fetchStaticMap);
   } else {
+    // Process each trip
     for (const trip of json) {
       processTrip(trip, fetchStaticMap);
     }
+
+    // Process each year
+    // Group trips by year
   }
 }
 
@@ -210,7 +214,6 @@ function generateTripSvg(trip) {
     canvas.text(labelPlacement.label.name).at(labelPlacement.point).addClass("label");
   }
 
-  // get your svg as string
   return { svgCanvas: canvas, boundingBox: expandedBoundingBox };
 }
 
