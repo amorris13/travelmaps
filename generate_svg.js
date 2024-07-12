@@ -177,14 +177,14 @@ function generateTripSvg(trip) {
   const color = "#C61016";
   canvas.style(".line", {
     fill: "none",
-    "stroke-width": 4,
+    "stroke-width": 3,
     stroke: color,
     "stroke-opacity": 0.8,
     "stroke-linejoin": "round",
-    "stroke-dasharray": "12 8",
+    "stroke-dasharray": "6 6",
     "stroke-linecap": "round",
   });
-  const markerRadius = 8;
+  const markerRadius = 6;
   canvas.style(".waypoint", {
     r: markerRadius,
     fill: color,
@@ -226,12 +226,7 @@ function generateTripSvg(trip) {
       name: waypoint.displayName || waypoint.name,
       point: toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform),
     }));
-  const bestLabelPlacement = calculateBestLabelPositions(
-    labelPoints,
-    markerRadius + 20,
-    labelFontSizePx,
-    shapes
-  );
+  const bestLabelPlacement = calculateBestLabelPositions(labelPoints, 32, labelFontSizePx, shapes);
 
   for (const labelPlacement of bestLabelPlacement.result) {
     if (labelPlacement.intersects) {
@@ -297,7 +292,7 @@ function generateRegionSvg(name, regionName, regionBounds, trips) {
     stroke: color,
     "stroke-opacity": 0.8,
     "stroke-linejoin": "round",
-    "stroke-dasharray": "12 8",
+    "stroke-dasharray": "6 6",
     "stroke-linecap": "round",
   });
   const markerRadius = 6;
@@ -485,7 +480,7 @@ function calculateLabelPositions(rng, labels, maxOffset, labelFontSizePx, existi
       shuffleArray(labelOffsetOptions, rng);
       for (let i = 0; !hasPlaced && i < labelOffsetOptions.length; i++) {
         const offsetPoint = labelOffsetOptions[i];
-        const buffer = 2;
+        const buffer = 3;
         const shapeInfo = ShapeInfo.rectangle(
           offsetPoint.x - buffer,
           offsetPoint.y - buffer,
@@ -494,7 +489,7 @@ function calculateLabelPositions(rng, labels, maxOffset, labelFontSizePx, existi
         );
 
         const intersects = hasIntersections(shapes, shapeInfo);
-        if (!intersects || (i == labelOffsetOptions.length - 1 && offset == maxOffset)) {
+        if (!intersects || (i == labelOffsetOptions.length - 1 && offset > maxOffset - 4)) {
           shapes.push(shapeInfo);
           result.push({
             label,
