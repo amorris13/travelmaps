@@ -44,6 +44,8 @@ async function main() {
   }
   await Promise.all(directions);
 
+  json.sort((a, b) => Date.parse(a.startDate) - Date.parse(b.startDate));
+
   await fs.writeFile(filename, JSON.stringify(json, null, 2));
 }
 
@@ -52,7 +54,7 @@ async function updateCoordinatesMapbox(waypoint) {
     return;
   }
   const url = new URL("https://api.mapbox.com/search/geocode/v6/forward");
-  url.searchParams.append("q", encodeURIComponent(waypoint.name));
+  url.searchParams.append("q", waypoint.name);
   url.searchParams.append("access_token", process.env.MAPBOX_ACCESS_TOKEN);
   const response = await fetch(url);
   const jsonResponse = await response.json();
@@ -65,7 +67,7 @@ async function updateCoordinatesGoogle(waypoint) {
     return;
   }
   const url = new URL("https://maps.googleapis.com/maps/api/geocode/json");
-  url.searchParams.append("address", encodeURIComponent(waypoint.name));
+  url.searchParams.append("address", waypoint.name);
   url.searchParams.append("key", process.env.GOOGLE_MAPS_API_KEY);
   const response = await fetch(url);
   const jsonResponse = await response.json();
@@ -99,12 +101,10 @@ async function updatePolylineGoogle(prevWaypoint, waypoint) {
   }
 
   const url = new URL("https://maps.googleapis.com/maps/api/directions/json");
-  console.log(url.toString());
   url.searchParams.append("mode", waypoint.mode);
   url.searchParams.append("origin", `${prevWaypoint.location.lat},${prevWaypoint.location.lng}`);
   url.searchParams.append("destination", `${waypoint.location.lat},${waypoint.location.lng}`);
   url.searchParams.append("key", process.env.GOOGLE_MAPS_API_KEY);
-  console.log(url.toString());
   const response = await fetch(url);
   const jsonResponse = await response.json();
   if (jsonResponse.status === "OK") {

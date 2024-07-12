@@ -49,7 +49,7 @@ SVG.extend(SVG.Element, {
 });
 
 async function main() {
-  const argv = parseArgs(process.argv.slice(2), { boolean: ["staticmap"] });
+  const argv = parseArgs(process.argv.slice(2));
   const filename = argv.filename;
   const tripname = argv.tripname;
   const fetchStaticMap = argv.staticmap;
@@ -67,11 +67,14 @@ async function main() {
 
     if (fetchStaticMap) {
       for (const [region, bounds] of Object.entries(REGIONS)) {
-        const boundingBox = latlngToMercatorBbox(bounds);
-        const staticMap = await fetchStaticMapMapbox(boundingBox);
-        const staticMapBuffer = Buffer.from(await staticMap.arrayBuffer());
         const regionMapFileName = "output/" + toSnakeCase(region) + ".png";
-        await writeFileAndLog(regionMapFileName, staticMapBuffer);
+        const mapExists = await fileExists(regionMapFileName);
+        if (!mapExists || fetchStaticMap == "force") {
+          const boundingBox = latlngToMercatorBbox(bounds);
+          const staticMap = await fetchStaticMapMapbox(boundingBox);
+          const staticMapBuffer = Buffer.from(await staticMap.arrayBuffer());
+          await writeFileAndLog(regionMapFileName, staticMapBuffer);
+        }
       }
     }
 
@@ -99,13 +102,18 @@ async function main() {
 }
 
 async function processTrip(tripJson, fetchStaticMap) {
+  if (tripJson.waypoints.length == 1) {
+    return;
+  }
+
   await fs.mkdir("output", { recursive: true });
 
   const tripSvg = generateTripSvg(tripJson);
   await writeFileAndLog("output/" + toSnakeCase(tripJson.name) + ".svg", tripSvg.svgCanvas.svg());
 
   const mapFileName = "output/" + toSnakeCase(tripJson.name) + ".png";
-  if (fetchStaticMap) {
+  const mapExists = await fileExists(mapFileName);
+  if (fetchStaticMap && (!mapExists || fetchStaticMap == "force")) {
     const staticMap = await fetchStaticMapMapbox(tripSvg.boundingBox);
     const staticMapBuffer = Buffer.from(await staticMap.arrayBuffer());
     await writeFileAndLog(mapFileName, staticMapBuffer);
@@ -121,6 +129,8 @@ async function processTrip(tripJson, fetchStaticMap) {
     tripSvg.svgCanvas.svg()
   );
 }
+
+const fileExists = async (path) => !!(await fs.stat(path).catch((e) => false));
 
 async function writeFileAndLog(filename, data) {
   await fs.writeFile(filename, data);
@@ -192,7 +202,7 @@ function generateTripSvg(trip) {
 
   // Add lines for each leg
   for (const waypoint of trip.waypoints) {
-    if (!waypoint.polyline) {
+    if (!waypoint.polyline || waypoint.hidePolyline) {
       continue;
     }
     const pathArray = pathFromPolyline(waypoint.polyline, transform);
@@ -239,7 +249,7 @@ function generateTripSvg(trip) {
 async function processRegion(name, regionName, regionBounds, trips) {
   await fs.mkdir("output", { recursive: true });
 
-  const regionSvg = generateRegionSvg(name, regionBounds, trips);
+  const regionSvg = generateRegionSvg(name, regionName, regionBounds, trips);
   await writeFileAndLog("output/" + toSnakeCase(name) + ".svg", regionSvg.svg());
 
   const box = regionSvg.viewbox();
@@ -251,7 +261,7 @@ async function processRegion(name, regionName, regionBounds, trips) {
   await writeFileAndLog("output/" + toSnakeCase(name) + "-withmap.svg", regionSvg.svg());
 }
 
-function generateRegionSvg(name, regionBounds, trips) {
+function generateRegionSvg(name, regionName, regionBounds, trips) {
   console.log(`Generating Overview SVG for ${name}`);
 
   // Convert trip bounds to mercator projection
@@ -283,9 +293,10 @@ function generateRegionSvg(name, regionBounds, trips) {
     stroke: color,
     "stroke-opacity": 0.8,
     "stroke-linejoin": "round",
+    "stroke-dasharray": "12 8",
     "stroke-linecap": "round",
   });
-  const markerRadius = 8;
+  const markerRadius = 6;
   canvas.style(".waypoint", {
     r: markerRadius,
     fill: color,
@@ -302,6 +313,14 @@ function generateRegionSvg(name, regionBounds, trips) {
 
   const shapes = [];
 
+  for (const [region, bounds] of Object.entries(REGIONS)) {
+    if (region === regionName) {
+      break;
+    }
+    const bbox = latlngToMercatorBbox(bounds).transform(transform);
+    shapes.push(ShapeInfo.rectangle(bbox.x, bbox.y, bbox.width, bbox.height));
+  }
+
   // Add lines/markers for each trip
   for (const trip of trips) {
     if (trip.waypoints.length == 1) {
@@ -310,12 +329,17 @@ function generateRegionSvg(name, regionBounds, trips) {
       canvas.circle().radius(markerRadius).centerAt(point).addClass("waypoint");
       shapes.push(ShapeInfo.circle(point, markerRadius));
     } else {
-      const pathArray = new SVG.PathArray();
+      const pathArray = [];
       for (const waypoint of trip.waypoints) {
-        if (!waypoint.polyline) {
+        if (!waypoint.polyline || waypoint.hidePolyline) {
           continue;
         }
-        pathArray.push(...pathFromPolyline(waypoint.polyline, transform));
+        const path = pathFromPolyline(waypoint.polyline, transform);
+        if (pathArray.length > 0) {
+          // Remove first element as it's just a move command
+          path.shift();
+        }
+        pathArray.push(...path);
       }
       canvas.path(pathArray).addClass("line");
       shapes.push(ShapeInfo.path(pathArray.toString()));
