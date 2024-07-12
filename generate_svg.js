@@ -222,9 +222,6 @@ function generateTripSvg(trip) {
     shapes
   );
 
-  // console.log(
-  //   `Chose placement with ${bestLabelPlacement.numberOfIntersections} intersections and average offset of ${bestLabelPlacement.averageOffset} and min separation of ${bestLabelPlacement.minimumLabelSeparation}`
-  // );
   for (const labelPlacement of bestLabelPlacement.result) {
     canvas
       .rect(labelPlacement.width, labelPlacement.height)
@@ -325,7 +322,7 @@ function generateRegionSvg(name, regionBounds, trips) {
     }
   }
 
-  // // Add label for each trip
+  // Add label for each trip
 
   const labelPoints = trips.map((trip) => {
     const tripBounds = computerTripBounds(trip);
@@ -343,9 +340,6 @@ function generateRegionSvg(name, regionBounds, trips) {
     shapes
   );
 
-  // console.log(
-  //   `Chose placement with ${bestLabelPlacement.numberOfIntersections} intersections and average offset of ${bestLabelPlacement.averageOffset} and min separation of ${bestLabelPlacement.minimumLabelSeparation}`
-  // );
   for (const labelPlacement of bestLabelPlacement.result) {
     canvas
       .rect(labelPlacement.width, labelPlacement.height)
@@ -434,6 +428,9 @@ function calculateBestLabelPositions(labelPoints, markerRadius, labelFontSizePx,
       bestLabelPlacement = labelPlacements;
     }
   }
+  // console.log(
+  //   `Chose placement with ${bestLabelPlacement.numberOfIntersections} intersections and average offset of ${bestLabelPlacement.averageOffset} and min separation of ${bestLabelPlacement.minimumLabelSeparation}`
+  // );
   return bestLabelPlacement;
 }
 
@@ -449,7 +446,7 @@ function calculateLabelPositions(rng, labels, markerRadius, labelFontSizePx, exi
     });
     const labelHeight = (labelFontSizePx * 3) / 4;
 
-    const markerOffset = Math.ceil(markerRadius / Math.SQRT2);
+    const markerOffset = markerRadius;
     let hasPlaced = false;
     const maxAdditionalOffset = 16;
     for (
@@ -551,23 +548,24 @@ function calculateLabelSeparation(labelPlacements) {
 }
 
 function generateLabelOffsetOptions(point, offset, labelWidth, labelHeight, maxWidth, maxHeight) {
+  const diagonalOffset = offset / Math.SQRT2;
   return [
     // bottom right
-    new SVG.Matrix().translate(offset, offset),
+    new SVG.Matrix().translate(diagonalOffset, diagonalOffset),
     // top right
-    new SVG.Matrix().translate(offset, -offset - labelHeight),
+    new SVG.Matrix().translate(diagonalOffset, -diagonalOffset - labelHeight),
     // top left
-    new SVG.Matrix().translate(-offset - labelWidth, -offset - labelHeight),
+    new SVG.Matrix().translate(-diagonalOffset - labelWidth, -diagonalOffset - labelHeight),
     // bottom left
-    new SVG.Matrix().translate(-offset - labelWidth, offset),
+    new SVG.Matrix().translate(-diagonalOffset - labelWidth, diagonalOffset),
     // bottom
-    new SVG.Matrix().translate(-labelWidth / 2, offset * Math.SQRT2),
+    new SVG.Matrix().translate(-labelWidth / 2, offset),
     // top
-    new SVG.Matrix().translate(-labelWidth / 2, -offset * Math.SQRT2 - labelHeight),
+    new SVG.Matrix().translate(-labelWidth / 2, -offset - labelHeight),
     // left
-    new SVG.Matrix().translate(-offset * Math.SQRT2 - labelWidth, -labelHeight / 2),
+    new SVG.Matrix().translate(-offset - labelWidth, -labelHeight / 2),
     // right
-    new SVG.Matrix().translate(offset * Math.SQRT2, -labelHeight / 2),
+    new SVG.Matrix().translate(offset, -labelHeight / 2),
   ]
     .map((matrix) => point.transform(matrix))
     .filter((point) => {
