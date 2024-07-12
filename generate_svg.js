@@ -60,9 +60,9 @@ async function main() {
     processTrip(tripJson, fetchStaticMap);
   } else {
     // Process each trip
-    // for (const trip of json) {
-    //   processTrip(trip, fetchStaticMap);
-    // }
+    for (const trip of json) {
+      processTrip(trip, fetchStaticMap);
+    }
 
     if (fetchStaticMap) {
       for (const [region, bounds] of Object.entries(REGIONS)) {
@@ -194,27 +194,9 @@ function generateTripSvg(trip) {
     if (!waypoint.polyline) {
       continue;
     }
-    const decodedPolyline = polyline.decode(waypoint.polyline);
-    const transformedPolyline = decodedPolyline.map((latlng) =>
-      toMercator(latlng[1], latlng[0]).transform(transform).toArray()
-    );
-
-    if (transformedPolyline.length == 2) {
-      const r =
-        distanceBetweenPoints(
-          new SVG.Point(transformedPolyline[0]),
-          new SVG.Point(transformedPolyline[1])
-        ) * 1.3;
-      const pathArray = new SVG.PathArray([
-        ["M", transformedPolyline[0][0], transformedPolyline[0][1]],
-        ["A", r, r, 0, 0, 1, transformedPolyline[1][0], transformedPolyline[1][1]],
-      ]);
-      canvas.path(pathArray).addClass("line").addClass(waypoint.mode);
-      shapes.push(ShapeInfo.path(pathArray.toString()));
-    } else {
-      canvas.polyline(transformedPolyline).addClass("line").addClass(waypoint.mode);
-      shapes.push(ShapeInfo.polyline(transformedPolyline));
-    }
+    const pathArray = pathFromPolyline(waypoint.polyline, transform);
+    canvas.path(pathArray).addClass("line").addClass(waypoint.mode);
+    shapes.push(ShapeInfo.path(pathArray.toString()));
   }
 
   // Add marker for each waypoint
@@ -226,27 +208,18 @@ function generateTripSvg(trip) {
 
   // Add label for each waypoint
 
-  const rng = seedrandom("travelmaps");
   const labelPoints = trip.waypoints
     .filter((waypoint) => !waypoint.hideLabel)
     .map((waypoint) => ({
       name: waypoint.displayName || waypoint.name,
       point: toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform),
     }));
-  const numAttempts = 50;
-  var bestLabelPlacement;
-  for (let attempt = 0; attempt < numAttempts; attempt++) {
-    const labelPlacements = calculateLabelPositions(
-      rng,
-      labelPoints,
-      markerRadius,
-      labelFontSizePx,
-      shapes
-    );
-    if (!bestLabelPlacement || compareLabelPlacement(labelPlacements, bestLabelPlacement) > 0) {
-      bestLabelPlacement = labelPlacements;
-    }
-  }
+  const bestLabelPlacement = calculateBestLabelPositions(
+    labelPoints,
+    markerRadius,
+    labelFontSizePx,
+    shapes
+  );
 
   // console.log(
   //   `Chose placement with ${bestLabelPlacement.numberOfIntersections} intersections and average offset of ${bestLabelPlacement.averageOffset} and min separation of ${bestLabelPlacement.minimumLabelSeparation}`
@@ -344,27 +317,7 @@ function generateRegionSvg(name, regionBounds, trips) {
         if (!waypoint.polyline) {
           continue;
         }
-        const decodedPolyline = polyline.decode(waypoint.polyline);
-        const transformedPolyline = decodedPolyline.map((latlng) =>
-          toMercator(latlng[1], latlng[0]).transform(transform).toArray()
-        );
-
-        if (transformedPolyline.length == 2) {
-          const r =
-            distanceBetweenPoints(
-              new SVG.Point(transformedPolyline[0]),
-              new SVG.Point(transformedPolyline[1])
-            ) * 1.3;
-          const arcPathArray = [
-            ["M", transformedPolyline[0][0], transformedPolyline[0][1]],
-            ["A", r, r, 0, 0, 1, transformedPolyline[1][0], transformedPolyline[1][1]],
-          ];
-          pathArray.push(...arcPathArray);
-        } else {
-          const polylinePathArray = transformedPolyline.map((point) => ["L", point[0], point[1]]);
-          polylinePathArray[0][0] = "M";
-          pathArray.push(...polylinePathArray);
-        }
+        pathArray.push(...pathFromPolyline(waypoint.polyline, transform));
       }
       canvas.path(pathArray).addClass("line");
       shapes.push(ShapeInfo.path(pathArray.toString()));
@@ -373,41 +326,35 @@ function generateRegionSvg(name, regionBounds, trips) {
 
   // // Add label for each trip
 
-  // const rng = seedrandom("travelmaps");
-  // const labelPoints = trip.waypoints
-  //   .filter((waypoint) => !waypoint.hideLabel)
-  //   .map((waypoint) => ({
-  //     name: waypoint.displayName || waypoint.name,
-  //     point: toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform),
-  //   }));
-  // const numAttempts = 50;
-  // var bestLabelPlacement;
-  // for (let attempt = 0; attempt < numAttempts; attempt++) {
-  //   const labelPlacements = calculateLabelPositions(
-  //     rng,
-  //     labelPoints,
-  //     markerRadius,
-  //     labelFontSizePx,
-  //     shapes
-  //   );
-  //   if (!bestLabelPlacement || compareLabelPlacement(labelPlacements, bestLabelPlacement) > 0) {
-  //     bestLabelPlacement = labelPlacements;
-  //   }
-  // }
+  const labelPoints = trips.map((trip) => {
+    const tripBounds = computerTripBounds(trip);
+    const tripBoundingBox = latlngToMercatorBbox(tripBounds).transform(transform);
+    const tripCenter = new SVG.Point(tripBoundingBox.cx, tripBoundingBox.cy);
+    return {
+      name: trip.name,
+      point: tripCenter,
+    };
+  });
+  const bestLabelPlacement = calculateBestLabelPositions(
+    labelPoints,
+    markerRadius,
+    labelFontSizePx,
+    shapes
+  );
 
-  // // console.log(
-  // //   `Chose placement with ${bestLabelPlacement.numberOfIntersections} intersections and average offset of ${bestLabelPlacement.averageOffset} and min separation of ${bestLabelPlacement.minimumLabelSeparation}`
-  // // );
-  // for (const labelPlacement of bestLabelPlacement.result) {
-  //   canvas
-  //     .rect(labelPlacement.width, labelPlacement.height)
-  //     .at(labelPlacement.point)
-  //     .opacity(0.2)
-  //     .fill(labelPlacement.intersects ? "red" : "green")
-  //     .addClass("labelRect");
-  //   shapes.push(labelPlacement.shape);
-  //   canvas.text(labelPlacement.label.name).at(labelPlacement.point).addClass("label");
-  // }
+  // console.log(
+  //   `Chose placement with ${bestLabelPlacement.numberOfIntersections} intersections and average offset of ${bestLabelPlacement.averageOffset} and min separation of ${bestLabelPlacement.minimumLabelSeparation}`
+  // );
+  for (const labelPlacement of bestLabelPlacement.result) {
+    canvas
+      .rect(labelPlacement.width, labelPlacement.height)
+      .at(labelPlacement.point)
+      .opacity(0.2)
+      .fill(labelPlacement.intersects ? "red" : "green")
+      .addClass("labelRect");
+    shapes.push(labelPlacement.shape);
+    canvas.text(labelPlacement.label.name).at(labelPlacement.point).addClass("label");
+  }
 
   return canvas;
 }
@@ -448,6 +395,48 @@ function fromMercator(p) {
   const lng = 180 * p.x;
   const lat = (360 * Math.atan(Math.exp(-p.y * Math.PI))) / Math.PI - 90;
   return { lng, lat };
+}
+
+function pathFromPolyline(encodedPolyline, transform) {
+  const decodedPolyline = polyline.decode(encodedPolyline);
+  const transformedPolyline = decodedPolyline.map((latlng) =>
+    toMercator(latlng[1], latlng[0]).transform(transform).toArray()
+  );
+
+  if (transformedPolyline.length == 2) {
+    const r =
+      distanceBetweenPoints(
+        new SVG.Point(transformedPolyline[0]),
+        new SVG.Point(transformedPolyline[1])
+      ) * 1.3;
+    return new SVG.PathArray([
+      ["M", transformedPolyline[0][0], transformedPolyline[0][1]],
+      ["A", r, r, 0, 0, 1, transformedPolyline[1][0], transformedPolyline[1][1]],
+    ]);
+  } else {
+    const polylinePathArray = transformedPolyline.map((point) => ["L", point[0], point[1]]);
+    polylinePathArray[0][0] = "M";
+    return new SVG.PathArray(polylinePathArray);
+  }
+}
+
+function calculateBestLabelPositions(labelPoints, markerRadius, labelFontSizePx, shapesToAvoid) {
+  const rng = seedrandom("travelmaps");
+  const numAttempts = 50;
+  var bestLabelPlacement;
+  for (let attempt = 0; attempt < numAttempts; attempt++) {
+    const labelPlacements = calculateLabelPositions(
+      rng,
+      labelPoints,
+      markerRadius,
+      labelFontSizePx,
+      shapesToAvoid
+    );
+    if (!bestLabelPlacement || compareLabelPlacement(labelPlacements, bestLabelPlacement) > 0) {
+      bestLabelPlacement = labelPlacements;
+    }
+  }
+  return bestLabelPlacement;
 }
 
 function calculateLabelPositions(rng, labels, markerRadius, labelFontSizePx, existingShapes) {
