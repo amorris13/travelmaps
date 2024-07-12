@@ -9,14 +9,14 @@ import pixelWidth from "string-pixel-width";
 import { ShapeInfo, Intersection } from "kld-intersections";
 import seedrandom from "seedrandom";
 import simplify from "simplify-js";
+import sharp from "sharp";
 
 const SIDE_PX = 1200;
-const Y_EXPAND_FACTOR = 1.05;
 const REGIONS = {
   UK: {
     north: 59,
     east: 1.9,
-    south: 49,
+    south: 49.9,
     west: -11,
   },
   Europe: {
@@ -72,8 +72,7 @@ async function main() {
         if (!mapExists || fetchStaticMap == "force") {
           const boundingBox = latlngToMercatorBbox(bounds);
           const staticMap = await fetchStaticMapMapbox(boundingBox);
-          const staticMapBuffer = Buffer.from(await staticMap.arrayBuffer());
-          await writeFileAndLog(regionMapFileName, staticMapBuffer);
+          await writeFileAndLog(regionMapFileName, staticMap);
         }
       }
     }
@@ -115,13 +114,12 @@ async function processTrip(tripJson, fetchStaticMap) {
   const mapExists = await fileExists(mapFileName);
   if (fetchStaticMap && (!mapExists || fetchStaticMap == "force")) {
     const staticMap = await fetchStaticMapMapbox(tripSvg.boundingBox);
-    const staticMapBuffer = Buffer.from(await staticMap.arrayBuffer());
-    await writeFileAndLog(mapFileName, staticMapBuffer);
+    await writeFileAndLog(mapFileName, staticMap);
   }
 
   tripSvg.svgCanvas
     .image(toSnakeCase(tripJson.name) + ".png")
-    .size(SIDE_PX, SIDE_PX * Y_EXPAND_FACTOR)
+    .size(SIDE_PX, SIDE_PX)
     .opacity(0.5)
     .back();
   await writeFileAndLog(
@@ -144,13 +142,16 @@ function generateTripSvg(trip) {
   // Convert trip bounds to mercator projection
   const boundingBox = latlngToMercatorBbox(tripBounds);
   const maxSize = Math.max(boundingBox.width, boundingBox.height);
-  const expandedBoundingBox = boundingBox.transform(
+  const squareBoundingBox = boundingBox.transform(
     new SVG.Matrix().scale(
-      (1.1 * maxSize) / boundingBox.width,
-      (1.2 * maxSize) / boundingBox.height,
+      maxSize / boundingBox.width,
+      maxSize / boundingBox.height,
       boundingBox.cx,
       boundingBox.cy
     )
+  );
+  const expandedBoundingBox = squareBoundingBox.transform(
+    new SVG.Matrix().scale(1.2, squareBoundingBox.cx, squareBoundingBox.cy)
   );
 
   const transform = new SVG.Matrix()
@@ -258,7 +259,7 @@ async function processRegion(name, regionName, regionBounds, trips) {
   const box = regionSvg.viewbox();
   regionSvg
     .image(toSnakeCase(regionName) + ".png")
-    .size(box.width, box.height * Y_EXPAND_FACTOR)
+    .size(box.width, box.height)
     .opacity(0.5)
     .back();
   await writeFileAndLog("output/" + toSnakeCase(name) + "-withmap.svg", regionSvg.svg());
@@ -627,8 +628,14 @@ function shuffleArray(array, rng) {
 async function fetchStaticMapMapbox(boundingBox) {
   const scale = SIDE_PX / Math.max(boundingBox.width, boundingBox.height);
   const widthPx = Math.ceil(boundingBox.width * scale);
-  const heightPx = Math.ceil(boundingBox.height * scale * Y_EXPAND_FACTOR);
-  const expandBottom = new SVG.Matrix().scale(1, Y_EXPAND_FACTOR, boundingBox.x, boundingBox.y);
+  const heightPx = Math.ceil(boundingBox.height * scale);
+  const expandedHeightPx = heightPx + 20;
+  const expandBottom = new SVG.Matrix().scale(
+    1,
+    expandedHeightPx / heightPx,
+    boundingBox.x,
+    boundingBox.y
+  );
 
   const staticMapBoundingBox = boundingBox.transform(expandBottom);
 
@@ -643,13 +650,19 @@ async function fetchStaticMapMapbox(boundingBox) {
 
   const style = "amorris13/clybhht7e00m601r4dwk57m95";
   // "mapbox/light-v11"
-  const url = `https://api.mapbox.com/styles/v1/${style}/static/[${tlLatLng.lng},${brLatLng.lat},${brLatLng.lng},${tlLatLng.lat}]/${widthPx}x${heightPx}@2x?access_token=${process.env.MAPBOX_ACCESS_TOKEN}`;
+  const url = `https://api.mapbox.com/styles/v1/${style}/static/[${tlLatLng.lng},${brLatLng.lat},${brLatLng.lng},${tlLatLng.lat}]/${widthPx}x${expandedHeightPx}@2x?access_token=${process.env.MAPBOX_ACCESS_TOKEN}`;
 
   console.log(url);
   const response = await fetch(url);
-  const staticMapPng = await response.blob();
+  const staticMapBlob = await response.blob();
 
-  return staticMapPng;
+  const staticMapBuffer = Buffer.from(await staticMapBlob.arrayBuffer());
+
+  const staticMapCroppedBuffer = await sharp(staticMapBuffer)
+    .extract({ left: 0, top: 0, width: widthPx * 2, height: heightPx * 2 })
+    .toBuffer();
+
+  return staticMapCroppedBuffer;
 }
 
 main();
