@@ -227,12 +227,15 @@ function generateTripSvg(trip) {
     }));
   const bestLabelPlacement = calculateBestLabelPositions(
     labelPoints,
-    markerRadius,
+    markerRadius + 20,
     labelFontSizePx,
     shapes
   );
 
   for (const labelPlacement of bestLabelPlacement.result) {
+    if (labelPlacement.intersects) {
+      console.log(`Intersecting ${labelPlacement.label.name}`);
+    }
     canvas
       .rect(labelPlacement.width, labelPlacement.height)
       .at(labelPlacement.point)
@@ -357,14 +360,12 @@ function generateRegionSvg(name, regionName, regionBounds, trips) {
       point: tripCenter,
     };
   });
-  const bestLabelPlacement = calculateBestLabelPositions(
-    labelPoints,
-    markerRadius,
-    labelFontSizePx,
-    shapes
-  );
+  const bestLabelPlacement = calculateBestLabelPositions(labelPoints, 64, labelFontSizePx, shapes);
 
   for (const labelPlacement of bestLabelPlacement.result) {
+    if (labelPlacement.intersects) {
+      console.log(`Intersecting ${labelPlacement.label.name}`);
+    }
     canvas
       .rect(labelPlacement.width, labelPlacement.height)
       .at(labelPlacement.point)
@@ -436,7 +437,7 @@ function pathFromPolyline(encodedPolyline, transform) {
   }
 }
 
-function calculateBestLabelPositions(labelPoints, markerRadius, labelFontSizePx, shapesToAvoid) {
+function calculateBestLabelPositions(labelPoints, maxOffset, labelFontSizePx, shapesToAvoid) {
   const rng = seedrandom("travelmaps");
   const numAttempts = 50;
   var bestLabelPlacement;
@@ -444,7 +445,7 @@ function calculateBestLabelPositions(labelPoints, markerRadius, labelFontSizePx,
     const labelPlacements = calculateLabelPositions(
       rng,
       labelPoints,
-      markerRadius,
+      maxOffset,
       labelFontSizePx,
       shapesToAvoid
     );
@@ -458,7 +459,7 @@ function calculateBestLabelPositions(labelPoints, markerRadius, labelFontSizePx,
   return bestLabelPlacement;
 }
 
-function calculateLabelPositions(rng, labels, markerRadius, labelFontSizePx, existingShapes) {
+function calculateLabelPositions(rng, labels, maxOffset, labelFontSizePx, existingShapes) {
   const shapes = [...existingShapes];
   const shuffledLabels = [...labels];
   shuffleArray(shuffledLabels, rng);
@@ -470,15 +471,8 @@ function calculateLabelPositions(rng, labels, markerRadius, labelFontSizePx, exi
     });
     const labelHeight = (labelFontSizePx * 3) / 4;
 
-    const markerOffset = markerRadius;
     let hasPlaced = false;
-    const maxAdditionalOffset = 16;
-    for (
-      let additionalOffset = 4;
-      !hasPlaced && additionalOffset <= maxAdditionalOffset;
-      additionalOffset += 4
-    ) {
-      const offset = markerOffset + additionalOffset;
+    for (var offset = 4; !hasPlaced && offset <= maxOffset; offset += 4) {
       const labelOffsetOptions = generateLabelOffsetOptions(
         label.point,
         offset,
@@ -499,10 +493,7 @@ function calculateLabelPositions(rng, labels, markerRadius, labelFontSizePx, exi
         );
 
         const intersects = hasIntersections(shapes, shapeInfo);
-        if (
-          !intersects ||
-          (i == labelOffsetOptions.length - 1 && additionalOffset == maxAdditionalOffset)
-        ) {
+        if (!intersects || (i == labelOffsetOptions.length - 1 && offset == maxOffset)) {
           shapes.push(shapeInfo);
           result.push({
             label,
