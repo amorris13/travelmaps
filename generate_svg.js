@@ -8,6 +8,7 @@ import polyline from "@mapbox/polyline";
 import pixelWidth from "string-pixel-width";
 import { ShapeInfo, Intersection } from "kld-intersections";
 import seedrandom from "seedrandom";
+import simplify from "simplify-js";
 
 const SIDE_PX = 1200;
 const Y_EXPAND_FACTOR = 1.05;
@@ -400,21 +401,18 @@ function fromMercator(p) {
 function pathFromPolyline(encodedPolyline, transform) {
   const decodedPolyline = polyline.decode(encodedPolyline);
   const transformedPolyline = decodedPolyline.map((latlng) =>
-    toMercator(latlng[1], latlng[0]).transform(transform).toArray()
+    toMercator(latlng[1], latlng[0]).transform(transform)
   );
 
   if (transformedPolyline.length == 2) {
-    const r =
-      distanceBetweenPoints(
-        new SVG.Point(transformedPolyline[0]),
-        new SVG.Point(transformedPolyline[1])
-      ) * 1.3;
+    const r = distanceBetweenPoints(transformedPolyline[0], transformedPolyline[1]) * 1.3;
     return new SVG.PathArray([
-      ["M", transformedPolyline[0][0], transformedPolyline[0][1]],
-      ["A", r, r, 0, 0, 1, transformedPolyline[1][0], transformedPolyline[1][1]],
+      ["M", transformedPolyline[0].x, transformedPolyline[0].y],
+      ["A", r, r, 0, 0, 1, transformedPolyline[1].x, transformedPolyline[1].y],
     ]);
   } else {
-    const polylinePathArray = transformedPolyline.map((point) => ["L", point[0], point[1]]);
+    const simplifiedPolyline = simplify(transformedPolyline, 1, false);
+    const polylinePathArray = simplifiedPolyline.map((point) => ["L", point.x, point.y]);
     polylinePathArray[0][0] = "M";
     return new SVG.PathArray(polylinePathArray);
   }
