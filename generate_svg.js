@@ -62,7 +62,7 @@ SVG.extend(SVG.Point, {
 });
 
 async function main() {
-  const argv = parseArgs(process.argv.slice(2));
+  const argv = parseArgs(process.argv.slice(2), { boolean: ["staticmap"] });
   const filename = argv.filename;
   const tripname = argv.tripname;
   const fetchStaticMap = argv.staticmap;
@@ -82,7 +82,7 @@ async function main() {
       for (const [region, bounds] of Object.entries(REGIONS)) {
         const regionMapFileName = "output/" + toSnakeCase(region) + ".png";
         const mapExists = await fileExists(regionMapFileName);
-        if (!mapExists || fetchStaticMap == "force") {
+        if (!mapExists) {
           const boundingBox = latlngToMercatorBbox(bounds);
           const staticMap = await fetchStaticMapMapbox(boundingBox);
           await writeFileAndLog(regionMapFileName, staticMap);
@@ -128,7 +128,7 @@ async function processTrip(tripJson, fetchStaticMap) {
 
   const mapFileName = "output/" + toSnakeCase(tripJson.name) + ".png";
   const mapExists = await fileExists(mapFileName);
-  if (fetchStaticMap && (!mapExists || fetchStaticMap == "force")) {
+  if (fetchStaticMap && !mapExists) {
     const staticMap = await fetchStaticMapMapbox(tripSvg.boundingBox);
     await writeFileAndLog(mapFileName, staticMap);
   }
@@ -167,7 +167,7 @@ function generateTripSvg(trip) {
     )
   );
   const expandedBoundingBox = squareBoundingBox.transform(
-    new SVG.Matrix().scale(1.2, squareBoundingBox.cx, squareBoundingBox.cy)
+    new SVG.Matrix().scale(1.3, squareBoundingBox.cx, squareBoundingBox.cy)
   );
 
   const transform = new SVG.Matrix()
@@ -200,12 +200,12 @@ function generateTripSvg(trip) {
     "stroke-dasharray": "6 6",
     "stroke-linecap": "round",
   });
-  const markerRadius = 6;
+  const markerRadius = 4;
   canvas.style(".waypoint", {
     r: markerRadius,
     fill: color,
   });
-  const labelFontSizePx = 24;
+  const labelFontSizePx = 18;
   canvas.style(".label", {
     fontFamily: "Helvetica",
     fontSize: labelFontSizePx + "px",
@@ -469,11 +469,12 @@ function calculateBestLabelPositions(labelPoints, maxOffset, labelFontSizePx, sh
     );
     if (!bestLabelPlacement || compareLabelPlacement(labelPlacements, bestLabelPlacement) > 0) {
       bestLabelPlacement = labelPlacements;
+      console.log(
+        `Chose better placement with ${bestLabelPlacement.numberOfIntersections} intersections and average offset of ${bestLabelPlacement.averageOffset} and min separation of ${bestLabelPlacement.minimumLabelSeparation} on attempt ${attempt}`
+      );
     }
   }
-  // console.log(
-  //   `Chose placement with ${bestLabelPlacement.numberOfIntersections} intersections and average offset of ${bestLabelPlacement.averageOffset} and min separation of ${bestLabelPlacement.minimumLabelSeparation}`
-  // );
+
   return bestLabelPlacement;
 }
 
@@ -487,7 +488,7 @@ function calculateLabelPositions(rng, labels, maxOffset, labelFontSizePx, existi
       font: "helvetica",
       size: labelFontSizePx,
     });
-    const labelHeight = (labelFontSizePx * 3) / 4;
+    const labelHeight = labelFontSizePx * 1.2;
 
     let hasPlaced = false;
     for (var offset = 4; !hasPlaced && offset <= maxOffset; offset += 4) {
@@ -502,7 +503,7 @@ function calculateLabelPositions(rng, labels, maxOffset, labelFontSizePx, existi
       shuffleArray(labelOffsetOptions, rng);
       for (let i = 0; !hasPlaced && i < labelOffsetOptions.length; i++) {
         const offsetPoint = labelOffsetOptions[i];
-        const buffer = 3;
+        const buffer = 1;
         const shapeInfo = ShapeInfo.rectangle(
           offsetPoint.x - buffer,
           offsetPoint.y - buffer,
@@ -582,6 +583,7 @@ function calculateLabelSeparation(labelPlacements) {
 
 function generateLabelOffsetOptions(point, offset, labelWidth, labelHeight, maxWidth, maxHeight) {
   const diagonalOffset = offset / Math.SQRT2;
+  const buffer = 0.04;
   return [
     // bottom right
     new SVG.Matrix().translate(diagonalOffset, diagonalOffset),
@@ -603,10 +605,10 @@ function generateLabelOffsetOptions(point, offset, labelWidth, labelHeight, maxW
     .map((matrix) => point.transform(matrix))
     .filter((point) => {
       return (
-        point.x + labelWidth <= maxWidth &&
-        point.y + labelHeight <= maxHeight &&
-        point.x >= 0 &&
-        point.y >= 0
+        point.x + labelWidth <= maxWidth * (1 - buffer) &&
+        point.y + labelHeight <= maxHeight * (1 - buffer) &&
+        point.x >= maxWidth * buffer &&
+        point.y >= maxHeight * buffer
       );
     });
 }
