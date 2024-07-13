@@ -197,8 +197,11 @@ function generateTripSvg(trip) {
     stroke: color,
     "stroke-opacity": 0.8,
     "stroke-linejoin": "round",
-    "stroke-dasharray": "6 6",
+    "stroke-dasharray": "10 6",
     "stroke-linecap": "round",
+  });
+  canvas.style(".flying", {
+    "stroke-dasharray": "2 8",
   });
   const markerRadius = 4;
   canvas.style(".waypoint", {
@@ -448,7 +451,7 @@ function pathFromPolyline(encodedPolyline, transform) {
       ["A", r, r, 0, 0, 1, transformedPolyline[1].x, transformedPolyline[1].y],
     ]);
   } else {
-    const simplifiedPolyline = simplify(transformedPolyline, 1, false);
+    const simplifiedPolyline = simplify(transformedPolyline, 0.5, false);
     const polylinePathArray = simplifiedPolyline.map((point) => ["L", point.x, point.y]);
     polylinePathArray[0][0] = "M";
     return new SVG.PathArray(polylinePathArray);
@@ -469,9 +472,9 @@ function calculateBestLabelPositions(labelPoints, maxOffset, labelFontSizePx, sh
     );
     if (!bestLabelPlacement || compareLabelPlacement(labelPlacements, bestLabelPlacement) > 0) {
       bestLabelPlacement = labelPlacements;
-      console.log(
-        `Chose better placement with ${bestLabelPlacement.numberOfIntersections} intersections and average offset of ${bestLabelPlacement.averageOffset} and min separation of ${bestLabelPlacement.minimumLabelSeparation} on attempt ${attempt}`
-      );
+      // console.log(
+      //   `Chose better placement with ${bestLabelPlacement.numberOfIntersections} intersections and average offset of ${bestLabelPlacement.averageOffset} and min separation of ${bestLabelPlacement.minimumLabelSeparation} on attempt ${attempt}`
+      // );
     }
   }
 
@@ -672,8 +675,10 @@ async function fetchStaticMapMapbox(boundingBox) {
     y: staticMapBoundingBox.y2,
   });
 
-  const style = "amorris13/clybhht7e00m601r4dwk57m95";
-  // "mapbox/light-v11"
+  const style =
+    // "amorris13/clybhht7e00m601r4dwk57m95"; // muted
+    // "mapbox/light-v11"
+    "amorris13/clyk5oa2u01dw01rba38pe12t"; // muted, no labels
   const url = `https://api.mapbox.com/styles/v1/${style}/static/[${tlLatLng.lng},${brLatLng.lat},${brLatLng.lng},${tlLatLng.lat}]/${widthPx}x${expandedHeightPx}@2x?access_token=${process.env.MAPBOX_ACCESS_TOKEN}`;
 
   console.log(url);
