@@ -11,6 +11,7 @@ import seedrandom from "seedrandom";
 import simplify from "simplify-js";
 import sharp from "sharp";
 
+const EXPORT_PRECISION = 3;
 const SIDE_PX = 1200;
 const REGIONS = {
   UK: {
@@ -39,12 +40,24 @@ const REGIONS = {
   },
 };
 
+const svgExportModifier = (node) => {
+  node.round(EXPORT_PRECISION);
+};
+
 SVG.extend(SVG.Element, {
   at: function (point) {
     return this.x(point.x).y(point.y);
   },
   centerAt: function (point) {
     return this.cx(point.x).cy(point.y);
+  },
+});
+
+SVG.extend(SVG.Point, {
+  round: function (precision) {
+    this.x = round(this.x, precision);
+    this.y = round(this.y, precision);
+    return this;
   },
 });
 
@@ -108,7 +121,10 @@ async function processTrip(tripJson, fetchStaticMap) {
   await fs.mkdir("output", { recursive: true });
 
   const tripSvg = generateTripSvg(tripJson);
-  await writeFileAndLog("output/" + toSnakeCase(tripJson.name) + ".svg", tripSvg.svgCanvas.svg());
+  await writeFileAndLog(
+    "output/" + toSnakeCase(tripJson.name) + ".svg",
+    tripSvg.svgCanvas.svg(svgExportModifier)
+  );
 
   const mapFileName = "output/" + toSnakeCase(tripJson.name) + ".png";
   const mapExists = await fileExists(mapFileName);
@@ -124,7 +140,7 @@ async function processTrip(tripJson, fetchStaticMap) {
     .back();
   await writeFileAndLog(
     "output/" + toSnakeCase(tripJson.name) + "-withmap.svg",
-    tripSvg.svgCanvas.svg()
+    tripSvg.svgCanvas.svg(svgExportModifier)
   );
 }
 
@@ -249,7 +265,7 @@ async function processRegion(name, regionName, regionBounds, trips) {
   await fs.mkdir("output", { recursive: true });
 
   const regionSvg = generateRegionSvg(name, regionName, regionBounds, trips);
-  await writeFileAndLog("output/" + toSnakeCase(name) + ".svg", regionSvg.svg());
+  await writeFileAndLog("output/" + toSnakeCase(name) + ".svg", regionSvg.svg(svgExportModifier));
 
   const box = regionSvg.viewbox();
   regionSvg
@@ -257,7 +273,10 @@ async function processRegion(name, regionName, regionBounds, trips) {
     .size(box.width, box.height)
     .opacity(0.5)
     .back();
-  await writeFileAndLog("output/" + toSnakeCase(name) + "-withmap.svg", regionSvg.svg());
+  await writeFileAndLog(
+    "output/" + toSnakeCase(name) + "-withmap.svg",
+    regionSvg.svg(svgExportModifier)
+  );
 }
 
 function generateRegionSvg(name, regionName, regionBounds, trips) {
@@ -416,11 +435,14 @@ function fromMercator(p) {
 function pathFromPolyline(encodedPolyline, transform) {
   const decodedPolyline = polyline.decode(encodedPolyline);
   const transformedPolyline = decodedPolyline.map((latlng) =>
-    toMercator(latlng[1], latlng[0]).transform(transform)
+    toMercator(latlng[1], latlng[0]).transform(transform).round(EXPORT_PRECISION)
   );
 
   if (transformedPolyline.length == 2) {
-    const r = distanceBetweenPoints(transformedPolyline[0], transformedPolyline[1]) * 1.3;
+    const r = round(
+      distanceBetweenPoints(transformedPolyline[0], transformedPolyline[1]) * 1.3,
+      EXPORT_PRECISION
+    );
     return new SVG.PathArray([
       ["M", transformedPolyline[0].x, transformedPolyline[0].y],
       ["A", r, r, 0, 0, 1, transformedPolyline[1].x, transformedPolyline[1].y],
@@ -618,6 +640,11 @@ function shuffleArray(array, rng) {
     const j = Math.floor(rng() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
+}
+
+function round(number, precision) {
+  const factor = 10 ** precision;
+  return Math.round(number * factor) / factor;
 }
 
 async function fetchStaticMapMapbox(boundingBox) {
