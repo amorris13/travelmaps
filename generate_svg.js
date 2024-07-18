@@ -207,6 +207,11 @@ function generateTripSvg(trip) {
   canvas.style(".waypoint", {
     r: markerRadius,
     fill: color,
+    stroke: color,
+    "stroke-width": 2.5,
+  });
+  canvas.style(".dayStop", {
+    fill: "none",
   });
   const labelFontSizePx = 18;
   canvas.style(".label", {
@@ -218,6 +223,9 @@ function generateTripSvg(trip) {
     display: "none",
   });
 
+  const markerMask = canvas.mask();
+  markerMask.add(canvas.rect(SIDE_PX, SIDE_PX).move(0, 0).fill("white"));
+
   const shapes = [];
 
   // Add lines for each leg
@@ -226,14 +234,19 @@ function generateTripSvg(trip) {
       continue;
     }
     const pathArray = pathFromPolyline(waypoint.polyline, transform);
-    canvas.path(pathArray).addClass("line").addClass(waypoint.mode);
+    canvas.path(pathArray).addClass("line").addClass(waypoint.mode).maskWith(markerMask);
     shapes.push(ShapeInfo.path(pathArray.toString()));
   }
 
   // Add marker for each waypoint
   for (const waypoint of trip.waypoints) {
     const point = toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform);
-    canvas.circle().radius(markerRadius).centerAt(point).addClass("waypoint");
+    const marker = canvas.circle().radius(markerRadius).centerAt(point);
+    markerMask.add(marker.clone().fill("black"));
+    marker.addClass("waypoint");
+    if (waypoint.dayStop) {
+      marker.addClass("dayStop");
+    }
     shapes.push(ShapeInfo.circle(point, markerRadius));
   }
 
@@ -472,9 +485,17 @@ function calculateBestLabelPositions(labelPoints, maxOffset, labelFontSizePx, sh
     );
     if (!bestLabelPlacement || compareLabelPlacement(labelPlacements, bestLabelPlacement) > 0) {
       bestLabelPlacement = labelPlacements;
-      // console.log(
-      //   `Chose better placement with ${bestLabelPlacement.numberOfIntersections} intersections and average offset of ${bestLabelPlacement.averageOffset} and min separation of ${bestLabelPlacement.minimumLabelSeparation} on attempt ${attempt}`
-      // );
+      console.log(
+        `Chose better placement with ${
+          bestLabelPlacement.numberOfIntersections
+        } intersections and average offset of ${bestLabelPlacement.averageOffset.toFixed(
+          2
+        )} and min separation of ${
+          bestLabelPlacement.minimumLabelSeparation
+        } and min label prominence of ${bestLabelPlacement.minimumLabelProminence.toFixed(
+          2
+        )} on attempt ${attempt}`
+      );
     }
   }
 
@@ -536,6 +557,7 @@ function calculateLabelPositions(rng, labels, maxOffset, labelFontSizePx, existi
     numberOfIntersections: numberOfIntersections(result),
     averageOffset: Math.sqrt(calculateOffsetSum(result) / result.length),
     minimumLabelSeparation: calculateLabelSeparation(result),
+    minimumLabelProminence: calculateMinimumLabelProminence(result),
   };
 }
 
@@ -555,7 +577,11 @@ function numberOfIntersections(labelPlacements) {
 
 // Higher is better
 function scoreLabelPlacement(labelPlacements) {
-  return -1000 * labelPlacements.averageOffset + labelPlacements.minimumLabelSeparation;
+  return (
+    -5 * labelPlacements.averageOffset +
+    labelPlacements.minimumLabelSeparation +
+    2 * labelPlacements.minimumLabelProminence
+  );
 }
 
 function calculateOffsetSum(labelPlacements) {
@@ -584,9 +610,59 @@ function calculateLabelSeparation(labelPlacements) {
   return buffer;
 }
 
+function calculateMinimumLabelProminence(labelPlacements) {
+  var minLabelProminence = Infinity;
+  for (const labelPlacement of labelPlacements) {
+    var labelProminence = Infinity;
+    const labelRectangle = {
+      x: labelPlacement.point.x,
+      y: labelPlacement.point.y,
+      width: labelPlacement.width,
+      height: labelPlacement.height,
+    };
+    for (const otherLabelPlacement of labelPlacements) {
+      if (labelPlacement.label != otherLabelPlacement.label) {
+        labelProminence = Math.min(
+          labelProminence,
+          distanceFromPointToRectangle(otherLabelPlacement.label.point, labelRectangle)
+        );
+      }
+    }
+    minLabelProminence = Math.min(labelProminence, minLabelProminence);
+  }
+  return minLabelProminence;
+}
+
+function distanceFromPointToRectangle(point, rectangle) {
+  if (pointInsideRectangle(point, rectangle)) {
+    return 0;
+  }
+  // Finds the minimum distance from a point to any side of a rectangle
+  const minHorizontalDistance = Math.min(
+    Math.abs(point.x - rectangle.x),
+    Math.abs(point.x - rectangle.x - rectangle.width)
+  );
+  const minVerticalDistance = Math.min(
+    Math.abs(point.y - rectangle.y),
+    Math.abs(point.y - rectangle.y - rectangle.height)
+  );
+  return Math.sqrt(
+    minHorizontalDistance * minHorizontalDistance + minVerticalDistance * minVerticalDistance
+  );
+}
+
+function pointInsideRectangle(point, rectangle) {
+  return (
+    point.x >= rectangle.x &&
+    point.x <= rectangle.x + rectangle.width &&
+    point.y >= rectangle.y &&
+    point.y <= rectangle.y + rectangle.height
+  );
+}
+
 function generateLabelOffsetOptions(point, offset, labelWidth, labelHeight, maxWidth, maxHeight) {
   const diagonalOffset = offset / Math.SQRT2;
-  const buffer = 0.04;
+  const buffer = 0.02;
   return [
     // bottom right
     new SVG.Matrix().translate(diagonalOffset, diagonalOffset),

@@ -428,6 +428,7 @@
     "waypoints": [
       {
         "name": "Oxford",
+        "dayStop": true,
         "location": {
           "lat": 51.7520209,
           "lng": -1.2577263
@@ -442,6 +443,7 @@
     "waypoints": [
       {
         "name": "Bletchley Park",
+        "dayStop": true,
         "location": {
           "lat": 51.9971924,
           "lng": -0.7391742
@@ -456,6 +458,7 @@
     "waypoints": [
       {
         "name": "Devizes",
+        "dayStop": true,
         "mode": "driving",
         "location": {
           "lat": 51.3489069,
@@ -473,6 +476,7 @@
       },
       {
         "name": "Stonehenge",
+        "dayStop": true,
         "mode": "driving",
         "location": {
           "lat": 51.17888199999999,
@@ -482,6 +486,7 @@
       },
       {
         "name": "Salisbury",
+        "dayStop": true,
         "mode": "driving",
         "location": {
           "lat": 51.068785,
@@ -498,11 +503,22 @@
     "waypoints": [
       {
         "name": "Lindau",
+        "dayStop": true,
         "mode": "driving",
         "location": {
           "lat": 47.55365430000001,
           "lng": 9.693054499999999
         }
+      },
+      {
+        "name": "Bregenz",
+        "dayStop": true,
+        "mode": "driving",
+        "location": {
+          "lat": 47.50075,
+          "lng": 9.74231
+        },
+        "polyline": "kyfaHsddz@A_ALcAZwBl@iEv@wFJYDk@De@D_AFaEJmLA_CEoBCeAKsCEy@Fm@BwAAs@CKCkHBkGn@mNZgFX_HVsFA]RkCl@}HXyCVwBh@{Cb@wBd@kBp@wBz@gCv@gBpAgCnCkE|AsBdByBLQNI`@c@`@o@j@gA^_@^[^Qx@i@nG{DdBiAv@i@HM|B{AfBwAtCcClAgAF?BAb@a@DMpC_C|@{@l@s@n@y@x@oA^o@`@q@`CqDhDwFlAmC|@_C?@B@B?FAFSCKACRm@j@yA`@cADS?a@CwAF[DOLM^YRSp@}AtNiKpF}DdCkBlByArCaCh@g@L?p@a@FBJCHSPURSHSbAy@bDkCfB{AjByBpDsExEeGnG{HhHaJjAoARc@^Qp@k@b@Ut@]dBk@tFuAlBi@lEeBlFyBbAWhAQt@GlAAt@BtAJf@FpIrBpDlA`ATh@P`Bd@fHvBv@\\|Az@lFbDfDpB`At@f@h@HZXz@?F@HDJE|@Fx@r@zB~B|Gh@zAHf@l@pCdA|Cf@`BVv@LMf@e@JCXS~BkBx@i@d@g@XSLIx@s@Pn@DLHXl@fCxAtGZlB"
       },
       {
         "name": "Neuschwanstein",
@@ -516,6 +532,7 @@
       {
         "name": "Linderhof Palace",
         "displayName": "Linderhof",
+        "dayStop": true,
         "mode": "driving",
         "location": {
           "lat": 47.5716123,
@@ -535,6 +552,7 @@
       {
         "name": "Prien am Chiemsee",
         "displayName": "Herrenchiemsee",
+        "dayStop": true,
         "mode": "driving",
         "location": {
           "lat": 47.8561815,
@@ -567,6 +585,7 @@
       },
       {
         "name": "Meung-sur-Loire",
+        "dayStop": true,
         "mode": "bicycling",
         "location": {
           "lat": 47.82700699999999,
@@ -585,6 +604,7 @@
       },
       {
         "name": "Chateau de Chambord",
+        "dayStop": true,
         "mode": "bicycling",
         "location": {
           "lat": 47.6158089,
@@ -594,6 +614,7 @@
       },
       {
         "name": "Chateau de Cheverny",
+        "dayStop": true,
         "mode": "bicycling",
         "location": {
           "lat": 47.5001931,
@@ -603,6 +624,7 @@
       },
       {
         "name": "Blois",
+        "dayStop": true,
         "mode": "bicycling",
         "location": {
           "lat": 47.58609209999999,
@@ -621,6 +643,7 @@
       },
       {
         "name": "Chateau de Chaumont",
+        "dayStop": true,
         "mode": "bicycling",
         "location": {
           "lat": 47.4790621,
@@ -639,6 +662,7 @@
       },
       {
         "name": "Chateau de Chenonceau",
+        "dayStop": true,
         "mode": "bicycling",
         "location": {
           "lat": 47.3248696,
@@ -678,6 +702,7 @@
     "waypoints": [
       {
         "name": "Hever Castle",
+        "dayStop": true,
         "mode": "driving",
         "location": {
           "lat": 51.1868837,
@@ -686,6 +711,7 @@
       },
       {
         "name": "Dover",
+        "dayStop": true,
         "mode": "driving",
         "location": {
           "lat": 51.1278758,
@@ -705,6 +731,7 @@
       },
       {
         "name": "Canterbury",
+        "dayStop": true,
         "mode": "driving",
         "location": {
           "lat": 51.280233,
@@ -763,6 +790,7 @@
     "waypoints": [
       {
         "name": "Stratford-upon-Avon",
+        "dayStop": true,
         "location": {
           "lat": 52.19173,
           "lng": -1.708298
@@ -770,6 +798,7 @@
       },
       {
         "name": "Chipping Camden",
+        "dayStop": true,
         "mode": "driving",
         "location": {
           "lat": 52.04965499999999,
@@ -786,6 +815,7 @@
     "waypoints": [
       {
         "name": "Cardiff",
+        "dayStop": true,
         "location": {
           "lat": 51.483707,
           "lng": -3.1680962
@@ -818,6 +848,7 @@
       {
         "name": "Ephesus Archaeological Site, Turkey",
         "displayName": "Ephesus",
+        "dayStop": true,
         "mode": "driving",
         "location": {
           "lat": 37.9355433,
@@ -836,7 +867,17 @@
         "polyline": "sgpfF}_|eDvBaMk@ySbBof@v@iVm@aDgLeCcf@mQqZaLqBoAyOsFg\\uJsz@eKgj@yGyMmDiEyEcFiVvCi]bCiY}Ac]}A}LqIiJuKyGmu@it@gk@}m@qgAsxAoSsSy`@yVa\\wRe\\oJe_@gIeFkA{B_K~AgJlYiFzFdClJ|Lw@jOeIrSuPna@}N`Qc^~P}[tAae@fBgj@|Oqi@``@}zAnuAmq@bp@qU`^oyAd~DqQ|^mOtRua@n[obAvd@ww@ta@_b@|Y{nA~}@saAfg@ws@jS_gBn_@a`@~NmZp]}tBn{E_h@flAac@|q@}}A~qAcr@bj@ec@|Se^lEqf@oCy{B_WgoAtKaM[qTsI_b@oYiw@{[gYmJiSeAumAbQur@|Agi@rCgz@zMql@fByfAoCul@~B{RhCyUCmOwCaY{Nib@s\\aUqDeXp@o`@xDgv@p]}d@rWiPf]mUrpAeS`UoTvFk[qCwT[_NnEw]dPuOhNwW`q@c[r_@cMhWeCxYz@hhAX~_@kEp~@iJ`p@yK`m@kBfz@?v~@eJb|@iMtz@jCzh@jEjR`OdZ|JtVfFt[vChy@tKdy@`Ib^fCdZu@|[mNxj@oLzPg[tR}l@jE_l@nAslAr@wWCse@zCus@lRiUjBsWsAaVkHil@yc@krAmiAgVaTuN}Zg@m[`Osg@lA{_@wIuZs{@orAuWuOw]cEu^cB_x@s\\mVsKot@uVwbBcY_ZDcXvMoUxOuUnEqTnDaIzEaMdPaf@h{Ay\\fh@m|@z|@mVx_@ie@dz@yUbXyYrOkq@`NeTpUoIzZwNf^{Vjc@m~@|_BoVxYoa@lYic@te@eOdSa`@lZsb@rMw\\vAsYkDed@kT_c@i\\sNeU}Yeo@q^_d@sv@qj@am@iTob@sQwp@sg@_w@}g@io@yx@sSiToS_Lcc@iIg_@qMg]{`@_q@_pBwL{U{Wc\\}U{Pk[{MegB_\\sa@qFq]Gg\\jE_]tKu]`VsUdWyu@|x@ix@zf@gfAvZ_b@hEil@h@iMmBwQoLkM[qH~HoLlu@o@vWgEpEaGlFyDnAqv@aa@anAej@em@gS{eA_w@wZ_\\k`@cUibAoj@a{AgmAec@c`@iKcOq\\em@oVeNo_@eEcW}B_]gB{Q{Ka_@s}@}XegAoIsd@{Pop@qKsd@}RuX{WeVya@q]uDwByBeA}@hAo@zDQVoCvBkAGeIgAiK|IgAlg@uEzH|ApPtDnCeGj@iEvOe@hCrKpFuJda@oCtTzAtSaCxMdA^zBi@O|CXlLG|J_A|Mq@fIqCAqP`Rp@zG"
       },
       {
+        "name": "Canakkale",
+        "mode": "driving",
+        "location": {
+          "lat": 40.14671999999999,
+          "lng": 26.408587
+        },
+        "polyline": "s_ymFynqdDvGaTpJ_Et@wEvAqP]wUkDyF^i\\pBkY~Im_@eGmJgBkAnNiSgFiRzC}Fu@cn@oNmNyNsLoXfD}c@zNg`BnaAyZxc@oTxKcLlWsGxMyYoGu|@mQyg@bGwSnDop@dRm`@|Xgf@|Fgm@tX{WwFoGoCwHrZwJaIwK`HoElO_Kg@wT_QuQcGyKzEa@tPaR~EvGjj@yHxs@_Ytb@oA|VhLvObKyCfQf_AavA|wAqQds@iSroBaEneBcNrx@zCl|@gO`y@eEtLRzh@sJj`@|F|ElHuCpLrQbJ`GjQ|k@_O`t@~\\hq@_B~|@sQtx@uTjd@sPddAsIpbAwAfmAqDbf@mGhd@kFd^vRnQfJtZxJtIqA|L{_@lh@{^bMcPlTkd@dVcD`Fec@nOwXhRqYo@mVlJsLlAuFfCubAdr@{k@ttAyHdf@gCrw@_Thu@gR|Gs_A}@oRhCgK~b@yM~[}EzEiJaO{JwSu`@am@{xAyaBwt@}j@ae@iYek@_i@y}A_|@w_B{t@oDFe[Bu`AiP{J{_@cTic@kWij@_r@cv@_c@u}AiaAmnAqd@wu@i\\omBk[ugB{bB{}@gf@c^D|@nB~BrFzF{@zL}F~HuHjF}K`HuT`WwRrz@oWhTiL{N{JrOmJbEgH_CkIqCiO_AIOO?cLiOeDqEoGbAqHlFQD}@c@kVeZo}@hSyh@j^ehA~uAoPbG}XbGwHnO_IvQwFzJsE]lIja@|Mh_AaB`lAwDlwBvdBtrGrJjeA{@|{@yFzlCyH`~BhOdhCzCbhB~_@d_CtUfzCrEpmBzMjqAjBtpCpk@|}BvMhmCqC~d@sa@~T{d@iD}MkGsOgWePwBkUfDmX`a@gNrdE}Kjr@u]lz@h@`rAr@~vAmFrnAqMdp@_Ltm@}Rj\\qRbd@gHhk@`Jv{@wRtdAej@|hBkOne@gRpK_j@`Ogo@dHyq@~e@{oBgOs[hRud@vh@wKtI_ZbEg~@pE_YlDoj@yEy{@li@gcAl}@ui@f[cYtAccBbEozAgRgVpKgYfn@eVvh@m]jQquAfc@_qBx|@i|A|V}e@b[mc@dG}WbCak@nDuNp^aX_@aWbMe[n@_\\oViPNsRnDk\\aQyw@yNwy@Aql@jo@isB`|AikAlRqfAvJqoBj_@agAmX{oAq_@uf@}M_v@uh@kvAkuAwj@cZeXac@{L}`@oPbFui@ce@iW_a@aSgAkZvD}i@g\\_gAaYmi@qU}Rww@aSij@iq@ea@oe@{r@kw@a~@wmBut@uLaCi~@rJgpAcZgc@mh@Ebn@yE`]"
+      },
+      {
         "name": "Anzac Cove",
+        "dayStop": true,
         "mode": "driving",
         "location": {
           "lat": 40.24077,
@@ -897,7 +938,30 @@
         }
       },
       {
+        "name": "Monaco",
+        "dayStop": true,
+        "mode": "driving",
+        "location": {
+          "lat": 43.73841760000001,
+          "lng": 7.424615799999999
+        },
+        "polyline": "u_piGkuri@i@SBnCRhBiAM}AeJv@kBjCs@bCF}@wBx@cA[y@LkGKyDmBmDEcAhCoGjAoEwAmEuBcD{@kC}AWgFrAmAOsAkB_@aLy@sAa@AO??A?CACCCIB?NyDbDe@LVwKGuHmAeLV}JKmDmBkFc@aC\\kJYoEoAeFq@gDgBiAaFkL_@gCx@qEa@iDiBaEQkCd@}CzAiBpFuLn@uIpAkElCgArGaC`DwFkAaKpBsJ}Bqj@`@wEnF{H`LaOvAoEPy@pE{YlEgWtDaHj@OnKoSpDyHtB{Iz@cDFMCQWiFoDwGmDiCiCJgB{BwAo@qAs@Qq@pCmGnOgOt@iDOmEGeEk@mBgFDoASe@uBz@eB|Jq@jCo@~Ho@|UwDjIgDzBiE|CuOEgD}@yCoEsF_DsAwF}EcDyA_AcBMwDjCcMT_D_AyDmGgEmCgKkHgc@uBeO`@}D|CoI~BwC|LkId@gBYsCsDeLJ_JAqGgAkGbAsL~A{EX}FnAoGNm@{A{BkHc\\wB}KVaEi@{BeEyDUq@a@?aB~AcDoE{B{ExAkCbGwLjAeFdAoMu@iUM}JTo@hEk^?eCkCyGwBuIu@mLZoOvAy]MeOiCoNwFoP}BsJ}Cs\\uEcc@wH_d@sCc\\kH__@kCsK_EqEkEm@oF`C_H|KkIxLuGnGqLnG_T|G{RbGwWhFid@`FoMz@oNFiJ`AgM?gHaDcKmOiEcNyDyPeC_MSqKp@gK~BiLdA_K[wHiAkFcFoJgHgG}GqA{TP{DmB_NoOkEuH_BePcBw\\m@sFkDiIuIkJwDoGyK}MkMqMoJmMsH}QqBsJ_@qGh@sY`AyO~@cGtC}E~K}FfHwF|CaIz@gLcAmPcCsLuFaHkDmHs@}Qp@oc@iCuMuC_NoA_LWsQdFqg@nAu_@HkXKmUgAiS_G{b@sCmLkDgImWkb@uFsJcC{KyBeXaIoWs@iFPuIbBiLOcLuCyLaAeLfDmd@y@aVkEwSsBiIm@iIl@oKxCkKLyGyAgG]gIl@eKkAyFwEaIc@yFx@yFhBaFpDcFhEiC`f@yHjGsAxDoB~GeHfBiGj@}Er@mAzAi@`Hh@hGmChCAzAj@`HfI`Dx@lCcCrCsRsAkJuCkFu@aGx@oLhCaLfCwGv@kPk@mBsBiCmGiBqEm@sAy@qCgCsA_@CEOMcF{BuCsCi@wD_@kET}E]mBsBHuG_@wB{CcH{GgAkAwFy@{@uBA}BsAyBvA{BViBw@}AcAdA_Bp@eATu@gAj@cBh@}AGqGUuDm@}Ca@eBf@eFPeAbA`@d@X_@`CI`@"
+      },
+      {
+        "name": "Opio, France",
+        "displayName": "Opio",
+        "hideLabel": true,
+        "hidePolyline": true,
+        "location": {
+          "lat": 43.668624,
+          "lng": 6.982114999999999
+        },
+        "mode": "driving",
+        "polyline": "is}iGkbil@RdBd@p@f@zBH`F|@iC?_G`@lAVpBVzDD`BvBrDlJ~Jp@lAQZMZtCfAfI`E`CzDiDdGwD`GkBpFg@xKj@hGvCfHdChCzCrAhIj@xFaAdH_EpCCpEvAfB`@zB`DVdFuAtNcDjIyAxIq@~KfApFvD|IXdE_B~KkBvG}Al@gAKeC}CqDqD{EuAuCn@aE~AsHYaBpAo@|C_BpImGfHyLrEif@vHoHzEmBpCyChJAfIfCbGtCxFDrIm@bJvApGPtE{DhXPzKrCzTvChg@VlKkAhL?xLx@lFjDhR{B`UEdH`AjG~DvKpCvMpC~ZxCbIvHxNhN`UrFrJvD~KlF`]`BrQl@rTi@`^qAbQ@lM_@hQkCdVaA|MpAhQfHf\\P~Jg@hVPlPlArHfDnF|FvHbBtIdAbOa@dLyBnHuBxCeEzB_InByG~GuC`Tg@vf@tBfMjIlT`GvIpGnGtGdGxDvDhH~K~EzGjE~DjBdClBpFxAtShBt\\xBfIfMtP`GrEzE\\rRe@xG`BbGnFbEjH|AnGb@xG]xFkB|IgBfQEhIh@|EzBhKxGzYfFtL~DrE`IxEbPLj[eAjr@sHjUyExb@wMvMwFxHcGvDsEvNoUzE{C`Fb@|DhE~Kfh@jGjl@tFt\\lDj\\~Cn]tKt^jBfLN~KeBdc@O`NbAvLnDpN~FlIpFxD`NbGj]n\\vLdPL|AmB|E{AzAyCrFRxK_AzHaBrFmJlKqBvDmEnGyIxIwAfC{ArIuBnJ]f@_@|HY|F_BzEcArLfAjG@pGS~Jv@jDnC`GJxBm@dB}EdD_GxDsBvDaCtG_@dEdHvd@zDrUfAdCzBhApCjB`A|CG~CkEjQEbBtA~AvFtBdCzC`DfA~BvAlD|Et@bDo@nIwC`KgCjDkIpCeL`CwKp@mEz@{Hv@sEl@[~Ah@vBnAR`CYpBZf@~GLtDkApE}NjNmCzFV~AlBt@rDfDvBSpD`CjDhHVrCM`AEF@P{E~R}KnTyA`Ae@LC~@O|C_ApFE~LdCbO_@xAsFvBsIfIw@l@g@ZDZg@dDaDzEoMrP}A|DJpG|AtZPjLeBlEI~DbAhDY`FeGlFeF~@yAjCaA`ECnDoBdH{AdD_CnBaAfDPhDpCjIo@xEFhCtEjLtB|A|BjJl@nE[`HLjFzBhFGfJdAdQWbWQRRr@x@mAvDeDHEr@Ax@rANnENpErAjBxCGzC{@|AVpDnHvAlEMnAgEnKDbAlBlDJxDg@lEOpAAh@jAvDcCGkCr@w@jB|AdJhALJa@AYVY^YOu@Mo@QO"
+      },
+      {
         "name": "Arles",
+        "dayStop": true,
         "mode": "driving",
         "location": {
           "lat": 43.676647,
@@ -907,6 +971,7 @@
       },
       {
         "name": "Les Baux de Provence",
+        "dayStop": true,
         "mode": "driving",
         "location": {
           "lat": 43.743887,
@@ -925,6 +990,7 @@
       },
       {
         "name": "Pont du Gard",
+        "dayStop": true,
         "mode": "driving",
         "location": {
           "lat": 43.94756599999999,
@@ -934,6 +1000,7 @@
       },
       {
         "name": "Nimes",
+        "dayStop": true,
         "mode": "driving",
         "location": {
           "lat": 43.8338727,
