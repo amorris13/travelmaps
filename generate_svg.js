@@ -81,13 +81,7 @@ async function main() {
 
     if (fetchStaticMap) {
       for (const [region, bounds] of Object.entries(REGIONS)) {
-        const regionMapFileName = "output/" + toSnakeCase(region) + ".png";
-        const mapExists = await fileExists(regionMapFileName);
-        if (!mapExists) {
-          const boundingBox = latlngToMercatorBbox(bounds);
-          const staticMap = await fetchStaticMapMapbox(boundingBox);
-          await writeFileAndLog(regionMapFileName, staticMap);
-        }
+        fetchRegionMap(region, bounds);
       }
     }
 
@@ -785,6 +779,16 @@ function shuffleArray(array, rng) {
 function round(number, precision) {
   const factor = 10 ** precision;
   return Math.round(number * factor) / factor;
+}
+
+async function fetchRegionMap(region, bounds) {
+  const regionMapFileName = "output/" + toSnakeCase(region) + ".png";
+  const mapExists = await fileExists(regionMapFileName);
+  if (!mapExists) {
+    const boundingBox = latlngToMercatorBbox(bounds);
+    const staticMap = await fetchStaticMapMapbox(boundingBox);
+    await writeFileAndLog(regionMapFileName, staticMap);
+  }
 }
 
 async function fetchStaticMapMapbox(boundingBox) {
