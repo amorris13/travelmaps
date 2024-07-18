@@ -136,7 +136,6 @@ async function processTrip(tripJson, fetchStaticMap) {
   tripSvg.svgCanvas
     .image(toSnakeCase(tripJson.name) + ".png")
     .size(SIDE_PX, SIDE_PX)
-    .opacity(0.5)
     .back();
   await writeFileAndLog(
     "output/" + toSnakeCase(tripJson.name) + "-withmap.svg",
@@ -287,7 +286,6 @@ async function processRegion(name, regionName, regionBounds, trips) {
   regionSvg
     .image(toSnakeCase(regionName) + ".png")
     .size(box.width, box.height)
-    .opacity(0.5)
     .back();
   await writeFileAndLog(
     "output/" + toSnakeCase(name) + "-withmap.svg",
