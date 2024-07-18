@@ -15,16 +15,17 @@ const EXPORT_PRECISION = 3;
 const SIDE_PX = 1200;
 const REGIONS = {
   UK: {
-    north: 59,
-    east: 1.9,
-    south: 49.9,
-    west: -11,
+    north: 61,
+    east: 2.4,
+    south: 49.4,
+    west: -12,
+    scale: 0.625,
   },
   Europe: {
-    north: 63,
-    east: 39,
-    south: 28,
-    west: -15,
+    north: 63.3313,
+    east: 39.0154,
+    south: 27.3501,
+    west: -15.0154,
   },
   Australia: {
     north: -10,
@@ -298,7 +299,8 @@ function generateRegionSvg(name, regionName, regionBounds, trips) {
 
   // Convert trip bounds to mercator projection
   const boundingBox = latlngToMercatorBbox(regionBounds);
-  const scale = SIDE_PX / Math.max(boundingBox.width, boundingBox.height);
+  const scale =
+    (SIDE_PX / Math.max(boundingBox.width, boundingBox.height)) * (regionBounds.scale || 1);
   const widthPx = boundingBox.width * scale;
   const heightPx = boundingBox.height * scale;
 
@@ -328,12 +330,12 @@ function generateRegionSvg(name, regionName, regionBounds, trips) {
     "stroke-dasharray": "6 6",
     "stroke-linecap": "round",
   });
-  const markerRadius = 6;
+  const markerRadius = 5;
   canvas.style(".waypoint", {
     r: markerRadius,
     fill: color,
   });
-  const labelFontSizePx = 24;
+  const labelFontSizePx = 18;
   canvas.style(".label", {
     fontFamily: "Helvetica",
     fontSize: labelFontSizePx + "px",
@@ -364,6 +366,10 @@ function generateRegionSvg(name, regionName, regionBounds, trips) {
       const pathArray = [];
       for (const waypoint of trip.waypoints) {
         if (!waypoint.polyline || waypoint.hidePolyline) {
+          const point = toMercator(waypoint.location.lng, waypoint.location.lat).transform(
+            transform
+          );
+          pathArray.push(["M", point.x, point.y]);
           continue;
         }
         const path = pathFromPolyline(waypoint.polyline, transform);
@@ -526,7 +532,7 @@ function calculateLabelPositions(rng, labels, maxOffset, labelFontSizePx, existi
       for (let i = 0; !hasPlaced && i < labelOffsetOptions.length; i++) {
         const offsetPoint = labelOffsetOptions[i];
         const buffer = 1;
-        const shapeInfo = ShapeInfo.rectangle(
+        const shapeInfo = shapeForLabel(
           offsetPoint.x - buffer,
           offsetPoint.y - buffer,
           labelWidth + 2 * buffer,
@@ -606,6 +612,23 @@ function calculateLabelSeparation(labelPlacements) {
     }
   }
   return buffer;
+}
+
+function shapeForLabel(x, y, width, height) {
+  const divisions = 10;
+  const pathArray = new SVG.PathArray([
+    ["M", x, y],
+    ["L", x + width, y],
+    ["L", x + width, y + height],
+    ["L", x, y + height],
+    ["L", x, y],
+  ]);
+  for (var i = 1; i <= divisions; i++) {
+    pathArray.push(["L", x + width, y + (height / divisions) * i]);
+    pathArray.push(["L", x, y + (height / divisions) * i]);
+  }
+
+  return ShapeInfo.path(pathArray.toString());
 }
 
 function calculateMinimumLabelProminence(labelPlacements) {
