@@ -578,7 +578,7 @@ function numberOfIntersections(labelPlacements) {
 // Higher is better
 function scoreLabelPlacement(labelPlacements) {
   return (
-    -5 * labelPlacements.averageOffset +
+    -2 * labelPlacements.averageOffset +
     labelPlacements.minimumLabelSeparation +
     2 * labelPlacements.minimumLabelProminence
   );
@@ -613,7 +613,7 @@ function calculateLabelSeparation(labelPlacements) {
 function calculateMinimumLabelProminence(labelPlacements) {
   var minLabelProminence = Infinity;
   for (const labelPlacement of labelPlacements) {
-    var labelProminence = Infinity;
+    var minDistanceToOtherLabel = Infinity;
     const labelRectangle = {
       x: labelPlacement.point.x,
       y: labelPlacement.point.y,
@@ -621,13 +621,16 @@ function calculateMinimumLabelProminence(labelPlacements) {
       height: labelPlacement.height,
     };
     for (const otherLabelPlacement of labelPlacements) {
-      if (labelPlacement.label != otherLabelPlacement.label) {
-        labelProminence = Math.min(
-          labelProminence,
+      if (labelPlacement != otherLabelPlacement) {
+        minDistanceToOtherLabel = Math.min(
+          minDistanceToOtherLabel,
           distanceFromPointToRectangle(otherLabelPlacement.label.point, labelRectangle)
         );
       }
     }
+    const labelProminence =
+      minDistanceToOtherLabel -
+      distanceFromPointToRectangle(labelPlacement.label.point, labelRectangle);
     minLabelProminence = Math.min(labelProminence, minLabelProminence);
   }
   return minLabelProminence;
@@ -638,14 +641,18 @@ function distanceFromPointToRectangle(point, rectangle) {
     return 0;
   }
   // Finds the minimum distance from a point to any side of a rectangle
-  const minHorizontalDistance = Math.min(
-    Math.abs(point.x - rectangle.x),
-    Math.abs(point.x - rectangle.x - rectangle.width)
-  );
-  const minVerticalDistance = Math.min(
-    Math.abs(point.y - rectangle.y),
-    Math.abs(point.y - rectangle.y - rectangle.height)
-  );
+  const minHorizontalDistance =
+    point.x < rectangle.x
+      ? rectangle.x - point.x
+      : point.x > rectangle.x + rectangle.width
+      ? point.x - rectangle.x - rectangle.width
+      : 0;
+  const minVerticalDistance =
+    point.y < rectangle.y
+      ? rectangle.y - point.y
+      : point.y > rectangle.y + rectangle.height
+      ? point.y - rectangle.y - rectangle.height
+      : 0;
   return Math.sqrt(
     minHorizontalDistance * minHorizontalDistance + minVerticalDistance * minVerticalDistance
   );
