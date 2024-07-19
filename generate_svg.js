@@ -90,16 +90,18 @@ async function main() {
     for (const [year, tripsForYear] of tripsByYear) {
       //  - Group trips by region
       const tripsByRegion = Map.groupBy(tripsForYear, (trip) => {
-        const tripBounds = computerTripBounds(trip);
-        return Object.keys(REGIONS).find((region) => {
-          const regionBounds = REGIONS[region];
-          return (
-            tripBounds.north <= regionBounds.north &&
-            tripBounds.east <= regionBounds.east &&
-            tripBounds.south >= regionBounds.south &&
-            tripBounds.west >= regionBounds.west
-          );
-        });
+        const tripBounds = computeTripBounds(trip);
+        return (
+          Object.keys(REGIONS).find((region) => {
+            const regionBounds = REGIONS[region];
+            return (
+              tripBounds.north <= regionBounds.north &&
+              tripBounds.east <= regionBounds.east &&
+              tripBounds.south >= regionBounds.south &&
+              tripBounds.west >= regionBounds.west
+            );
+          }) || "World"
+        );
       });
       for (const [region, tripsForRegion] of tripsByRegion) {
         processRegion(`${year}-${region}`, region, REGIONS[region], tripsForRegion);
@@ -147,7 +149,7 @@ async function writeFileAndLog(filename, data) {
 
 function generateTripSvg(trip) {
   console.log(`Generating Trip SVG for ${trip.name}`);
-  const tripBounds = computerTripBounds(trip);
+  const tripBounds = computeTripBounds(trip, true);
 
   // Convert trip bounds to mercator projection
   const boundingBox = latlngToMercatorBbox(tripBounds);
@@ -227,14 +229,17 @@ function generateTripSvg(trip) {
     if (!waypoint.polyline || waypoint.hidePolyline) {
       continue;
     }
-    const pathArray = pathFromPolyline(waypoint.polyline, transform);
+    const pathArray = pathFromPolyline(waypoint.polyline, transform, waypoint.location.lngShift);
     canvas.path(pathArray).addClass("line").addClass(waypoint.mode).maskWith(markerMask);
     shapes.push(ShapeInfo.path(pathArray.toString()));
   }
 
   // Add marker for each waypoint
   for (const waypoint of trip.waypoints) {
-    const point = toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform);
+    const point = toMercator(
+      waypoint.location.lng + (waypoint.location.lngShift || 0),
+      waypoint.location.lat
+    ).transform(transform);
     const marker = canvas.circle().radius(markerRadius).centerAt(point);
     markerMask.add(marker.clone().fill("black"));
     marker.addClass("waypoint");
@@ -250,7 +255,10 @@ function generateTripSvg(trip) {
     .filter((waypoint) => !waypoint.hideLabel)
     .map((waypoint) => ({
       name: waypoint.displayName || waypoint.name,
-      point: toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform),
+      point: toMercator(
+        waypoint.location.lng + (waypoint.location.lngShift || 0),
+        waypoint.location.lat
+      ).transform(transform),
     }));
   const bestLabelPlacement = calculateBestLabelPositions(
     labelPoints,
@@ -388,7 +396,7 @@ function generateRegionSvg(name, regionName, regionBounds, trips) {
   // Add label for each trip
 
   const labelPoints = trips.map((trip) => {
-    const tripBounds = computerTripBounds(trip);
+    const tripBounds = computeTripBounds(trip);
     const tripBoundingBox = latlngToMercatorBbox(tripBounds).transform(transform);
     const tripCenter = new SVG.Point(tripBoundingBox.cx, tripBoundingBox.cy);
     return {
@@ -423,8 +431,20 @@ function generateRegionSvg(name, regionName, regionBounds, trips) {
 }
 
 // Compute trip bounds
-function computerTripBounds(trip) {
-  const lngs = trip.waypoints.map((waypoint) => waypoint.location.lng);
+function computeTripBounds(trip, allowWrap) {
+  var lngShift = 0;
+  const lngs = [trip.waypoints[0].location.lng];
+  for (var i = 1; i < trip.waypoints.length; i++) {
+    if (allowWrap) {
+      if (trip.waypoints[i].location.lng < trip.waypoints[i - 1].location.lng - 180) {
+        lngShift += 360;
+      } else if (trip.waypoints[i].location.lng > trip.waypoints[i - 1].location.lng + 180) {
+        lngShift -= 360;
+      }
+      trip.waypoints[i].location.lngShift = lngShift;
+    }
+    lngs.push(trip.waypoints[i].location.lng + lngShift);
+  }
   const lats = trip.waypoints.map((waypoint) => waypoint.location.lat);
 
   return {
@@ -460,27 +480,62 @@ function fromMercator(p) {
   return { lng, lat };
 }
 
-function pathFromPolyline(encodedPolyline, transform) {
+function pathFromPolyline(encodedPolyline, transform, lngShift = 0) {
   const decodedPolyline = polyline.decode(encodedPolyline);
-  const transformedPolyline = decodedPolyline.map((latlng) =>
-    toMercator(latlng[1], latlng[0]).transform(transform).round(EXPORT_PRECISION)
-  );
 
-  if (transformedPolyline.length == 2) {
-    const r = round(
-      distanceBetweenPoints(transformedPolyline[0], transformedPolyline[1]) * 1.3,
-      EXPORT_PRECISION
-    );
-    return new SVG.PathArray([
-      ["M", transformedPolyline[0].x, transformedPolyline[0].y],
-      ["A", r, r, 0, 0, 1, transformedPolyline[1].x, transformedPolyline[1].y],
-    ]);
+  if (decodedPolyline.length == 2) {
+    if (Math.abs(decodedPolyline[0][1] - decodedPolyline[1][1]) > 180) {
+      const dir = Math.sign(decodedPolyline[0][1] - decodedPolyline[1][1]);
+      // Add a dummy move as it may be removed later on (the arc path will add its own move so this will never matter)
+      const path = new SVG.PathArray(["M", "0", "0"]);
+
+      decodedPolyline[1][1] += dir * 360;
+
+      const transformedPolyline1 = decodedPolyline.map((latlng) =>
+        toMercator(latlng[1] + lngShift, latlng[0])
+          .transform(transform)
+          .round(EXPORT_PRECISION)
+      );
+      path.push(...arcPathBetweenPoints(...transformedPolyline1));
+
+      decodedPolyline[1][1] -= dir * 360;
+      decodedPolyline[0][1] -= dir * 360;
+
+      const transformedPolyline2 = decodedPolyline.map((latlng) =>
+        toMercator(latlng[1] + lngShift, latlng[0])
+          .transform(transform)
+          .round(EXPORT_PRECISION)
+      );
+      path.push(...arcPathBetweenPoints(...transformedPolyline2));
+
+      return path;
+    } else {
+      const transformedPolyline = decodedPolyline.map((latlng) =>
+        toMercator(latlng[1] + lngShift, latlng[0])
+          .transform(transform)
+          .round(EXPORT_PRECISION)
+      );
+      return arcPathBetweenPoints(...transformedPolyline);
+    }
   } else {
+    const transformedPolyline = decodedPolyline.map((latlng) =>
+      toMercator(latlng[1] + lngShift, latlng[0])
+        .transform(transform)
+        .round(EXPORT_PRECISION)
+    );
     const simplifiedPolyline = simplify(transformedPolyline, 0.5, false);
     const polylinePathArray = simplifiedPolyline.map((point) => ["L", point.x, point.y]);
     polylinePathArray[0][0] = "M";
     return new SVG.PathArray(polylinePathArray);
   }
+}
+
+function arcPathBetweenPoints(p1, p2) {
+  const r = round(distanceBetweenPoints(p1, p2) * 1.3, EXPORT_PRECISION);
+  return new SVG.PathArray([
+    ["M", p1.x, p1.y],
+    ["A", r, r, 0, 0, 1, p2.x, p2.y],
+  ]);
 }
 
 function calculateBestLabelPositions(
@@ -640,7 +695,7 @@ function calculateLabelSeparation(labelPlacements) {
 }
 
 function shapeForLabel(x, y, width, height) {
-  const divisions = 10;
+  const divisions = 3;
   const pathArray = new SVG.PathArray([
     ["M", x, y],
     ["L", x + width, y],
@@ -813,6 +868,15 @@ async function fetchStaticMapMapbox(boundingBox) {
     x: staticMapBoundingBox.x2,
     y: staticMapBoundingBox.y2,
   });
+
+  // Longitude needs to be between -360 and 360
+  if (tlLatLng.lng < -360) {
+    tlLatLng.lng += 360;
+    brLatLng.lng += 360;
+  } else if (brLatLng.lng > 360) {
+    tlLatLng.lng -= 360;
+    brLatLng.lng -= 360;
+  }
 
   const style =
     // "amorris13/clybhht7e00m601r4dwk57m95"; // muted

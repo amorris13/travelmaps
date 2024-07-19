@@ -437,21 +437,6 @@
     ]
   },
   {
-    "name": "Bletchley Park",
-    "startDate": "2015-04-12",
-    "endDate": "2015-04-12",
-    "waypoints": [
-      {
-        "name": "Bletchley Park",
-        "dayStop": true,
-        "location": {
-          "lat": 51.9971924,
-          "lng": -0.7391742
-        }
-      }
-    ]
-  },
-  {
     "name": "Bath",
     "startDate": "2015-04-15",
     "endDate": "2015-04-16",
