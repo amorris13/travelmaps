@@ -366,9 +366,11 @@
     "name": "Journey to London",
     "startDate": "2015-02-22",
     "endDate": "2015-03-12",
+    "hideLabel": true,
     "waypoints": [
       {
         "name": "Sydney",
+        "showOnOverview": true,
         "location": {
           "lat": -33.8688197,
           "lng": 151.2092955
@@ -377,6 +379,7 @@
       {
         "name": "Niseko",
         "mode": "flying",
+        "showOnOverview": true,
         "location": {
           "lat": 42.8047856,
           "lng": 140.6874494
@@ -386,6 +389,7 @@
       {
         "name": "Tokyo",
         "mode": "flying",
+        "showOnOverview": true,
         "location": {
           "lat": 35.6764225,
           "lng": 139.650027
@@ -395,6 +399,7 @@
       {
         "name": "New York",
         "mode": "flying",
+        "showOnOverview": true,
         "location": {
           "lat": 40.7127753,
           "lng": -74.0059728
@@ -404,6 +409,7 @@
       {
         "name": "Reykjavik",
         "mode": "flying",
+        "showOnOverview": true,
         "location": {
           "lat": 64.1469868,
           "lng": -21.9407552
@@ -413,6 +419,7 @@
       {
         "name": "London",
         "mode": "flying",
+        "showOnOverview": true,
         "location": {
           "lat": 51.5072178,
           "lng": -0.1275862

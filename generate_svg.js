@@ -374,10 +374,12 @@ function generateRegionSvg(name, regionName, regionBounds, trips) {
     } else {
       const pathArray = [];
       for (const waypoint of trip.waypoints) {
+        const point = toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform);
+        if (waypoint.showOnOverview) {
+          canvas.circle().radius(markerRadius).centerAt(point).addClass("waypoint");
+          shapes.push(ShapeInfo.circle(point, markerRadius));
+        }
         if (!waypoint.polyline || waypoint.hidePolyline) {
-          const point = toMercator(waypoint.location.lng, waypoint.location.lat).transform(
-            transform
-          );
           pathArray.push(["M", point.x, point.y]);
           continue;
         }
@@ -393,17 +395,28 @@ function generateRegionSvg(name, regionName, regionBounds, trips) {
     }
   }
 
-  // Add label for each trip
+  // Add label for each trip and each waypoint explicitly requested.
+  const tripLabels = trips
+    .filter((trip) => !trip.hideLabel)
+    .map((trip) => {
+      const tripBounds = computeTripBounds(trip);
+      const tripBoundingBox = latlngToMercatorBbox(tripBounds).transform(transform);
+      const tripCenter = new SVG.Point(tripBoundingBox.cx, tripBoundingBox.cy);
+      return {
+        name: trip.name,
+        point: tripCenter,
+      };
+    });
+  const waypointLabels = trips.flatMap((trip) =>
+    trip.waypoints
+      .filter((waypoint) => waypoint.showOnOverview)
+      .map((waypoint) => ({
+        name: waypoint.displayName || waypoint.name,
+        point: toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform),
+      }))
+  );
+  const labelPoints = [...tripLabels, ...waypointLabels];
 
-  const labelPoints = trips.map((trip) => {
-    const tripBounds = computeTripBounds(trip);
-    const tripBoundingBox = latlngToMercatorBbox(tripBounds).transform(transform);
-    const tripCenter = new SVG.Point(tripBoundingBox.cx, tripBoundingBox.cy);
-    return {
-      name: trip.name,
-      point: tripCenter,
-    };
-  });
   const bestLabelPlacement = calculateBestLabelPositions(
     labelPoints,
     64,
