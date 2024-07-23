@@ -26,7 +26,7 @@
       "request": "launch",
       "name": "Generate SVG and Map",
       "skipFiles": ["<node_internals>/**"],
-      "args": ["--filename=travels.json", "--staticmap=true", "--year=2016"],
+      "args": ["--filename=travels.json", "--staticmap=true", "--year=2017"],
       "program": "${workspaceFolder}/generate_svg.js",
       "envFile": "${workspaceFolder}/.env"
     }

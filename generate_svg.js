@@ -110,7 +110,7 @@ async function main() {
         );
       });
       for (const [region, tripsForRegion] of tripsByRegion) {
-        processRegion(`${year}-${region}`, region, REGIONS[region], tripsForRegion);
+        processRegion(`${year}-overview-${region}`, region, REGIONS[region], tripsForRegion);
       }
     }
   }
@@ -123,13 +123,14 @@ async function processTrip(tripJson, fetchStaticMap) {
 
   await fs.mkdir("output", { recursive: true });
 
+  const year = new Date(tripJson.startDate).getFullYear();
   const tripSvg = generateTripSvg(tripJson);
   await writeFileAndLog(
-    "output/" + toSnakeCase(tripJson.name) + ".svg",
+    "output/" + year + "-" + toSnakeCase(tripJson.name) + ".svg",
     tripSvg.svgCanvas.svg(svgExportModifier)
   );
 
-  const mapFileName = "output/" + toSnakeCase(tripJson.name) + ".png";
+  const mapFileName = "output/" + year + "-" + toSnakeCase(tripJson.name) + ".png";
   const mapExists = await fileExists(mapFileName);
   if (fetchStaticMap && !mapExists) {
     const staticMap = await fetchStaticMapMapbox(tripSvg.boundingBox);
@@ -137,11 +138,11 @@ async function processTrip(tripJson, fetchStaticMap) {
   }
 
   tripSvg.svgCanvas
-    .image(toSnakeCase(tripJson.name) + ".png")
+    .image(year + "-" + toSnakeCase(tripJson.name) + ".png")
     .size(SIDE_PX, SIDE_PX)
     .back();
   await writeFileAndLog(
-    "output/" + toSnakeCase(tripJson.name) + "-withmap.svg",
+    "output/" + year + "-" + toSnakeCase(tripJson.name) + "-withmap.svg",
     tripSvg.svgCanvas.svg(svgExportModifier)
   );
 }

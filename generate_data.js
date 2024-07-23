@@ -54,8 +54,8 @@ async function updateCoordinatesMapbox(waypoint) {
     return;
   }
   const url = new URL("https://api.mapbox.com/search/geocode/v6/forward");
-  url.searchParams.append("q", waypoint.geocodeName || waypoint.name);
-  url.searchParams.append("access_token", process.env.MAPBOX_ACCESS_TOKEN);
+  url.searchParams.set("q", waypoint.geocodeName || waypoint.name);
+  url.searchParams.set("access_token", process.env.MAPBOX_ACCESS_TOKEN);
   const response = await fetch(url);
   const jsonResponse = await response.json();
   const coordinates = jsonResponse.features[0].geometry.coordinates;
@@ -67,8 +67,8 @@ async function updateCoordinatesGoogle(waypoint) {
     return;
   }
   const url = new URL("https://maps.googleapis.com/maps/api/geocode/json");
-  url.searchParams.append("address", waypoint.geocodeName || waypoint.name);
-  url.searchParams.append("key", process.env.GOOGLE_MAPS_API_KEY);
+  url.searchParams.set("address", waypoint.geocodeName || waypoint.name);
+  url.searchParams.set("key", process.env.GOOGLE_MAPS_API_KEY);
   const response = await fetch(url);
   const jsonResponse = await response.json();
   if (jsonResponse.status === "OK") {
@@ -101,18 +101,31 @@ async function updatePolylineGoogle(prevWaypoint, waypoint) {
   }
 
   const url = new URL("https://maps.googleapis.com/maps/api/directions/json");
-  url.searchParams.append("mode", waypoint.mode);
-  url.searchParams.append("origin", `${prevWaypoint.location.lat},${prevWaypoint.location.lng}`);
-  url.searchParams.append("destination", `${waypoint.location.lat},${waypoint.location.lng}`);
-  url.searchParams.append("key", process.env.GOOGLE_MAPS_API_KEY);
-  const response = await fetch(url);
-  const jsonResponse = await response.json();
+  url.searchParams.set("mode", waypoint.mode);
+  url.searchParams.set("origin", `${prevWaypoint.location.lat},${prevWaypoint.location.lng}`);
+  url.searchParams.set("destination", `${waypoint.location.lat},${waypoint.location.lng}`);
+  url.searchParams.set("key", process.env.GOOGLE_MAPS_API_KEY);
+  const jsonResponse = await (await fetch(url)).json();
   if (jsonResponse.status === "OK") {
     waypoint.polyline = jsonResponse.routes[0].overview_polyline.points;
-  } else {
-    console.log(`Error in directions for ${prevWaypoint.name} to  ${waypoint.name}`);
-    console.log(url.toString());
+    return;
   }
+
+  if (jsonResponse.available_travel_modes) {
+    const newMode = jsonResponse.available_travel_modes[0];
+    url.searchParams.set("mode", newMode);
+    const fallbackJsonResponse = await (await fetch(url)).json();
+    console.log(
+      `Fallback from ${waypoint.mode} to ${newMode} for ${prevWaypoint.name} to ${waypoint.name}`
+    );
+    if (fallbackJsonResponse.status === "OK") {
+      waypoint.polyline = fallbackJsonResponse.routes[0].overview_polyline.points;
+      return;
+    }
+  }
+
+  console.log(`Error in directions for ${prevWaypoint.name} to  ${waypoint.name}`);
+  console.log(url.toString());
 }
 
 main();
