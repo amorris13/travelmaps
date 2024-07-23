@@ -1220,6 +1220,7 @@
     "name": "Seven Sisters",
     "startDate": "2016-05-22",
     "endDate": "2016-05-22",
+    "hideOnOverview": true,
     "waypoints": [
       {
         "geocodeName": "Eastbourne, UK",
@@ -1244,6 +1245,17 @@
           "lat": 49.9764195,
           "lng": 8.0560682
         }
+      },
+      {
+        "name": "Oestrich-Winkel",
+        "dayStop": true,
+        "hideWaypoint": true,
+        "mode": "bicycling",
+        "location": {
+          "lat": 50.0030906,
+          "lng": 8.0152247
+        },
+        "polyline": "}_`pHindp@GJCJAFs@t@AHKHoAlAUTeC|BqCtBMBiAt@MEI@ILAF?JYXkAn@IDGH{CbBo@\\sBjAG?w@XCCGCG?ILADUNYLOLwCt@qFzA}@`@kA|@kAvA]d@_BjBs@jAe@bA{AtD_@hASr@O`AGd@UKKKCDc@v@a@b@iBnBgA~@}@bAiCxD_BtAY^q@vAc@lAq@t@{HlGgAz@ILERGv@Gh@GHOnBGPkAnLUbCg@nE]nDAT@Xp@lGdCrV`AlJRj@DFYRMNBn@D|DBfBVxJFvAL~A}BdBo@j@{@p@GTDj@PjAKxAIfBGNWj@QL[JeAL{CMqEsByEaCkA[a@Cc@B]P]Xw@pAwAbDq@z@k@d@o@P{AVIKIBc@ZSJJb@~@~Dh@|B^bBw@b@_Ad@_@LRhAVlAe@n@aAz@]Zc@eAOq@Ow@qA`@k@PYJASDsC?YQNoBrA"
       },
       {
         "name": "Rüdesheim am Rhein",
@@ -1535,6 +1547,7 @@
     "waypoints": [
       {
         "name": "Brenner",
+        "dayStop": true,
         "location": {
           "lat": 47.0006594,
           "lng": 11.5035958

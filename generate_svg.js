@@ -242,6 +242,9 @@ function generateTripSvg(trip) {
 
   // Add marker for each waypoint
   for (const waypoint of trip.waypoints) {
+    if (waypoint.hideWaypoint) {
+      continue;
+    }
     const point = toMercator(
       waypoint.location.lng + (waypoint.location.lngShift || 0),
       waypoint.location.lat
@@ -258,7 +261,7 @@ function generateTripSvg(trip) {
   // Add label for each waypoint
 
   const labelPoints = trip.waypoints
-    .filter((waypoint) => !waypoint.hideLabel)
+    .filter((waypoint) => !waypoint.hideWaypoint && !waypoint.hideLabel)
     .map((waypoint) => ({
       name: waypoint.name,
       point: toMercator(
@@ -370,8 +373,10 @@ function generateRegionSvg(name, regionName, regionBounds, trips) {
     shapes.push(ShapeInfo.rectangle(bbox.x, bbox.y, bbox.width, bbox.height));
   }
 
+  const filteredTrips = trips.filter((trip) => !trip.hideOnOverview);
+
   // Add lines/markers for each trip
-  for (const trip of trips) {
+  for (const trip of filteredTrips) {
     if (trip.waypoints.length == 1) {
       const waypoint = trip.waypoints[0];
       const point = toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform);
@@ -402,7 +407,7 @@ function generateRegionSvg(name, regionName, regionBounds, trips) {
   }
 
   // Add label for each trip and each waypoint explicitly requested.
-  const tripLabels = trips
+  const tripLabels = filteredTrips
     .filter((trip) => !trip.hideLabel)
     .map((trip) => {
       const tripBounds = computeTripBounds(trip);
@@ -413,7 +418,7 @@ function generateRegionSvg(name, regionName, regionBounds, trips) {
         point: tripCenter,
       };
     });
-  const waypointLabels = trips.flatMap((trip) =>
+  const waypointLabels = filteredTrips.flatMap((trip) =>
     trip.waypoints
       .filter((waypoint) => waypoint.showOnOverview)
       .map((waypoint) => ({
