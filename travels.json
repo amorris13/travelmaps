@@ -370,7 +370,7 @@
     "waypoints": [
       {
         "name": "Sydney",
-        "showOnOverview": true,
+        "showWaypointOnOverview": true,
         "location": {
           "lat": -33.8688197,
           "lng": 151.2092955
@@ -379,7 +379,7 @@
       {
         "name": "Niseko",
         "mode": "flying",
-        "showOnOverview": true,
+        "showWaypointOnOverview": true,
         "location": {
           "lat": 42.8047856,
           "lng": 140.6874494
@@ -389,7 +389,7 @@
       {
         "name": "Tokyo",
         "mode": "flying",
-        "showOnOverview": true,
+        "showWaypointOnOverview": true,
         "location": {
           "lat": 35.6764225,
           "lng": 139.650027
@@ -399,7 +399,7 @@
       {
         "name": "New York",
         "mode": "flying",
-        "showOnOverview": true,
+        "showWaypointOnOverview": true,
         "location": {
           "lat": 40.7127753,
           "lng": -74.0059728
@@ -409,7 +409,7 @@
       {
         "name": "Reykjavik",
         "mode": "flying",
-        "showOnOverview": true,
+        "showWaypointOnOverview": true,
         "location": {
           "lat": 64.1469868,
           "lng": -21.9407552
@@ -419,7 +419,7 @@
       {
         "name": "London",
         "mode": "flying",
-        "showOnOverview": true,
+        "showWaypointOnOverview": true,
         "location": {
           "lat": 51.5072178,
           "lng": -0.1275862
@@ -1203,16 +1203,59 @@
     ]
   },
   {
-    "name": "Rome",
-    "startDate": "2016-05-16",
+    "name": "Wu Family Trip",
+    "startDate": "2016-05-02",
     "endDate": "2016-05-17",
+    "hideLabel": true,
     "waypoints": [
       {
+        "name": "Paris",
+        "location": {
+          "lat": 48.8575475,
+          "lng": 2.3513765
+        }
+      },
+      {
+        "name": "Barcelona",
+        "showWaypointOnOverview": true,
+        "hidePolylineOnOverview": true,
+        "mode": "flying",
+        "location": {
+          "lat": 41.3873974,
+          "lng": 2.168568
+        },
+        "polyline": "uneiHcgjMl_rl@pub@"
+      },
+      {
+        "name": "Venice",
+        "showWaypointOnOverview": true,
+        "hidePolylineOnOverview": true,
+        "mode": "flying",
+        "location": {
+          "lat": 45.440379,
+          "lng": 12.3159547
+        },
+        "polyline": "gnr{FqpfLcrvWc|||@"
+      },
+      {
+        "name": "Florence",
+        "showWaypointOnOverview": true,
+        "mode": "transit",
+        "location": {
+          "lat": 43.7699685,
+          "lng": 11.2576706
+        },
+        "polyline": "kajtGumdjAgA~@s@`@?[@DC@]Le@L{@BqBJiCPcB@eARy@ZgAr@c@b@k@t@i@bAeGpMoAdCcCtDw@vAuKlUwKvUgUpf@kShc@uYln@mG~MmBvEsElKaBxDaCxGoBlGeBdHuAhGcAjFcAhGoBlOc@lEg@dFm@tGg@dEo@zDm@vCu@dDiAzDeBfFy@jBmA~ByCnFYb@Yb@QDQPkAxAm@x@m@`AoAzBKFGJELAFEDWLUT_@j@_BrCYh@ITEZSb@_@v@Yp@[_@[t@_BhDg@dB]|Au@xEy@|HWrC}BhSKpAKf@LDK~@Iv@Ih@IVKHc@Lq@SeBq@aBq@[OU@g@I]D]n@Ch@QhAe@|Cs@xEO`AGHCHQz@M\\A?C?E@CHALBJX`@LDhAn@TVBDBXAVOz@Mx@}@nGQGNBs@pGv@G^d@t@cBuG~pBrpKxa}@pGt}Av}@~nDlgI|_GpmD`}A~~E`pBnzGr}DddHvyEnbLiaFjwIweEvwLjiE|zGr}@rlFljKrrCrpIpbDfu@l|Djs@HJhcHpsJ|rDxzJtwDlfGxwF|dFn_I|_DvjIxr@toBvXdrCvmAnhGllBoNz`Cxb@}dDhBiD~hD{qGf_PrxEd|^gv@hoXooLfr\\vfUduWzcR`sBmkB|tCygAf@kBs@_DDC@C?KE[`@SLGCOMk@nA_@RGLCj@Ip@STIXMf@QhC{@bCcEhAcCZu@?mBGoHJaFhAAdDFbIJjAB?oBGmAFoCJ_A`@sA"
+      },
+      {
         "name": "Rome",
+        "showWaypointOnOverview": true,
+        "mode": "transit",
         "location": {
           "lat": 41.8967068,
           "lng": 12.4822025
-        }
+        },
+        "polyline": "kycjGqwucA[bAI`@I~@ExA@x@Dv@?z@GAF?A`D@fCE`B}B@aBEyGECgAm@A?GEFsACB`@BzE?lBeBxDuC~EWb@GFw@XQNGXGfEAhA?TQAQ?D}CAOM@@KAc@[OOSOKI?kA`@qAb@c@TKDDT?FAJADn@~Cg@jB_dAsg@ddAsoChr@w|D{Bop@v@uy@rjMygTn|GeuDliVob`@nrIos^`_PksHxcHcfCttq@elExc_@{cO~e^koNfC_I~zIolRybIrdQluYud^bpZedUjpKyrMt{DiuC|mm@}lTlbYrwDzjRw_Abs@uG`Kd{D}CxASjA^vDRHEJ^b@\\\\Wh@]p@Q\\[^a@Tc@VY\\KJQNi@x@[hBOn@U|AYx@Uf@IBIHKVAT@PLXLJPPPHLDXNHHV`@hAnBfEnHrHpMlCtE`BvCpExHpA`CPZFLFVR^Nn@HX@`@FpAAFaA\\oBj@OFGJAL?HTzAXfBCL?DF^?LE?@FD^CCIRK\\DHVnA\\jB"
       }
     ]
   },
@@ -1265,7 +1308,7 @@
           "lat": 49.98214429999999,
           "lng": 7.9301124
         },
-        "polyline": "}_`pHindp@GJCJAFs@t@AHKHoAlAUTsBnBLJFAzAgAJCHHzAbGB`@Bt@H]`@c@hA~DxApFl@~Bl@nBh@fBNv@HJBb@DFHKZMP@b@IPC^?BhALh@HPXnAlAbEjAzDz@tC~@dCl@`AZr@Ld@D^JhBTn@\\h@d@^JJRf@h@dAPj@FRFp@@rA?NM`AGb@e@~AWh@Yd@[b@{@p@e@Pc@HgBT_@L@XJ|BL`CVdFTzEA\\HbCFLDt@~@`R`@vHTzDN`ET`F\\pHVrE@nAEFGTBXNJLrAP~C@b@A`CK|@?\\?dAJlAVhA`@`CNtAVvDdB|\\x@tPbAjS@h@JxACBEHAFAXDPNPDtAL`Av@pOz@xPlAnW~A`ZnCrj@xArXf@bKf@tIHfA^fEx@jGVzAl@~E\\hB^xBQPQXEVM|Bc@xMYdGQ~FQzE_@pJa@bMOfFIfAWbEiBp[a@rGa@bHMnA_AhIi@pEGdA?r@sAdJ[|BUpA_@z@q@lAGpA@n@HhADhCAjC@nBApBIlBGfAg@bHu@tIg@|Fi@xGYvFSbCEv@?\\Il@EjAGnBDbBPnDNlC@LHJBFL~Hp@je@FpG@|AC|OMtP?~BEf`@E`PGTTfENlDLbEDjCC?EBENBNSRUBHvFi@B@z@e@?UHKAY]Wo@KWua@wkBSSIAU@ECCUCaBAeAUsA_@iCYeCQmBWaEAWOC]DCCIgAEkBe@Jc@HiBb@a@N_@TUmBk@wBYoAGWc@cAgBuCKOGC@OQoAQq@q@yB@OFSYo@Sc@?G?QHA^Ws@sDgAeFm@kDg@{CMs@KmBGu@SaBk@X"
+        "polyline": "afepH_n|o@nBsAPO?XEnB?b@@RXKj@QpAa@CQEg@`A]~AUd@O~@e@v@c@b@`Bb@bB~@lDbBhFr@~ApBtFhA|Ep@hDj@`CbA`EZt@pBzE^j@j@bAj@pA\\h@v@nAn@pAAWOWACVg@DIf@~@b@t@tB~CnArApBhBBJAt@^`@jBtAt@ZVZXT`DbE`@j@p@nAd@tAzBpLA\\Ox@jAjQzAvTHf@?t@`@~Cb@pACdC^|CNNFPNtBtB`KBTDjAFd@~@nCxBzKhB~IV~@^zBZt@NPLJBF\\_@f@i@FMHWn@w@DI?KK_A?UBSLa@JS|AsAJEF@Pj@\\`Bx@xE`AxDlAxEr@tBrC`J~AbF@ROxBGv@FFf@XDDPn@Rd@h@f@HNNx@?F]f@Wb@_@`A?P`@n@^v@NXPJZFJFT`@B\\@b@QFWNOL?NBVOFPdB?r@CJf@LPNHVFfABxBIhFCNYTML?tBG`BMbDIf@?NF^B|C@vG?hFCl@q@hNCtB?t@CNEFYFIHCNI~@MTK@oAEQHGHCPEhCMhIU|He@jQCNIR?`A?nC?x@VbRJtDRbBF`@DL]BaBHe@@c@BQDOLw@`A[V]LyAd@_@VQTaArAi@d@_@Na@NFj@@DpAdKXzBDb@BpADzBDnBXfBF\\Pn@RrBn@tGTfA^rAfAnC~@oA`@O^QTrBFf@~@e@"
       },
       {
         "name": "Langenlonsheim",
@@ -1599,7 +1642,7 @@
           "lat": 45.5060151,
           "lng": 10.7351123
         },
-        "polyline": "gwawGmxdaArziA~aT"
+        "polyline": "_v`wGgtdaAjtIpWptC~sHjcG{rBnyHrsF`gFtyS|`Gl`GbuFniIfpDwbS`dCq~GrjG}gA"
       },
       {
         "name": "Verona",

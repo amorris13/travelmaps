@@ -25,7 +25,7 @@ async function main() {
   for (let travel of json) {
     let prevWaypoint;
     for (let waypoint of travel.waypoints) {
-      if (prevWaypoint) {
+      if (prevWaypoint && !waypoint.polyline) {
         if (DIRECTIONS_MODES.includes(waypoint.mode)) {
           directions.push(updatePolylineGoogle(prevWaypoint, waypoint));
         } else {

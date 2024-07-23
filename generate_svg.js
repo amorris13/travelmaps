@@ -386,11 +386,11 @@ function generateRegionSvg(name, regionName, regionBounds, trips) {
       const pathArray = [];
       for (const waypoint of trip.waypoints) {
         const point = toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform);
-        if (waypoint.showOnOverview) {
+        if (waypoint.showWaypointOnOverview) {
           canvas.circle().radius(markerRadius).centerAt(point).addClass("waypoint");
           shapes.push(ShapeInfo.circle(point, markerRadius));
         }
-        if (!waypoint.polyline || waypoint.hidePolyline) {
+        if (!waypoint.polyline || waypoint.hidePolyline || waypoint.hidePolylineOnOverview) {
           pathArray.push(["M", point.x, point.y]);
           continue;
         }
@@ -420,7 +420,7 @@ function generateRegionSvg(name, regionName, regionBounds, trips) {
     });
   const waypointLabels = filteredTrips.flatMap((trip) =>
     trip.waypoints
-      .filter((waypoint) => waypoint.showOnOverview)
+      .filter((waypoint) => waypoint.showWaypointOnOverview)
       .map((waypoint) => ({
         name: waypoint.name,
         point: toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform),
