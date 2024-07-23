@@ -64,18 +64,24 @@ SVG.extend(SVG.Point, {
 
 async function main() {
   const argv = parseArgs(process.argv.slice(2), { boolean: ["staticmap"] });
+  const year = argv.year;
   const filename = argv.filename;
   const tripname = argv.tripname;
   const fetchStaticMap = argv.staticmap;
 
   const data = await fs.readFile(filename, { encoding: "utf8" });
-  const json = JSON.parse(data);
+  var trips = JSON.parse(data);
+
+  if (year) {
+    trips = trips.filter((trip) => new Date(trip.startDate).getFullYear() === year);
+  }
+
   if (tripname) {
-    const tripJson = json.find((trip) => trip.name === tripname);
+    const tripJson = trips.find((trip) => trip.name === tripname);
     processTrip(tripJson, fetchStaticMap);
   } else {
     // Process each trip
-    for (const trip of json) {
+    for (const trip of trips) {
       processTrip(trip, fetchStaticMap);
     }
 
@@ -86,7 +92,7 @@ async function main() {
     }
 
     // Group trips by year
-    const tripsByYear = Map.groupBy(json, (trip) => new Date(trip.startDate).getFullYear());
+    const tripsByYear = Map.groupBy(trips, (trip) => new Date(trip.startDate).getFullYear());
     for (const [year, tripsForYear] of tripsByYear) {
       //  - Group trips by region
       const tripsByRegion = Map.groupBy(tripsForYear, (trip) => {
@@ -254,7 +260,7 @@ function generateTripSvg(trip) {
   const labelPoints = trip.waypoints
     .filter((waypoint) => !waypoint.hideLabel)
     .map((waypoint) => ({
-      name: waypoint.displayName || waypoint.name,
+      name: waypoint.name,
       point: toMercator(
         waypoint.location.lng + (waypoint.location.lngShift || 0),
         waypoint.location.lat
@@ -411,7 +417,7 @@ function generateRegionSvg(name, regionName, regionBounds, trips) {
     trip.waypoints
       .filter((waypoint) => waypoint.showOnOverview)
       .map((waypoint) => ({
-        name: waypoint.displayName || waypoint.name,
+        name: waypoint.name,
         point: toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform),
       }))
   );

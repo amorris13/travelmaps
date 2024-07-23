@@ -54,7 +54,7 @@ async function updateCoordinatesMapbox(waypoint) {
     return;
   }
   const url = new URL("https://api.mapbox.com/search/geocode/v6/forward");
-  url.searchParams.append("q", waypoint.name);
+  url.searchParams.append("q", waypoint.geocodeName || waypoint.name);
   url.searchParams.append("access_token", process.env.MAPBOX_ACCESS_TOKEN);
   const response = await fetch(url);
   const jsonResponse = await response.json();
@@ -67,14 +67,14 @@ async function updateCoordinatesGoogle(waypoint) {
     return;
   }
   const url = new URL("https://maps.googleapis.com/maps/api/geocode/json");
-  url.searchParams.append("address", waypoint.name);
+  url.searchParams.append("address", waypoint.geocodeName || waypoint.name);
   url.searchParams.append("key", process.env.GOOGLE_MAPS_API_KEY);
   const response = await fetch(url);
   const jsonResponse = await response.json();
   if (jsonResponse.status === "OK") {
     waypoint.location = jsonResponse.results[0].geometry.location;
   } else {
-    console.log(`Error in geocode for ${waypoint.name}`);
+    console.log(`Error in geocode for ${waypoint.geocodeName || waypoint.name}`);
     console.log(url.toString());
   }
 }
