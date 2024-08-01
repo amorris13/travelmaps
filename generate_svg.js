@@ -66,7 +66,6 @@ async function main() {
   const argv = parseArgs(process.argv.slice(2), { boolean: ["staticmap"] });
   const year = argv.year;
   const filename = argv.filename;
-  const tripname = argv.tripname;
   const fetchStaticMap = argv.staticmap;
 
   const data = await fs.readFile(filename, { encoding: "utf8" });
@@ -76,13 +75,13 @@ async function main() {
     trips = trips.filter((trip) => new Date(trip.startDate).getFullYear() === year);
   }
 
-  if (tripname) {
-    const tripJson = trips.find((trip) => trip.name === tripname);
-    processTrip(tripJson, fetchStaticMap);
-  } else {
     // Process each trip
     for (const trip of trips) {
-      processTrip(trip, fetchStaticMap);
+    const mapname = new Date(trip.startDate).getFullYear() + "-" + toSnakeCase(trip.name);
+    if (argv.specificMap && argv.specificMap !== mapname) {
+      continue;
+    }
+    processTrip(mapname, trip, fetchStaticMap);
     }
 
     if (fetchStaticMap) {
@@ -110,27 +109,26 @@ async function main() {
         );
       });
       for (const [region, tripsForRegion] of tripsByRegion) {
-        processRegion(`${year}-overview-${region}`, region, REGIONS[region], tripsForRegion);
+      const mapname = `${year}-overview-${toSnakeCase(region)}`;
+      if (argv.specificMap && argv.specificMap !== mapname) {
+        continue;
       }
+      processRegion(mapname, region, REGIONS[region], tripsForRegion);
     }
   }
 }
 
-async function processTrip(tripJson, fetchStaticMap) {
+async function processTrip(filename, tripJson, fetchStaticMap) {
   if (tripJson.waypoints.length == 1) {
     return;
   }
 
   await fs.mkdir("output", { recursive: true });
 
-  const year = new Date(tripJson.startDate).getFullYear();
   const tripSvg = generateTripSvg(tripJson);
-  await writeFileAndLog(
-    "output/" + year + "-" + toSnakeCase(tripJson.name) + ".svg",
-    tripSvg.svgCanvas.svg(svgExportModifier)
-  );
+  await writeFileAndLog("output/" + filename + ".svg", tripSvg.svgCanvas.svg(svgExportModifier));
 
-  const mapFileName = "output/" + year + "-" + toSnakeCase(tripJson.name) + ".png";
+  const mapFileName = "output/" + filename + ".png";
   const mapExists = await fileExists(mapFileName);
   if (fetchStaticMap && !mapExists) {
     const staticMap = await fetchStaticMapMapbox(tripSvg.boundingBox);
@@ -138,11 +136,11 @@ async function processTrip(tripJson, fetchStaticMap) {
   }
 
   tripSvg.svgCanvas
-    .image(year + "-" + toSnakeCase(tripJson.name) + ".png")
+    .image(filename + ".png")
     .size(SIDE_PX, SIDE_PX)
     .back();
   await writeFileAndLog(
-    "output/" + year + "-" + toSnakeCase(tripJson.name) + "-withmap.svg",
+    "output/" + filename + "-withmap.svg",
     tripSvg.svgCanvas.svg(svgExportModifier)
   );
 }
@@ -283,17 +281,14 @@ async function processRegion(name, regionName, regionBounds, trips) {
   await fs.mkdir("output", { recursive: true });
 
   const regionSvg = generateRegionSvg(name, regionName, regionBounds, trips);
-  await writeFileAndLog("output/" + toSnakeCase(name) + ".svg", regionSvg.svg(svgExportModifier));
+  await writeFileAndLog("output/" + name + ".svg", regionSvg.svg(svgExportModifier));
 
   const box = regionSvg.viewbox();
   regionSvg
     .image(toSnakeCase(regionName) + ".png")
     .size(box.width, box.height)
     .back();
-  await writeFileAndLog(
-    "output/" + toSnakeCase(name) + "-withmap.svg",
-    regionSvg.svg(svgExportModifier)
-  );
+  await writeFileAndLog("output/" + name + "-withmap.svg", regionSvg.svg(svgExportModifier));
 }
 
 function generateRegionSvg(name, regionName, regionBounds, trips) {
