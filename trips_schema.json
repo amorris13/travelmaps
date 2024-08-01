@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Trips Schema",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "startDate": {
+        "type": "string"
+      },
+      "endDate": {
+        "type": "string"
+      },
+      "waypoints": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "location": {
+              "type": "object",
+              "properties": {
+                "lat": {
+                  "type": "number"
+                },
+                "lng": {
+                  "type": "number"
+                }
+              },
+              "required": ["lat", "lng"]
+            },
+            "mode": {
+              "type": "string"
+            },
+            "polyline": {
+              "type": "string"
+            },
+            "hideLabel": {
+              "type": "boolean"
+            },
+            "hidePolyline": {
+              "type": "boolean"
+            },
+            "geocodeName": {
+              "type": "string"
+            },
+            "showWaypointOnOverview": {
+              "type": "boolean"
+            },
+            "dayStop": {
+              "type": "boolean"
+            },
+            "partialAttendance": {
+              "type": "boolean"
+            },
+            "hidePolylineOnOverview": {
+              "type": "boolean"
+            },
+            "hideWaypoint": {
+              "type": "boolean"
+            }
+          },
+          "required": ["name", "location"]
+        }
+      },
+      "hideLabel": {
+        "type": "boolean"
+      },
+      "hideOnOverview": {
+        "type": "boolean"
+      }
+    },
+    "required": ["name", "startDate", "endDate", "waypoints"]
+  }
+}

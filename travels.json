@@ -1180,6 +1180,7 @@
       {
         "name": "Dortmund",
         "dayStop": true,
+        "partialAttendance": true,
         "location": {
           "lat": 51.5135872,
           "lng": 7.465298100000001
@@ -1211,6 +1212,7 @@
     "waypoints": [
       {
         "name": "Paris",
+        "partialAttendance": true,
         "location": {
           "lat": 48.8575475,
           "lng": 2.3513765
@@ -1220,6 +1222,7 @@
         "name": "Barcelona",
         "showWaypointOnOverview": true,
         "hidePolylineOnOverview": true,
+        "partialAttendance": true,
         "mode": "flying",
         "location": {
           "lat": 41.3873974,
@@ -1231,6 +1234,7 @@
         "name": "Venice",
         "showWaypointOnOverview": true,
         "hidePolylineOnOverview": true,
+        "partialAttendance": true,
         "mode": "flying",
         "location": {
           "lat": 45.440379,
@@ -1241,6 +1245,8 @@
       {
         "name": "Florence",
         "showWaypointOnOverview": true,
+        "hidePolylineOnOverview": true,
+        "partialAttendance": true,
         "mode": "transit",
         "location": {
           "lat": 43.7699685,
@@ -1250,6 +1256,7 @@
       },
       {
         "name": "Rome",
+        "hidePolylineOnOverview": true,
         "showWaypointOnOverview": true,
         "mode": "transit",
         "location": {
@@ -1392,6 +1399,7 @@
     "waypoints": [
       {
         "name": "Cambridge",
+        "dayStop": true,
         "location": {
           "lat": 52.1950788,
           "lng": 0.1312729
@@ -1420,6 +1428,7 @@
     "waypoints": [
       {
         "name": "Marseille",
+        "partialAttendance": true,
         "location": {
           "lat": 43.3025742,
           "lng": 5.369074299999999
@@ -1487,6 +1496,7 @@
       {
         "name": "Brighton",
         "dayStop": true,
+        "partialAttendance": true,
         "mode": "bicycling",
         "location": {
           "lat": 50.8229402,
@@ -1500,9 +1510,11 @@
     "name": "High Tatras",
     "startDate": "2016-08-20",
     "endDate": "2016-08-21",
+    "hideLabel": true,
     "waypoints": [
       {
         "name": "Krakow",
+        "showWaypointOnOverview": true,
         "location": {
           "lat": 50.06465009999999,
           "lng": 19.9449799
@@ -1511,6 +1523,7 @@
       {
         "geocodeName": "Grand Hotel Kempinski High Tatras",
         "name": "High Tatras",
+        "showWaypointOnOverview": true,
         "mode": "driving",
         "location": {
           "lat": 49.1193343,
@@ -1527,20 +1540,32 @@
     "waypoints": [
       {
         "name": "Dubrovnik",
+        "showWaypointOnOverview": true,
         "location": {
           "lat": 42.65066059999999,
           "lng": 18.0944238
         }
       },
       {
+        "name": "Neum",
+        "hideWaypoint": true,
+        "mode": "driving",
+        "location": {
+          "lat": 42.9230437,
+          "lng": 17.6185727
+        },
+        "polyline": "ubicGw_mmB~@tBgBzA_KpQ_EfH{IbDaHRmBaAgL~IcKfCaOtOcJtNaDQwAj@k@wA_FmXkE}HJgJkB_LSeFnAlI|AxPhAfBvBNfAdAD~CCxGdDbLrAfA}CnCyNpM}B~FCdIZvOqEhL}FlBuExAmAtD]pMaDlGcGfRkItUaFvJgBk@gAqEoA{CcB[cIvTqHbJ{@pEsC|DgDPgFyAcA{AuByEeCnAj@bIgLxOiDnFaDZcFv@_BfCy@vBmChA}Cc@_DmCkDEmDl@yBw@sGc@qMzEg@hIhFfRnBlD`E|BbGZrDmBnI~CjBsDj@qG~B{AnENfDdBtA~HpHhLJlKzAzH]`GmCrIeChHo@rL_ErWyJvL}HjAyDjV{JlVaD|I?rFdAfKKjH}B~HkK|W_Dt^oFh_@gGlHmG`TcKlPuLhMqGzE_FAqCpDiEzO]nGdBdMw@lHcEdJaMpNoEViFuCwC_@{C~C_BvQ_ClEgOnKiLzKoIrN_FjMo@fGp@jCfBVxCUbBlCe@bFeDnGiGvPoB`[oCfDwDpC{BvI}FhIYjLa@fK{D`JuDlCiK~B{BF}DtAVrHAzGmLhYCdI_BzF{EbRoCvFk@pH_AjYDdOmGtM_KfPgDtLaGtJmPf^aQ``@oWf`@yUdWoL`H_Dp@wEqBeHiAwA}HfCoMwBqEeEaBcB_GWqK{BuG}F_FqFYcD`A}EvBkCUoCmD_CcLsC{BoFDiFgAaE{DyEwJ_GkE}FjA_EjHuB`VmAfE_DzBuD`Em@pI|@tQvDdLbMvQbClLKdK}BdKmBfYnBvNxDpKrAhHChH}BfIqH`KeGhDoIz@uOi@{J~AsMbTeClAoI\\_FlI_AtB_EvBcCjBs@rDeEvRuAtNlAbJhHbKXhIzBfHvDhNClO_ClL{CjFuAzJkGzRqCbHeFtG}BtCOjCzBdHhC|KkA|FcFvDmGnF{BjGaArLyDvPx@zKaA|QU~PmIfNcDbV{CnGi@tId@rO_BtGeGhJqNtc@qThc@cFhRgFnb@}FfMk@zDoC^oEx@{J~JsVz\\}XdXqEnH}@vEoDlJgHrKcCpO{E`OwI~UwFjFqApGyFzPyHtRyS|Zgi@x|@mQnMqPbEoGfAmGtFyC~N^lHtAdKaAfOeOnd@oa@jnAyPfe@}JrTiM~YaOvUoJnQyG`JwEhEmAbJ{Q|NiMpAgHrJiGfCuCvGgCjJkC^uIyBgNOyDxG_Tjc@kLh[oKpI}HvEuC`F}BrCeCc@yEqNqBUgBtB_C`O`A|Ji@`F{ItRcEpHaDu@eAoA~BqAAsCp@c@"
+      },
+      {
         "geocodeName": "Split, Croatia",
         "name": "Split",
+        "showWaypointOnOverview": true,
         "mode": "driving",
         "location": {
           "lat": 43.5147118,
           "lng": 16.4435148
         },
-        "polyline": "ubicGw_mmBc]nf@wXpHe[|SeObNcJyYkHea@xC`TpLz_@eUnf@uD`]aV|a@oQ|h@yKdBoe@jg@mJaK_BdLol@xa@{[sCaMhPtQh[fVf@|NoN~NnZ_NhwAuTnOcTft@yOphAy\\lzA_h@jc@_I~XkGpj@kYtDwJrYgm@tq@~@bT}CzYm]lgA{Hzc@iXfI}Od`AmOroAuiA`_Cwt@fv@}SoFn@_ZsL}\\_ZgFkQiT{XaMgOqK}IjP{Ll]Nbc@dTjx@zCzcAwHl_@yPvHyd@dG_i@zd@aJzb@rJna@zHnk@oLrg@sTjb@dD|RyMlZuKpl@}Dht@uMxc@mDjg@ia@t`Ac`@hyAnQnr@sPtwAcVbt@fC~dAbeAjbBhJ~s@qHrd@kWl_A{`AfnDu[biAeMvbAjC|s@qMzl@qc@b_Amd@phAm{@~wAoQ`Zib@xCmeBw_B_WrSqPzu@}b@pf@wOjiAih@paBoYvc@mg@bHsf@uPsyAatAc[jRqYv^mcAxdAcXl`@mOhBkVbLmFaLfGsb@bDwi@|Bs\\wZvDeUSiTq`@kRyj@gV`Js[wAqT~XeOoRcHkV{I_U_j@|G}`BmEam@P}c@lZmq@|rDrIpaB|c@zaA`KdP_FnOgj@jUey@po@iJhw@{AjTnLjA`FnMkQ}CiC}s@jBigAzC{i@yZkSyc@e_@sg@xOiPhAs^~Qa_@eD_XgBkc@bAwg@|Lqk@fx@as@kF{k@{WmiBfEmb@ec@gQLwCfUa`Abu@}Tn_AmCblBu^~bAy_@|g@{\\fbAobAnbGyRfvB}E~rAaHflAsWvt@_l@v~BfCb~AsM`v@iT|q@sg@zv@ga@zy@yHhpAgPte@kUhLm\\qCqs@zHmu@`z@gpAlVewArr@yf@nu@wvDvfCmq@~eAg|@~w@i`@vzAqo@xhAuYxiAwC~f@g\\xo@oz@pzAieA~q@}aBvgFyg@`oAocAvcAs}@jlBsPpeAkBnzA}NlfB_I|jAq^d{@{i@duBoWd}@Yvz@}r@daBeg@|}Cmb@fjB}g@dj@ci@l|@iHv}AsJdl@mU~Zmf@f^wGrSyAnk@aLjo@q`Az}@i[rc@eKxu@_ShtAof@nRe`Ad|@_l@pw@uwApvAs~AjvCqx@fz@}Uny@}Q~pBq[xpAsjAtl@_KfhAlHryBnEh`C]pl@`Wch@xXmS`v@djArr@vhCrOpa@nSrBlWjOpWeMlU__@jXhA~WvUzV{B~G|c@p_@|m@rRbf@lUfTjRxI~Fvg@a@|iAdR~Ifi@tv@aHliDha@f|@"
+        "polyline": "kj~dGq_pjBcHrA}BkHq@sJ}GtI}IrFvBtRp@tJgIvKsE`H|A`Rk@hh@cG~ZkLfQeItf@oA`JcQrOiL~RqHfDcDcEsDn@xApLjFlWP~VUjNwH|EcR~@wCtGpR`HjGpUdCxJgErMwCne@_KlQc@hd@aS~e@kIvKqGYo`@tXic@dp@mOhBkVbL{FuBLkHhEgMj@uf@|L{k@wB}GwLbCqL`AkKgCwI~A_PiPeQok@eD_NwEoAkOvKsKc@{Ns@qIfGyI`PwJi@mHw\\eE{SiH{JgSlCqe@vAes@uCiz@Oyc@bJoNdMcKve@y]`dBqGnd@^`f@tRdcBnd@~l@iBnP}SjJkl@`Xs\\rQiK~VcHz`@cAdZzDxMhO]PtKyI`AmKqLl@s[g@c{@|Hos@wGk[o^gV_JiNqLiD}TjJ_Z|Ccc@xR{a@_@aNeFiZpI}f@_FaVvLgKnRgZhb@a\\rFuXmHcS}OkTiI}NTcx@MgUbHq\\aKyP_T{NgJcJ`MqGzUij@x_@_VbVwJv]Dhn@{Ddv@i@lb@iLje@mx@tgA{\\brAyZrrBqRhmAeUl|@eGxd@eBheAyEbmAoI~qA_X|n@qW`z@qQbcAjCh_BgOdv@aSho@cMd[u[h\\}Vnb@uIv]gFzhAaRhe@aUjJq[gD}Ve@o\\xKcYb]}Zr[al@hMed@`Hqt@``@}_@hQeRhViSb^em@xf@gdB~y@ee@hf@sq@jfAe}@`y@sT~p@oIrk@mTzf@_\\`_@oOja@gEdi@cFrg@{Zzi@kd@z~@mWv[il@nVoUpYmw@fyBkh@rkBwe@blA}cAldAqj@n_Agf@dxA~EfjA_Lz~AgT~zBc^d|@}Odw@}Vpz@eZt}@i@r{@{Jpf@yd@dw@oUrcBgQ`|@yWhj@sJp_AqPf]ec@v\\uXrf@eLlb@yAzXdAnd@}A~VoUjl@{a@fVcSd]wCfh@mHvq@_Wp]{a@j]mb@~e@cMdr@mGzaAsIxXaOnNcU|DuYtNaT~M_OfTaV|^eUt[_^xYql@jj@eNzRkHf\\cg@|r@kj@r`A}Zta@sQzHsKtOoK|c@sRdp@Oh}@eX`r@cIvo@wR~[qUjHuc@nP}JlRcBbn@vGhbAb@|vB~GfvBcB{InLeP`Ze`@~ELvJ~Ejj@v{@`n@vyBrO|n@fQfIpXlLtHzCjLkAzQkb@xOmH|MStKnL~JxK`WeFbKpJ`Hvl@lRhQhRdPfGfNtCp]|HjGjQdApHhIrDd[dDtl@}Cp^n@hM`Hl@vNnLj\\lf@pElGsAb`@aE`vA`@xbAlNvWbPrP"
       },
       {
         "name": "Komiza",
@@ -1657,6 +1682,7 @@
       },
       {
         "name": "Verona",
+        "showWaypointOnOverview": true,
         "mode": "bicycling",
         "location": {
           "lat": 45.4383659,
@@ -1684,6 +1710,7 @@
     "name": "Southern Spain",
     "startDate": "2016-10-18",
     "endDate": "2016-10-20",
+    "hideLabel": true,
     "waypoints": [
       {
         "name": "Malaga",
@@ -1695,6 +1722,7 @@
       },
       {
         "name": "Seville",
+        "showWaypointOnOverview": true,
         "mode": "driving",
         "location": {
           "lat": 37.3890924,
@@ -1704,6 +1732,7 @@
       },
       {
         "name": "Granada",
+        "showWaypointOnOverview": true,
         "mode": "driving",
         "location": {
           "lat": 37.1824607,
@@ -2067,6 +2096,7 @@
     "waypoints": [
       {
         "name": "Dublin",
+        "partialAttendance": true,
         "location": {
           "lat": 53.3498053,
           "lng": -6.2603097
@@ -2141,6 +2171,7 @@
     "waypoints": [
       {
         "name": "Isle of Wight",
+        "dayStop": true,
         "location": {
           "lat": 50.69384789999999,
           "lng": -1.304734
@@ -2256,6 +2287,7 @@
       {
         "name": "Trolltunga",
         "mode": "driving",
+        "dayStop": true,
         "location": {
           "lat": 60.124167,
           "lng": 6.74
@@ -2316,6 +2348,7 @@
       {
         "name": "Preikestolen",
         "dayStop": true,
+        "hidePolyline": true,
         "mode": "driving",
         "location": {
           "lat": 58.98641,

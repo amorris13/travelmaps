@@ -1,0 +1,8 @@
+{
+  "json.schemas": [
+    {
+      "fileMatch": ["**/travels.json"],
+      "url": "./trips_schema.json"
+    }
+  ]
+}

@@ -193,38 +193,7 @@ function generateTripSvg(trip) {
   const canvas = SVG.SVG(document.documentElement);
   canvas.viewbox(0, 0, SIDE_PX, SIDE_PX);
 
-  const color = "#C61016";
-  canvas.style(".line", {
-    fill: "none",
-    "stroke-width": 3,
-    stroke: color,
-    "stroke-opacity": 0.8,
-    "stroke-linejoin": "round",
-    "stroke-dasharray": "10 6",
-    "stroke-linecap": "round",
-  });
-  canvas.style(".flying", {
-    "stroke-dasharray": "2 8",
-  });
-  const markerRadius = 4;
-  canvas.style(".waypoint", {
-    r: markerRadius,
-    fill: color,
-    stroke: color,
-    "stroke-width": 2.5,
-  });
-  canvas.style(".dayStop", {
-    fill: "none",
-  });
-  const labelFontSizePx = 18;
-  canvas.style(".label", {
-    fontFamily: "Helvetica",
-    fontSize: labelFontSizePx + "px",
-    fill: color,
-  });
-  canvas.style(".labelRect", {
-    display: "none",
-  });
+  const { markerRadius, labelFontSizePx } = addCanvasStyles(canvas);
 
   const markerMask = canvas.mask();
   markerMask.add(canvas.rect(SIDE_PX, SIDE_PX).move(0, 0).fill("white"));
@@ -237,7 +206,14 @@ function generateTripSvg(trip) {
       continue;
     }
     const pathArray = pathFromPolyline(waypoint.polyline, transform, waypoint.location.lngShift);
-    canvas.path(pathArray).addClass("line").addClass(waypoint.mode).maskWith(markerMask);
+    const path = canvas
+      .path(pathArray)
+      .addClass("line")
+      .addClass(waypoint.mode)
+      .maskWith(markerMask);
+    if (waypoint.partialAttendance) {
+      path.addClass("partialAttendance");
+    }
     shapes.push(ShapeInfo.path(pathArray.toString()));
   }
 
@@ -256,6 +232,9 @@ function generateTripSvg(trip) {
     if (waypoint.dayStop) {
       marker.addClass("dayStop");
     }
+    if (waypoint.partialAttendance) {
+      marker.addClass("partialAttendance");
+    }
     shapes.push(ShapeInfo.circle(point, markerRadius));
   }
 
@@ -269,6 +248,7 @@ function generateTripSvg(trip) {
         waypoint.location.lng + (waypoint.location.lngShift || 0),
         waypoint.location.lat
       ).transform(transform),
+      partialAttendance: waypoint.partialAttendance,
     }));
   const bestLabelPlacement = calculateBestLabelPositions(
     labelPoints,
@@ -290,7 +270,10 @@ function generateTripSvg(trip) {
       .fill(labelPlacement.intersects ? "red" : "green")
       .addClass("labelRect");
     shapes.push(labelPlacement.shape);
-    canvas.text(labelPlacement.label.name).at(labelPlacement.point).addClass("label");
+    const label = canvas.text(labelPlacement.label.name).at(labelPlacement.point).addClass("label");
+    if (labelPlacement.label.partialAttendance) {
+      label.addClass("partialAttendance");
+    }
   }
 
   return { svgCanvas: canvas, boundingBox: expandedBoundingBox };
@@ -339,30 +322,7 @@ function generateRegionSvg(name, regionName, regionBounds, trips) {
   const canvas = SVG.SVG(document.documentElement);
   canvas.viewbox(0, 0, widthPx, heightPx);
 
-  const color = "#C61016";
-  canvas.style(".line", {
-    fill: "none",
-    "stroke-width": 4,
-    stroke: color,
-    "stroke-opacity": 0.8,
-    "stroke-linejoin": "round",
-    "stroke-dasharray": "6 6",
-    "stroke-linecap": "round",
-  });
-  const markerRadius = 5;
-  canvas.style(".waypoint", {
-    r: markerRadius,
-    fill: color,
-  });
-  const labelFontSizePx = 18;
-  canvas.style(".label", {
-    fontFamily: "Helvetica",
-    fontSize: labelFontSizePx + "px",
-    fill: color,
-  });
-  canvas.style(".labelRect", {
-    display: "none",
-  });
+  const { markerRadius, labelFontSizePx } = addCanvasStyles(canvas);
 
   const shapes = [];
 
@@ -381,15 +341,27 @@ function generateRegionSvg(name, regionName, regionBounds, trips) {
     if (trip.waypoints.length == 1) {
       const waypoint = trip.waypoints[0];
       const point = toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform);
-      canvas.circle().radius(markerRadius).centerAt(point).addClass("waypoint");
+      const marker = canvas.circle().radius(markerRadius).centerAt(point).addClass("waypoint");
+      if (waypoint.dayStop) {
+        marker.addClass("dayStop");
+      }
+      if (waypoint.partialAttendance) {
+        marker.addClass("partialAttendance");
+      }
       shapes.push(ShapeInfo.circle(point, markerRadius));
     } else {
       const pathArray = [];
       for (const waypoint of trip.waypoints) {
         const point = toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform);
         if (waypoint.showWaypointOnOverview) {
-          canvas.circle().radius(markerRadius).centerAt(point).addClass("waypoint");
+          const marker = canvas.circle().radius(markerRadius).centerAt(point).addClass("waypoint");
           shapes.push(ShapeInfo.circle(point, markerRadius));
+          if (waypoint.dayStop) {
+            marker.addClass("dayStop");
+          }
+          if (waypoint.partialAttendance) {
+            marker.addClass("partialAttendance");
+          }
         }
         if (!waypoint.polyline || waypoint.hidePolyline || waypoint.hidePolylineOnOverview) {
           pathArray.push(["M", point.x, point.y]);
@@ -417,6 +389,7 @@ function generateRegionSvg(name, regionName, regionBounds, trips) {
       return {
         name: trip.name,
         point: tripCenter,
+        partialAttendance: trip.waypoints.every((waypoint) => waypoint.partialAttendance),
       };
     });
   const waypointLabels = filteredTrips.flatMap((trip) =>
@@ -425,6 +398,7 @@ function generateRegionSvg(name, regionName, regionBounds, trips) {
       .map((waypoint) => ({
         name: waypoint.name,
         point: toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform),
+        partialAttendance: waypoint.partialAttendance,
       }))
   );
   const labelPoints = [...tripLabels, ...waypointLabels];
@@ -449,10 +423,54 @@ function generateRegionSvg(name, regionName, regionBounds, trips) {
       .fill(labelPlacement.intersects ? "red" : "green")
       .addClass("labelRect");
     shapes.push(labelPlacement.shape);
-    canvas.text(labelPlacement.label.name).at(labelPlacement.point).addClass("label");
+    const label = canvas.text(labelPlacement.label.name).at(labelPlacement.point).addClass("label");
+    if (labelPlacement.label.partialAttendance) {
+      label.addClass("partialAttendance");
+    }
   }
 
   return canvas;
+}
+
+function addCanvasStyles(canvas) {
+  const color = "#C61016";
+  canvas.style(".line", {
+    fill: "none",
+    "stroke-width": 4,
+    stroke: color,
+    "stroke-opacity": 0.8,
+    "stroke-linejoin": "round",
+    "stroke-dasharray": "6 6",
+    "stroke-linecap": "round",
+  });
+  canvas.style(".flying", {
+    "stroke-dasharray": "2 8",
+  });
+  const markerRadius = 5;
+  canvas.style(".waypoint", {
+    r: markerRadius,
+    fill: color,
+  });
+  canvas.style(".partialAttendance", {
+    opacity: 0.5,
+  });
+  const strokeRadius = 2.5;
+  canvas.style(".dayStop", {
+    r: markerRadius - strokeRadius / 2,
+    fill: "none",
+    stroke: color,
+    "stroke-width": strokeRadius,
+  });
+  const labelFontSizePx = 18;
+  canvas.style(".label", {
+    fontFamily: "Helvetica",
+    fontSize: labelFontSizePx + "px",
+    fill: color,
+  });
+  canvas.style(".labelRect", {
+    display: "none",
+  });
+  return { markerRadius, labelFontSizePx };
 }
 
 // Compute trip bounds
