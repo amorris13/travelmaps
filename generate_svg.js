@@ -602,11 +602,11 @@ function calculateBestLabelPositions(
       console.log(
         `Chose better placement with ${
           bestLabelPlacement.numberOfIntersections
-        } intersections and average offset of ${bestLabelPlacement.averageOffset.toFixed(
+        } intersections and offset of ${bestLabelPlacement.averageOffset.toFixed(
           2
-        )} and min separation of ${bestLabelPlacement.minimumLabelSeparation.toFixed(
+        )} and separation of ${bestLabelPlacement.labelSeparationScore.toFixed(
           2
-        )} and min label prominence of ${bestLabelPlacement.minimumLabelProminence.toFixed(
+        )} and prominence of ${bestLabelPlacement.labelProminenceScore.toFixed(
           2
         )} on attempt ${attempt}`
       );
@@ -677,9 +677,9 @@ function calculateLabelPositions(
   return {
     result,
     numberOfIntersections: numberOfIntersections(result),
-    averageOffset: Math.sqrt(calculateOffsetSum(result) / result.length),
-    minimumLabelSeparation: calculateLabelSeparation(result),
-    minimumLabelProminence: calculateMinimumLabelProminence(result),
+    averageOffset: calculateOffsetScore(result),
+    labelSeparationScore: calculateLabelSeparation(result),
+    labelProminenceScore: calculateLabelProminenceScore(result),
   };
 }
 
@@ -693,8 +693,8 @@ function scoreLabelPlacement(labelPlacements) {
   return (
     -10000 * labelPlacements.numberOfIntersections +
     -2 * labelPlacements.averageOffset +
-    labelPlacements.minimumLabelSeparation +
-    2 * labelPlacements.minimumLabelProminence
+    labelPlacements.labelSeparationScore +
+    2 * labelPlacements.labelProminenceScore
   );
 }
 
@@ -702,12 +702,15 @@ function numberOfIntersections(labelPlacements) {
   return labelPlacements.filter((label) => label.intersects).length;
 }
 
-function calculateOffsetSum(labelPlacements) {
-  return labelPlacements.map((label) => label.offset * label.offset).reduce((a, b) => a + b, 0);
+function calculateOffsetScore(labelPlacements) {
+  return generalizedMean(
+    labelPlacements.map((label) => label.offset),
+    2
+  );
 }
 
 function calculateLabelSeparation(labelPlacements) {
-  var minLabelSeparation = Infinity;
+  const labelSeparations = [];
   for (const labelPlacement of labelPlacements) {
     var minDistanceToOtherLabel = Infinity;
     const labelRectangle = rectangleForLabelPlacement(labelPlacement);
@@ -720,9 +723,9 @@ function calculateLabelSeparation(labelPlacements) {
         );
       }
     }
-    minLabelSeparation = Math.min(minDistanceToOtherLabel, minLabelSeparation);
+    labelSeparations.push(minDistanceToOtherLabel);
   }
-  return minLabelSeparation;
+  return generalizedMean(labelSeparations, -Infinity);
 }
 
 function shapeForLabel(x, y, width, height) {
@@ -751,8 +754,8 @@ function rectangleForLabelPlacement(labelPlacement) {
   };
 }
 
-function calculateMinimumLabelProminence(labelPlacements) {
-  var minLabelProminence = Infinity;
+function calculateLabelProminenceScore(labelPlacements) {
+  var labelProminences = [];
   for (const labelPlacement of labelPlacements) {
     var minDistanceToOtherLabel = Infinity;
     const labelRectangle = rectangleForLabelPlacement(labelPlacement);
@@ -764,12 +767,12 @@ function calculateMinimumLabelProminence(labelPlacements) {
         );
       }
     }
-    const labelProminence =
+    labelProminences.push(
       minDistanceToOtherLabel -
-      distanceFromPointToRectangle(labelPlacement.label.point, labelRectangle);
-    minLabelProminence = Math.min(labelProminence, minLabelProminence);
+        distanceFromPointToRectangle(labelPlacement.label.point, labelRectangle)
+    );
   }
-  return minLabelProminence;
+  return generalizedMean(labelProminences, -Infinity);
 }
 
 function distanceFromPointToRectangle(point, rectangle) {
