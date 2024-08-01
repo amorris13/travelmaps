@@ -75,40 +75,40 @@ async function main() {
     trips = trips.filter((trip) => new Date(trip.startDate).getFullYear() === year);
   }
 
-    // Process each trip
-    for (const trip of trips) {
+  // Process each trip
+  for (const trip of trips) {
     const mapname = new Date(trip.startDate).getFullYear() + "-" + toSnakeCase(trip.name);
     if (argv.specificMap && argv.specificMap !== mapname) {
       continue;
     }
     processTrip(mapname, trip, fetchStaticMap);
-    }
+  }
 
-    if (fetchStaticMap) {
-      for (const [region, bounds] of Object.entries(REGIONS)) {
-        fetchRegionMap(region, bounds);
-      }
+  if (fetchStaticMap) {
+    for (const [region, bounds] of Object.entries(REGIONS)) {
+      fetchRegionMap(region, bounds);
     }
+  }
 
-    // Group trips by year
-    const tripsByYear = Map.groupBy(trips, (trip) => new Date(trip.startDate).getFullYear());
-    for (const [year, tripsForYear] of tripsByYear) {
-      //  - Group trips by region
-      const tripsByRegion = Map.groupBy(tripsForYear, (trip) => {
-        const tripBounds = computeTripBounds(trip);
-        return (
-          Object.keys(REGIONS).find((region) => {
-            const regionBounds = REGIONS[region];
-            return (
-              tripBounds.north <= regionBounds.north &&
-              tripBounds.east <= regionBounds.east &&
-              tripBounds.south >= regionBounds.south &&
-              tripBounds.west >= regionBounds.west
-            );
-          }) || "World"
-        );
-      });
-      for (const [region, tripsForRegion] of tripsByRegion) {
+  // Group trips by year
+  const tripsByYear = Map.groupBy(trips, (trip) => new Date(trip.startDate).getFullYear());
+  for (const [year, tripsForYear] of tripsByYear) {
+    //  - Group trips by region
+    const tripsByRegion = Map.groupBy(tripsForYear, (trip) => {
+      const tripBounds = computeTripBounds(trip);
+      return (
+        Object.keys(REGIONS).find((region) => {
+          const regionBounds = REGIONS[region];
+          return (
+            tripBounds.north <= regionBounds.north &&
+            tripBounds.east <= regionBounds.east &&
+            tripBounds.south >= regionBounds.south &&
+            tripBounds.west >= regionBounds.west
+          );
+        }) || "World"
+      );
+    });
+    for (const [region, tripsForRegion] of tripsByRegion) {
       const mapname = `${year}-overview-${toSnakeCase(region)}`;
       if (argv.specificMap && argv.specificMap !== mapname) {
         continue;
@@ -604,9 +604,9 @@ function calculateBestLabelPositions(
           bestLabelPlacement.numberOfIntersections
         } intersections and average offset of ${bestLabelPlacement.averageOffset.toFixed(
           2
-        )} and min separation of ${
-          bestLabelPlacement.minimumLabelSeparation
-        } and min label prominence of ${bestLabelPlacement.minimumLabelProminence.toFixed(
+        )} and min separation of ${bestLabelPlacement.minimumLabelSeparation.toFixed(
+          2
+        )} and min label prominence of ${bestLabelPlacement.minimumLabelProminence.toFixed(
           2
         )} on attempt ${attempt}`
       );
@@ -685,25 +685,21 @@ function calculateLabelPositions(
 
 /** Returns positive if a is better than b */
 function compareLabelPlacement(a, b) {
-  if (a.numberOfIntersections > b.numberOfIntersections) {
-    return -1;
-  } else if (a.numberOfIntersections < b.numberOfIntersections) {
-    return 1;
-  }
   return scoreLabelPlacement(a) - scoreLabelPlacement(b);
-}
-
-function numberOfIntersections(labelPlacements) {
-  return labelPlacements.filter((label) => label.intersects).length;
 }
 
 // Higher is better
 function scoreLabelPlacement(labelPlacements) {
   return (
+    -10000 * labelPlacements.numberOfIntersections +
     -2 * labelPlacements.averageOffset +
     labelPlacements.minimumLabelSeparation +
     2 * labelPlacements.minimumLabelProminence
   );
+}
+
+function numberOfIntersections(labelPlacements) {
+  return labelPlacements.filter((label) => label.intersects).length;
 }
 
 function calculateOffsetSum(labelPlacements) {
@@ -711,25 +707,22 @@ function calculateOffsetSum(labelPlacements) {
 }
 
 function calculateLabelSeparation(labelPlacements) {
-  var buffer = 0;
-  for (; buffer < 100; buffer++) {
-    const shapes = [];
-    for (const labelPlacement of labelPlacements) {
-      const testShape = ShapeInfo.rectangle(
-        labelPlacement.point.x - buffer,
-        labelPlacement.point.y - buffer,
-        labelPlacement.width + 2 * buffer,
-        labelPlacement.height + 2 * buffer
-      );
-
-      if (hasIntersections(shapes, testShape)) {
-        return buffer;
-      } else {
-        shapes.push(testShape);
+  var minLabelSeparation = Infinity;
+  for (const labelPlacement of labelPlacements) {
+    var minDistanceToOtherLabel = Infinity;
+    const labelRectangle = rectangleForLabelPlacement(labelPlacement);
+    for (const otherLabelPlacement of labelPlacements) {
+      if (labelPlacement != otherLabelPlacement) {
+        const otherLabelRectangle = rectangleForLabelPlacement(otherLabelPlacement);
+        minDistanceToOtherLabel = Math.min(
+          minDistanceToOtherLabel,
+          distanceBetweenRectangles(otherLabelRectangle, labelRectangle)
+        );
       }
     }
+    minLabelSeparation = Math.min(minDistanceToOtherLabel, minLabelSeparation);
   }
-  return buffer;
+  return minLabelSeparation;
 }
 
 function shapeForLabel(x, y, width, height) {
@@ -749,16 +742,20 @@ function shapeForLabel(x, y, width, height) {
   return ShapeInfo.path(pathArray.toString());
 }
 
+function rectangleForLabelPlacement(labelPlacement) {
+  return {
+    x: labelPlacement.point.x,
+    y: labelPlacement.point.y,
+    width: labelPlacement.width,
+    height: labelPlacement.height,
+  };
+}
+
 function calculateMinimumLabelProminence(labelPlacements) {
   var minLabelProminence = Infinity;
   for (const labelPlacement of labelPlacements) {
     var minDistanceToOtherLabel = Infinity;
-    const labelRectangle = {
-      x: labelPlacement.point.x,
-      y: labelPlacement.point.y,
-      width: labelPlacement.width,
-      height: labelPlacement.height,
-    };
+    const labelRectangle = rectangleForLabelPlacement(labelPlacement);
     for (const otherLabelPlacement of labelPlacements) {
       if (labelPlacement != otherLabelPlacement) {
         minDistanceToOtherLabel = Math.min(
@@ -776,9 +773,6 @@ function calculateMinimumLabelProminence(labelPlacements) {
 }
 
 function distanceFromPointToRectangle(point, rectangle) {
-  if (pointInsideRectangle(point, rectangle)) {
-    return 0;
-  }
   // Finds the minimum distance from a point to any side of a rectangle
   const minHorizontalDistance =
     point.x < rectangle.x
@@ -797,13 +791,45 @@ function distanceFromPointToRectangle(point, rectangle) {
   );
 }
 
-function pointInsideRectangle(point, rectangle) {
-  return (
-    point.x >= rectangle.x &&
-    point.x <= rectangle.x + rectangle.width &&
-    point.y >= rectangle.y &&
-    point.y <= rectangle.y + rectangle.height
+function distanceBetweenRectangles(r1, r2) {
+  const minHorizontalDistance =
+    r1.x + r1.width < r2.x
+      ? r2.x - (r1.x + r1.width)
+      : r1.x > r2.x + r2.width
+      ? r1.x - (r2.x + r2.width)
+      : 0;
+  const minVerticalDistance =
+    r1.y + r1.height < r2.y
+      ? r2.y - (r1.y + r1.height)
+      : r1.y > r2.y + r2.height
+      ? r1.y - (r2.y + r2.height)
+      : 0;
+  return Math.sqrt(
+    minHorizontalDistance * minHorizontalDistance + minVerticalDistance * minVerticalDistance
   );
+}
+
+function generalizedMean(array, exponent) {
+  if (array.length == 0) {
+    return 0;
+  }
+  if (exponent == 0) {
+    // return the geometric mean
+    return Math.pow(
+      array.reduce((a, b) => a * b),
+      1 / array.length
+    );
+  }
+  if (exponent == Infinity) {
+    // return the maximum value
+    return Math.max(...array);
+  }
+  if (exponent == -Infinity) {
+    // return the minimum value
+    return Math.min(...array);
+  }
+  // return the power mean
+  return Math.pow(array.reduce((a, b) => a + Math.pow(b, exponent)) / array.length, 1 / exponent);
 }
 
 function generateLabelOffsetOptions(point, offset, labelWidth, labelHeight, maxWidth, maxHeight) {
