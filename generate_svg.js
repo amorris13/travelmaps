@@ -725,7 +725,7 @@ function calculateLabelSeparation(labelPlacements) {
     }
     labelSeparations.push(minDistanceToOtherLabel);
   }
-  return generalizedMean(labelSeparations, -Infinity);
+  return generalizedMean(labelSeparations, -1);
 }
 
 function shapeForLabel(x, y, width, height) {
@@ -819,7 +819,7 @@ function generalizedMean(array, exponent) {
   if (exponent == 0) {
     // return the geometric mean
     return Math.pow(
-      array.reduce((a, b) => a * b),
+      array.reduce((a, b) => a * b, 1),
       1 / array.length
     );
   }
@@ -831,8 +831,14 @@ function generalizedMean(array, exponent) {
     // return the minimum value
     return Math.min(...array);
   }
+  if (Math.min(...array) < 0) {
+    throw new Error("Can't take generalized mean of negative numbers.");
+  }
   // return the power mean
-  return Math.pow(array.reduce((a, b) => a + Math.pow(b, exponent)) / array.length, 1 / exponent);
+  return Math.pow(
+    array.reduce((a, b) => a + Math.pow(b, exponent), 0) / array.length,
+    1 / exponent
+  );
 }
 
 function generateLabelOffsetOptions(point, offset, labelWidth, labelHeight, maxWidth, maxHeight) {
