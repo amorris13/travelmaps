@@ -73,6 +73,9 @@
       },
       "hideOnOverview": {
         "type": "boolean"
+      },
+      "isHome": {
+        "type": "boolean"
       }
     },
     "required": ["name", "startDate", "endDate", "waypoints"]

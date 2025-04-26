@@ -90,9 +90,17 @@ async function main() {
     }
   }
 
-  // Group trips by year
-  const tripsByYear = Map.groupBy(trips, (trip) => new Date(trip.startDate).getFullYear());
-  for (const [year, tripsForYear] of tripsByYear) {
+  // Calculate all years covered by trips. Ignore home. Dedupe.
+  const years = new Set(
+    trips.filter((trip) => !trip.isHome).map((trip) => new Date(trip.startDate).getFullYear())
+  );
+  for (const year of years) {
+    // Find all trips covered by this year
+    const tripsForYear = trips.filter(
+      (trip) =>
+        new Date(trip.startDate).getFullYear() <= year &&
+        new Date(trip.endDate).getFullYear() >= year
+    );
     //  - Group trips by region
     const tripsByRegion = Map.groupBy(tripsForYear, (trip) => {
       const tripBounds = computeTripBounds(trip);
@@ -336,14 +344,31 @@ function generateRegionSvg(name, regionName, regionBounds, trips) {
     if (trip.waypoints.length == 1) {
       const waypoint = trip.waypoints[0];
       const point = toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform);
-      const marker = canvas.circle().radius(markerRadius).centerAt(point).addClass("waypoint");
-      if (waypoint.dayStop) {
-        marker.addClass("dayStop");
+      let marker;
+      if (trip.isHome) {
+        marker = canvas
+          .rect()
+          .size(2 * markerRadius, 2 * markerRadius)
+          .centerAt(point)
+          .addClass("home");
+        shapes.push(
+          ShapeInfo.rectangle(
+            point.x - markerRadius,
+            point.y - markerRadius,
+            2 * markerRadius,
+            2 * markerRadius
+          )
+        );
+      } else {
+        marker = canvas.circle().radius(markerRadius).centerAt(point).addClass("waypoint");
+        if (waypoint.dayStop) {
+          marker.addClass("dayStop");
+        }
+        if (waypoint.partialAttendance) {
+          marker.addClass("partialAttendance");
+        }
+        shapes.push(ShapeInfo.circle(point, markerRadius));
       }
-      if (waypoint.partialAttendance) {
-        marker.addClass("partialAttendance");
-      }
-      shapes.push(ShapeInfo.circle(point, markerRadius));
     } else {
       const pathArray = [];
       for (const waypoint of trip.waypoints) {
@@ -444,6 +469,9 @@ function addCanvasStyles(canvas) {
   const markerRadius = 5;
   canvas.style(".waypoint", {
     r: markerRadius,
+    fill: color,
+  });
+  canvas.style(".home", {
     fill: color,
   });
   canvas.style(".partialAttendance", {

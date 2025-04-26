@@ -1,5 +1,20 @@
 [
   {
+    "name": "Sydney",
+    "startDate": "1990-04-14",
+    "endDate": "2015-02-22",
+    "isHome": true,
+    "waypoints": [
+      {
+        "name": "Sydney",
+        "location": {
+          "lat": -33.8688197,
+          "lng": 151.2092955
+        }
+      }
+    ]
+  },
+  {
     "name": "SE Asia",
     "startDate": "2011-11-26",
     "endDate": "2011-12-24",
@@ -425,6 +440,21 @@
           "lng": -0.1275862
         },
         "polyline": "uuofKvh|dCpuclAikcdC"
+      }
+    ]
+  },
+  {
+    "name": "London",
+    "startDate": "2015-03-12",
+    "endDate": "2018-09-15",
+    "isHome": true,
+    "waypoints": [
+      {
+        "name": "London",
+        "location": {
+          "lat": 51.5072178,
+          "lng": -0.1275862
+        }
       }
     ]
   },
@@ -2576,6 +2606,7 @@
           "lat": 49.3801834,
           "lng": 10.1867388
         },
+        "hidePolyline": true,
         "polyline": "e`zlH__rbAQiF~By@fCuCfSeLbN{QlCu@`DG|B`OnCfQ~Ir\\`D|_@dCtZnMh]dRhl@nXtlAvVbhAtg@f~BvMjl@jJbg@tB|j@kDb`Aw@bb@tBbRn_@ddApDvQ~At_@qDdaBjApg@tDhVnXfz@nYdz@vl@tkBxAlWkAt]M|j@tGn]bWpz@bVpc@bZpQddArPzOrF`PbO|MfZnL`c@pe@xcBhU~x@dr@`_C|iAd_Cn|@xhBzThcAbXnyAdVtrAvL~Yfb@fr@pDbb@kId`A`F~b@zI~Oxy@tfAlPj[xBdg@oIxqBhFjz@CzP}E|YcMvf@sJjl@u\\d|@cHbm@`Elt@uB~SyExPlBiGwCtLeEx\\mAhL{Bf^{Ar`AcM|`Am@`i@dCzj@pL|xCfFtmAsAhj@Rhs@rGdf@vM~`ApL~y@zJlh@jt@faArg@ps@~c@voA|Rj\\bs@br@jTxa@~g@vrCOzYcOfh@}i@vnAyLb`@y@z[vBrTvMzc@~Qvl@hZx_AuBtC]zCd@dZu@|QuBdZqExOnGvE~LvStHvHnHxF?hFEx[~AnOv@vKyChDmFxD_ChKsAlAcDuAcD|J{D|^eApSqGhRoAsEwBsH_BaGcCiC_CbAh@jJu@jEkDiBu@}EhAkDpE}ApAi@bChC~D~Nn@`Do@tIo@jP{C|LmIjGgCeIqCaA_NbBcMgCsEDiFfEuSbGmEtAcFiEmPkUcJiQuDeEs@`@oEw@eKoIqCgQ_HgUyBSyC_AaNqNcDyIkFqTKuDxCoGyEaAq@rLb@|BFwAt@uD@`CjF|RrA|HpMfObFnGrCaExGkInCf[rFpS`SxXv]fi@nIfSbKli@tBzXqCvRqDvJkGhSyEtLqC`FwDhDuAcBgFqDiJ{A}ErHXfPcMfQgElJeDx@wAwCqEvByCnCiDaCsHrS{FxDmGdByGeD_Cf@a@dCuAfG{EfK}DzMcKbMyM~Ee`@lMa[vEiG{A[zBiBD[pGr@nFkBvDqB~ChAzFdGbLdG`GzCfa@pAtTz@|GxDAhFfA`H~E|RjKt@lAiGCmJ`DyFbCkCaBkB}MgFsKm@}AqCj@{G`FqRrPoJ|C{NHqk@yRoFyA_Ot@cEEmEqCf@aQsG{ZCul@xAoY_A_P_FeKKwHzBVj@sE\\{BEsB{KiGeKyRcJ}Esg@gBcM`BgEeEkHeAqTIyUbH_X|KiFnHeM|JgH|FkBbFq@QaDbAqBhB`@lL`ArMgD`E{I|IeM`PoEhB_Fe@gE{G{@qIB[HSCSsOm^uApCSvFoG}FYuBNlBoKnQ_FjC"
       },
       {
@@ -2596,17 +2627,6 @@
           "lng": 9.512851099999999
         },
         "polyline": "iv`mH}dsz@{@l@D~CG~BaA|@cDa@BtBy@z@yDXsAFk@|@y@dAsDlEkD|N}@`AKjFsCzUaDxMgHvQ}C`H}MrRaDrBiAW]kBCi@mBoAmBa@kB?qSvJsPpJgFhCmFBqGfB_@TqCfB]yGAwA?i@\\iFq@mGmAyEqBlCm@hGgGzAuNzAsK`EmD^IOk@{DcFzAaGhBf@bHT`D_CbAuGjCDjUe@xC[bBk@jBJlB}AnBkLjAuSh@iOh@uAFaDxAkNxGkJn@}FxGaC`BmC~AhA|C~@tCE|AmIfH}VdPiZjUmI~DkEd@eDt@aOhG{CjBc@wAgAz@w@p@mA~@cFhC{AzAqFlJqI~GoHfG_C~Fq@~C{CvAaHdD_@]_@\\_BfHB~AJp@}@rAq@dAOp@FpD{Gs@gMnHsQxLg^`VqElB}HfFkUbP{\\`YaJfJyBtAYgAo@YkCxBu@f@sF`GoGfEoF~FoLlKuG|FoEpAwHRyG\\c@uDgAsG}@mCy@|BsCxBaEtD}Of]_LlT_RlFkTbFcG|BsB~AaAlAuVjLoI~DeIvDLlEDRJ\\k@bCqI~DkQnIr@bFTtAGtCqBjBmMfPMVoN`K}U|UiEfFwH`HoN`HmDx@wKrFeHfG}CrCaBgAwAcAwKmAc@tAwEtBkFdBcDtCmFhJy@\\iHrAuCpDkBzCiMr@qMvCyH`JeDzDmDLsExAwHpAyDFeS^kFxBaBbF{AnMgBzAeANeFWsIuH{EiFoHaDyOy@}KtB{FfDiGnIsE`QmD`S{HvOsLdUiBjH`AbD\\pG`A~Fr@h@xAuAr@UfEvEbEjGlMpYrBhGdCvAvHaF~C}AnAxM\\rBa@dAiBv@sB~BmItRsC|GoD`CqB|B{GnNgCpN{@zGcAJeDcB}E^{Dd@NnBtE~EIpFm@`HcD|HqCrPOlUvCjPxGdWb@rDm@TaDb@{JR{EdBsFzGoA~D_C|JsAl[e@fOwB`JkCdHkAxDeB~AiHlAmA\\M~BXnHBv@cBp@}@x@}DdGs@xD_@xLsAtHBnWrAbSqBrTOhDkBdBa@_BwApBcDhCyDt@sIJ}KeI_JaKyFwD{CcCwA}@W_AuBhDo@rAi@bA{BrE_CjIeHj`@iBbOsBhC_E~BuD\\kD_A}D}CuCiEaByA_DkGyH_S{CwCmHaDwEByCbCw@rHTvEo@tBeAdGxDzGlF~MlClEcHpR{D`GwG|EuH|E{A{BmBeAsGaGsKkPyGsL_DsCeEaBkFAqBh@oEdCkFnD{ChBRhACFu@nCDfFp@hFxAjE~@h@FyDg@_K"
-      },
-      {
-        "name": "Nuremberg",
-        "dayStop": true,
-        "hideWaypoint": true,
-        "mode": "transit",
-        "location": {
-          "lat": 49.45428810000001,
-          "lng": 11.0745641
-        },
-        "polyline": "gnunHi~`y@f@~JGxD_Ai@yAkEq@iFaAcO_CaEwBqFtBiP|@mO{Fui@kTsc@oDeR^eNrDaQ`HmL~WyThR}Epk@iL`OkIzJeOdDySPm\\kHeY_NgHcRmAwU~H{a@l\\ub@pHsXvA}MdCwBaIyBob@a@aUjAoTw@cHnEaQxDsi@xBqCBr\\nBtP~Bu@vAyEu@oPnBa`@fNc{@|L}z@bBg{@|HotAoAw~@qXkdBkEgo@y@mbAqB}kAePsmA{\\mgCr@kr@pUomAjI}kA|B{fAlCwHxCc@tCCnAuNcCcMqFcC}TpBaHyA{D_KpB{f@qKyw@sCySiIeQsEup@m_@}sAmJ{m@wP_cAwKcp@lHid@wGyx@~E}r@nWuj@~IqTOu]eCyq@wE_PkI_JcGaTeCm\\{@{VsHea@y_@{F{Juh@cGms@DwKcB}BeAoAiB_Af@iLrA}Q`A{M`Fuc@jK{OjFec@nCqk@fCal@eAsa@Hg`@hJcb@dVsd@hWmwAbLct@~@ka@wCuPkHaMcReH_WZ{KPuQcHcLi[_Be`@yCi`@sD_OgL{_@cMmq@n@k[rHu[zVih@vQuNlWyUdQeUxXm^|]kd@jb@si@hLga@vIiq@fRg_A|C{u@`H_XvUwUfj@md@|]kUff@kTnKq@xJ`CvQzNzKhCrh@oMbPwSrGs[zB_TPsn@dFaRjSmPfLgGzI_OrLir@d`@uk@vp@sz@bTcXbJyPvDqQ[yc@uXww@kIw^KoTzMwk@p_@}iAb]atArVei@lf@uk@hSal@bGyv@bBcsBnF}`ArTss@pKu`@`J{l@fRcuA~Do|AtFurAzEqX`Oo_@bd@m_Ajd@y`AdJ_d@lCk_ArA}eCbKgq@pp@opAbVsg@fIa[fZehArUs]pb@ah@xkAabCjg@ydAp`@mj@dm@_u@vPmk@~F}_@^am@r@wb@`L{_@|Be[uDwi@`@{ZnGyWfM}\\xI_h@dEiuA_Dej@xAqp@xHewA|Lsu@`Nqj@ra@_u@pEaRrAeh@pAuw@nHk[zHmU~@mf@Egq@`Cgi@|Gsf@tH_]vJaObY}PxT}MvLcQtGcVbGauAdGsT`N{Sl`@ke@bWiO`KqU`AwZgQa}A|Gip@rn@oxCz\\seAzDoaAnGc|@zw@}nC|m@kqBlc@kl@xPg]|Ssv@dPqqAdIuo@vBg`AtLaaAfSyzAtFy^fJ}UhYaa@xK{[`v@klCl]_hAlBeO_Bkc@qLmy@iBgKeA}Hn@{CoChG?gFaCyAqAUsBxKeGfKyPrIeCpDgAhBmFfBPhF"
       }
     ]
   },
@@ -2678,6 +2698,21 @@
         "location": {
           "lat": 43.668624,
           "lng": 6.982114999999999
+        }
+      }
+    ]
+  },
+  {
+    "name": "Sydney",
+    "startDate": "2018-09-15",
+    "endDate": "2025-12-31",
+    "isHome": true,
+    "waypoints": [
+      {
+        "name": "Sydney",
+        "location": {
+          "lat": -33.8688197,
+          "lng": 151.2092955
         }
       }
     ]
