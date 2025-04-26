@@ -37,6 +37,63 @@
             "mode": {
               "type": "string"
             },
+            "strava_activity_id": {
+              "type": "string"
+            },
+            "strava_data": {
+              "type": "object",
+              "properties": {
+                "distance_stream": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "elevation_stream": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "total_elevation_gain": {
+                  "type": "number"
+                },
+                "distance": {
+                  "type": "number"
+                },
+                "max_elevation": {
+                  "type": "number"
+                },
+                "moving_time": {
+                  "type": "number"
+                }
+              },
+              "required": ["distance", "elevation"]
+            },
+            "stops": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "location": {
+                    "type": "object",
+                    "properties": {
+                      "lat": {
+                        "type": "number"
+                      },
+                      "lng": {
+                        "type": "number"
+                      }
+                    },
+                    "required": ["lat", "lng"]
+                  }
+                },
+                "required": ["name"]
+              }
+            },
             "polyline": {
               "type": "string"
             },
