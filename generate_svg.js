@@ -127,7 +127,8 @@ async function main() {
 }
 
 async function processTrip(filename, tripJson, fetchStaticMap) {
-  if (tripJson.waypoints.length == 1) {
+  if (!tripJson.stages || tripJson.stages.length == 1) {
+    console.warn(`Skipping trip "${tripJson.name}" as it has less than 2 stages.`);
     return;
   }
 
@@ -162,7 +163,7 @@ async function writeFileAndLog(filename, data) {
 
 function generateTripSvg(trip) {
   console.log(`Generating Trip SVG for ${trip.name}`);
-  const tripBounds = computeTripBounds(trip, true);
+  const tripBounds = computeTripBounds(trip, true); // This now adds lngShift to stages
 
   // Convert trip bounds to mercator projection
   const boundingBox = latlngToMercatorBbox(tripBounds);
@@ -207,55 +208,55 @@ function generateTripSvg(trip) {
   const shapes = [];
 
   // Add lines for each leg
-  for (const waypoint of trip.waypoints) {
-    if (!waypoint.polyline || waypoint.hidePolyline) {
+  for (const stage of trip.stages) {
+    if (!stage.polyline || stage.hidePolyline || !stage.endLocation?.latlng) {
       continue;
     }
-    const pathArray = pathFromPolyline(waypoint.polyline, transform, waypoint.location.lngShift);
-    const path = canvas
-      .path(pathArray)
-      .addClass("line")
-      .addClass(waypoint.mode)
-      .maskWith(markerMask);
-    if (waypoint.partialAttendance) {
+    // Pass the calculated lngShift from computeTripBounds
+    const pathArray = pathFromPolyline(stage.polyline, transform, stage.lngShift);
+    const path = canvas.path(pathArray).addClass("line").addClass(stage.mode).maskWith(markerMask);
+    if (stage.partialAttendance) {
       path.addClass("partialAttendance");
     }
     shapes.push(ShapeInfo.path(pathArray.toString()));
   }
 
-  // Add marker for each waypoint
-  for (const waypoint of trip.waypoints) {
-    if (waypoint.hideWaypoint) {
+  // Add marker for each stage
+  for (const stage of trip.stages) {
+    if (stage.hideWaypoint || !stage.endLocation?.latlng) {
       continue;
     }
+    // Use the calculated lngShift from computeTripBounds
     const point = toMercator(
-      waypoint.location.lng + (waypoint.location.lngShift || 0),
-      waypoint.location.lat
+      stage.endLocation.latlng.lng + (stage.lngShift || 0),
+      stage.endLocation.latlng.lat
     ).transform(transform);
     const marker = canvas.circle().radius(markerRadius).centerAt(point);
     markerMask.add(marker.clone().fill("black"));
-    marker.addClass("waypoint");
-    if (waypoint.dayStop) {
+    marker.addClass("stage");
+    if (stage.dayStop) {
       marker.addClass("dayStop");
     }
-    if (waypoint.partialAttendance) {
+    if (stage.partialAttendance) {
       marker.addClass("partialAttendance");
     }
     shapes.push(ShapeInfo.circle(point, markerRadius));
   }
 
-  // Add label for each waypoint
-
-  const labelPoints = trip.waypoints
-    .filter((waypoint) => !waypoint.hideWaypoint && !waypoint.hideLabel)
-    .map((waypoint) => ({
-      name: waypoint.name,
+  // Add label for each stage
+  const labelPoints = trip.stages
+    .filter((stage) => !stage.hideWaypoint && !stage.hideLabel && stage.endLocation?.latlng)
+    .map((stage) => ({
+      // Use endLocation.name for the label text
+      name: stage.endLocation.name,
+      // Use endLocation.latlng and the calculated lngShift for position
       point: toMercator(
-        waypoint.location.lng + (waypoint.location.lngShift || 0),
-        waypoint.location.lat
+        stage.endLocation.latlng.lng + (stage.lngShift || 0),
+        stage.endLocation.latlng.lat
       ).transform(transform),
-      partialAttendance: waypoint.partialAttendance,
+      partialAttendance: stage.partialAttendance,
     }));
+
   const bestLabelPlacement = calculateBestLabelPositions(
     labelPoints,
     32,
@@ -276,6 +277,7 @@ function generateTripSvg(trip) {
       .fill(labelPlacement.intersects ? "red" : "green")
       .addClass("labelRect");
     shapes.push(labelPlacement.shape);
+    // labelPlacement.label.name already comes from endLocation.name
     const label = canvas.text(labelPlacement.label.name).at(labelPlacement.point).addClass("label");
     if (labelPlacement.label.partialAttendance) {
       label.addClass("partialAttendance");
@@ -341,9 +343,16 @@ function generateRegionSvg(name, regionName, regionBounds, trips) {
 
   // Add lines/markers for each trip
   for (const trip of filteredTrips) {
-    if (trip.waypoints.length == 1) {
-      const waypoint = trip.waypoints[0];
-      const point = toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform);
+    if (!trip.stages || trip.stages.length === 0) continue;
+
+    if (trip.stages.length == 1) {
+      const stage = trip.stages[0];
+      if (!stage.endLocation?.latlng) continue; // Skip if no location
+      // Use endLocation.latlng
+      const point = toMercator(
+        stage.endLocation.latlng.lng,
+        stage.endLocation.latlng.lat
+      ).transform(transform);
       let marker;
       if (trip.isHome) {
         marker = canvas
@@ -360,68 +369,78 @@ function generateRegionSvg(name, regionName, regionBounds, trips) {
           )
         );
       } else {
-        marker = canvas.circle().radius(markerRadius).centerAt(point).addClass("waypoint");
-        if (waypoint.dayStop) {
+        marker = canvas.circle().radius(markerRadius).centerAt(point).addClass("stage");
+        if (stage.dayStop) {
           marker.addClass("dayStop");
         }
-        if (waypoint.partialAttendance) {
+        if (stage.partialAttendance) {
           marker.addClass("partialAttendance");
         }
         shapes.push(ShapeInfo.circle(point, markerRadius));
       }
     } else {
       const pathArray = [];
-      for (const waypoint of trip.waypoints) {
-        const point = toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform);
-        if (waypoint.showWaypointOnOverview) {
-          const marker = canvas.circle().radius(markerRadius).centerAt(point).addClass("waypoint");
+      for (const stage of trip.stages) {
+        if (!stage.endLocation?.latlng) continue; // Skip if no location
+        // Use endLocation.latlng
+        const point = toMercator(
+          stage.endLocation.latlng.lng,
+          stage.endLocation.latlng.lat
+        ).transform(transform);
+        if (stage.showStageOnOverview) {
+          const marker = canvas.circle().radius(markerRadius).centerAt(point).addClass("stage");
           shapes.push(ShapeInfo.circle(point, markerRadius));
-          if (waypoint.dayStop) {
+          if (stage.dayStop) {
             marker.addClass("dayStop");
           }
-          if (waypoint.partialAttendance) {
+          if (stage.partialAttendance) {
             marker.addClass("partialAttendance");
           }
         }
-        if (!waypoint.polyline || waypoint.hidePolyline || waypoint.hidePolylineOnOverview) {
+        if (!stage.polyline || stage.hidePolyline || stage.hidePolylineOnOverview) {
           pathArray.push(["M", point.x, point.y]);
           continue;
         }
-        const path = pathFromPolyline(waypoint.polyline, transform);
-        if (pathArray.length > 0) {
+        // lngShift is not needed/calculated for region overviews
+        const path = pathFromPolyline(stage.polyline, transform);
+        if (pathArray.length > 0 && path.length > 0) {
           // Remove first element as it's just a move command
           path.shift();
         }
         pathArray.push(...path);
       }
-      canvas.path(pathArray).addClass("line");
-      shapes.push(ShapeInfo.path(pathArray.toString()));
+      if (pathArray.length > 0) {
+        canvas.path(pathArray).addClass("line");
+        shapes.push(ShapeInfo.path(pathArray.toString()));
+      }
     }
   }
 
-  // Add label for each trip and each waypoint explicitly requested.
+  // Add label for each trip and each stage explicitly requested.
   const tripLabels = filteredTrips
     .filter((trip) => !trip.hideLabel)
     .map((trip) => {
-      const tripBounds = computeTripBounds(trip);
+      const tripBounds = computeTripBounds(trip); // lngShift is not needed here
       const tripBoundingBox = latlngToMercatorBbox(tripBounds).transform(transform);
       const tripCenter = new SVG.Point(tripBoundingBox.cx, tripBoundingBox.cy);
       return {
-        name: trip.name,
+        name: trip.name, // Trip name is top-level
         point: tripCenter,
-        partialAttendance: trip.waypoints.every((waypoint) => waypoint.partialAttendance),
+        partialAttendance: trip.stages.every((stage) => stage.partialAttendance),
       };
     });
-  const waypointLabels = filteredTrips.flatMap((trip) =>
-    trip.waypoints
-      .filter((waypoint) => waypoint.showWaypointOnOverview)
-      .map((waypoint) => ({
-        name: waypoint.name,
-        point: toMercator(waypoint.location.lng, waypoint.location.lat).transform(transform),
-        partialAttendance: waypoint.partialAttendance,
+  const stageLabels = filteredTrips.flatMap((trip) =>
+    trip.stages
+      .filter((stage) => stage.showStageOnOverview && stage.endLocation?.latlng)
+      .map((stage) => ({
+        name: stage.endLocation.name,
+        point: toMercator(stage.endLocation.latlng.lng, stage.endLocation.latlng.lat).transform(
+          transform
+        ),
+        partialAttendance: stage.partialAttendance,
       }))
   );
-  const labelPoints = [...tripLabels, ...waypointLabels];
+  const labelPoints = [...tripLabels, ...stageLabels];
 
   const bestLabelPlacement = calculateBestLabelPositions(
     labelPoints,
@@ -467,7 +486,7 @@ function addCanvasStyles(canvas) {
     "stroke-dasharray": "2 8",
   });
   const markerRadius = 5;
-  canvas.style(".waypoint", {
+  canvas.style(".stage", {
     r: markerRadius,
     fill: color,
   });
@@ -497,21 +516,55 @@ function addCanvasStyles(canvas) {
 }
 
 // Compute trip bounds
-function computeTripBounds(trip, allowWrap) {
+function computeTripBounds(trip, allowWrap = false) {
+  // Ensure stages and locations exist
+  if (!trip.stages || trip.stages.length === 0 || !trip.stages[0].endLocation?.latlng) {
+    // Return default or empty bounds if trip is invalid
+    return { west: 0, east: 0, south: 0, north: 0 };
+  }
+
   var lngShift = 0;
-  const lngs = [trip.waypoints[0].location.lng];
-  for (var i = 1; i < trip.waypoints.length; i++) {
+  // Use endLocation.latlng.lng for initial longitude
+  const lngs = [trip.stages[0].endLocation.latlng.lng];
+  // Add lngShift property to the first stage
+  trip.stages[0].lngShift = 0;
+
+  for (var i = 1; i < trip.stages.length; i++) {
+    const currentStage = trip.stages[i];
+    const prevStage = trip.stages[i - 1];
+
+    // Ensure current and previous stages have location data
+    if (!currentStage.endLocation?.latlng || !prevStage.endLocation?.latlng) {
+      console.warn(
+        `Skipping stage ${i} in bounds calculation for trip "${trip.name}" due to missing location.`
+      );
+      // Assign default shift or skip? Assigning current shift seems safest.
+      currentStage.lngShift = lngShift;
+      continue;
+    }
+
     if (allowWrap) {
-      if (trip.waypoints[i].location.lng < trip.waypoints[i - 1].location.lng - 180) {
+      // Use endLocation.latlng.lng for comparison
+      if (currentStage.endLocation.latlng.lng < prevStage.endLocation.latlng.lng - 180) {
         lngShift += 360;
-      } else if (trip.waypoints[i].location.lng > trip.waypoints[i - 1].location.lng + 180) {
+      } else if (currentStage.endLocation.latlng.lng > prevStage.endLocation.latlng.lng + 180) {
         lngShift -= 360;
       }
-      trip.waypoints[i].location.lngShift = lngShift;
     }
-    lngs.push(trip.waypoints[i].location.lng + lngShift);
+    // Add lngShift property to the current stage object (in memory)
+    currentStage.lngShift = lngShift;
+    // Use endLocation.latlng.lng for bounds calculation
+    lngs.push(currentStage.endLocation.latlng.lng + lngShift);
   }
-  const lats = trip.waypoints.map((waypoint) => waypoint.location.lat);
+  // Use endLocation.latlng.lat
+  const lats = trip.stages
+    .filter((stage) => stage.endLocation?.latlng) // Filter out stages without latlng
+    .map((stage) => stage.endLocation.latlng.lat);
+
+  // Handle case where lats might be empty if all stages lacked location
+  if (lats.length === 0) {
+    return { west: 0, east: 0, south: 0, north: 0 };
+  }
 
   return {
     west: Math.min(...lngs),
@@ -547,60 +600,92 @@ function fromMercator(p) {
 }
 
 function pathFromPolyline(encodedPolyline, transform, lngShift = 0) {
+  if (!encodedPolyline) return new SVG.PathArray(); // Handle missing polyline
+
   const decodedPolyline = polyline.decode(encodedPolyline);
 
-  if (decodedPolyline.length == 2) {
-    if (Math.abs(decodedPolyline[0][1] - decodedPolyline[1][1]) > 180) {
-      const dir = Math.sign(decodedPolyline[0][1] - decodedPolyline[1][1]);
-      // Add a dummy move as it may be removed later on (the arc path will add its own move so this will never matter)
-      const path = new SVG.PathArray(["M", "0", "0"]);
+  if (decodedPolyline.length < 2) return new SVG.PathArray(); // Handle invalid polyline
 
-      decodedPolyline[1][1] += dir * 360;
+  // Check for longitude wrapping between the first and last points of the segment
+  const firstLng = decodedPolyline[0][1];
+  const lastLng = decodedPolyline[decodedPolyline.length - 1][1];
+  let needsWrap = false;
+  let wrapDirection = 0;
 
-      const transformedPolyline1 = decodedPolyline.map((latlng) =>
-        toMercator(latlng[1] + lngShift, latlng[0])
-          .transform(transform)
-          .round(EXPORT_PRECISION)
-      );
+  if (Math.abs(firstLng - lastLng) > 180) {
+    needsWrap = true;
+    wrapDirection = Math.sign(firstLng - lastLng);
+  }
+
+  if (needsWrap) {
+    const path = new SVG.PathArray();
+    // Create two segments, one on each side of the antimeridian
+
+    // Segment 1 (original position)
+    const transformedPolyline1 = decodedPolyline.map((latlng) =>
+      toMercator(latlng[1] + lngShift, latlng[0])
+        .transform(transform)
+        .round(EXPORT_PRECISION)
+    );
+    // Use arc for 2 points, straight line otherwise
+    if (transformedPolyline1.length === 2) {
       path.push(...arcPathBetweenPoints(...transformedPolyline1));
-
-      decodedPolyline[1][1] -= dir * 360;
-      decodedPolyline[0][1] -= dir * 360;
-
-      const transformedPolyline2 = decodedPolyline.map((latlng) =>
-        toMercator(latlng[1] + lngShift, latlng[0])
-          .transform(transform)
-          .round(EXPORT_PRECISION)
-      );
-      path.push(...arcPathBetweenPoints(...transformedPolyline2));
-
-      return path;
     } else {
-      const transformedPolyline = decodedPolyline.map((latlng) =>
-        toMercator(latlng[1] + lngShift, latlng[0])
-          .transform(transform)
-          .round(EXPORT_PRECISION)
-      );
-      return arcPathBetweenPoints(...transformedPolyline);
+      const simplified1 = simplify(transformedPolyline1, 0.5, false);
+      const pathArray1 = simplified1.map((point) => ["L", point.x, point.y]);
+      if (pathArray1.length > 0) pathArray1[0][0] = "M";
+      path.push(...pathArray1);
     }
+
+    // Segment 2 (shifted position)
+    const shiftedPolyline = decodedPolyline.map((latlng) => [
+      latlng[0],
+      latlng[1] - wrapDirection * 360,
+    ]);
+    const transformedPolyline2 = shiftedPolyline.map((latlng) =>
+      toMercator(latlng[1] + lngShift, latlng[0])
+        .transform(transform)
+        .round(EXPORT_PRECISION)
+    );
+    // Use arc for 2 points, straight line otherwise
+    if (transformedPolyline2.length === 2) {
+      // Need a move command before the second arc
+      path.push(["M", transformedPolyline2[0].x, transformedPolyline2[0].y]);
+      path.push(...arcPathBetweenPoints(...transformedPolyline2).slice(1)); // Remove the M from the second arc
+    } else {
+      const simplified2 = simplify(transformedPolyline2, 0.5, false);
+      const pathArray2 = simplified2.map((point) => ["L", point.x, point.y]);
+      if (pathArray2.length > 0) pathArray2[0][0] = "M"; // Start with Move
+      path.push(...pathArray2);
+    }
+
+    return path;
   } else {
+    // No wrapping needed
     const transformedPolyline = decodedPolyline.map((latlng) =>
       toMercator(latlng[1] + lngShift, latlng[0])
         .transform(transform)
         .round(EXPORT_PRECISION)
     );
-    const simplifiedPolyline = simplify(transformedPolyline, 0.5, false);
-    const polylinePathArray = simplifiedPolyline.map((point) => ["L", point.x, point.y]);
-    polylinePathArray[0][0] = "M";
-    return new SVG.PathArray(polylinePathArray);
+
+    if (transformedPolyline.length === 2) {
+      return arcPathBetweenPoints(...transformedPolyline);
+    } else {
+      const simplifiedPolyline = simplify(transformedPolyline, 0.5, false);
+      const polylinePathArray = simplifiedPolyline.map((point) => ["L", point.x, point.y]);
+      if (polylinePathArray.length > 0) polylinePathArray[0][0] = "M";
+      return new SVG.PathArray(polylinePathArray);
+    }
   }
 }
 
 function arcPathBetweenPoints(p1, p2) {
   const r = round(distanceBetweenPoints(p1, p2) * 1.3, EXPORT_PRECISION);
+  // Ensure radius is not zero
+  const radius = Math.max(r, 0.1);
   return new SVG.PathArray([
     ["M", p1.x, p1.y],
-    ["A", r, r, 0, 0, 1, p2.x, p2.y],
+    ["A", radius, radius, 0, 0, 1, p2.x, p2.y],
   ]);
 }
 
@@ -641,6 +726,18 @@ function calculateBestLabelPositions(
     }
   }
 
+  // Handle case where no labels could be placed
+  if (!bestLabelPlacement) {
+    console.warn("Could not determine any label placement.");
+    return {
+      result: [],
+      numberOfIntersections: 0,
+      averageOffset: 0,
+      labelSeparationScore: 0,
+      labelProminenceScore: 0,
+    };
+  }
+
   return bestLabelPlacement;
 }
 
@@ -658,6 +755,9 @@ function calculateLabelPositions(
   shuffleArray(shuffledLabels, rng);
   const result = [];
   for (const label of shuffledLabels) {
+    // Skip if label name is missing or empty
+    if (!label.name) continue;
+
     const labelWidth = pixelWidth(label.name, {
       font: "helvetica",
       size: labelFontSizePx,
@@ -859,14 +959,19 @@ function generalizedMean(array, exponent) {
     // return the minimum value
     return Math.min(...array);
   }
-  if (Math.min(...array) < 0) {
-    throw new Error("Can't take generalized mean of negative numbers.");
+  // Ensure no negative numbers before raising to a fractional power
+  if (Math.abs(exponent) < 1 && Math.min(...array) < 0) {
+    console.warn(
+      "Cannot take generalized mean with negative numbers and fractional exponent. Returning NaN."
+    );
+    return NaN;
+    // Or handle differently, e.g., return 0 or throw error
   }
   // return the power mean
-  return Math.pow(
-    array.reduce((a, b) => a + Math.pow(b, exponent), 0) / array.length,
-    1 / exponent
-  );
+  const sumOfPowers = array.reduce((a, b) => a + Math.pow(b, exponent), 0);
+  // Handle potential negative base with fractional exponent if necessary,
+  // though ideally inputs should be non-negative for many exponents.
+  return Math.pow(sumOfPowers / array.length, 1 / exponent);
 }
 
 function generateLabelOffsetOptions(point, offset, labelWidth, labelHeight, maxWidth, maxHeight) {
@@ -903,8 +1008,15 @@ function generateLabelOffsetOptions(point, offset, labelWidth, labelHeight, maxW
 
 function hasIntersections(shapes, testShape) {
   for (const shape of shapes) {
-    const intersect = Intersection.intersect(shape, testShape);
-    if (intersect.points.length > 0) {
+    try {
+      const intersect = Intersection.intersect(shape, testShape);
+      if (intersect.points.length > 0) {
+        return true;
+      }
+    } catch (error) {
+      // kld-intersections can sometimes throw errors on complex/degenerate shapes
+      console.warn("Intersection check failed:", error);
+      // Treat error as potential intersection to be safe
       return true;
     }
   }
@@ -913,6 +1025,7 @@ function hasIntersections(shapes, testShape) {
 
 // Convert string to snake case
 function toSnakeCase(str) {
+  if (!str) return ""; // Handle null or undefined input
   return str
     .replace(/([a-z])([A-Z])/g, "$1_$2")
     .replace(/\s+/g, "_")
@@ -985,17 +1098,35 @@ async function fetchStaticMapMapbox(boundingBox) {
     "amorris13/clyk5oa2u01dw01rba38pe12t"; // muted, no labels
   const url = `https://api.mapbox.com/styles/v1/${style}/static/[${tlLatLng.lng},${brLatLng.lat},${brLatLng.lng},${tlLatLng.lat}]/${widthPx}x${expandedHeightPx}@2x?access_token=${process.env.MAPBOX_ACCESS_TOKEN}`;
 
-  console.log(url);
-  const response = await fetch(url);
-  const staticMapBlob = await response.blob();
+  console.log(`Fetching static map: ${url}`); // Log the URL being fetched
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      // Log detailed error from Mapbox if available
+      const errorBody = await response.text();
+      console.error(
+        `Error fetching static map (${response.status} ${response.statusText}): ${errorBody}`
+      );
+      throw new Error(`Mapbox API request failed with status ${response.status}`);
+    }
+    const staticMapBlob = await response.blob();
 
-  const staticMapBuffer = Buffer.from(await staticMapBlob.arrayBuffer());
+    const staticMapBuffer = Buffer.from(await staticMapBlob.arrayBuffer());
 
-  const staticMapCroppedBuffer = await sharp(staticMapBuffer)
-    .extract({ left: 0, top: 0, width: widthPx * 2, height: heightPx * 2 })
-    .toBuffer();
+    const staticMapCroppedBuffer = await sharp(staticMapBuffer)
+      .extract({ left: 0, top: 0, width: widthPx * 2, height: heightPx * 2 })
+      .toBuffer();
 
-  return staticMapCroppedBuffer;
+    return staticMapCroppedBuffer;
+  } catch (error) {
+    console.error("Failed during static map fetch or processing:", error);
+    // Decide how to handle: rethrow, return null, return placeholder?
+    // Rethrowing to make the failure obvious
+    throw error;
+  }
 }
 
-main();
+main().catch((error) => {
+  console.error("Unhandled error in main execution:", error);
+  process.exit(1);
+});
