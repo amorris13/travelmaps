@@ -9,7 +9,7 @@
       "request": "launch",
       "name": "Generate Data",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/generate_data.js",
+      "program": "${workspaceFolder}/generate_data.ts",
       "envFile": "${workspaceFolder}/.env"
     },
     {
@@ -18,7 +18,7 @@
       "name": "Generate SVG",
       "skipFiles": ["<node_internals>/**"],
       "args": ["--filename=travels.json"],
-      "program": "${workspaceFolder}/generate_svg.js",
+      "program": "${workspaceFolder}/generate_svg.ts",
       "envFile": "${workspaceFolder}/.env"
     },
     {
@@ -27,7 +27,7 @@
       "name": "Generate SVG and Map",
       "skipFiles": ["<node_internals>/**"],
       "args": ["--filename=travels.json", "--staticmap=true", "--year=2017"],
-      "program": "${workspaceFolder}/generate_svg.js",
+      "program": "${workspaceFolder}/generate_svg.ts",
       "envFile": "${workspaceFolder}/.env"
     }
   ]
