@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 638.7614858157846">
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 4;
+      stroke: #C61016;
+      stroke-opacity: 0.8;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <path d="M0 0M935.0058836666667 340.9396166692086A23.655 23.655 0 0 1 929.951 323.46L931.639 322.263L931.892 320.317L934.263 319.565L934.682 318.238A3.614 3.614 0 0 1 937.14 319.536A4.319 4.319 0 0 1 940.462 319.592A16.867 16.867 0 0 1 952.781 315.52L955.546 316.456L957.203 315.85M952.7805326666667 315.51987685293363A25.907 25.907 0 0 1 961.127 333.617A16.621 16.621 0 0 1 963.966 346.083A12.77 12.77 0 0 1 955.432 350.948L951.634 349.861L949.76 348.457L950.188 345.041L946.223 342.123A14.662 14.662 0 0 1 935.006 340.94 " class="line"></path>
+  <rect width="64.26" height="21.6" x="871.385" y="344.547" opacity="0.2" fill="green" class="labelRect"></rect><text x="871.385" y="361.649" class="label">
+    <tspan dy="0" x="871.385">SE Asia</tspan>
+  </text>
+</svg>

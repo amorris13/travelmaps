@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 1200">
+  <image width="1200" height="1200" href="2015-journey_to_london.png"></image>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 4;
+      stroke: #C61016;
+      stroke-opacity: 0.8;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <defs>
+    <mask id="SvgjsMask1003">
+      <rect width="1200" height="1200" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="186.913" cy="852.248" fill="black"></circle>
+      <circle r="5" cx="142.81" cy="502.315" fill="black"></circle>
+      <circle r="5" cx="138.462" cy="540.952" fill="black"></circle>
+      <circle r="5" cx="751.872" cy="514.072" fill="black"></circle>
+      <circle r="5" cx="970.107" cy="347.752" fill="black"></circle>
+      <circle r="5" cx="1061.538" cy="448.501" fill="black"></circle>
+    </mask>
+  </defs>
+  <path d="M186.913 852.248A458.512 458.512 0 0 1 142.81 502.315 " class="line flying" mask="url(#SvgjsMask1003)"></path>
+  <path d="M142.81 502.315A50.545 50.545 0 0 1 138.462 540.952 " class="line flying" mask="url(#SvgjsMask1003)"></path>
+  <path d="M0 0M1647.426 540.952A798.198 798.198 0 0 1 2260.836 514.072M138.462 540.952A798.198 798.198 0 0 1 751.872 514.072 " class="line flying" mask="url(#SvgjsMask1003)"></path>
+  <path d="M751.872 514.072A356.705 356.705 0 0 1 970.107 347.752 " class="line flying" mask="url(#SvgjsMask1003)"></path>
+  <path d="M970.107 347.752A176.867 176.867 0 0 1 1061.538 448.501 " class="line flying" mask="url(#SvgjsMask1003)"></path>
+  <circle r="5" cx="186.913" cy="852.248" class="stage"></circle>
+  <circle r="5" cx="142.81" cy="502.315" class="stage"></circle>
+  <circle r="5" cx="138.462" cy="540.952" class="stage"></circle>
+  <circle r="5" cx="751.872" cy="514.072" class="stage"></circle>
+  <circle r="5" cx="970.107" cy="347.752" class="stage"></circle>
+  <circle r="5" cx="1061.538" cy="448.501" class="stage"></circle>
+  <rect width="77.04" height="21.6" x="887.41" y="320.495" opacity="0.2" fill="green" class="labelRect"></rect><text x="887.41" y="337.597" class="label">
+    <tspan dy="0" x="887.41">Reykjavik</tspan>
+  </text>
+  <rect width="49.14" height="21.6" x="144.118" y="546.609" opacity="0.2" fill="green" class="labelRect"></rect><text x="144.118" y="563.71" class="label">
+    <tspan dy="0" x="144.118">Tokyo</tspan>
+  </text>
+  <rect width="78.12" height="21.6" x="757.529" y="519.729" opacity="0.2" fill="green" class="labelRect"></rect><text x="757.529" y="536.83" class="label">
+    <tspan dy="0" x="757.529">New York</tspan>
+  </text>
+  <rect width="60.3" height="21.6" x="194.913" y="841.448" opacity="0.2" fill="green" class="labelRect"></rect><text x="194.913" y="858.55" class="label">
+    <tspan dy="0" x="194.913">Sydney</tspan>
+  </text>
+  <rect width="60.48" height="21.6" x="1067.195" y="454.157" opacity="0.2" fill="green" class="labelRect"></rect><text x="1067.195" y="471.259" class="label">
+    <tspan dy="0" x="1067.195">London</tspan>
+  </text>
+  <rect width="55.08" height="21.6" x="115.27" y="472.715" opacity="0.2" fill="green" class="labelRect"></rect><text x="115.27" y="489.817" class="label">
+    <tspan dy="0" x="115.27">Niseko</tspan>
+  </text>
+</svg>

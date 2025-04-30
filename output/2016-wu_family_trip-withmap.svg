@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 1200">
+  <image width="1200" height="1200" href="2016-wu_family_trip.png"></image>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 4;
+      stroke: #C61016;
+      stroke-opacity: 0.8;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <defs>
+    <mask id="SvgjsMask1012">
+      <rect width="1200" height="1200" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="167.248" cy="138.462" fill="black"></circle>
+      <circle r="5" cx="151.343" cy="1061.538" fill="black"></circle>
+      <circle r="5" cx="1034.193" cy="575.826" fill="black"></circle>
+      <circle r="5" cx="942.119" cy="779.973" fill="black"></circle>
+      <circle r="5" cx="1048.657" cy="1002.244" fill="black"></circle>
+    </mask>
+  </defs>
+  <path d="M167.248 138.461A1200.178 1200.178 0 0 1 151.344 1061.538 " class="line flying partialAttendance" mask="url(#SvgjsMask1012)"></path>
+  <path d="M151.344 1061.538A1309.931 1309.931 0 0 1 1034.192 575.826 " class="line flying partialAttendance" mask="url(#SvgjsMask1012)"></path>
+  <path d="M1034.192 575.826L1030.369 572.4L1025.308 570.487L996.333 578.626L993.883 579.871L990.306 586.38L987.423 594.271L981.724 605.673L987.642 620.747L984.824 629.43L983.953 635.018L973.748 642.593L972.264 649.527L967.072 655.27L961.785 658.799L958.118 662.419L954.917 667.293L952.677 673.567L951.597 682.258L948.978 690.318L947.17 690.015L949.48 690.714L953.38 694.096L950.35 704.707L951.12 724.572L957.14 740.413L938.701 774.012L942.121 779.972 " class="line transit partialAttendance" mask="url(#SvgjsMask1012)"></path>
+  <path d="M942.121 779.972L941.328 779.331L941.789 777.811L946.444 780.135L947.95 780.094L957.427 788.948L959.963 794.443L974.712 808.789L988.806 815.305L994.98 831.341L997.836 862.315L1011.941 900.862L1020.732 907.537L1012.636 901.401L1026.524 917.582L1036.396 934.23L1042.908 941.802L1045.001 945.359L1054.549 973.327L1051.979 988.996L1053.001 1001.575L1048.658 1002.233 " class="line transit" mask="url(#SvgjsMask1012)"></path>
+  <circle r="5" cx="167.248" cy="138.462" class="stage partialAttendance"></circle>
+  <circle r="5" cx="151.343" cy="1061.538" class="stage partialAttendance"></circle>
+  <circle r="5" cx="1034.193" cy="575.826" class="stage partialAttendance"></circle>
+  <circle r="5" cx="942.119" cy="779.973" class="stage partialAttendance"></circle>
+  <circle r="5" cx="1048.657" cy="1002.244" class="stage"></circle>
+  <rect width="48.06" height="21.6" x="1056.657" y="991.444" opacity="0.2" fill="green" class="labelRect"></rect><text x="1056.657" y="1008.545" class="label">
+    <tspan dy="0" x="1056.657">Rome</tspan>
+  </text>
+  <rect width="55.26" height="21.6" x="1039.85" y="548.569" opacity="0.2" fill="green" class="labelRect"></rect><text x="1039.85" y="565.671" class="label partialAttendance">
+    <tspan dy="0" x="1039.85">Venice</tspan>
+  </text>
+  <rect width="41.04" height="21.6" x="118.208" y="127.662" opacity="0.2" fill="green" class="labelRect"></rect><text x="118.208" y="144.763" class="label partialAttendance">
+    <tspan dy="0" x="118.208">Paris</tspan>
+  </text>
+  <rect width="81.36" height="21.6" x="61.983" y="1050.738" opacity="0.2" fill="green" class="labelRect"></rect><text x="61.983" y="1067.84" class="label partialAttendance">
+    <tspan dy="0" x="61.983">Barcelona</tspan>
+  </text>
+  <rect width="70.2" height="21.6" x="866.262" y="785.63" opacity="0.2" fill="green" class="labelRect"></rect><text x="866.262" y="802.732" class="label partialAttendance">
+    <tspan dy="0" x="866.262">Florence</tspan>
+  </text>
+</svg>

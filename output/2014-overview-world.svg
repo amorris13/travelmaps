@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 638.7614858157846">
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 4;
+      stroke: #C61016;
+      stroke-opacity: 0.8;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <path d="M0 0M456.09034499999996 465.71659653906875A50.902 50.902 0 0 1 417.927 456.956L413.601 457.081L410.714 455.468L409.875 453.799A30.882 30.882 0 0 1 418.544 475.916A116.3 116.3 0 0 1 343.19 427.696A22.962 22.962 0 0 1 360.108 432.773L358.183 431.509L360.108 432.773A94.933 94.933 0 0 1 364.436 505.67A170.609 170.609 0 0 1 235.501 481.192A179.981 179.981 0 0 1 101.441 446.617A9.368 9.368 0 0 1 94.994 443.398 " class="line"></path>
+  <rect width="118.44" height="21.6" x="154.274" y="442.255" opacity="0.2" fill="green" class="labelRect"></rect><text x="154.274" y="459.356" class="label">
+    <tspan dy="0" x="154.274">South America</tspan>
+  </text>
+</svg>

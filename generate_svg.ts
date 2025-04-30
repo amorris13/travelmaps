@@ -5,8 +5,8 @@ import { createSVGWindow } from "svgdom";
 import * as SVG from "@svgdotjs/svg.js";
 import fs from "node:fs/promises";
 import polyline from "@mapbox/polyline";
+import pretty from "pretty";
 import pixelWidth from "string-pixel-width";
-// Import from svg-intersections
 import type { Shape } from "svg-intersections";
 import { intersect, shape } from "svg-intersections";
 import seedrandom from "seedrandom";
@@ -277,7 +277,7 @@ async function processTrip(
   const tripSvgResult = generateTripSvg(tripJson);
   await writeFileAndLog(
     "output/" + filename + ".svg",
-    tripSvgResult.svgCanvas.svg(svgExportModifier)
+    pretty(tripSvgResult.svgCanvas.svg(svgExportModifier))
   );
 
   const mapFileName = "output/" + filename + ".png";
@@ -286,31 +286,20 @@ async function processTrip(
     try {
       const staticMap = await fetchStaticMapMapbox(tripSvgResult.boundingBox);
       await writeFileAndLog(mapFileName, staticMap);
-
-      // Add map image to SVG only if fetch was successful
-      tripSvgResult.svgCanvas
-        .image(filename + ".png")
-        .size(SIDE_PX, SIDE_PX)
-        .back();
-      await writeFileAndLog(
-        "output/" + filename + "-withmap.svg",
-        tripSvgResult.svgCanvas.svg(svgExportModifier)
-      );
     } catch (error) {
       console.error(`Failed to fetch or process static map for ${filename}:`, error);
       // Continue without the map background
     }
-  } else if (mapExists) {
-    // If map already exists, add it to the SVG
-    tripSvgResult.svgCanvas
-      .image(filename + ".png")
-      .size(SIDE_PX, SIDE_PX)
-      .back();
-    await writeFileAndLog(
-      "output/" + filename + "-withmap.svg",
-      tripSvgResult.svgCanvas.svg(svgExportModifier)
-    );
   }
+
+  tripSvgResult.svgCanvas
+    .image(filename + ".png")
+    .size(SIDE_PX, SIDE_PX)
+    .back();
+  await writeFileAndLog(
+    "output/" + filename + "-withmap.svg",
+    pretty(tripSvgResult.svgCanvas.svg(svgExportModifier))
+  );
 }
 
 async function processRegion(
@@ -322,7 +311,7 @@ async function processRegion(
   await fs.mkdir("output", { recursive: true });
 
   const regionSvg = generateRegionSvg(name, regionName, regionBounds, trips);
-  await writeFileAndLog("output/" + name + ".svg", regionSvg.svg(svgExportModifier));
+  await writeFileAndLog("output/" + name + ".svg", pretty(regionSvg.svg(svgExportModifier)));
 
   const mapFileName = "output/" + toSnakeCase(regionName) + ".png";
   const mapExists = await fileExists(mapFileName);
@@ -332,7 +321,10 @@ async function processRegion(
       .image(toSnakeCase(regionName) + ".png")
       .size(box.width, box.height)
       .back();
-    await writeFileAndLog("output/" + name + "-withmap.svg", regionSvg.svg(svgExportModifier));
+    await writeFileAndLog(
+      "output/" + name + "-withmap.svg",
+      pretty(regionSvg.svg(svgExportModifier))
+    );
   } else {
     console.warn(
       `Static map file ${mapFileName} not found for region ${regionName}. Skipping map background.`

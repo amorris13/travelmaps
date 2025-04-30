@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 1200">
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 4;
+      stroke: #C61016;
+      stroke-opacity: 0.8;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <defs>
+    <mask id="SvgjsMask1002">
+      <rect width="1200" height="1200" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="1061.538" cy="597.53" fill="black"></circle>
+      <circle r="5" cx="963.981" cy="575.134" fill="black"></circle>
+      <circle r="5" cx="943.397" cy="567.065" fill="black"></circle>
+      <circle r="5" cx="965.559" cy="623.603" fill="black"></circle>
+      <circle r="5" cx="772.929" cy="500.337" fill="black"></circle>
+      <circle r="5" cx="816.179" cy="513.315" fill="black"></circle>
+      <circle r="5" cx="811.255" cy="510.086" fill="black"></circle>
+      <circle r="5" cx="816.179" cy="513.315" fill="black"></circle>
+      <circle r="5" cx="827.241" cy="699.663" fill="black"></circle>
+      <circle r="5" cx="497.643" cy="637.089" fill="black"></circle>
+      <circle r="5" cx="154.943" cy="548.704" fill="black"></circle>
+      <circle r="5" cx="138.462" cy="540.477" fill="black"></circle>
+    </mask>
+  </defs>
+  <path d="M1061.538 597.53A130.123 130.123 0 0 1 963.981 575.134 " class="line flying" mask="url(#SvgjsMask1002)"></path>
+  <path d="M963.982 575.134L960.396 574.771L956.285 575.926L953.203 575.47L946.258 572.111L943.397 567.065 " class="line driving" mask="url(#SvgjsMask1002)"></path>
+  <path d="M943.397 567.065A78.944 78.944 0 0 1 965.559 623.603 " class="line flying" mask="url(#SvgjsMask1002)"></path>
+  <path d="M965.559 623.603A297.302 297.302 0 0 1 772.929 500.337 " class="line flying" mask="url(#SvgjsMask1002)"></path>
+  <path d="M772.929 500.337A58.702 58.702 0 0 1 816.179 513.315 " class="line flying" mask="url(#SvgjsMask1002)"></path>
+  <path d="M816.179 513.315L814.201 512.62L813.961 511.15L811.255 510.085 " class="line transit" mask="url(#SvgjsMask1002)"></path>
+  <path d="M811.255 510.085L813.146 510.624L814.566 512.68L816.179 513.315 " class="line transit" mask="url(#SvgjsMask1002)"></path>
+  <path d="M816.179 513.315A242.679 242.679 0 0 1 827.241 699.663 " class="line flying" mask="url(#SvgjsMask1002)"></path>
+  <path d="M827.241 699.663A436.131 436.131 0 0 1 497.643 637.089 " class="line flying" mask="url(#SvgjsMask1002)"></path>
+  <path d="M497.643 637.089A460.088 460.088 0 0 1 154.943 548.704 " class="line flying" mask="url(#SvgjsMask1002)"></path>
+  <path d="M154.943 548.704A23.946 23.946 0 0 1 138.462 540.477 " class="line flying" mask="url(#SvgjsMask1002)"></path>
+  <circle r="5" cx="1061.538" cy="597.53" class="stage"></circle>
+  <circle r="5" cx="963.981" cy="575.134" class="stage"></circle>
+  <circle r="5" cx="943.397" cy="567.065" class="stage"></circle>
+  <circle r="5" cx="965.559" cy="623.603" class="stage"></circle>
+  <circle r="5" cx="772.929" cy="500.337" class="stage"></circle>
+  <circle r="5" cx="816.179" cy="513.315" class="stage"></circle>
+  <circle r="5" cx="811.255" cy="510.086" class="stage"></circle>
+  <circle r="5" cx="816.179" cy="513.315" class="stage"></circle>
+  <circle r="5" cx="827.241" cy="699.663" class="stage"></circle>
+  <circle r="5" cx="497.643" cy="637.089" class="stage"></circle>
+  <circle r="5" cx="154.943" cy="548.704" class="stage"></circle>
+  <circle r="5" cx="138.462" cy="540.477" class="stage"></circle>
+  <rect width="113.4" height="21.6" x="816.912" y="482.829" opacity="0.2" fill="green" class="labelRect"></rect><text x="816.912" y="499.93" class="label">
+    <tspan dy="0" x="816.912">Machu Picchu</tspan>
+  </text>
+  <rect width="51.12" height="21.6" x="833.149" y="530.286" opacity="0.2" fill="green" class="labelRect"></rect><text x="833.149" y="547.387" class="label">
+    <tspan dy="0" x="833.149">Cuzco</tspan>
+  </text>
+  <rect width="71.46" height="21.6" x="863.937" y="556.265" opacity="0.2" fill="green" class="labelRect"></rect><text x="863.937" y="573.367" class="label">
+    <tspan dy="0" x="863.937">Pantanal</tspan>
+  </text>
+  <rect width="116.46" height="21.6" x="1003.308" y="605.53" opacity="0.2" fill="green" class="labelRect"></rect><text x="1003.308" y="622.631" class="label">
+    <tspan dy="0" x="1003.308">Rio de Janeiro</tspan>
+  </text>
+  <rect width="105.48" height="21.6" x="386.506" y="642.746" opacity="0.2" fill="green" class="labelRect"></rect><text x="386.506" y="659.847" class="label">
+    <tspan dy="0" x="386.506">Easter Island</tspan>
+  </text>
+  <rect width="39.06" height="21.6" x="728.212" y="473.08" opacity="0.2" fill="green" class="labelRect"></rect><text x="728.212" y="490.181" class="label">
+    <tspan dy="0" x="728.212">Lima</tspan>
+  </text>
+  <rect width="123.48" height="21.6" x="969.638" y="547.877" opacity="0.2" fill="green" class="labelRect"></rect><text x="969.638" y="564.979" class="label">
+    <tspan dy="0" x="969.638">Campo Grande</tspan>
+  </text>
+  <rect width="97.38" height="21.6" x="862.522" y="629.26" opacity="0.2" fill="green" class="labelRect"></rect><text x="862.522" y="646.362" class="label">
+    <tspan dy="0" x="862.522">Iguazu Falls</tspan>
+  </text>
+  <rect width="71.46" height="21.6" x="832.897" y="705.32" opacity="0.2" fill="green" class="labelRect"></rect><text x="832.897" y="722.422" class="label">
+    <tspan dy="0" x="832.897">Santiago</tspan>
+  </text>
+  <rect width="54.72" height="21.6" x="78.085" y="513.22" opacity="0.2" fill="green" class="labelRect"></rect><text x="78.085" y="530.321" class="label">
+    <tspan dy="0" x="78.085">Taha'a</tspan>
+  </text>
+  <rect width="67.5" height="21.6" x="160.6" y="521.447" opacity="0.2" fill="green" class="labelRect"></rect><text x="160.6" y="538.549" class="label">
+    <tspan dy="0" x="160.6">Papeete</tspan>
+  </text>
+</svg>

@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 1200">
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 4;
+      stroke: #C61016;
+      stroke-opacity: 0.8;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <defs>
+    <mask id="SvgjsMask1027">
+      <rect width="1200" height="1200" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="369.027" cy="138.462" fill="black"></circle>
+      <circle r="5" cx="830.973" cy="1061.538" fill="black"></circle>
+      <circle r="5" cx="733.766" cy="736.279" fill="black"></circle>
+    </mask>
+  </defs>
+  <path d="M369.027 138.461A1341.879 1341.879 0 0 1 830.973 1061.539 " class="line flying" mask="url(#SvgjsMask1027)"></path>
+  <path d="M830.973 1061.539A441.318 441.318 0 0 1 733.765 736.279 " class="line flying" mask="url(#SvgjsMask1027)"></path>
+  <circle r="5" cx="369.027" cy="138.462" class="stage"></circle>
+  <circle r="5" cx="830.973" cy="1061.538" class="stage"></circle>
+  <circle r="5" cx="733.766" cy="736.279" class="stage"></circle>
+  <rect width="37.08" height="21.6" x="836.63" y="1067.195" opacity="0.2" fill="green" class="labelRect"></rect><text x="836.63" y="1084.297" class="label">
+    <tspan dy="0" x="836.63">Chia</tspan>
+  </text>
+  <rect width="60.48" height="21.6" x="300.547" y="127.662" opacity="0.2" fill="green" class="labelRect"></rect><text x="300.547" y="144.763" class="label">
+    <tspan dy="0" x="300.547">London</tspan>
+  </text>
+  <rect width="38.16" height="21.6" x="689.949" y="709.022" opacity="0.2" fill="green" class="labelRect"></rect><text x="689.949" y="726.123" class="label">
+    <tspan dy="0" x="689.949">Opio</tspan>
+  </text>
+</svg>
