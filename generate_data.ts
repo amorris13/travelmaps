@@ -3,7 +3,7 @@
 import fs from "node:fs/promises";
 import polyline from "@mapbox/polyline";
 import { URL } from "node:url"; // Import URL constructor
-import type { LatLng, Trip, Stage } from "./trips.ts";
+import type { LatLng, Trip, Stage, Location } from "./trips.ts";
 
 // --- Google API Response Types (Simplified) ---
 interface GoogleGeocodeResult {
@@ -62,7 +62,12 @@ async function main(): Promise<void> {
     if (!travel.stages || !Array.isArray(travel.stages)) continue;
 
     for (const stage of travel.stages) {
-      geocodePromises.push(updateCoordinatesGoogle(stage));
+      geocodePromises.push(updateCoordinatesGoogle(stage.endLocation));
+      if (stage.stops) {
+        for (const stop of stage.stops) {
+          geocodePromises.push(updateCoordinatesGoogle(stop));
+        }
+      }
     }
   }
   try {
@@ -80,7 +85,9 @@ async function main(): Promise<void> {
 
     let prevStage: Stage | undefined; // Explicitly allow undefined
     for (const stage of travel.stages) {
-      if (prevStage && !stage.polyline) {
+      if (stage.strava_activity_id) {
+        directionPromises.push(updateStageStrava(stage));
+      } else if (prevStage && !stage.polyline) {
         // Check if both stages have the necessary location info
         if (prevStage.endLocation?.latlng && stage.endLocation?.latlng) {
           // Type guard for mode
@@ -129,19 +136,13 @@ async function main(): Promise<void> {
 
 // --- Geocoding Function ---
 
-async function updateCoordinatesGoogle(stage: Stage): Promise<void> {
+async function updateCoordinatesGoogle(location: Location): Promise<void> {
   // Check if endLocation and latlng already exist
-  if (stage.endLocation?.latlng) {
+  if (location?.latlng) {
     return; // Already geocoded
   }
 
-  // endLocation is now required on Stage type based on refactor script
-  // if (!stage.endLocation) {
-  //   console.warn(`Stage missing endLocation object. Cannot geocode.`);
-  //   return;
-  // }
-
-  const address = stage.endLocation.geocodeName || stage.endLocation.name;
+  const address = location.geocodeName || location.name;
   if (!address) {
     // This case should ideally not happen if endLocation.name is required by schema/refactor
     console.warn(`Stage missing endLocation.name and endLocation.geocodeName. Cannot geocode.`);
@@ -163,7 +164,7 @@ async function updateCoordinatesGoogle(stage: Stage): Promise<void> {
 
     if (jsonResponse.status === "OK" && jsonResponse.results?.length > 0) {
       // Add latlng to the existing endLocation object
-      stage.endLocation.latlng = jsonResponse.results[0].geometry.location; // Google uses {lat, lng}
+      location.latlng = jsonResponse.results[0].geometry.location; // Google uses {lat, lng}
       console.log(`  -> Found coordinates for ${address}`);
     } else {
       console.error(
@@ -273,6 +274,8 @@ async function updatePolylineGoogle(prevStage: Stage, stage: Stage): Promise<voi
     // throw error;
   }
 }
+
+async function updateStageStrava(stage: Stage): Promise<void> {}
 
 // --- Run the main function ---
 main().catch((error: unknown) => {

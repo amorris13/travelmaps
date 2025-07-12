@@ -19,7 +19,7 @@ import { dirname } from "path";
 import type {
   Trip as RawTrip,
   Stage as RawStage,
-  EndLocation as RawEndLocation,
+  Location as RawLocation,
   LatLng,
 } from "./trips.ts";
 
@@ -37,12 +37,12 @@ interface TripBounds extends RegionBounds {
   lngShift?: number; // Added during calculation if wrapping occurs
 }
 
-interface EndLocation extends RawEndLocation {
+interface Location extends RawLocation {
   latlng: LatLng;
 }
 
 interface Stage extends RawStage {
-  endLocation: EndLocation;
+  endLocation: Location;
   lngShift?: number; // Added during calculation if wrapping occurs
 }
 

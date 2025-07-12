@@ -60,6 +60,9 @@
             "strava_data": {
               "type": "object",
               "properties": {
+                "name": {
+                  "type": "string"
+                },
                 "distance_stream": {
                   "type": "string"
                 },
@@ -76,6 +79,9 @@
                   "type": "number"
                 },
                 "moving_time": {
+                  "type": "number"
+                },
+                "elapsed_time": {
                   "type": "number"
                 }
               },
@@ -125,6 +131,6 @@
         "type": "boolean"
       }
     },
-    "required": ["name", "startDate", "endDate", "startLocation"]
+    "required": ["name", "startDate", "endDate"]
   }
 }

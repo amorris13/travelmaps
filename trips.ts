@@ -3,18 +3,31 @@ export interface LatLng {
   lng: number;
 }
 
-export interface EndLocation {
+export interface Location {
   name: string;
   geocodeName?: string;
   latlng?: LatLng;
 }
 
+export interface StravaActivityData {
+  name: string;
+  distance?: number; // In meters
+  moving_time?: number; // In seconds
+  elapsed_time?: number; // In seconds
+  total_elevation_gain?: number; // In meters
+  max_elevation?: number; // In meters
+  average_speed?: number; // meters per second
+  max_speed?: number; // meters per second
+  distance_stream?: string;
+  elevation_stream?: string;
+}
+
 export interface Stage {
-  endLocation: EndLocation;
+  endLocation: Location;
   mode?: string;
   polyline?: string;
-  strava_id?: string;
-  elevation_profile?: any; // Consider defining more specifically later
+  strava_activity_id?: string;
+  strava_data?: StravaActivityData; // Store fetched Strava activity data
   hideLabel?: boolean;
   hidePolyline?: boolean;
   showWaypointOnOverview?: boolean;
@@ -22,11 +35,12 @@ export interface Stage {
   partialAttendance?: boolean;
   hidePolylineOnOverview?: boolean;
   hideWaypoint?: boolean;
+  stops?: Location[];
   // Add any other properties from the schema if needed
 }
 
 export interface Trip {
-  hideLabel: any;
+  hideLabel: boolean;
   name: string;
   startDate: string;
   endDate: string;

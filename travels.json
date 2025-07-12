@@ -3187,6 +3187,49 @@
     ]
   },
   {
+    "name": "London to Rome",
+    "startDate": "2018-05-27",
+    "endDate": "2018-07-02",
+    "stages": [
+      {
+        "endLocation": {
+          "name": "London",
+          "latlng": {
+            "lat": 51.5072178,
+            "lng": -0.1275862
+          }
+        }
+      },
+      {
+        "endLocation": {
+          "name": "Chelmsford",
+          "latlng": {
+            "lat": 51.7355868,
+            "lng": 0.4685497
+          }
+        },
+        "mode": "bicycling",
+        "strava_activity_id": "1599666167",
+        "stops": [
+          {
+            "name": "Buckingham Palace",
+            "latlng": {
+              "lat": 51.501364,
+              "lng": -0.14189
+            }
+          },
+          {
+            "name": "Tower Bridge",
+            "latlng": {
+              "lat": 51.5054564,
+              "lng": -0.07535649999999999
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
     "name": "Sydney",
     "startDate": "2018-09-15",
     "endDate": "2025-12-31",
