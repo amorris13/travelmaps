@@ -14,6 +14,10 @@ import simplify from "simplify-js";
 import sharp from "sharp";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import dotenv from "dotenv";
+
+// Load environment variables from .env file
+dotenv.config();
 
 // Import shared types
 import type {
