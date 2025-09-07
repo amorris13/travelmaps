@@ -18,8 +18,9 @@ export interface StravaActivityData {
   max_elevation?: number; // In meters
   average_speed?: number; // meters per second
   max_speed?: number; // meters per second
-  distance_stream?: string;
-  elevation_stream?: string;
+  distance_stream?: string; // Comma-separated list of numbers
+  elevation_stream?: string; // Comma-separated list of numbers
+  time_stream?: string; // Comma-separated list of numbers
 }
 
 export interface Stage {

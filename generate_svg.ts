@@ -14,6 +14,10 @@ import simplify from "simplify-js";
 import sharp from "sharp";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import dotenv from "dotenv";
+
+// Load environment variables from .env file
+dotenv.config();
 
 // Import shared types
 import type {
@@ -42,6 +46,7 @@ interface Location extends RawLocation {
 }
 
 interface Stage extends RawStage {
+  startLocation?: Location;
   endLocation: Location;
   lngShift?: number; // Added during calculation if wrapping occurs
 }
@@ -83,6 +88,7 @@ interface ParsedArgs extends parseArgs.ParsedArgs {
   filename?: string;
   staticmap?: boolean;
   specificMap?: string;
+  stageMaps?: boolean;
 }
 
 interface TripSvgResult {
@@ -171,11 +177,12 @@ const svgExportModifier = (node: SVG.Dom): void => {
 
 async function main(): Promise<void> {
   const argv: ParsedArgs = parseArgs(process.argv.slice(2), {
-    boolean: ["staticmap"],
+    boolean: ["staticmap", "stageMaps"],
   }) as ParsedArgs;
   const year = argv.year;
   const filename = argv.filename;
   const fetchStaticMap = argv.staticmap;
+  const generateStageMaps = argv.stageMaps;
 
   if (!filename) {
     console.error("Error: --filename argument is required.");
@@ -206,6 +213,11 @@ async function main(): Promise<void> {
       continue;
     }
     await processTrip(mapname, trip, fetchStaticMap ?? false);
+
+    // Generate individual stage maps if requested
+    if (generateStageMaps) {
+      await processStageMaps(mapname, trip, fetchStaticMap ?? false);
+    }
   }
 
   if (fetchStaticMap) {
@@ -382,7 +394,7 @@ function generateTripSvg(trip: Trip): TripSvgResult {
     if (!stage.polyline || stage.hidePolyline) {
       continue;
     }
-    const pathArray = pathFromPolyline(stage.polyline, transform, stage.lngShift);
+    const pathArray = pathFromPolyline(decodePolyline(stage.polyline), transform, stage.lngShift);
     if (pathArray.length > 0) {
       const path = canvas
         .path(pathArray)
@@ -461,6 +473,221 @@ function generateTripSvg(trip: Trip): TripSvgResult {
   return { svgCanvas: canvas, boundingBox: expandedBoundingBox };
 }
 
+function generateStageSvg(tripName: string, stage: Stage): TripSvgResult {
+  console.log(`Generating Stage SVG for ${tripName} - ${stage.endLocation.name}`);
+
+  // Calculate bounds for this stage including stops
+  const stageBounds = computeStageBounds(stage);
+
+  // Convert stage bounds to mercator projection
+  const boundingBox = latlngToMercatorBbox(stageBounds);
+  const maxSize = Math.max(boundingBox.width, boundingBox.height);
+  // Ensure no division by zero
+  const scaleX = boundingBox.width === 0 ? 1 : maxSize / boundingBox.width;
+  const scaleY = boundingBox.height === 0 ? 1 : maxSize / boundingBox.height;
+
+  const squareBoundingBox = boundingBox.transform(
+    new SVG.Matrix().scale(scaleX, scaleY, boundingBox.cx, boundingBox.cy)
+  );
+  const expandedBoundingBox = squareBoundingBox.transform(
+    new SVG.Matrix().scale(1.3, squareBoundingBox.cx, squareBoundingBox.cy)
+  );
+
+  // Ensure no division by zero for transform scale
+  const transformScale = Math.min(
+    expandedBoundingBox.width === 0 ? 1 : SIDE_PX / expandedBoundingBox.width,
+    expandedBoundingBox.height === 0 ? 1 : SIDE_PX / expandedBoundingBox.height
+  );
+
+  const transform = new SVG.Matrix()
+    .translate(-expandedBoundingBox.cx, -expandedBoundingBox.cy)
+    .lmultiply(new SVG.Matrix().scale(transformScale))
+    .lmultiply(new SVG.Matrix().translate(SIDE_PX / 2, SIDE_PX / 2));
+
+  const window = createSVGWindow();
+  const document = window.document;
+  SVG.registerWindow(window, document);
+  const canvas = SVG.SVG(document.documentElement) as SVG.Svg;
+  canvas.viewbox(0, 0, SIDE_PX, SIDE_PX);
+
+  const { markerRadius, labelFontSizePx } = addCanvasStyles(canvas);
+
+  const markerMask = canvas.mask();
+  markerMask.add(canvas.rect(SIDE_PX, SIDE_PX).move(0, 0).fill("white"));
+
+  // Use the shape type from svg-intersections
+  const shapes: Shape[] = [];
+  const labelPoints: LabelPoint[] = [];
+
+  const decodedPolyline = stage.polyline
+    ? decodePolyline(stage.polyline)
+    : [stage.startLocation?.latlng, stage.endLocation.latlng].filter(
+        (latlng) => latlng !== undefined
+      );
+
+  // Add polyline for this stage if it exists
+  const pathArray = pathFromPolyline(decodedPolyline, transform);
+  if (pathArray.length > 0) {
+    const path = canvas
+      .path(pathArray)
+      .addClass("line")
+      .addClass(stage.mode ?? "unknown")
+      .maskWith(markerMask);
+    if (stage.partialAttendance) {
+      path.addClass("partialAttendance");
+    }
+    // Create shape for intersection testing
+    shapes.push(shape("path", { d: pathArray.toString() }));
+  }
+
+  // Add marker for the stage start location
+  if (stage.startLocation) {
+    const startPoint = toMercatorLatLng(decodedPolyline.at(0)!).transform(transform);
+    const startMarker = canvas.circle().radius(markerRadius).centerAt(startPoint);
+    markerMask.add(startMarker.clone().fill("black"));
+    startMarker.addClass("stage");
+    if (stage.partialAttendance) {
+      startMarker.addClass("partialAttendance");
+    }
+    // Create shape for intersection testing
+    shapes.push(shape("circle", { cx: startPoint.x, cy: startPoint.y, r: markerRadius }));
+    labelPoints.push({
+      name: stage.startLocation.name,
+      point: startPoint,
+      partialAttendance: stage.partialAttendance,
+    });
+  }
+
+  // Add marker for the stage end location
+  const endPoint = toMercatorLatLng(decodedPolyline.at(-1)!).transform(transform);
+  const marker = canvas.circle().radius(markerRadius).centerAt(endPoint);
+  markerMask.add(marker.clone().fill("black"));
+  marker.addClass("stage");
+  if (stage.partialAttendance) {
+    marker.addClass("partialAttendance");
+  }
+  // Create shape for intersection testing
+  shapes.push(shape("circle", { cx: endPoint.x, cy: endPoint.y, r: markerRadius }));
+  labelPoints.push({
+    name: stage.endLocation.name,
+    point: endPoint,
+    partialAttendance: stage.partialAttendance,
+  });
+
+  // Add markers for stops in this stage
+  if (stage.stops && stage.stops.length > 0) {
+    for (const stop of stage.stops) {
+      if (stop.latlng) {
+        const point = toMercatorLatLng(stop.latlng).transform(transform);
+        const marker = canvas
+          .circle()
+          .radius(markerRadius * 0.7)
+          .centerAt(point);
+        markerMask.add(marker.clone().fill("black"));
+        marker.addClass("dayStop");
+        // Create shape for intersection testing
+        shapes.push(shape("circle", { cx: point.x, cy: point.y, r: markerRadius * 0.7 }));
+        if (stop.name) {
+          labelPoints.push({
+            name: stop.name,
+            point,
+          });
+        }
+      }
+    }
+  }
+
+  const bestLabelPlacement = calculateBestLabelPositions(
+    labelPoints,
+    32,
+    labelFontSizePx,
+    shapes,
+    SIDE_PX,
+    SIDE_PX
+  );
+
+  for (const labelPlacement of bestLabelPlacement.result) {
+    if (labelPlacement.intersects) {
+      console.log(`Intersecting ${labelPlacement.label.name}`);
+    }
+    canvas
+      .rect(labelPlacement.width, labelPlacement.height)
+      .at(labelPlacement.point)
+      .opacity(0.2)
+      .fill(labelPlacement.intersects ? "red" : "green")
+      .addClass("labelRect");
+    // Add the label's shape to the list for future intersection checks
+    shapes.push(labelPlacement.shape);
+    const label = canvas.text(labelPlacement.label.name).at(labelPlacement.point).addClass("label");
+    if (labelPlacement.label.partialAttendance) {
+      label.addClass("partialAttendance");
+    }
+  }
+
+  return { svgCanvas: canvas, boundingBox: expandedBoundingBox };
+}
+
+async function processStageMaps(
+  tripFilename: string,
+  tripJson: Trip,
+  fetchStaticMap: boolean
+): Promise<void> {
+  if (!tripJson.stages || tripJson.stages.length === 0) {
+    console.info(`Skipping stage maps for trip "${tripJson.name}" as it has no stages.`);
+    return;
+  }
+
+  await fs.mkdir("output", { recursive: true });
+
+  // Process each stage individually
+  for (let i = 1; i < tripJson.stages.length; i++) {
+    const stage = tripJson.stages[i];
+    stage.startLocation = tripJson.stages[i - 1].endLocation;
+    const stageFilename = `${tripFilename}-stage-${i + 1}`;
+
+    await processStage(stageFilename, tripJson.name, stage, fetchStaticMap);
+  }
+}
+
+async function processStage(
+  filename: string,
+  tripName: string,
+  stage: Stage,
+  fetchStaticMap: boolean
+): Promise<void> {
+  if (!stage.endLocation.latlng) {
+    console.info(`Skipping stage "${stage.endLocation.name}" as it has no coordinates.`);
+    return;
+  }
+
+  const stageSvgResult = generateStageSvg(tripName, stage);
+  await writeFileAndLog(
+    "output/" + filename + ".svg",
+    pretty(stageSvgResult.svgCanvas.svg(svgExportModifier))
+  );
+
+  const mapFileName = "output/" + filename + ".png";
+  const mapExists = await fileExists(mapFileName);
+  if (fetchStaticMap && !mapExists) {
+    try {
+      const staticMap = await fetchStaticMapMapbox(stageSvgResult.boundingBox);
+      await writeFileAndLog(mapFileName, staticMap);
+    } catch (error) {
+      console.error(`Failed to fetch or process static map for ${filename}:`, error);
+      // Continue without the map background
+    }
+  }
+
+  stageSvgResult.svgCanvas
+    .image(filename + ".png")
+    .size(SIDE_PX, SIDE_PX)
+    .back();
+  await writeFileAndLog(
+    "output/" + filename + "-withmap.svg",
+    pretty(stageSvgResult.svgCanvas.svg(svgExportModifier))
+  );
+}
+
 function generateRegionSvg(
   name: string,
   regionName: string,
@@ -510,10 +737,7 @@ function generateRegionSvg(
 
     if (trip.stages.length === 1) {
       const stage = trip.stages[0];
-      const point = toMercator(
-        stage.endLocation.latlng.lng,
-        stage.endLocation.latlng.lat
-      ).transform(transform);
+      const point = toMercatorLatLng(stage.endLocation.latlng).transform(transform);
       let marker: SVG.Element;
       if (trip.isHome) {
         marker = canvas
@@ -542,10 +766,7 @@ function generateRegionSvg(
     } else {
       const pathArray = new SVG.PathArray();
       for (const stage of trip.stages) {
-        const point = toMercator(
-          stage.endLocation.latlng.lng,
-          stage.endLocation.latlng.lat
-        ).transform(transform);
+        const point = toMercatorLatLng(stage.endLocation.latlng).transform(transform);
         if (stage.showWaypointOnOverview) {
           const marker = canvas.circle().radius(markerRadius).centerAt(point).addClass("stage");
           shapes.push(shape("circle", { cx: point.x, cy: point.y, r: markerRadius }));
@@ -561,7 +782,7 @@ function generateRegionSvg(
           continue;
         }
         // lngShift is not needed/calculated for region overviews
-        const path = pathFromPolyline(stage.polyline, transform);
+        const path = pathFromPolyline(decodePolyline(stage.polyline), transform);
         if (pathArray.length > 0 && path.length > 0 && path[0][0] === "M") {
           path.shift();
         }
@@ -597,9 +818,7 @@ function generateRegionSvg(
       .filter((stage) => !!stage.showWaypointOnOverview)
       .map((stage) => ({
         name: stage.endLocation.name,
-        point: toMercator(stage.endLocation.latlng.lng, stage.endLocation.latlng.lat).transform(
-          transform
-        ),
+        point: toMercatorLatLng(stage.endLocation.latlng).transform(transform),
         partialAttendance: stage.partialAttendance,
       }))
   );
@@ -721,6 +940,37 @@ function computeTripBounds(trip: Trip | Trip, allowWrap = false): TripBounds {
   };
 }
 
+function computeStageBounds(stage: Stage): RegionBounds {
+  const locations: LatLng[] = [];
+
+  // Add stage polyline points
+  if (stage.polyline) {
+    locations.push(...decodePolyline(stage.polyline));
+  }
+
+  if (locations.length === 0) {
+    return { west: 0, east: 0, south: 0, north: 0 };
+  }
+
+  const lngs = locations.map((loc) => loc.lng);
+  const lats = locations.map((loc) => loc.lat);
+
+  return {
+    west: Math.min(...lngs),
+    east: Math.max(...lngs),
+    south: Math.min(...lats),
+    north: Math.max(...lats),
+  };
+}
+
+function decodePolyline(encodedPolyline: string): LatLng[] {
+  return polyline.decode(encodedPolyline).map((point) => ({ lng: point[1], lat: point[0] }));
+}
+
+function toMercatorLatLng(latlng: LatLng): SVG.Point {
+  return toMercator(latlng.lng, latlng.lat);
+}
+
 function toMercator(lng: number, lat: number): SVG.Point {
   const x = lng / 180;
   const rad = lat * (Math.PI / 180);
@@ -750,67 +1000,60 @@ function fromMercator(p: { x: number; y: number }): LatLng {
 }
 
 function pathFromPolyline(
-  encodedPolyline: string,
+  decodedPolyline: LatLng[],
   transform: SVG.Matrix,
   lngShift = 0
 ): SVG.PathArray {
-  if (!encodedPolyline) return new SVG.PathArray();
+  if (!decodedPolyline) return new SVG.PathArray();
 
-  try {
-    const decodedPolyline = polyline.decode(encodedPolyline);
+  if (decodedPolyline.length == 2) {
+    if (Math.abs(decodedPolyline[0].lng - decodedPolyline[1].lng) > 180) {
+      const dir = Math.sign(decodedPolyline[0].lng - decodedPolyline[1].lng);
+      // Add a dummy move as it may be removed later on (the arc path will add its own move so this will never matter)
+      const path = new SVG.PathArray(["M", "0", "0"]);
 
-    if (decodedPolyline.length == 2) {
-      if (Math.abs(decodedPolyline[0][1] - decodedPolyline[1][1]) > 180) {
-        const dir = Math.sign(decodedPolyline[0][1] - decodedPolyline[1][1]);
-        // Add a dummy move as it may be removed later on (the arc path will add its own move so this will never matter)
-        const path = new SVG.PathArray(["M", "0", "0"]);
+      decodedPolyline[1].lng += dir * 360;
 
-        decodedPolyline[1][1] += dir * 360;
-
-        const transformedPolyline1 = decodedPolyline.map((latlng) =>
-          toMercator(latlng[1] + lngShift, latlng[0])
-            .transform(transform)
-            .round(EXPORT_PRECISION)
-        );
-        path.push(...arcPathBetweenPoints(transformedPolyline1[0], transformedPolyline1[1]));
-
-        decodedPolyline[1][1] -= dir * 360;
-        decodedPolyline[0][1] -= dir * 360;
-
-        const transformedPolyline2 = decodedPolyline.map((latlng) =>
-          toMercator(latlng[1] + lngShift, latlng[0])
-            .transform(transform)
-            .round(EXPORT_PRECISION)
-        );
-        path.push(...arcPathBetweenPoints(transformedPolyline2[0], transformedPolyline2[1]));
-
-        return path;
-      } else {
-        const transformedPolyline = decodedPolyline.map((latlng) =>
-          toMercator(latlng[1] + lngShift, latlng[0])
-            .transform(transform)
-            .round(EXPORT_PRECISION)
-        );
-        return arcPathBetweenPoints(transformedPolyline[0], transformedPolyline[1]);
-      }
-    } else {
-      const transformedPolyline = decodedPolyline.map((latlng) =>
-        toMercator(latlng[1] + lngShift, latlng[0])
+      const transformedPolyline1 = decodedPolyline.map((latlng) =>
+        toMercator(latlng.lng + lngShift, latlng.lat)
           .transform(transform)
           .round(EXPORT_PRECISION)
       );
-      const simplifiedPolyline = simplify(transformedPolyline, 0.5, false);
-      const polylinePathArray: SVG.PathCommand[] = simplifiedPolyline.map((point) => [
-        "L",
-        point.x,
-        point.y,
-      ]);
-      polylinePathArray[0][0] = "M";
-      return new SVG.PathArray(polylinePathArray);
+      path.push(...arcPathBetweenPoints(transformedPolyline1[0], transformedPolyline1[1]));
+
+      decodedPolyline[1].lng -= dir * 360;
+      decodedPolyline[0].lng -= dir * 360;
+
+      const transformedPolyline2 = decodedPolyline.map((latlng) =>
+        toMercator(latlng.lng + lngShift, latlng.lat)
+          .transform(transform)
+          .round(EXPORT_PRECISION)
+      );
+      path.push(...arcPathBetweenPoints(transformedPolyline2[0], transformedPolyline2[1]));
+
+      return path;
+    } else {
+      const transformedPolyline = decodedPolyline.map((latlng) =>
+        toMercator(latlng.lng + lngShift, latlng.lat)
+          .transform(transform)
+          .round(EXPORT_PRECISION)
+      );
+      return arcPathBetweenPoints(transformedPolyline[0], transformedPolyline[1]);
     }
-  } catch (error) {
-    console.error(`Error decoding or processing polyline "${encodedPolyline}":`, error);
-    return new SVG.PathArray(); // Return empty path on error
+  } else {
+    const transformedPolyline = decodedPolyline.map((latlng) =>
+      toMercator(latlng.lng + lngShift, latlng.lat)
+        .transform(transform)
+        .round(EXPORT_PRECISION)
+    );
+    const simplifiedPolyline = simplify(transformedPolyline, 0.5, false);
+    const polylinePathArray: SVG.PathCommand[] = simplifiedPolyline.map((point) => [
+      "L",
+      point.x,
+      point.y,
+    ]);
+    polylinePathArray[0][0] = "M";
+    return new SVG.PathArray(polylinePathArray);
   }
 }
 

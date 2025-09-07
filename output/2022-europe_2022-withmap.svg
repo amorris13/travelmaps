@@ -53,15 +53,15 @@
     }
   </style>
   <defs>
-    <mask id="SvgjsMask1027">
+    <mask id="SvgjsMask1028">
       <rect width="1200" height="1200" x="0" y="0" fill="white"></rect>
       <circle r="5" cx="369.027" cy="138.462" fill="black"></circle>
       <circle r="5" cx="830.973" cy="1061.538" fill="black"></circle>
       <circle r="5" cx="733.766" cy="736.279" fill="black"></circle>
     </mask>
   </defs>
-  <path d="M369.027 138.461A1341.879 1341.879 0 0 1 830.973 1061.539 " class="line flying" mask="url(#SvgjsMask1027)"></path>
-  <path d="M830.973 1061.539A441.318 441.318 0 0 1 733.765 736.279 " class="line flying" mask="url(#SvgjsMask1027)"></path>
+  <path d="M369.027 138.461A1341.879 1341.879 0 0 1 830.973 1061.539 " class="line flying" mask="url(#SvgjsMask1028)"></path>
+  <path d="M830.973 1061.539A441.318 441.318 0 0 1 733.765 736.279 " class="line flying" mask="url(#SvgjsMask1028)"></path>
   <circle r="5" cx="369.027" cy="138.462" class="stage"></circle>
   <circle r="5" cx="830.973" cy="1061.538" class="stage"></circle>
   <circle r="5" cx="733.766" cy="736.279" class="stage"></circle>

@@ -3,7 +3,11 @@
 import fs from "node:fs/promises";
 import polyline from "@mapbox/polyline";
 import { URL } from "node:url"; // Import URL constructor
-import type { LatLng, Trip, Stage, Location } from "./trips.ts";
+import dotenv from "dotenv";
+import type { LatLng, Trip, Stage, Location, StravaActivityData } from "./trips.ts";
+
+// Load environment variables from .env file
+dotenv.config();
 
 // --- Google API Response Types (Simplified) ---
 interface GoogleGeocodeResult {
@@ -33,6 +37,50 @@ interface GoogleDirectionsResponse {
   available_travel_modes?: string[];
 }
 
+// --- Strava API Response Types ---
+interface StravaActivity {
+  id: number;
+  name: string;
+  distance: number; // meters
+  moving_time: number; // seconds
+  elapsed_time: number; // seconds
+  total_elevation_gain: number; // meters
+  elev_high?: number; // meters
+  elev_low?: number; // meters
+  average_speed: number; // meters per second
+  max_speed: number; // meters per second
+}
+
+interface StravaStream {
+  type: string;
+  data: number[];
+  series_type: string;
+  original_size: number;
+  resolution: string;
+}
+
+interface StravaActivityResponse {
+  id: number;
+  name: string;
+  distance: number;
+  moving_time: number;
+  elapsed_time: number;
+  total_elevation_gain: number;
+  elev_high?: number;
+  elev_low?: number;
+  average_speed: number;
+  max_speed: number;
+  map?: {
+    polyline?: string;
+  };
+}
+
+interface StravaStreamsResponse {
+  distance?: StravaStream;
+  altitude?: StravaStream;
+  time?: StravaStream;
+}
+
 // --- Constants ---
 
 const FILENAME = "./travels.json"; // Use uppercase for constants
@@ -54,6 +102,15 @@ async function main(): Promise<void> {
   } catch (error: any) {
     console.error(`Error reading or parsing ${FILENAME}:`, error?.message || error);
     process.exit(1);
+  }
+
+  // Check if any stages have Strava activity IDs
+  const hasStravaActivities = travelsJson.some(travel => 
+    travel.stages?.some(stage => stage.strava_activity_id)
+  );
+  
+  if (hasStravaActivities && !process.env.STRAVA_ACCESS_TOKEN) {
+    console.warn("Warning: Some stages have Strava activity IDs but STRAVA_ACCESS_TOKEN is not set. Strava data will be skipped.");
   }
 
   // Geocode the stages if coordinates are missing.
@@ -275,7 +332,86 @@ async function updatePolylineGoogle(prevStage: Stage, stage: Stage): Promise<voi
   }
 }
 
-async function updateStageStrava(stage: Stage): Promise<void> {}
+async function updateStageStrava(stage: Stage): Promise<void> {
+  // Check if stage has Strava activity ID
+  if (!stage.strava_activity_id) {
+    return; // No activity ID
+  }
+
+  // Check if we already have complete Strava data (including elevation stream)
+  if (stage.strava_data && stage.strava_data.elevation_stream) {
+    return; // Already processed with complete data
+  }
+
+  // Check if Strava access token is available
+  if (!process.env.STRAVA_ACCESS_TOKEN) {
+    console.warn(`Skipping Strava data for activity ${stage.strava_activity_id}: STRAVA_ACCESS_TOKEN not set`);
+    return;
+  }
+
+  const activityId = stage.strava_activity_id;
+  console.log(`Fetching Strava data for activity: ${activityId}`);
+
+  try {
+    // Fetch activity details
+    const activityResponse = await fetch(`https://www.strava.com/api/v3/activities/${activityId}`, {
+      headers: {
+        'Authorization': `Bearer ${process.env.STRAVA_ACCESS_TOKEN}`,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!activityResponse.ok) {
+      throw new Error(`HTTP error! status: ${activityResponse.status}`);
+    }
+
+    const activityData = (await activityResponse.json()) as StravaActivityResponse;
+
+    // Fetch activity streams (distance, altitude, and time)
+    const streamsResponse = await fetch(`https://www.strava.com/api/v3/activities/${activityId}/streams?keys=distance,altitude,time&key_by_type=true`, {
+      headers: {
+        'Authorization': `Bearer ${process.env.STRAVA_ACCESS_TOKEN}`,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!streamsResponse.ok) {
+      throw new Error(`HTTP error! status: ${streamsResponse.status}`);
+    }
+
+    const streamsData = (await streamsResponse.json()) as StravaStreamsResponse;
+
+    // Map the data to our interface
+    const stravaData: StravaActivityData = {
+      name: activityData.name,
+      distance: activityData.distance,
+      moving_time: activityData.moving_time,
+      elapsed_time: activityData.elapsed_time,
+      total_elevation_gain: activityData.total_elevation_gain,
+      max_elevation: activityData.elev_high,
+      average_speed: activityData.average_speed,
+      max_speed: activityData.max_speed,
+      distance_stream: streamsData.distance?.data ? streamsData.distance.data.join(",") : undefined,
+      elevation_stream: streamsData.altitude?.data ? streamsData.altitude.data.join(",") : undefined,
+      time_stream: streamsData.time?.data ? streamsData.time.data.join(",") : undefined
+    };
+
+    // Update the stage with Strava data and polyline
+    stage.strava_data = stravaData;
+    if (activityData.map?.polyline) {
+      stage.polyline = activityData.map.polyline;
+    }
+    console.log(`  -> Fetched Strava data for activity: ${activityData.name}`);
+    console.log(`    Distance: ${(activityData.distance / 1000).toFixed(2)}km`);
+    console.log(`    Moving time: ${Math.round(activityData.moving_time / 60)}min`);
+    console.log(`    Elevation gain: ${activityData.total_elevation_gain}m`);
+
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error(`Error fetching Strava data for activity ${activityId}:`, message);
+    // Don't throw error to allow processing to continue with other activities
+  }
+}
 
 // --- Run the main function ---
 main().catch((error: unknown) => {
