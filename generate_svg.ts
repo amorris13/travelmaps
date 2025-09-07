@@ -414,10 +414,9 @@ function generateTripSvg(trip: Trip): TripSvgResult {
     if (stage.hideWaypoint) {
       continue;
     }
-    const point = toMercator(
-      stage.endLocation.latlng.lng + (stage.lngShift || 0),
-      stage.endLocation.latlng.lat
-    ).transform(transform); // Cast to use round
+    const point = toMercator(shiftLatLng(stage.endLocation.latlng, stage.lngShift || 0)).transform(
+      transform
+    );
     const marker = canvas.circle().radius(markerRadius).centerAt(point);
     markerMask.add(marker.clone().fill("black"));
     marker.addClass("stage");
@@ -434,14 +433,15 @@ function generateTripSvg(trip: Trip): TripSvgResult {
   // Add label for each stage
   const labelPoints: LabelPoint[] = trip.stages
     .filter((stage) => !stage.hideWaypoint && !stage.hideLabel)
-    .map((stage) => ({
-      name: stage.endLocation.name,
-      point: toMercator(
-        stage.endLocation.latlng.lng + (stage.lngShift || 0),
-        stage.endLocation.latlng.lat
-      ).transform(transform), // Cast to use round
-      partialAttendance: stage.partialAttendance,
-    }));
+    .map((stage) => {
+      return {
+        name: stage.endLocation.name,
+        point: toMercator(shiftLatLng(stage.endLocation.latlng, stage.lngShift || 0)).transform(
+          transform
+        ),
+        partialAttendance: stage.partialAttendance,
+      };
+    });
 
   const bestLabelPlacement = calculateBestLabelPositions(
     labelPoints,
@@ -542,7 +542,7 @@ function generateStageSvg(tripName: string, stage: Stage): TripSvgResult {
 
   // Add marker for the stage start location
   if (stage.startLocation) {
-    const startPoint = toMercatorLatLng(decodedPolyline.at(0)!).transform(transform);
+    const startPoint = toMercator(decodedPolyline.at(0)!).transform(transform);
     const startMarker = canvas.circle().radius(markerRadius).centerAt(startPoint);
     markerMask.add(startMarker.clone().fill("black"));
     startMarker.addClass("stage");
@@ -559,7 +559,7 @@ function generateStageSvg(tripName: string, stage: Stage): TripSvgResult {
   }
 
   // Add marker for the stage end location
-  const endPoint = toMercatorLatLng(decodedPolyline.at(-1)!).transform(transform);
+  const endPoint = toMercator(decodedPolyline.at(-1)!).transform(transform);
   const marker = canvas.circle().radius(markerRadius).centerAt(endPoint);
   markerMask.add(marker.clone().fill("black"));
   marker.addClass("stage");
@@ -578,7 +578,7 @@ function generateStageSvg(tripName: string, stage: Stage): TripSvgResult {
   if (stage.stops && stage.stops.length > 0) {
     for (const stop of stage.stops) {
       if (stop.latlng) {
-        const point = toMercatorLatLng(stop.latlng).transform(transform);
+        const point = toMercator(stop.latlng).transform(transform);
         const marker = canvas
           .circle()
           .radius(markerRadius * 0.7)
@@ -737,7 +737,7 @@ function generateRegionSvg(
 
     if (trip.stages.length === 1) {
       const stage = trip.stages[0];
-      const point = toMercatorLatLng(stage.endLocation.latlng).transform(transform);
+      const point = toMercator(stage.endLocation.latlng).transform(transform);
       let marker: SVG.Element;
       if (trip.isHome) {
         marker = canvas
@@ -766,7 +766,7 @@ function generateRegionSvg(
     } else {
       const pathArray = new SVG.PathArray();
       for (const stage of trip.stages) {
-        const point = toMercatorLatLng(stage.endLocation.latlng).transform(transform);
+        const point = toMercator(stage.endLocation.latlng).transform(transform);
         if (stage.showWaypointOnOverview) {
           const marker = canvas.circle().radius(markerRadius).centerAt(point).addClass("stage");
           shapes.push(shape("circle", { cx: point.x, cy: point.y, r: markerRadius }));
@@ -818,7 +818,7 @@ function generateRegionSvg(
       .filter((stage) => !!stage.showWaypointOnOverview)
       .map((stage) => ({
         name: stage.endLocation.name,
-        point: toMercatorLatLng(stage.endLocation.latlng).transform(transform),
+        point: toMercator(stage.endLocation.latlng).transform(transform),
         partialAttendance: stage.partialAttendance,
       }))
   );
@@ -900,6 +900,10 @@ function addCanvasStyles(canvas: SVG.Svg): { markerRadius: number; labelFontSize
 
 // --- Geometry and Calculation Functions ---
 
+function shiftLatLng(latlng: LatLng, lngShift: number): LatLng {
+  return { lat: latlng.lat, lng: latlng.lng + lngShift };
+}
+
 function computeTripBounds(trip: Trip | Trip, allowWrap = false): TripBounds {
   if (!trip.stages || trip.stages.length === 0) {
     return { west: 0, east: 0, south: 0, north: 0 };
@@ -967,21 +971,17 @@ function decodePolyline(encodedPolyline: string): LatLng[] {
   return polyline.decode(encodedPolyline).map((point) => ({ lng: point[1], lat: point[0] }));
 }
 
-function toMercatorLatLng(latlng: LatLng): SVG.Point {
-  return toMercator(latlng.lng, latlng.lat);
-}
-
-function toMercator(lng: number, lat: number): SVG.Point {
-  const x = lng / 180;
-  const rad = lat * (Math.PI / 180);
+function toMercator(latlng: LatLng): SVG.Point {
+  const x = latlng.lng / 180;
+  const rad = latlng.lat * (Math.PI / 180);
   const y = Math.log(Math.tan(rad / 2 + Math.PI / 4)) / Math.PI;
   const y2 = -y; // Invert Y for typical screen coordinates
   return new SVG.Point(x, y2);
 }
 
 function latlngToMercatorBbox(bounds: RegionBounds | TripBounds): SVG.Box {
-  const tlMercator = toMercator(bounds.west, bounds.north);
-  const brMercator = toMercator(bounds.east, bounds.south);
+  const tlMercator = toMercator({ lng: bounds.west, lat: bounds.north });
+  const brMercator = toMercator({ lng: bounds.east, lat: bounds.south });
 
   // Handle cases where bounds might cross the antimeridian if needed
   // For simplicity, assuming standard bounds for now.
@@ -1015,17 +1015,12 @@ function pathFromPolyline(
       decodedPolyline[1].lng += dir * 360;
 
       const transformedPolyline1 = decodedPolyline.map((latlng) =>
-        toMercator(latlng.lng + lngShift, latlng.lat)
-          .transform(transform)
-          .round(EXPORT_PRECISION)
+        toMercator(shiftLatLng(latlng, lngShift)).transform(transform).round(EXPORT_PRECISION)
       );
       path.push(...arcPathBetweenPoints(transformedPolyline1[0], transformedPolyline1[1]));
 
-      decodedPolyline[1].lng -= dir * 360;
-      decodedPolyline[0].lng -= dir * 360;
-
       const transformedPolyline2 = decodedPolyline.map((latlng) =>
-        toMercator(latlng.lng + lngShift, latlng.lat)
+        toMercator(shiftLatLng(latlng, lngShift - dir * 360))
           .transform(transform)
           .round(EXPORT_PRECISION)
       );
@@ -1034,17 +1029,13 @@ function pathFromPolyline(
       return path;
     } else {
       const transformedPolyline = decodedPolyline.map((latlng) =>
-        toMercator(latlng.lng + lngShift, latlng.lat)
-          .transform(transform)
-          .round(EXPORT_PRECISION)
+        toMercator(shiftLatLng(latlng, lngShift)).transform(transform).round(EXPORT_PRECISION)
       );
       return arcPathBetweenPoints(transformedPolyline[0], transformedPolyline[1]);
     }
   } else {
     const transformedPolyline = decodedPolyline.map((latlng) =>
-      toMercator(latlng.lng + lngShift, latlng.lat)
-        .transform(transform)
-        .round(EXPORT_PRECISION)
+      toMercator(shiftLatLng(latlng, lngShift)).transform(transform).round(EXPORT_PRECISION)
     );
     const simplifiedPolyline = simplify(transformedPolyline, 0.5, false);
     const polylinePathArray: SVG.PathCommand[] = simplifiedPolyline.map((point) => [
