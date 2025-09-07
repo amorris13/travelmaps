@@ -40,12 +40,6 @@
     }
   </style>
   <style>
-    .stop {
-      r: 3.5;
-      fill: #666666;
-    }
-  </style>
-  <style>
     .label {
       font-family: Helvetica;
       font-size: 18px;
