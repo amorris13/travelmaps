@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 
-import fs from "node:fs/promises";
 import minimist from "minimist";
 import dotenv from "dotenv";
-import type { Trip } from "./trips.js";
+import type { Stage } from "./trips.js";
 
 // Load environment variables from .env file
 dotenv.config();
@@ -75,9 +74,7 @@ async function main() {
   }
 
   if (!accessToken) {
-    console.error(
-      "Error: STRAVA_ACCESS_TOKEN is not set in your .env file."
-    );
+    console.error("Error: STRAVA_ACCESS_TOKEN is not set in your .env file.");
     process.exit(1);
   }
 
@@ -94,16 +91,22 @@ async function main() {
   const beforeTimestamp = Math.floor(toDate.getTime() / 1000);
 
   try {
-    const activities = await fetchStravaActivities(
-      accessToken,
-      afterTimestamp,
-      beforeTimestamp
-    );
+    const activities = await fetchStravaActivities(accessToken, afterTimestamp, beforeTimestamp);
 
     if (activities.length > 0) {
-      const activityIds = activities.map((activity) => activity.id);
-      console.log("Fetched Strava Activity IDs:");
-      console.log(activityIds.join("\n"));
+      const stages = activities
+        .sort((a, b) => a.start_date.localeCompare(b.start_date))
+        .map(
+          (activity): Stage => ({
+            endLocation: {
+              // Activity name is of the form X to Y. We want to extract Y.
+              name: activity.name.split(" to ")[1],
+            },
+            mode: "bicycling",
+            strava_activity_id: String(activity.id),
+          })
+        );
+      console.log(JSON.stringify(stages, null, 2));
     } else {
       console.log("No Strava activities found in the given date range.");
     }

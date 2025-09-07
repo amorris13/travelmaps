@@ -44,6 +44,15 @@
       ],
       "program": "${workspaceFolder}/generate_svg.ts",
       "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Print Strava Activity IDs",
+      "skipFiles": ["<node_internals>/**"],
+      "args": ["--from=2018-05-27", "--to=2018-07-02"],
+      "program": "${workspaceFolder}/print_strava_ids.ts",
+      "envFile": "${workspaceFolder}/.env"
     }
   ]
 }

@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 1200">
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 4;
+      stroke: #C61016;
+      stroke-opacity: 0.8;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <defs>
+    <mask id="SvgjsMask1003">
+      <rect width="1200" height="1200" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="138.462" cy="611.962" fill="black"></circle>
+      <circle r="5" cx="1061.538" cy="588.038" fill="black"></circle>
+    </mask>
+  </defs>
+  <path d="M138.462 611.962A1200.402 1200.402 0 0 1 1061.538 588.038 " class="line ferry" mask="url(#SvgjsMask1003)"></path>
+  <circle r="5" cx="138.462" cy="611.962" class="stage"></circle>
+  <circle r="5" cx="1061.538" cy="588.038" class="stage"></circle>
+  <rect width="64.98" height="21.6" x="65.482" y="601.162" opacity="0.2" fill="green" class="labelRect"></rect><text x="65.482" y="618.263" class="label">
+    <tspan dy="0" x="65.482">Harwich</tspan>
+  </text>
+  <rect width="142.56" height="21.6" x="990.258" y="596.038" opacity="0.2" fill="green" class="labelRect"></rect><text x="990.258" y="613.14" class="label">
+    <tspan dy="0" x="990.258">Hoek van Holland</tspan>
+  </text>
+</svg>
