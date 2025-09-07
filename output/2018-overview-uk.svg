@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 526.6524794845794 750">
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 4;
+      stroke: #C61016;
+      stroke-opacity: 0.8;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <style>
+    .stop {
+      r: 3.5;
+      fill: #666666;
+    }
+  </style>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <rect width="10" height="10" x="429.211" y="623.932" class="home"></rect>
+  <path d="M0 0M434.21084480812067 628.9316482366462L433.775 629.295L445.033 624.995L450.054 622.219L453.637 618.482L457.694 616.502 " class="line"></path>
+  <rect width="133.74" height="21.6" x="308.544" y="597.777" opacity="0.2" fill="green" class="labelRect"></rect><text x="308.544" y="614.878" class="label">
+    <tspan dy="0" x="308.544">London to Rome</tspan>
+  </text>
+  <rect width="60.48" height="21.6" x="403.971" y="636.932" opacity="0.2" fill="green" class="labelRect"></rect><text x="403.971" y="654.033" class="label">
+    <tspan dy="0" x="403.971">London</tspan>
+  </text>
+</svg>
