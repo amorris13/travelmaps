@@ -900,6 +900,9 @@ function addCanvasStyles(canvas: SVG.Svg): { markerRadius: number; labelFontSize
   canvas.style().rule(".flying", {
     "stroke-dasharray": "2 8",
   });
+  canvas.style().rule(".ferry", {
+    "stroke-dasharray": "2 12",
+  });
   const markerRadius = 5;
   canvas.style().rule(".stage", {
     r: markerRadius,

@@ -17,6 +17,11 @@
     }
   </style>
   <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
     .stage {
       r: 5;
       fill: #C61016;
