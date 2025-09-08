@@ -1,0 +1,38 @@
+
+> generate-elevation-svg
+> tsx generate_elevation_svg.ts
+
+Generating elevation SVGs...
+Generated elevation SVG: ./output/2018-london_to_rome-stage-2-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-3-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-5-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-6-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-7-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-8-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-9-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-10-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-11-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-12-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-13-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-14-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-15-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-16-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-17-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-18-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-19-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-20-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-21-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-22-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-23-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-24-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-25-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-26-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-27-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-28-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-29-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-30-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-31-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-32-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-33-elevation.svg
+Generated elevation SVG: ./output/2018-london_to_rome-stage-34-elevation.svg
+Finished generating elevation SVGs.
