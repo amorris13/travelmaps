@@ -597,6 +597,38 @@ function generateStageSvg(tripName: string, stage: Stage): TripSvgResult {
     }
   }
 
+  // Add marker for max elevation point
+  if (stage.strava_data?.elevation_stream && stage.strava_data?.distance_stream && stage.polyline) {
+    const elevations = stage.strava_data.elevation_stream.split(",").map(Number);
+    const distances = stage.strava_data.distance_stream.split(",").map(Number);
+    const maxElevation = Math.max(...elevations);
+    const maxElevationIndex = elevations.indexOf(maxElevation);
+    const distanceAtMaxElevation = distances[maxElevationIndex];
+
+    const maxElevationLatLng = findPointAtDistance(decodedPolyline, distanceAtMaxElevation);
+
+    if (maxElevationLatLng) {
+      const point = toMercator(maxElevationLatLng).transform(transform);
+      const triangleSize = markerRadius * 2.5;
+      // Points for an upward-pointing equilateral triangle centered at (0,0)
+      const points = [
+        [0, -triangleSize * (Math.sqrt(3) / 3)], // Top vertex
+        [-triangleSize / 2, triangleSize * (Math.sqrt(3) / 6)], // Bottom-left vertex
+        [triangleSize / 2, triangleSize * (Math.sqrt(3) / 6)], // Bottom-right vertex
+      ]
+        .map(([x, y]) => `${point.x + x},${point.y + y}`)
+        .join(" ");
+
+      const triangle = canvas.polygon(points);
+      markerMask.add(triangle.clone().fill("black"));
+      triangle.addClass("elevationMarker");
+
+      // Add shape for intersection testing
+      const bbox = triangle.bbox();
+      shapes.push(shape("rect", { x: bbox.x, y: bbox.y, width: bbox.width, height: bbox.height }));
+    }
+  }
+
   const bestLabelPlacement = calculateBestLabelPositions(
     labelPoints,
     32,
@@ -895,6 +927,11 @@ function addCanvasStyles(canvas: SVG.Svg): { markerRadius: number; labelFontSize
   canvas.style().rule(".labelRect", {
     display: "none", // Set to 'block' or remove to debug label placement boxes
   });
+  canvas.style().rule(".elevationMarker", {
+    fill: "none",
+    stroke: color,
+    "stroke-width": strokeRadius,
+  });
   return { markerRadius, labelFontSizePx };
 }
 
@@ -1059,6 +1096,41 @@ function arcPathBetweenPoints(p1: SVG.Point, p2: SVG.Point): SVG.PathArray {
     ["M", p1.x, p1.y],
     ["A", radius, radius, 0, 0, 1, p2.x, p2.y],
   ]);
+}
+
+function latLngDistance(latlng1: LatLng, latlng2: LatLng): number {
+  const R = 6371e3; // metres
+  const φ1 = (latlng1.lat * Math.PI) / 180; // φ, λ in radians
+  const φ2 = (latlng2.lat * Math.PI) / 180;
+  const Δφ = ((latlng2.lat - latlng1.lat) * Math.PI) / 180;
+  const Δλ = ((latlng2.lng - latlng1.lng) * Math.PI) / 180;
+
+  const a =
+    Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+    Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  return R * c; // in metres
+}
+
+function findPointAtDistance(polyline: LatLng[], distance: number): LatLng | null {
+  if (distance < 0) return polyline[0];
+  let distanceTraveled = 0;
+  for (let i = 0; i < polyline.length - 1; i++) {
+    const start = polyline[i];
+    const end = polyline[i + 1];
+    const segmentDistance = latLngDistance(start, end);
+    if (distanceTraveled + segmentDistance >= distance) {
+      const distanceIntoSegment = distance - distanceTraveled;
+      const fraction = segmentDistance === 0 ? 0 : distanceIntoSegment / segmentDistance;
+      return {
+        lat: start.lat + (end.lat - start.lat) * fraction,
+        lng: start.lng + (end.lng - start.lng) * fraction,
+      };
+    }
+    distanceTraveled += segmentDistance;
+  }
+  return polyline[polyline.length - 1]; // return last point if distance is greater than polyline length
 }
 
 // --- Label Placement Functions ---

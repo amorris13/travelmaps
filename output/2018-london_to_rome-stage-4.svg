@@ -51,6 +51,13 @@
       display: none;
     }
   </style>
+  <style>
+    .elevationMarker {
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
   <defs>
     <mask id="SvgjsMask1003">
       <rect width="1200" height="1200" x="0" y="0" fill="white"></rect>
