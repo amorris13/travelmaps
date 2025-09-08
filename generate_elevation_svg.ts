@@ -22,10 +22,10 @@ function toSnakeCase(str: string): string {
     .toLowerCase();
 }
 
-async function generateElevationSvg(trip: Trip, stage: Stage, stageIndex: number, elevationData: number[]) {
+async function generateElevationSvg(trip: Trip, stage: Stage, stageIndex: number, elevationData: number[], distanceData: number[]) {
   const SVG_WIDTH = 800;
   const SVG_HEIGHT = 200;
-  const PADDING = 20;
+  const PADDING = 30;
 
   const canvas = SVG.SVG().size(SVG_WIDTH, SVG_HEIGHT);
 
@@ -33,8 +33,10 @@ async function generateElevationSvg(trip: Trip, stage: Stage, stageIndex: number
   const minElevation = Math.min(...elevationData);
   const elevationRange = maxElevation - minElevation;
 
+  const maxDistance = Math.max(...distanceData);
+
   const points = elevationData.map((elevation, index) => {
-    const x = (index / (elevationData.length - 1)) * (SVG_WIDTH - 2 * PADDING) + PADDING;
+    const x = (distanceData[index] / maxDistance) * (SVG_WIDTH - 2 * PADDING) + PADDING;
     const y = (1 - (elevation - minElevation) / elevationRange) * (SVG_HEIGHT - 2 * PADDING) + PADDING;
     return [x, y];
   });
@@ -60,6 +62,22 @@ async function generateElevationSvg(trip: Trip, stage: Stage, stageIndex: number
       .move(PADDING, SVG_HEIGHT - PADDING - 12)
       .font({ family: 'Helvetica', size: 12 });
 
+  // Add distance labels
+  canvas.text(`0km`)
+      .move(PADDING, SVG_HEIGHT - PADDING + 15)
+      .font({ family: 'Helvetica', size: 12 });
+
+  canvas.text(`${(maxDistance / 1000).toFixed(1)}km`)
+        .move(SVG_WIDTH - PADDING - 30, SVG_HEIGHT - PADDING + 15)
+        .font({ family: 'Helvetica', size: 12 });
+
+  // Add max elevation indicator
+  const maxElevationIndex = elevationData.indexOf(maxElevation);
+  const maxElevationPoint = points[maxElevationIndex];
+  canvas.circle(8)
+    .center(maxElevationPoint[0], maxElevationPoint[1])
+    .fill('#C61016')
+    .stroke({ color: 'white', width: 2 });
 
   const tripYear = new Date(trip.startDate).getFullYear();
   const filename = `${tripYear}-${toSnakeCase(trip.name)}-stage-${stageIndex + 1}-elevation.svg`;
@@ -96,9 +114,23 @@ async function main() {
   for (const trip of travelsJson) {
     if (!trip.stages) continue;
     for (const [i, stage] of trip.stages.entries()) {
-      if (stage.strava_data && stage.strava_data.elevation_stream) {
-        const elevationStream = stage.strava_data.elevation_stream.split(',').map(Number);
-        await generateElevationSvg(trip, stage, i, elevationStream);
+      if (stage.strava_data && stage.strava_data.elevation_stream && stage.strava_data.distance_stream) {
+
+        let elevationStream: number[];
+        if (typeof stage.strava_data.elevation_stream === 'string') {
+          elevationStream = stage.strava_data.elevation_stream.split(',').map(Number);
+        } else {
+          elevationStream = stage.strava_data.elevation_stream;
+        }
+
+        let distanceStream: number[];
+        if (typeof stage.strava_data.distance_stream === 'string') {
+          distanceStream = stage.strava_data.distance_stream.split(',').map(Number);
+        } else {
+          distanceStream = stage.strava_data.distance_stream;
+        }
+
+        await generateElevationSvg(trip, stage, i, elevationStream, distanceStream);
       }
     }
   }
