@@ -1,10 +1,11 @@
 {
   "type": "module",
   "scripts": {
-    "print-strava-ids": "node print_strava_ids.ts",
-    "generate-data": "node generate_data.ts",
-    "generate-svg": "node generate_svg.ts",
-    "test-strava": "node test_strava.ts",
+    "print-strava-ids": "tsx print_strava_ids.ts",
+    "generate-data": "tsx generate_data.ts",
+    "generate-svg": "tsx generate_svg.ts",
+    "generate-elevation-svg": "tsx generate_elevation_svg.ts",
+    "test-strava": "tsx test_strava.ts",
     "build": "tsc",
     "dev": "tsc --watch"
   },
