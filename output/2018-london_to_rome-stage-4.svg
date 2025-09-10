@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 1200">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
   <style>
     .line {
       fill: none;
@@ -60,18 +60,18 @@
   </style>
   <defs>
     <mask id="SvgjsMask1003">
-      <rect width="1200" height="1200" x="0" y="0" fill="white"></rect>
-      <circle r="5" cx="138.462" cy="611.962" fill="black"></circle>
-      <circle r="5" cx="1061.538" cy="588.038" fill="black"></circle>
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="92.308" cy="407.975" fill="black"></circle>
+      <circle r="5" cx="707.692" cy="392.025" fill="black"></circle>
     </mask>
   </defs>
-  <path d="M138.462 611.962A1200.402 1200.402 0 0 1 1061.538 588.038 " class="line ferry" mask="url(#SvgjsMask1003)"></path>
-  <circle r="5" cx="138.462" cy="611.962" class="stage"></circle>
-  <circle r="5" cx="1061.538" cy="588.038" class="stage"></circle>
-  <rect width="64.98" height="21.6" x="65.482" y="601.162" opacity="0.2" fill="green" class="labelRect"></rect><text x="65.482" y="618.263" class="label">
-    <tspan dy="0" x="65.482">Harwich</tspan>
+  <path d="M92.308 407.975A800.268 800.268 0 0 1 707.692 392.025 " class="line ferry" mask="url(#SvgjsMask1003)"></path>
+  <circle r="5" cx="92.308" cy="407.975" class="stage"></circle>
+  <circle r="5" cx="707.692" cy="392.025" class="stage"></circle>
+  <rect width="64.98" height="21.6" x="19.328" y="397.175" opacity="0.2" fill="green" class="labelRect"></rect><text x="19.328" y="414.276" class="label">
+    <tspan dy="0" x="19.328">Harwich</tspan>
   </text>
-  <rect width="142.56" height="21.6" x="990.258" y="596.038" opacity="0.2" fill="green" class="labelRect"></rect><text x="990.258" y="613.14" class="label">
-    <tspan dy="0" x="990.258">Hoek van Holland</tspan>
+  <rect width="142.56" height="21.6" x="636.412" y="400.025" opacity="0.2" fill="green" class="labelRect"></rect><text x="636.412" y="417.127" class="label">
+    <tspan dy="0" x="636.412">Hoek van Holland</tspan>
   </text>
 </svg>

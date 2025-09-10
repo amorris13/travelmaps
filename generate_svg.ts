@@ -365,26 +365,27 @@ function generateTripSvg(trip: Trip): TripSvgResult {
   );
 
   // Ensure no division by zero for transform scale
+  const sidePx = SIDE_PX;
   const transformScale = Math.min(
-    expandedBoundingBox.width === 0 ? 1 : SIDE_PX / expandedBoundingBox.width,
-    expandedBoundingBox.height === 0 ? 1 : SIDE_PX / expandedBoundingBox.height
+    expandedBoundingBox.width === 0 ? 1 : sidePx / expandedBoundingBox.width,
+    expandedBoundingBox.height === 0 ? 1 : sidePx / expandedBoundingBox.height
   );
 
   const transform = new SVG.Matrix()
     .translate(-expandedBoundingBox.cx, -expandedBoundingBox.cy)
     .lmultiply(new SVG.Matrix().scale(transformScale))
-    .lmultiply(new SVG.Matrix().translate(SIDE_PX / 2, SIDE_PX / 2));
+    .lmultiply(new SVG.Matrix().translate(sidePx / 2, sidePx / 2));
 
   const window = createSVGWindow();
   const document = window.document;
   SVG.registerWindow(window, document);
   const canvas = SVG.SVG(document.documentElement) as SVG.Svg;
-  canvas.viewbox(0, 0, SIDE_PX, SIDE_PX);
+  canvas.viewbox(0, 0, sidePx, sidePx);
 
   const { markerRadius, labelFontSizePx } = addCanvasStyles(canvas);
 
   const markerMask = canvas.mask();
-  markerMask.add(canvas.rect(SIDE_PX, SIDE_PX).move(0, 0).fill("white"));
+  markerMask.add(canvas.rect(sidePx, sidePx).move(0, 0).fill("white"));
 
   // Use the shape type from svg-intersections
   const shapes: Shape[] = [];
@@ -448,8 +449,8 @@ function generateTripSvg(trip: Trip): TripSvgResult {
     32,
     labelFontSizePx,
     shapes,
-    SIDE_PX,
-    SIDE_PX
+    sidePx,
+    sidePx
   );
 
   for (const labelPlacement of bestLabelPlacement.result) {
@@ -494,26 +495,27 @@ function generateStageSvg(tripName: string, stage: Stage): TripSvgResult {
   );
 
   // Ensure no division by zero for transform scale
+  const sidePx = 800;
   const transformScale = Math.min(
-    expandedBoundingBox.width === 0 ? 1 : SIDE_PX / expandedBoundingBox.width,
-    expandedBoundingBox.height === 0 ? 1 : SIDE_PX / expandedBoundingBox.height
+    expandedBoundingBox.width === 0 ? 1 : sidePx / expandedBoundingBox.width,
+    expandedBoundingBox.height === 0 ? 1 : sidePx / expandedBoundingBox.height
   );
 
   const transform = new SVG.Matrix()
     .translate(-expandedBoundingBox.cx, -expandedBoundingBox.cy)
     .lmultiply(new SVG.Matrix().scale(transformScale))
-    .lmultiply(new SVG.Matrix().translate(SIDE_PX / 2, SIDE_PX / 2));
+    .lmultiply(new SVG.Matrix().translate(sidePx / 2, sidePx / 2));
 
   const window = createSVGWindow();
   const document = window.document;
   SVG.registerWindow(window, document);
   const canvas = SVG.SVG(document.documentElement) as SVG.Svg;
-  canvas.viewbox(0, 0, SIDE_PX, SIDE_PX);
+  canvas.viewbox(0, 0, sidePx, sidePx);
 
   const { markerRadius, labelFontSizePx } = addCanvasStyles(canvas);
 
   const markerMask = canvas.mask();
-  markerMask.add(canvas.rect(SIDE_PX, SIDE_PX).move(0, 0).fill("white"));
+  markerMask.add(canvas.rect(sidePx, sidePx).move(0, 0).fill("white"));
 
   // Use the shape type from svg-intersections
   const shapes: Shape[] = [];
@@ -634,8 +636,8 @@ function generateStageSvg(tripName: string, stage: Stage): TripSvgResult {
     32,
     labelFontSizePx,
     shapes,
-    SIDE_PX,
-    SIDE_PX
+    sidePx,
+    sidePx
   );
 
   for (const labelPlacement of bestLabelPlacement.result) {
@@ -710,9 +712,10 @@ async function processStage(
     }
   }
 
+  const box = stageSvgResult.svgCanvas.viewbox();
   stageSvgResult.svgCanvas
     .image(filename + ".png")
-    .size(SIDE_PX, SIDE_PX)
+    .size(box.width, box.height)
     .back();
   await writeFileAndLog(
     "output/" + filename + "-withmap.svg",
@@ -1566,7 +1569,7 @@ async function fetchStaticMapMapbox(boundingBox: SVG.Box): Promise<Buffer> {
   const boundsString = `[${tlLatLng.lng},${brLatLng.lat},${brLatLng.lng},${tlLatLng.lat}]`;
   const url = `https://api.mapbox.com/styles/v1/${style}/static/${boundsString}/${widthPx}x${expandedHeightPx}@2x?access_token=${accessToken}`;
 
-  console.log(`Fetching static map: ${url.replace(accessToken, "MAPBOX_TOKEN")}`); // Log URL without token
+  console.log(`Fetching static map: ${url}`); // Log URL without token
 
   try {
     const response = await fetch(url);
