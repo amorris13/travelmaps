@@ -606,8 +606,10 @@ function generateStageSvg(tripName: string, stage: Stage): TripSvgResult {
     const maxElevation = Math.max(...elevations);
     const maxElevationIndex = elevations.indexOf(maxElevation);
     const distanceAtMaxElevation = distances[maxElevationIndex];
+    const totalStravaDistance = Math.max(...distances);
+    const fraction = totalStravaDistance > 0 ? distanceAtMaxElevation / totalStravaDistance : 0;
 
-    const maxElevationLatLng = findPointAtDistance(decodedPolyline, distanceAtMaxElevation);
+    const maxElevationLatLng = findPointAtFraction(decodedPolyline, fraction);
 
     if (maxElevationLatLng) {
       const point = toMercator(maxElevationLatLng).transform(transform);
@@ -1119,8 +1121,17 @@ function latLngDistance(latlng1: LatLng, latlng2: LatLng): number {
   return R * c; // in metres
 }
 
-function findPointAtDistance(polyline: LatLng[], distance: number): LatLng | null {
-  if (distance < 0) return polyline[0];
+function findPointAtFraction(polyline: LatLng[], fraction: number): LatLng | null {
+  if (fraction < 0) return polyline[0];
+  if (fraction > 1) return polyline[polyline.length - 1];
+
+  const totalPolylineDistance = polyline.reduce((acc, point, i) => {
+    if (i === 0) return 0;
+    return acc + latLngDistance(polyline[i - 1], point);
+  }, 0);
+
+  const distance = totalPolylineDistance * fraction;
+
   let distanceTraveled = 0;
   for (let i = 0; i < polyline.length - 1; i++) {
     const start = polyline[i];
@@ -1128,15 +1139,15 @@ function findPointAtDistance(polyline: LatLng[], distance: number): LatLng | nul
     const segmentDistance = latLngDistance(start, end);
     if (distanceTraveled + segmentDistance >= distance) {
       const distanceIntoSegment = distance - distanceTraveled;
-      const fraction = segmentDistance === 0 ? 0 : distanceIntoSegment / segmentDistance;
+      const segmentFraction = segmentDistance === 0 ? 0 : distanceIntoSegment / segmentDistance;
       return {
-        lat: start.lat + (end.lat - start.lat) * fraction,
-        lng: start.lng + (end.lng - start.lng) * fraction,
+        lat: start.lat + (end.lat - start.lat) * segmentFraction,
+        lng: start.lng + (end.lng - start.lng) * segmentFraction,
       };
     }
     distanceTraveled += segmentDistance;
   }
-  return polyline[polyline.length - 1]; // return last point if distance is greater than polyline length
+  return polyline[polyline.length - 1]; // return last point if something went wrong
 }
 
 // --- Label Placement Functions ---
