@@ -235,8 +235,8 @@
   <rect width="112.5" height="21.6" x="594.797" y="587.717" opacity="0.2" fill="green" class="labelRect"></rect><text x="594.797" y="604.819" class="label">
     <tspan dy="0" x="594.797">Niedergösgen</tspan>
   </text>
-  <rect width="55.26" height="21.6" x="738.342" y="584.375" opacity="0.2" fill="green" class="labelRect"></rect><text x="738.342" y="601.476" class="label">
-    <tspan dy="0" x="738.342">Lucern</tspan>
+  <rect width="65.34" height="21.6" x="738.342" y="584.375" opacity="0.2" fill="green" class="labelRect"></rect><text x="738.342" y="601.476" class="label">
+    <tspan dy="0" x="738.342">Lucerne</tspan>
   </text>
   <rect width="135.36" height="21.6" x="996.081" y="1017.59" opacity="0.2" fill="green" class="labelRect"></rect><text x="996.081" y="1034.692" class="label">
     <tspan dy="0" x="996.081">Civita Castellana</tspan>

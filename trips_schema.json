@@ -88,7 +88,7 @@
                   "type": "number"
                 }
               },
-              "required": ["distance", "elevation"]
+              "required": ["distance"]
             },
             "stops": {
               "type": "array",
