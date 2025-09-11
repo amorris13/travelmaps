@@ -3251,6 +3251,22 @@
         },
         "mode": "bicycling",
         "strava_activity_id": "1602235690",
+        "stops": [
+          {
+            "name": "Colchester",
+            "latlng": {
+              "lat": 51.895927,
+              "lng": 0.8918740000000001
+            }
+          },
+          {
+            "name": "Manningtree",
+            "latlng": {
+              "lat": 51.945407,
+              "lng": 1.062086
+            }
+          }
+        ],
         "strava_data": {
           "name": "Stage 2: Chelmsford to Harwich",
           "distance": 75469,
@@ -3287,6 +3303,15 @@
         },
         "mode": "bicycling",
         "strava_activity_id": "1603930976",
+        "stops": [
+          {
+            "name": "Rotterdam",
+            "latlng": {
+              "lat": 51.9244201,
+              "lng": 4.4777325
+            }
+          }
+        ],
         "strava_data": {
           "name": "Stage 3: Hoek van Holland to Tilburg",
           "distance": 103343,
@@ -3312,6 +3337,22 @@
         },
         "mode": "bicycling",
         "strava_activity_id": "1605968673",
+        "stops": [
+          {
+            "name": "Collapsed Bridge",
+            "latlng": {
+              "lat": 51.48012693500699,
+              "lng": 5.234913576688553
+            }
+          },
+          {
+            "name": "Eindhoven",
+            "latlng": {
+              "lat": 51.42314229999999,
+              "lng": 5.462289699999999
+            }
+          }
+        ],
         "strava_data": {
           "name": "Stage 4: Tilburg to Dilsen-Stokkem",
           "distance": 94699.8,
@@ -3337,6 +3378,23 @@
         },
         "mode": "bicycling",
         "strava_activity_id": "1607998899",
+        "stops": [
+          {
+            "name": "Hoensbroek Castle",
+            "latlng": {
+              "lat": 50.9166021,
+              "lng": 5.9182142
+            }
+          },
+          {
+            "name": "Lindt Outlet",
+            "geocodeName": "Lindt Werksverkauf Aachen",
+            "latlng": {
+              "lat": 50.7849859,
+              "lng": 6.066944899999999
+            }
+          }
+        ],
         "strava_data": {
           "name": "Stage 5: Dilsen-Stokkem to Aachen",
           "distance": 44584.3,
@@ -3413,6 +3471,22 @@
         },
         "mode": "bicycling",
         "strava_activity_id": "1614644668",
+        "stops": [
+          {
+            "name": "Vianden Castle",
+            "latlng": {
+              "lat": 49.9350345,
+              "lng": 6.2027224
+            }
+          },
+          {
+            "name": "Schieren",
+            "latlng": {
+              "lat": 49.831345,
+              "lng": 6.0968155
+            }
+          }
+        ],
         "strava_data": {
           "name": "Stage 8: Roder to Luxembourg City",
           "distance": 76164.5,
@@ -3438,6 +3512,23 @@
         },
         "mode": "bicycling",
         "strava_activity_id": "1616702867",
+        "stops": [
+          {
+            "name": "Schengen",
+            "geocodeName": "Schengen, Luxembourg",
+            "latlng": {
+              "lat": 49.4718405,
+              "lng": 6.365698999999999
+            }
+          },
+          {
+            "name": "Route des Menhirs",
+            "latlng": {
+              "lat": 49.4354008439216,
+              "lng": 6.531204195782393
+            }
+          }
+        ],
         "strava_data": {
           "name": "Stage 9: Luxembourg City to Saarlouis",
           "distance": 69653.8,
@@ -3463,6 +3554,22 @@
         },
         "mode": "bicycling",
         "strava_activity_id": "1618725650",
+        "stops": [
+          {
+            "name": "Saarbruecken",
+            "latlng": {
+              "lat": 49.2381697,
+              "lng": 6.997547
+            }
+          },
+          {
+            "name": "Sarreguimines",
+            "latlng": {
+              "lat": 49.106031,
+              "lng": 7.070862
+            }
+          }
+        ],
         "strava_data": {
           "name": "Stage 10: Saarlouis to Rahling",
           "distance": 67698.5,
@@ -3488,6 +3595,15 @@
         },
         "mode": "bicycling",
         "strava_activity_id": "1620792089",
+        "stops": [
+          {
+            "name": "Steinbourg",
+            "latlng": {
+              "lat": 48.7708368,
+              "lng": 7.4123261
+            }
+          }
+        ],
         "strava_data": {
           "name": "Stage 11: Rahling to Strasbourg",
           "distance": 82474,
@@ -3513,6 +3629,15 @@
         },
         "mode": "bicycling",
         "strava_activity_id": "1623292558",
+        "stops": [
+          {
+            "name": "Rhinau",
+            "latlng": {
+              "lat": 48.318771,
+              "lng": 7.704565999999999
+            }
+          }
+        ],
         "strava_data": {
           "name": "Stage 12: Strasbourg to Europa Park",
           "distance": 64073,
@@ -3563,6 +3688,22 @@
         },
         "mode": "bicycling",
         "strava_activity_id": "1629716449",
+        "stops": [
+          {
+            "name": "Neuf-Brisach",
+            "latlng": {
+              "lat": 48.018091,
+              "lng": 7.530145
+            }
+          },
+          {
+            "name": "Ottmarsheim",
+            "latlng": {
+              "lat": 47.78719,
+              "lng": 7.506512
+            }
+          }
+        ],
         "strava_data": {
           "name": "Stage 14: Colmar to Basel",
           "distance": 75241.8,
@@ -3605,7 +3746,7 @@
       },
       {
         "endLocation": {
-          "name": "Lucern",
+          "name": "Lucerne",
           "latlng": {
             "lat": 47.05016819999999,
             "lng": 8.3093072
@@ -3613,6 +3754,23 @@
         },
         "mode": "bicycling",
         "strava_activity_id": "1633617849",
+        "stops": [
+          {
+            "name": "Strawberry Farm",
+            "geocodeName": "Muhen, Switzerland",
+            "latlng": {
+              "lat": 47.3323843,
+              "lng": 8.055530599999999
+            }
+          },
+          {
+            "name": "Sursee",
+            "latlng": {
+              "lat": 47.1714819,
+              "lng": 8.111131199999999
+            }
+          }
+        ],
         "strava_data": {
           "name": "Stage 16: Niedergösgen to Lucern",
           "distance": 50517.5,
@@ -3638,6 +3796,22 @@
         },
         "mode": "bicycling",
         "strava_activity_id": "1637988523",
+        "stops": [
+          {
+            "name": "Gersau",
+            "latlng": {
+              "lat": 46.9918509,
+              "lng": 8.525355200000002
+            }
+          },
+          {
+            "name": "Flüelen",
+            "latlng": {
+              "lat": 46.900149,
+              "lng": 8.6238894
+            }
+          }
+        ],
         "strava_data": {
           "name": "Stage 17: Lucerne to Amsteg",
           "distance": 65145.6,
@@ -3663,6 +3837,15 @@
         },
         "mode": "bicycling",
         "strava_activity_id": "1639778935",
+        "stops": [
+          {
+            "name": "Göschenen",
+            "latlng": {
+              "lat": 46.6681092,
+              "lng": 8.5894896
+            }
+          }
+        ],
         "strava_data": {
           "name": "Stage 18: Amsteg to Andermatt",
           "distance": 23583.6,
@@ -3688,6 +3871,29 @@
         },
         "mode": "bicycling",
         "strava_activity_id": "1642022398",
+        "stops": [
+          {
+            "name": "Gotthard Pass",
+            "latlng": {
+              "lat": 46.5588864,
+              "lng": 8.5623231
+            }
+          },
+          {
+            "name": "Tremola",
+            "latlng": {
+              "lat": 44.876115,
+              "lng": 0.8295039999999999
+            }
+          },
+          {
+            "name": "Airolo",
+            "latlng": {
+              "lat": 46.5286074,
+              "lng": 8.612374599999999
+            }
+          }
+        ],
         "strava_data": {
           "name": "Stage 19: Andermatt to Biasca",
           "distance": 64296.4,
@@ -3713,6 +3919,29 @@
         },
         "mode": "bicycling",
         "strava_activity_id": "1644731919",
+        "stops": [
+          {
+            "name": "Bellinzona",
+            "latlng": {
+              "lat": 46.1946216,
+              "lng": 9.0244124
+            }
+          },
+          {
+            "name": "Monte Ceneri Pass",
+            "latlng": {
+              "lat": 46.1406432,
+              "lng": 8.9139561
+            }
+          },
+          {
+            "name": "Lugano",
+            "latlng": {
+              "lat": 46.0036778,
+              "lng": 8.951051999999999
+            }
+          }
+        ],
         "strava_data": {
           "name": "Stage 20: Biasca to Gandria",
           "distance": 69557.8,
@@ -3738,6 +3967,22 @@
         },
         "mode": "bicycling",
         "strava_activity_id": "1646380695",
+        "stops": [
+          {
+            "name": "Lugano",
+            "latlng": {
+              "lat": 46.0036778,
+              "lng": 8.951051999999999
+            }
+          },
+          {
+            "name": "Monte San Salvatore",
+            "latlng": {
+              "lat": 45.9769806,
+              "lng": 8.947339
+            }
+          }
+        ],
         "strava_data": {
           "name": "Stage 21: Gandria to Como",
           "distance": 36782.5,
@@ -3763,6 +4008,22 @@
         },
         "mode": "bicycling",
         "strava_activity_id": "1650896697",
+        "stops": [
+          {
+            "name": "Milan",
+            "latlng": {
+              "lat": 45.468503,
+              "lng": 9.182402699999999
+            }
+          },
+          {
+            "name": "Monza F1 circuit",
+            "latlng": {
+              "lat": 45.6166792,
+              "lng": 9.2857925
+            }
+          }
+        ],
         "strava_data": {
           "name": "Stage 22: Como to Bertonico",
           "distance": 104430,
@@ -3813,6 +4074,15 @@
         },
         "mode": "bicycling",
         "strava_activity_id": "1655071269",
+        "stops": [
+          {
+            "name": "Reggio Emilia",
+            "latlng": {
+              "lat": 44.70309659999999,
+              "lng": 10.6346153
+            }
+          }
+        ],
         "strava_data": {
           "name": "Stage 24: Sacca to Modena",
           "distance": 75322.2,
@@ -3838,6 +4108,11 @@
         },
         "mode": "bicycling",
         "strava_activity_id": "1656793378",
+        "stops": [
+          {
+            "name": "Acetaia Villa San Donnino"
+          }
+        ],
         "strava_data": {
           "name": "Stage 25: Modena to Bologna",
           "distance": 59701,
@@ -3889,6 +4164,15 @@
         },
         "mode": "bicycling",
         "strava_activity_id": "1661412351",
+        "stops": [
+          {
+            "name": "Prato",
+            "latlng": {
+              "lat": 43.8777049,
+              "lng": 11.102228
+            }
+          }
+        ],
         "strava_data": {
           "name": "Stage 27: Badi to Florence",
           "distance": 66216.2,
@@ -3914,6 +4198,15 @@
         },
         "mode": "bicycling",
         "strava_activity_id": "1665660870",
+        "stops": [
+          {
+            "name": "Castellina",
+            "latlng": {
+              "lat": 44.9143465,
+              "lng": 10.1117137
+            }
+          }
+        ],
         "strava_data": {
           "name": "Stage 28: Florence to Siena",
           "distance": 67289.1,
@@ -3939,6 +4232,22 @@
         },
         "mode": "bicycling",
         "strava_activity_id": "1667777122",
+        "stops": [
+          {
+            "name": "Trequanda",
+            "latlng": {
+              "lat": 43.1878257,
+              "lng": 11.6676629
+            }
+          },
+          {
+            "name": "Montepulciano Stazione",
+            "latlng": {
+              "lat": 43.1368829,
+              "lng": 11.8563841
+            }
+          }
+        ],
         "strava_data": {
           "name": "Stage 29: Siena to Valiano",
           "distance": 69507.8,
@@ -3989,6 +4298,15 @@
         },
         "mode": "bicycling",
         "strava_activity_id": "1671688629",
+        "stops": [
+          {
+            "name": "Giove",
+            "latlng": {
+              "lat": 42.5103234,
+              "lng": 12.3320777
+            }
+          }
+        ],
         "strava_data": {
           "name": "Stage 31: Orvieto to Civita Castellana",
           "distance": 72623.5,
@@ -4014,6 +4332,22 @@
         },
         "mode": "bicycling",
         "strava_activity_id": "1674286702",
+        "stops": [
+          {
+            "name": "Vatican City",
+            "latlng": {
+              "lat": 41.902916,
+              "lng": 12.453389
+            }
+          },
+          {
+            "name": "Colosseum",
+            "latlng": {
+              "lat": 41.8902102,
+              "lng": 12.4922309
+            }
+          }
+        ],
         "strava_data": {
           "name": "Stage 32: Civita Castellana to Rome",
           "distance": 75813.3,
