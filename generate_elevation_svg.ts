@@ -56,7 +56,7 @@ async function generateElevationSvg(
 
   // Add gridlines
   const gridlineColor = "#e0e0e0";
-  const numHorizontalGridlines = 4;
+  const numHorizontalGridlines = 5;
   for (let i = 0; i < numHorizontalGridlines; i++) {
     const y = TOP_PADDING + (i / (numHorizontalGridlines - 1)) * plotHeight;
     canvas
@@ -144,11 +144,25 @@ async function generateElevationSvg(
   // Add max elevation indicator
   const maxElevationIndex = clampedElevationData.indexOf(Math.max(...clampedElevationData));
   const maxElevationPoint = points[maxElevationIndex];
+
+  // Use a filled triangle for the max elevation indicator
+  const triangleSize = 10;
+  const cx = maxElevationPoint[0];
+  const cy = maxElevationPoint[1];
+
+  // Points for an upward-pointing equilateral triangle centered at (cx, cy)
+  const trianglePoints = [
+    [cx, cy - triangleSize * (Math.sqrt(3) / 3)], // Top vertex
+    [cx - triangleSize / 2, cy + triangleSize * (Math.sqrt(3) / 6)], // Bottom-left vertex
+    [cx + triangleSize / 2, cy + triangleSize * (Math.sqrt(3) / 6)], // Bottom-right vertex
+  ]
+    .map(([x, y]) => `${x},${y}`)
+    .join(" ");
+
   canvas
-    .circle(8)
-    .center(maxElevationPoint[0], maxElevationPoint[1])
+    .polygon(trianglePoints)
     .fill("#C61016")
-    .stroke({ color: "white", width: 2 });
+    .stroke({ color: "white", width: 2, linejoin: "round" });
 
   const tripYear = new Date(trip.startDate).getFullYear();
   const filename = `${tripYear}-${toSnakeCase(trip.name)}-stage-${stageIndex + 1}-elevation.svg`;
