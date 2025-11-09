@@ -613,7 +613,7 @@ function generateStageSvg(tripName: string, stage: Stage): TripSvgResult {
 
     if (maxElevationLatLng) {
       const point = toMercator(maxElevationLatLng).transform(transform);
-      const triangleSize = markerRadius * 2.5;
+      const triangleSize = markerRadius * 3;
       // Points for an upward-pointing equilateral triangle centered at (0,0)
       const points = [
         [0, -triangleSize * (Math.sqrt(3) / 3)], // Top vertex
@@ -624,7 +624,7 @@ function generateStageSvg(tripName: string, stage: Stage): TripSvgResult {
         .join(" ");
 
       const triangle = canvas.polygon(points);
-      markerMask.add(triangle.clone().fill("black"));
+      markerMask.add(triangle.clone().scale(1.5, 1.5, point.x, point.y).fill("black"));
       triangle.addClass("elevationMarker");
 
       // Add shape for intersection testing
@@ -936,9 +936,7 @@ function addCanvasStyles(canvas: SVG.Svg): { markerRadius: number; labelFontSize
     display: "none", // Set to 'block' or remove to debug label placement boxes
   });
   canvas.style().rule(".elevationMarker", {
-    fill: "none",
-    stroke: color,
-    "stroke-width": strokeRadius,
+    fill: color,
   });
   return { markerRadius, labelFontSizePx };
 }

@@ -59,9 +59,7 @@
   </style>
   <style>
     .elevationMarker {
-      fill: none;
-      stroke: #C61016;
-      stroke-width: 2.5;
+      fill: #C61016;
     }
   </style>
   <defs>
