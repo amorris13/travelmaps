@@ -1,10 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 1199.9979183593123">
   <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
     .line {
       fill: none;
-      stroke-width: 4;
+      stroke-width: 3;
       stroke: #C61016;
-      stroke-opacity: 0.8;
       stroke-linejoin: round;
       stroke-dasharray: 6 6;
       stroke-linecap: round;
@@ -13,6 +21,11 @@
   <style>
     .flying {
       stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
     }
   </style>
   <style>
@@ -39,11 +52,22 @@
       stroke-width: 2.5;
     }
   </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1269" result="SvgjsFeMorphology1269" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1270" result="SvgjsFeColorMatrix1270" in="SvgjsFeMorphology1269" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1271" result="SvgjsFeMerge1271" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1272" result="SvgjsFeMergeNode1272" in="SvgjsFeColorMatrix1270"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1273" result="SvgjsFeMergeNode1273" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+  </defs>
   <style>
     .label {
       font-family: Helvetica;
       font-size: 18px;
       fill: #C61016;
+      filter: url(#whiteOutlineEffect);
     }
   </style>
   <style>
@@ -51,6 +75,12 @@
       display: none;
     }
   </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M0 0M330.65171272681505 492.8822762148245A580.928 580.928 0 0 1 530.638 892.502A191.056 191.056 0 0 1 488.555 751.69 " class="lineBackground"></path>
   <path d="M0 0M330.65171272681505 492.8822762148245A580.928 580.928 0 0 1 530.638 892.502A191.056 191.056 0 0 1 488.555 751.69 " class="line"></path>
   <rect width="103.68" height="21.6" x="322.965" y="681.892" opacity="0.2" fill="green" class="labelRect"></rect><text x="322.965" y="698.994" class="label">
     <tspan dy="0" x="322.965">Europe 2022</tspan>

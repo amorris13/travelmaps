@@ -1,10 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 1200">
   <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
     .line {
       fill: none;
-      stroke-width: 4;
+      stroke-width: 3;
       stroke: #C61016;
-      stroke-opacity: 0.8;
       stroke-linejoin: round;
       stroke-dasharray: 6 6;
       stroke-linecap: round;
@@ -13,6 +21,11 @@
   <style>
     .flying {
       stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
     }
   </style>
   <style>
@@ -39,20 +52,16 @@
       stroke-width: 2.5;
     }
   </style>
-  <style>
-    .label {
-      font-family: Helvetica;
-      font-size: 18px;
-      fill: #C61016;
-    }
-  </style>
-  <style>
-    .labelRect {
-      display: none;
-    }
-  </style>
   <defs>
-    <mask id="SvgjsMask1003">
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1018" result="SvgjsFeMorphology1018" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1019" result="SvgjsFeColorMatrix1019" in="SvgjsFeMorphology1018" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1020" result="SvgjsFeMerge1020" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1021" result="SvgjsFeMergeNode1021" in="SvgjsFeColorMatrix1019"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1022" result="SvgjsFeMergeNode1022" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1023">
       <rect width="1200" height="1200" x="0" y="0" fill="white"></rect>
       <circle r="5" cx="186.913" cy="852.248" fill="black"></circle>
       <circle r="5" cx="142.81" cy="502.315" fill="black"></circle>
@@ -62,11 +71,34 @@
       <circle r="5" cx="1061.538" cy="448.501" fill="black"></circle>
     </mask>
   </defs>
-  <path d="M186.913 852.248A458.512 458.512 0 0 1 142.81 502.315 " class="line flying" mask="url(#SvgjsMask1003)"></path>
-  <path d="M142.81 502.315A50.545 50.545 0 0 1 138.462 540.952 " class="line flying" mask="url(#SvgjsMask1003)"></path>
-  <path d="M0 0M1647.426 540.952A798.198 798.198 0 0 1 2260.836 514.072M138.462 540.952A798.198 798.198 0 0 1 751.872 514.072 " class="line flying" mask="url(#SvgjsMask1003)"></path>
-  <path d="M751.872 514.072A356.705 356.705 0 0 1 970.107 347.752 " class="line flying" mask="url(#SvgjsMask1003)"></path>
-  <path d="M970.107 347.752A176.867 176.867 0 0 1 1061.538 448.501 " class="line flying" mask="url(#SvgjsMask1003)"></path>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M186.913 852.248A458.512 458.512 0 0 1 142.81 502.315 " class="lineBackground"></path>
+  <path d="M186.913 852.248A458.512 458.512 0 0 1 142.81 502.315 " class="line flying" mask="url(#SvgjsMask1023)"></path>
+  <path d="M142.81 502.315A50.545 50.545 0 0 1 138.462 540.952 " class="lineBackground"></path>
+  <path d="M142.81 502.315A50.545 50.545 0 0 1 138.462 540.952 " class="line flying" mask="url(#SvgjsMask1023)"></path>
+  <path d="M0 0M1647.426 540.952A798.198 798.198 0 0 1 2260.836 514.072M138.462 540.952A798.198 798.198 0 0 1 751.872 514.072 " class="lineBackground"></path>
+  <path d="M0 0M1647.426 540.952A798.198 798.198 0 0 1 2260.836 514.072M138.462 540.952A798.198 798.198 0 0 1 751.872 514.072 " class="line flying" mask="url(#SvgjsMask1023)"></path>
+  <path d="M751.872 514.072A356.705 356.705 0 0 1 970.107 347.752 " class="lineBackground"></path>
+  <path d="M751.872 514.072A356.705 356.705 0 0 1 970.107 347.752 " class="line flying" mask="url(#SvgjsMask1023)"></path>
+  <path d="M970.107 347.752A176.867 176.867 0 0 1 1061.538 448.501 " class="lineBackground"></path>
+  <path d="M970.107 347.752A176.867 176.867 0 0 1 1061.538 448.501 " class="line flying" mask="url(#SvgjsMask1023)"></path>
   <circle r="5" cx="186.913" cy="852.248" class="stage"></circle>
   <circle r="5" cx="142.81" cy="502.315" class="stage"></circle>
   <circle r="5" cx="138.462" cy="540.952" class="stage"></circle>

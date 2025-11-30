@@ -1,11 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 1089.6486368615954">
   <image width="1200" height="1089.649" href="australia.png"></image>
   <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
     .line {
       fill: none;
-      stroke-width: 4;
+      stroke-width: 3;
       stroke: #C61016;
-      stroke-opacity: 0.8;
       stroke-linejoin: round;
       stroke-dasharray: 6 6;
       stroke-linecap: round;
@@ -14,6 +22,11 @@
   <style>
     .flying {
       stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
     }
   </style>
   <style>
@@ -40,16 +53,32 @@
       stroke-width: 2.5;
     }
   </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1184" result="SvgjsFeMorphology1184" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1185" result="SvgjsFeColorMatrix1185" in="SvgjsFeMorphology1184" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1186" result="SvgjsFeMerge1186" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1187" result="SvgjsFeMergeNode1187" in="SvgjsFeColorMatrix1185"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1188" result="SvgjsFeMergeNode1188" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+  </defs>
   <style>
     .label {
       font-family: Helvetica;
       font-size: 18px;
       fill: #C61016;
+      filter: url(#whiteOutlineEffect);
     }
   </style>
   <style>
     .labelRect {
       display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
     }
   </style>
   <rect width="10" height="10" x="1089.213" y="720.081" class="home"></rect>

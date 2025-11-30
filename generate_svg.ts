@@ -3,6 +3,7 @@
 import parseArgs from "minimist";
 import { createSVGWindow } from "svgdom";
 import * as SVG from "@svgdotjs/svg.js";
+import "@svgdotjs/svg.filter.js";
 import fs from "node:fs/promises";
 import polyline from "@mapbox/polyline";
 import pretty from "pretty";
@@ -937,11 +938,25 @@ function addCanvasStyles(canvas: SVG.Svg): { markerRadius: number; labelFontSize
     stroke: color,
     "stroke-width": strokeRadius,
   });
+  canvas.defs().filter((add) => {
+    add.id("whiteOutlineEffect");
+    add.size("200%", "200%").move("-50%", "-50%");
+    add.attr("color-interpolation-filters", "sRGB");
+
+    const morphology = add.morphology("dilate", 1).in(add.$sourceAlpha);
+    const matrix = add
+      .colorMatrix("matrix", [-1, 0, 0, 0, 1, 0, -1, 0, 0, 1, 0, 0, -1, 0, 1, 0, 0, 0, 1, 0])
+      .in(morphology);
+
+    add.merge([matrix, add.$source]);
+  });
+
   const labelFontSizePx = 18;
   canvas.style().rule(".label", {
     fontFamily: "Helvetica",
     fontSize: labelFontSizePx + "px",
     fill: color,
+    filter: "url(#whiteOutlineEffect)",
   });
   canvas.style().rule(".labelRect", {
     display: "none", // Set to 'block' or remove to debug label placement boxes

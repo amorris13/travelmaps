@@ -1,10 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 526.6524794845794 750">
   <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
     .line {
       fill: none;
-      stroke-width: 4;
+      stroke-width: 3;
       stroke: #C61016;
-      stroke-opacity: 0.8;
       stroke-linejoin: round;
       stroke-dasharray: 6 6;
       stroke-linecap: round;
@@ -13,6 +21,11 @@
   <style>
     .flying {
       stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
     }
   </style>
   <style>
@@ -39,11 +52,22 @@
       stroke-width: 2.5;
     }
   </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1219" result="SvgjsFeMorphology1219" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1220" result="SvgjsFeColorMatrix1220" in="SvgjsFeMorphology1219" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1221" result="SvgjsFeMerge1221" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1222" result="SvgjsFeMergeNode1222" in="SvgjsFeColorMatrix1220"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1223" result="SvgjsFeMergeNode1223" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+  </defs>
   <style>
     .label {
       font-family: Helvetica;
       font-size: 18px;
       fill: #C61016;
+      filter: url(#whiteOutlineEffect);
     }
   </style>
   <style>
@@ -51,12 +75,20 @@
       display: none;
     }
   </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
   <rect width="10" height="10" x="429.211" y="623.932" class="home"></rect>
   <circle r="5" cx="392.878" cy="614.508" class="stage dayStop"></circle>
+  <path d="M0 0M365.072898432093 638.0088510980995L360.438 637.221L359.859 635.857L356.75 634.971L353.266 635.415L352.574 636.508L354.067 636.905L354.794 642.173L358.352 646.043L357.914 647.032L361.032 647.922L368.712 647.111L371.998 648.083L373.908 648.734L373.253 654.582 " class="lineBackground"></path>
   <path d="M0 0M365.072898432093 638.0088510980995L360.438 637.221L359.859 635.857L356.75 634.971L353.266 635.415L352.574 636.508L354.067 636.905L354.794 642.173L358.352 646.043L357.914 647.032L361.032 647.922L368.712 647.111L371.998 648.083L373.908 648.734L373.253 654.582 " class="line"></path>
+  <path d="M0 0M443.04156706136496 647.6886785603133L443.321 646.885L445.555 646.793L447.973 644.443L449.035 644.377L449.92 641.519L456.991 641.01L459.686 641.829L464.266 645.399L469.299 647.726L474.953 652.514L480.01 653.288L482.346 652.042L486.29 651.991L486.913 651.129L487.491 650.282L486 647.776L487.426 643.39L485.916 641.76L482.515 643.034L478.351 642.243 " class="lineBackground"></path>
   <path d="M0 0M443.04156706136496 647.6886785603133L443.321 646.885L445.555 646.793L447.973 644.443L449.035 644.377L449.92 641.519L456.991 641.01L459.686 641.829L464.266 645.399L469.299 647.726L474.953 652.514L480.01 653.288L482.346 652.042L486.29 651.991L486.913 651.129L487.491 650.282L486 647.776L487.426 643.39L485.916 641.76L482.515 643.034L478.351 642.243 " class="line"></path>
   <circle r="5" cx="322.272" cy="353.743" class="stage"></circle>
   <circle r="5" cx="316.867" cy="618.378" class="stage"></circle>
+  <path d="M0 0M376.39933169558367 588.4036286176656L373.658 596.865 " class="lineBackground"></path>
   <path d="M0 0M376.39933169558367 588.4036286176656L373.658 596.865 " class="line"></path>
   <circle r="5" cx="323.01" cy="630.313" class="stage dayStop"></circle>
   <rect width="82.44" height="21.6" x="234.175" y="359.4" opacity="0.2" fill="green" class="labelRect"></rect><text x="234.175" y="376.502" class="label">

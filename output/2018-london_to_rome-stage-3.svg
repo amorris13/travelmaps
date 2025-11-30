@@ -52,11 +52,27 @@
       stroke-width: 2.5;
     }
   </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1018" result="SvgjsFeMorphology1018" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1019" result="SvgjsFeColorMatrix1019" in="SvgjsFeMorphology1018" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1020" result="SvgjsFeMerge1020" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1021" result="SvgjsFeMergeNode1021" in="SvgjsFeColorMatrix1019"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1022" result="SvgjsFeMergeNode1022" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1023">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="92.308" cy="407.975" fill="black"></circle>
+      <circle r="5" cx="707.692" cy="392.025" fill="black"></circle>
+    </mask>
+  </defs>
   <style>
     .label {
       font-family: Helvetica;
       font-size: 18px;
       fill: #C61016;
+      filter: url(#whiteOutlineEffect);
     }
   </style>
   <style>
@@ -69,15 +85,8 @@
       fill: #C61016;
     }
   </style>
-  <defs>
-    <mask id="SvgjsMask1003">
-      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
-      <circle r="5" cx="92.308" cy="407.975" fill="black"></circle>
-      <circle r="5" cx="707.692" cy="392.025" fill="black"></circle>
-    </mask>
-  </defs>
   <path d="M92.308 407.975A800.268 800.268 0 0 1 707.692 392.025 " class="lineBackground"></path>
-  <path d="M92.308 407.975A800.268 800.268 0 0 1 707.692 392.025 " class="line ferry" mask="url(#SvgjsMask1003)"></path>
+  <path d="M92.308 407.975A800.268 800.268 0 0 1 707.692 392.025 " class="line ferry" mask="url(#SvgjsMask1023)"></path>
   <circle r="5" cx="92.308" cy="407.975" class="stage"></circle>
   <circle r="5" cx="707.692" cy="392.025" class="stage"></circle>
   <rect width="64.98" height="21.6" x="19.328" y="397.175" opacity="0.2" fill="green" class="labelRect"></rect><text x="19.328" y="414.276" class="label">

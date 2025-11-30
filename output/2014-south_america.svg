@@ -1,10 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 1200">
   <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
     .line {
       fill: none;
-      stroke-width: 4;
+      stroke-width: 3;
       stroke: #C61016;
-      stroke-opacity: 0.8;
       stroke-linejoin: round;
       stroke-dasharray: 6 6;
       stroke-linecap: round;
@@ -13,6 +21,11 @@
   <style>
     .flying {
       stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
     }
   </style>
   <style>
@@ -39,20 +52,16 @@
       stroke-width: 2.5;
     }
   </style>
-  <style>
-    .label {
-      font-family: Helvetica;
-      font-size: 18px;
-      fill: #C61016;
-    }
-  </style>
-  <style>
-    .labelRect {
-      display: none;
-    }
-  </style>
   <defs>
-    <mask id="SvgjsMask1002">
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1012" result="SvgjsFeMorphology1012" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1013" result="SvgjsFeColorMatrix1013" in="SvgjsFeMorphology1012" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1014" result="SvgjsFeMerge1014" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1015" result="SvgjsFeMergeNode1015" in="SvgjsFeColorMatrix1013"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1016" result="SvgjsFeMergeNode1016" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1017">
       <rect width="1200" height="1200" x="0" y="0" fill="white"></rect>
       <circle r="5" cx="1061.538" cy="597.53" fill="black"></circle>
       <circle r="5" cx="963.981" cy="575.134" fill="black"></circle>
@@ -68,17 +77,46 @@
       <circle r="5" cx="138.462" cy="540.477" fill="black"></circle>
     </mask>
   </defs>
-  <path d="M1061.538 597.53A130.123 130.123 0 0 1 963.981 575.134 " class="line flying" mask="url(#SvgjsMask1002)"></path>
-  <path d="M963.982 575.134L960.396 574.771L956.285 575.926L953.203 575.47L946.258 572.111L943.397 567.065 " class="line driving" mask="url(#SvgjsMask1002)"></path>
-  <path d="M943.397 567.065A78.944 78.944 0 0 1 965.559 623.603 " class="line flying" mask="url(#SvgjsMask1002)"></path>
-  <path d="M965.559 623.603A297.302 297.302 0 0 1 772.929 500.337 " class="line flying" mask="url(#SvgjsMask1002)"></path>
-  <path d="M772.929 500.337A58.702 58.702 0 0 1 816.179 513.315 " class="line flying" mask="url(#SvgjsMask1002)"></path>
-  <path d="M816.179 513.315L814.201 512.62L813.961 511.15L811.255 510.085 " class="line transit" mask="url(#SvgjsMask1002)"></path>
-  <path d="M811.255 510.085L813.146 510.624L814.566 512.68L816.179 513.315 " class="line transit" mask="url(#SvgjsMask1002)"></path>
-  <path d="M816.179 513.315A242.679 242.679 0 0 1 827.241 699.663 " class="line flying" mask="url(#SvgjsMask1002)"></path>
-  <path d="M827.241 699.663A436.131 436.131 0 0 1 497.643 637.089 " class="line flying" mask="url(#SvgjsMask1002)"></path>
-  <path d="M497.643 637.089A460.088 460.088 0 0 1 154.943 548.704 " class="line flying" mask="url(#SvgjsMask1002)"></path>
-  <path d="M154.943 548.704A23.946 23.946 0 0 1 138.462 540.477 " class="line flying" mask="url(#SvgjsMask1002)"></path>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M1061.538 597.53A130.123 130.123 0 0 1 963.981 575.134 " class="lineBackground"></path>
+  <path d="M1061.538 597.53A130.123 130.123 0 0 1 963.981 575.134 " class="line flying" mask="url(#SvgjsMask1017)"></path>
+  <path d="M963.982 575.134L960.396 574.771L956.285 575.926L953.203 575.47L946.258 572.111L943.397 567.065 " class="lineBackground"></path>
+  <path d="M963.982 575.134L960.396 574.771L956.285 575.926L953.203 575.47L946.258 572.111L943.397 567.065 " class="line driving" mask="url(#SvgjsMask1017)"></path>
+  <path d="M943.397 567.065A78.944 78.944 0 0 1 965.559 623.603 " class="lineBackground"></path>
+  <path d="M943.397 567.065A78.944 78.944 0 0 1 965.559 623.603 " class="line flying" mask="url(#SvgjsMask1017)"></path>
+  <path d="M965.559 623.603A297.302 297.302 0 0 1 772.929 500.337 " class="lineBackground"></path>
+  <path d="M965.559 623.603A297.302 297.302 0 0 1 772.929 500.337 " class="line flying" mask="url(#SvgjsMask1017)"></path>
+  <path d="M772.929 500.337A58.702 58.702 0 0 1 816.179 513.315 " class="lineBackground"></path>
+  <path d="M772.929 500.337A58.702 58.702 0 0 1 816.179 513.315 " class="line flying" mask="url(#SvgjsMask1017)"></path>
+  <path d="M816.179 513.315L814.201 512.62L813.961 511.15L811.255 510.085 " class="lineBackground"></path>
+  <path d="M816.179 513.315L814.201 512.62L813.961 511.15L811.255 510.085 " class="line transit" mask="url(#SvgjsMask1017)"></path>
+  <path d="M811.255 510.085L813.146 510.624L814.566 512.68L816.179 513.315 " class="lineBackground"></path>
+  <path d="M811.255 510.085L813.146 510.624L814.566 512.68L816.179 513.315 " class="line transit" mask="url(#SvgjsMask1017)"></path>
+  <path d="M816.179 513.315A242.679 242.679 0 0 1 827.241 699.663 " class="lineBackground"></path>
+  <path d="M816.179 513.315A242.679 242.679 0 0 1 827.241 699.663 " class="line flying" mask="url(#SvgjsMask1017)"></path>
+  <path d="M827.241 699.663A436.131 436.131 0 0 1 497.643 637.089 " class="lineBackground"></path>
+  <path d="M827.241 699.663A436.131 436.131 0 0 1 497.643 637.089 " class="line flying" mask="url(#SvgjsMask1017)"></path>
+  <path d="M497.643 637.089A460.088 460.088 0 0 1 154.943 548.704 " class="lineBackground"></path>
+  <path d="M497.643 637.089A460.088 460.088 0 0 1 154.943 548.704 " class="line flying" mask="url(#SvgjsMask1017)"></path>
+  <path d="M154.943 548.704A23.946 23.946 0 0 1 138.462 540.477 " class="lineBackground"></path>
+  <path d="M154.943 548.704A23.946 23.946 0 0 1 138.462 540.477 " class="line flying" mask="url(#SvgjsMask1017)"></path>
   <circle r="5" cx="1061.538" cy="597.53" class="stage"></circle>
   <circle r="5" cx="963.981" cy="575.134" class="stage"></circle>
   <circle r="5" cx="943.397" cy="567.065" class="stage"></circle>
