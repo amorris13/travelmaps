@@ -397,12 +397,14 @@ function generateTripSvg(trip: Trip): TripSvgResult {
     }
     const pathArray = pathFromPolyline(decodePolyline(stage.polyline), transform, stage.lngShift);
     if (pathArray.length > 0) {
+      const pathBackground = canvas.path(pathArray).addClass("lineBackground");
       const path = canvas
         .path(pathArray)
         .addClass("line")
         .addClass(stage.mode ?? "unknown")
         .maskWith(markerMask);
       if (stage.partialAttendance) {
+        pathBackground.addClass("partialAttendance");
         path.addClass("partialAttendance");
       }
       // Create shape for intersection testing
@@ -530,12 +532,14 @@ function generateStageSvg(tripName: string, stage: Stage): TripSvgResult {
   // Add polyline for this stage if it exists
   const pathArray = pathFromPolyline(decodedPolyline, transform);
   if (pathArray.length > 0) {
+    const pathBackground = canvas.path(pathArray).addClass("lineBackground");
     const path = canvas
       .path(pathArray)
       .addClass("line")
       .addClass(stage.mode ?? "unknown")
       .maskWith(markerMask);
     if (stage.partialAttendance) {
+      pathBackground.addClass("partialAttendance");
       path.addClass("partialAttendance");
     }
     // Create shape for intersection testing
@@ -679,7 +683,7 @@ async function processStageMaps(
   for (let i = 1; i < tripJson.stages.length; i++) {
     const stage = tripJson.stages[i];
     stage.startLocation = tripJson.stages[i - 1].endLocation;
-    const stageFilename = `${tripFilename}-stage-${i + 1}`;
+    const stageFilename = `${tripFilename}-stage-${i}`;
 
     await processStage(stageFilename, tripJson.name, stage, fetchStaticMap);
   }
@@ -831,6 +835,7 @@ function generateRegionSvg(
         }
       }
       if (pathArray.length > 0) {
+        canvas.path(pathArray).addClass("lineBackground");
         canvas.path(pathArray).addClass("line");
         shapes.push(shape("path", { d: pathArray.toString() }));
       }
@@ -893,11 +898,17 @@ function generateRegionSvg(
 
 function addCanvasStyles(canvas: SVG.Svg): { markerRadius: number; labelFontSizePx: number } {
   const color = "#C61016";
+  canvas.style().rule(".lineBackground", {
+    fill: "none",
+    "stroke-width": 6,
+    stroke: "#FFFFFF",
+    "stroke-linejoin": "round",
+    "stroke-linecap": "round",
+  });
   canvas.style().rule(".line", {
     fill: "none",
-    "stroke-width": 4,
+    "stroke-width": 3,
     stroke: color,
-    "stroke-opacity": 0.8,
     "stroke-linejoin": "round",
     "stroke-dasharray": "6 6",
     "stroke-linecap": "round",

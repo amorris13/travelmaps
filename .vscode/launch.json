@@ -53,6 +53,14 @@
       "args": ["--from=2018-05-27", "--to=2018-07-02"],
       "program": "${workspaceFolder}/print_strava_ids.ts",
       "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Generate Elevation Profiles",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/generate_elevation_svg.ts",
+      "envFile": "${workspaceFolder}/.env"
     }
   ]
 }
