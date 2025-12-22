@@ -23,21 +23,19 @@ function toSnakeCase(str: string): string {
     .toLowerCase();
 }
 
-async function generateElevationSvg(
-  trip: Trip,
-  stage: Stage,
-  stageIndex: number,
+function generateElevationSvg(
   elevationData: number[],
-  distanceData: number[]
-) {
-  const SVG_WIDTH = 600;
-  const SVG_HEIGHT = 200;
+  distanceData: number[],
+  svgWidth: number,
+  svgHeight: number,
+  stageMarkers?: { distance: number; label: string }[]
+): string {
   const LEFT_PADDING = 5;
   const RIGHT_PADDING = 5;
   const TOP_PADDING = 10;
   const BOTTOM_PADDING = 25;
 
-  const canvas = SVG.SVG().size(SVG_WIDTH, SVG_HEIGHT);
+  const canvas = SVG.SVG().size(svgWidth, svgHeight);
 
   const clampedElevationData = elevationData.map((e) => Math.max(0, e));
   const maxElevation = Math.max(Math.max(...clampedElevationData), 200);
@@ -46,8 +44,8 @@ async function generateElevationSvg(
 
   const maxDistance = Math.max(...distanceData);
 
-  const plotWidth = SVG_WIDTH - LEFT_PADDING - RIGHT_PADDING;
-  const plotHeight = SVG_HEIGHT - TOP_PADDING - BOTTOM_PADDING;
+  const plotWidth = svgWidth - LEFT_PADDING - RIGHT_PADDING;
+  const plotHeight = svgHeight - TOP_PADDING - BOTTOM_PADDING;
 
   const points = clampedElevationData.map((elevation, index) => {
     const x = (distanceData[index] / maxDistance) * plotWidth + LEFT_PADDING;
@@ -63,7 +61,7 @@ async function generateElevationSvg(
   for (let i = 0; i < numHorizontalGridlines; i++) {
     const y = TOP_PADDING + (i / (numHorizontalGridlines - 1)) * plotHeight;
     canvas
-      .line(LEFT_PADDING, y, SVG_WIDTH - RIGHT_PADDING, y)
+      .line(LEFT_PADDING, y, svgWidth - RIGHT_PADDING, y)
       .stroke({ color: gridlineColor, width: 1 });
   }
 
@@ -80,9 +78,9 @@ async function generateElevationSvg(
   // Create a path for the fill area
   const fillPathString =
     pathString +
-    ` L ${simplifiedPoints[simplifiedPoints.length - 1][0]} ${SVG_HEIGHT - BOTTOM_PADDING} L ${
+    ` L ${simplifiedPoints[simplifiedPoints.length - 1][0]} ${svgHeight - BOTTOM_PADDING} L ${
       simplifiedPoints[0][0]
-    } ${SVG_HEIGHT - BOTTOM_PADDING} Z`;
+    } ${svgHeight - BOTTOM_PADDING} Z`;
   canvas.path(fillPathString).fill(gradient).stroke("none");
 
   canvas
@@ -90,39 +88,52 @@ async function generateElevationSvg(
     .fill("none")
     .stroke({ color: "#C61016", width: 2, linecap: "round", linejoin: "round" });
 
-  // Key elevations
-  const keyElevationsY = SVG_HEIGHT - 5; // Position labels near the bottom
-  canvas.style().rule(".keyElevationLabel", {
-    fontFamily: "Helvetica Neue, sans-serif",
-    fontSize: "16px",
-    fontWeight: 300,
-    "letter-spacing": "0.05em",
-    "dominant-baseline": "alphabetical",
-  });
+  if (stageMarkers) {
+    for (const marker of stageMarkers) {
+      const x = (marker.distance / maxDistance) * plotWidth + LEFT_PADDING;
+      canvas
+        .line(x, TOP_PADDING, x, svgHeight - BOTTOM_PADDING)
+        .stroke({ color: "#cccccc", width: 1, dasharray: "4 2" });
+      canvas
+        .text(marker.label)
+        .amove(x + 5, TOP_PADDING + 5)
+        .font({ family: "Helvetica Neue, sans-serif", size: 12 });
+    }
+  } else {
+    // Key elevations
+    const keyElevationsY = svgHeight - 5; // Position labels near the bottom
+    canvas.style().rule(".keyElevationLabel", {
+      fontFamily: "Helvetica Neue, sans-serif",
+      fontSize: "16px",
+      fontWeight: 300,
+      "letter-spacing": "0.05em",
+      "dominant-baseline": "alphabetical",
+    });
 
-  // Start elevation
-  const startElevation = clampedElevationData[0];
-  canvas
-    .text(`${Math.round(startElevation)}m`)
-    .amove(LEFT_PADDING, keyElevationsY)
-    .addClass("keyElevationLabel")
-    .font({ anchor: "start" });
+    // Start elevation
+    const startElevation = clampedElevationData[0];
+    canvas
+      .text(`${Math.round(startElevation)}m`)
+      .amove(LEFT_PADDING, keyElevationsY)
+      .addClass("keyElevationLabel")
+      .font({ anchor: "start" });
 
-  // Peak elevation
-  const actualMaxElevation = Math.max(...clampedElevationData);
-  canvas
-    .text(`⏶ ${Math.round(actualMaxElevation)}m`)
-    .amove(SVG_WIDTH / 2, keyElevationsY)
-    .addClass("keyElevationLabel")
-    .font({ anchor: "middle" });
+    // Peak elevation
+    const actualMaxElevation = Math.max(...clampedElevationData);
+    canvas
+      .text(`⏶ ${Math.round(actualMaxElevation)}m`)
+      .amove(svgWidth / 2, keyElevationsY)
+      .addClass("keyElevationLabel")
+      .font({ anchor: "middle" });
 
-  // End elevation
-  const endElevation = clampedElevationData[clampedElevationData.length - 1];
-  canvas
-    .text(`${Math.round(endElevation)}m`)
-    .amove(SVG_WIDTH - RIGHT_PADDING, keyElevationsY)
-    .addClass("keyElevationLabel")
-    .font({ anchor: "end" });
+    // End elevation
+    const endElevation = clampedElevationData[clampedElevationData.length - 1];
+    canvas
+      .text(`${Math.round(endElevation)}m`)
+      .amove(svgWidth - RIGHT_PADDING, keyElevationsY)
+      .addClass("keyElevationLabel")
+      .font({ anchor: "end" });
+  }
 
   // Add distance labels with ticks
   // const numVerticalTicks = 4;
@@ -130,11 +141,11 @@ async function generateElevationSvg(
   //   const distance = (i / (numVerticalTicks - 1)) * maxDistance;
   //   const x = LEFT_PADDING + (i / (numVerticalTicks - 1)) * plotWidth;
   //   canvas
-  //     .line(x, SVG_HEIGHT - BOTTOM_PADDING, x, SVG_HEIGHT - BOTTOM_PADDING + 5)
+  //     .line(x, svgHeight - BOTTOM_PADDING, x, svgHeight - BOTTOM_PADDING + 5)
   //     .stroke({ color: gridlineColor, width: 1 });
   //   canvas
   //     .text(`${(distance / 1000).toFixed(1)}km`)
-  //     .amove(x, SVG_HEIGHT - BOTTOM_PADDING + 10)
+  //     .amove(x, svgHeight - BOTTOM_PADDING + 10)
   //     .font({
   //       family: "Montserrat, sans-serif",
   //       size: 12,
@@ -166,16 +177,7 @@ async function generateElevationSvg(
     .fill("#C61016")
     .stroke({ color: "white", width: 2, linejoin: "round" });
 
-  const tripYear = new Date(trip.startDate).getFullYear();
-  const filename = `${tripYear}-${toSnakeCase(trip.name)}-stage-${stageIndex}-elevation.svg`;
-  const filepath = `${OUTPUT_DIR}/${filename}`;
-
-  try {
-    await fs.writeFile(filepath, pretty(canvas.svg()));
-    console.log(`Generated elevation SVG: ${filepath}`);
-  } catch (error) {
-    console.error(`Error writing SVG file ${filepath}:`, error);
-  }
+  return pretty(canvas.svg());
 }
 
 async function main() {
@@ -201,6 +203,12 @@ async function main() {
   for (const trip of travelsJson) {
     if (!trip.stages) continue;
     const filteredStages = trip.stages.filter((stage) => stage.strava_data);
+
+    let tripElevationData: number[] = [];
+    let tripDistanceData: number[] = [];
+    let stageMarkers: { distance: number; label: string }[] = [];
+    let cumulativeDistance = 0;
+
     for (const [i, stage] of filteredStages.entries()) {
       if (
         stage.strava_data &&
@@ -221,7 +229,47 @@ async function main() {
           distanceStream = stage.strava_data.distance_stream;
         }
 
-        await generateElevationSvg(trip, stage, i + 1, elevationStream, distanceStream);
+        const svgContent = generateElevationSvg(elevationStream, distanceStream, 600, 200);
+
+        const tripYear = new Date(trip.startDate).getFullYear();
+        const filename = `${tripYear}-${toSnakeCase(trip.name)}-stage-${i + 1}-elevation.svg`;
+        const filepath = `${OUTPUT_DIR}/${filename}`;
+
+        try {
+          await fs.writeFile(filepath, svgContent);
+          console.log(`Generated elevation SVG: ${filepath}`);
+        } catch (error) {
+          console.error(`Error writing SVG file ${filepath}:`, error);
+        }
+
+        tripElevationData = tripElevationData.concat(elevationStream);
+        const lastDistance =
+          distanceStream.length > 0 ? distanceStream[distanceStream.length - 1] : 0;
+        tripDistanceData = tripDistanceData.concat(
+          distanceStream.map((d) => d + cumulativeDistance)
+        );
+        cumulativeDistance += lastDistance;
+        stageMarkers.push({ distance: cumulativeDistance, label: `Stage ${i + 1}` });
+      }
+    }
+
+    if (tripElevationData.length > 0) {
+      const svgContent = generateElevationSvg(
+        tripElevationData,
+        tripDistanceData,
+        1600,
+        200,
+        stageMarkers
+      );
+      const tripYear = new Date(trip.startDate).getFullYear();
+      const filename = `${tripYear}-${toSnakeCase(trip.name)}-elevation.svg`;
+      const filepath = `${OUTPUT_DIR}/${filename}`;
+
+      try {
+        await fs.writeFile(filepath, svgContent);
+        console.log(`Generated elevation SVG: ${filepath}`);
+      } catch (error) {
+        console.error(`Error writing SVG file ${filepath}:`, error);
       }
     }
   }
