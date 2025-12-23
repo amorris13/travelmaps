@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "@mapbox/polyline": "^1.2.1",
-    "@svgdotjs/svg.js": "^3.2.4",
     "@svgdotjs/svg.filter.js": "^3.0.8",
+    "@svgdotjs/svg.js": "^3.2.4",
     "dotenv": "^17.2.0",
     "kld-affine": "^2.1.1",
     "minimist": "^1.2.8",

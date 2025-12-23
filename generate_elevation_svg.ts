@@ -5,6 +5,7 @@ import * as SVG from "@svgdotjs/svg.js";
 import { createSVGWindow } from "svgdom";
 import type { Trip, Stage } from "./trips.js";
 import pretty from "pretty";
+import simplify from "simplify-js";
 
 const FILENAME = "./travels.json";
 const OUTPUT_DIR = "./output";
@@ -51,8 +52,10 @@ async function generateElevationSvg(
   const points = clampedElevationData.map((elevation, index) => {
     const x = (distanceData[index] / maxDistance) * plotWidth + LEFT_PADDING;
     const y = (1 - (elevation - minElevation) / elevationRange) * plotHeight + TOP_PADDING;
-    return [x, y];
+    return { x, y };
   });
+
+  const simplifiedPoints = simplify(points, 0.1, true).map(({ x, y }) => [x, y]);
 
   // Add gridlines
   const gridlineColor = "#e0e0e0";
@@ -65,7 +68,7 @@ async function generateElevationSvg(
   }
 
   // Create a path from the points
-  const pathString = points.map((p, i) => (i === 0 ? "M" : "L") + p.join(" ")).join(" ");
+  const pathString = simplifiedPoints.map((p, i) => (i === 0 ? "M" : "L") + p.join(" ")).join(" ");
 
   // Create a gradient fill
   const gradient = canvas.gradient("linear", function (add) {
@@ -77,9 +80,9 @@ async function generateElevationSvg(
   // Create a path for the fill area
   const fillPathString =
     pathString +
-    ` L ${points[points.length - 1][0]} ${SVG_HEIGHT - BOTTOM_PADDING} L ${points[0][0]} ${
+    ` L ${simplifiedPoints[simplifiedPoints.length - 1][0]} ${
       SVG_HEIGHT - BOTTOM_PADDING
-    } Z`;
+    } L ${simplifiedPoints[0][0]} ${SVG_HEIGHT - BOTTOM_PADDING} Z`;
   canvas.path(fillPathString).fill(gradient).stroke("none");
 
   canvas
