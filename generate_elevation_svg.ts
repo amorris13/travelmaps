@@ -32,10 +32,10 @@ async function generateElevationSvg(
 ) {
   const SVG_WIDTH = 600;
   const SVG_HEIGHT = 200;
-  const LEFT_PADDING = 0;
-  const RIGHT_PADDING = 0;
+  const LEFT_PADDING = 5;
+  const RIGHT_PADDING = 5;
   const TOP_PADDING = 10;
-  const BOTTOM_PADDING = 40;
+  const BOTTOM_PADDING = 30;
 
   const canvas = SVG.SVG().size(SVG_WIDTH, SVG_HEIGHT);
 
@@ -91,7 +91,7 @@ async function generateElevationSvg(
     .stroke({ color: "#C61016", width: 2, linecap: "round", linejoin: "round" });
 
   // Key elevations
-  const keyElevationsY = SVG_HEIGHT - 15; // Position labels near the bottom
+  const keyElevationsY = SVG_HEIGHT - 5; // Position labels near the bottom
   canvas.style().rule(".keyElevationLabel", {
     fontFamily: "Helvetica Neue, sans-serif",
     fontSize: "16px",
@@ -109,8 +109,13 @@ async function generateElevationSvg(
     .font({ anchor: "start" });
 
   // Peak elevation
+  const actualMaxElevation = Math.max(...clampedElevationData);
   canvas
+<<<<<<< HEAD
     .text(`⏶ ${Math.round(maxElevation)}m`)
+=======
+    .text(`⏶ ${Math.round(actualMaxElevation)}m`)
+>>>>>>> 5866a18 (feat: Update elevation SVG labels and layout)
     .amove(SVG_WIDTH / 2, keyElevationsY)
     .addClass("keyElevationLabel")
     .font({ anchor: "middle" });
