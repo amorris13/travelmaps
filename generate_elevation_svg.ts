@@ -35,7 +35,7 @@ async function generateElevationSvg(
   const LEFT_PADDING = 5;
   const RIGHT_PADDING = 5;
   const TOP_PADDING = 10;
-  const BOTTOM_PADDING = 30;
+  const BOTTOM_PADDING = 25;
 
   const canvas = SVG.SVG().size(SVG_WIDTH, SVG_HEIGHT);
 
