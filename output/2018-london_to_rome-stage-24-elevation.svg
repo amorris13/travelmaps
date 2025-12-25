@@ -29,5 +29,5 @@
   </text><text x="65" y="140" class="axisLabel verticalAxisLabel">
     <tspan dy="0" x="65">41m</tspan>
   </text>
-  <polygon points="undefined,NaN NaN,NaN NaN,NaN" fill="#c61016" stroke-linejoin="round" stroke-width="2" stroke="white"></polygon>
+  <polygon points="102.48689227836034,118.34488521742365 97.48689227836034,127.00513925526803 107.48689227836034,127.00513925526803" fill="#c61016" stroke-linejoin="round" stroke-width="2" stroke="white"></polygon>
 </svg>

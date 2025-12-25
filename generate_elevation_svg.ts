@@ -137,8 +137,8 @@ async function generateElevationSvg(
 
   // Use a filled triangle for the max elevation indicator
   const triangleSize = 10;
-  const cx = maxElevationPoint[0];
-  const cy = maxElevationPoint[1];
+  const cx = maxElevationPoint.x;
+  const cy = maxElevationPoint.y;
 
   // Points for an upward-pointing equilateral triangle centered at (cx, cy)
   const trianglePoints = [
