@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1342" result="SvgjsFeMorphology1342" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1343" result="SvgjsFeColorMatrix1343" in="SvgjsFeMorphology1342" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1344" result="SvgjsFeMerge1344" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1345" result="SvgjsFeMergeNode1345" in="SvgjsFeColorMatrix1343"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1346" result="SvgjsFeMergeNode1346" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1347">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="652.913" cy="92.308" fill="black"></circle>
+      <circle r="5" cx="145.954" cy="707.692" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M652.913 92.308L654.046 100.353L651.804 101.933L650.381 101.969L650.14 104.447L648.259 107.033L645.8 115.365L641.411 121.506L623.639 139.64L621.252 143.733L619.251 149.945L611.293 156.049L609.364 159.28L611.993 160.716L608.4 166.281L597.476 179.672L588.169 187.965L586.722 187.678L578.113 196.15L574.689 195.575L574.834 199.452L578.306 211.62L572.977 213.918L564.61 219.266L562.826 219.553L561.427 221.563L555.374 224.542L549.37 229.602L541.606 233.514L539.194 233.837L532.515 239.292L530.321 243.814L526.029 248.049L522.05 254.329L517.01 259.389L507.751 264.269L505.05 262.403L501.963 269.077L497.84 281.349L496.128 283.358L495.163 288.202L491.064 299.503L482.914 319.414L480.599 321.207L477.633 326.767L480.478 328.74L476.259 339.25L472.883 352.055L472.81 356.036L470.206 363.532L470.158 374.506L468.735 383.4L461.863 395.951L454.942 405.274L445.345 414.955L441.897 417.106L436.809 418.683L433.602 423.739L427.212 425.746L421.232 428.866L416.867 432.236L391.187 442.525L384.821 446.002L367.797 449.802L366.036 448.475L359.14 454.283L358.175 453.996L356.005 455.86L348.795 467.08L346.408 477.08L347.204 483.747L354.462 501.272L350.411 505.214L351.544 509.622L350.724 521.233L345.202 537.895L342.116 544.882L335.364 551.689L326.924 557.78L322.536 563.047L305.439 574.618L303.8 574.976L293.648 573.508L289.38 575.084L282.459 580.135L274.044 588.123L264.206 606.176L258.467 610.582L234.136 625.23L247.182 648.508L242.769 652.197L242.287 654.238L243.854 656.243L232.038 666.699L230.471 671.031L208.89 682.703L205.731 677.583L185.403 688.969L184.439 687.823L172.888 694.697L173.563 697.525L145.954 707.692 " class="lineBackground"></path>
+  <path d="M652.913 92.308L654.046 100.353L651.804 101.933L650.381 101.969L650.14 104.447L648.259 107.033L645.8 115.365L641.411 121.506L623.639 139.64L621.252 143.733L619.251 149.945L611.293 156.049L609.364 159.28L611.993 160.716L608.4 166.281L597.476 179.672L588.169 187.965L586.722 187.678L578.113 196.15L574.689 195.575L574.834 199.452L578.306 211.62L572.977 213.918L564.61 219.266L562.826 219.553L561.427 221.563L555.374 224.542L549.37 229.602L541.606 233.514L539.194 233.837L532.515 239.292L530.321 243.814L526.029 248.049L522.05 254.329L517.01 259.389L507.751 264.269L505.05 262.403L501.963 269.077L497.84 281.349L496.128 283.358L495.163 288.202L491.064 299.503L482.914 319.414L480.599 321.207L477.633 326.767L480.478 328.74L476.259 339.25L472.883 352.055L472.81 356.036L470.206 363.532L470.158 374.506L468.735 383.4L461.863 395.951L454.942 405.274L445.345 414.955L441.897 417.106L436.809 418.683L433.602 423.739L427.212 425.746L421.232 428.866L416.867 432.236L391.187 442.525L384.821 446.002L367.797 449.802L366.036 448.475L359.14 454.283L358.175 453.996L356.005 455.86L348.795 467.08L346.408 477.08L347.204 483.747L354.462 501.272L350.411 505.214L351.544 509.622L350.724 521.233L345.202 537.895L342.116 544.882L335.364 551.689L326.924 557.78L322.536 563.047L305.439 574.618L303.8 574.976L293.648 573.508L289.38 575.084L282.459 580.135L274.044 588.123L264.206 606.176L258.467 610.582L234.136 625.23L247.182 648.508L242.769 652.197L242.287 654.238L243.854 656.243L232.038 666.699L230.471 671.031L208.89 682.703L205.731 677.583L185.403 688.969L184.439 687.823L172.888 694.697L173.563 697.525L145.954 707.692 " class="line bicycling" mask="url(#SvgjsMask1347)"></path>
+  <circle r="5" cx="652.913" cy="92.308" class="stage"></circle>
+  <circle r="5" cx="145.954" cy="707.692" class="stage"></circle>
+  <rect width="132.3" height="21.6" x="586.763" y="62.708" opacity="0.2" fill="green" class="labelRect"></rect><text x="586.763" y="79.809" class="label">
+    <tspan dy="0" x="586.763">Meung-sur-Loire</tspan>
+  </text>
+  <rect width="156.24" height="21.6" x="67.834" y="715.692" opacity="0.2" fill="green" class="labelRect"></rect><text x="67.834" y="732.794" class="label">
+    <tspan dy="0" x="67.834">Saint-Dye-sur-Loire</tspan>
+  </text>
+</svg>

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <image width="800" height="800" href="2017-elbe_cycling-stage-9.png"></image>
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1966" result="SvgjsFeMorphology1966" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1967" result="SvgjsFeColorMatrix1967" in="SvgjsFeMorphology1966" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1968" result="SvgjsFeMerge1968" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1969" result="SvgjsFeMergeNode1969" in="SvgjsFeColorMatrix1967"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1970" result="SvgjsFeMergeNode1970" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1971">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="690.002" cy="517.781" fill="black"></circle>
+      <circle r="5" cx="92.308" cy="267.056" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M690.002 517.781L698.536 521.147L699.444 520.016L700.958 520.836L701.974 518.234L703.007 517.838L702.615 516.678L703.292 516.791L706.499 521.911L707.692 526.606L704.254 528.953L697.182 524.117L688.862 521.769L677.301 522.476L662.052 526.323L654.498 527.454L639.676 526.351L632.568 527.2L620.9 532.177L623.145 535.514L620.063 537.551L620.312 539.672L621.078 539.304L620.953 539.813L607.895 544.592L603.121 547.137L594.748 553.952L584.451 565.715L582.51 566.874L581.886 565.997L575.206 568.542L569.042 567.835L560.794 564.753L545.919 551.916L538.846 547.957L529.583 544.62L523.597 538.88L520.088 534.1L509.648 525.192L498.746 519.733L481.145 514.246L469.797 511.87L434.916 510.823L412.167 516.537L400.125 520.977L392.856 522.194L380.155 520.695L374.329 518.262L366.473 513.737L358.154 505.816L352.221 496.736L348.765 488.9L348.979 480.384L351.17 469.689L350.974 465.615L351.936 463.068L351.847 455.088L345.844 443.627L345.559 441.052L342.78 436.524L339.716 436.325L339.84 426.108L335.405 413.682L333.552 410.285L329.793 406.407L324.894 397.376L323.861 394.007L321.385 390.412L316.29 386.25L310.714 383.702L304.407 378.775L286.86 360.823L283.19 360.483L281.231 359.265L271.041 340.29L270.88 339.611L274.871 336.778L269.295 319.443L262.953 312.503L252.941 307.602L239.081 297.29L235.483 291.708L226.326 271.505L217.17 256.259L214.052 248.72L209.117 242.229L197.467 236.05L195.561 236.22L174.825 231.798L170.246 231.458L156.048 232.79L142.349 237.722L121.274 253.028L112.812 257.449L112.527 258.214L101.749 258.583L94.677 257.534L92.913 261.955L92.308 267.056 " class="lineBackground"></path>
+  <path d="M690.002 517.781L698.536 521.147L699.444 520.016L700.958 520.836L701.974 518.234L703.007 517.838L702.615 516.678L703.292 516.791L706.499 521.911L707.692 526.606L704.254 528.953L697.182 524.117L688.862 521.769L677.301 522.476L662.052 526.323L654.498 527.454L639.676 526.351L632.568 527.2L620.9 532.177L623.145 535.514L620.063 537.551L620.312 539.672L621.078 539.304L620.953 539.813L607.895 544.592L603.121 547.137L594.748 553.952L584.451 565.715L582.51 566.874L581.886 565.997L575.206 568.542L569.042 567.835L560.794 564.753L545.919 551.916L538.846 547.957L529.583 544.62L523.597 538.88L520.088 534.1L509.648 525.192L498.746 519.733L481.145 514.246L469.797 511.87L434.916 510.823L412.167 516.537L400.125 520.977L392.856 522.194L380.155 520.695L374.329 518.262L366.473 513.737L358.154 505.816L352.221 496.736L348.765 488.9L348.979 480.384L351.17 469.689L350.974 465.615L351.936 463.068L351.847 455.088L345.844 443.627L345.559 441.052L342.78 436.524L339.716 436.325L339.84 426.108L335.405 413.682L333.552 410.285L329.793 406.407L324.894 397.376L323.861 394.007L321.385 390.412L316.29 386.25L310.714 383.702L304.407 378.775L286.86 360.823L283.19 360.483L281.231 359.265L271.041 340.29L270.88 339.611L274.871 336.778L269.295 319.443L262.953 312.503L252.941 307.602L239.081 297.29L235.483 291.708L226.326 271.505L217.17 256.259L214.052 248.72L209.117 242.229L197.467 236.05L195.561 236.22L174.825 231.798L170.246 231.458L156.048 232.79L142.349 237.722L121.274 253.028L112.812 257.449L112.527 258.214L101.749 258.583L94.677 257.534L92.913 261.955L92.308 267.056 " class="line bicycling" mask="url(#SvgjsMask1971)"></path>
+  <circle r="5" cx="690.002" cy="517.781" class="stage"></circle>
+  <circle r="5" cx="92.308" cy="267.056" class="stage"></circle>
+  <rect width="68.22" height="21.6" x="18.431" y="239.799" opacity="0.2" fill="green" class="labelRect"></rect><text x="18.431" y="256.901" class="label">
+    <tspan dy="0" x="18.431">Dresden</tspan>
+  </text>
+  <rect width="107.46" height="21.6" x="636.272" y="488.181" opacity="0.2" fill="green" class="labelRect"></rect><text x="636.272" y="505.283" class="label">
+    <tspan dy="0" x="636.272">Bastel Bridge</tspan>
+  </text>
+</svg>

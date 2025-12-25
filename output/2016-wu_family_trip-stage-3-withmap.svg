@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <image width="800" height="800" href="2016-wu_family_trip-stage-3.png"></image>
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1606" result="SvgjsFeMorphology1606" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1607" result="SvgjsFeColorMatrix1607" in="SvgjsFeMorphology1606" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1608" result="SvgjsFeMerge1608" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1609" result="SvgjsFeMergeNode1609" in="SvgjsFeColorMatrix1607"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1610" result="SvgjsFeMergeNode1610" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1611">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="540.258" cy="107.991" fill="black"></circle>
+      <circle r="5" cx="269.789" cy="707.692" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M540.258 107.991L539.747 106.301L529.749 98.318L525.562 96.755L520.545 92.862L514.161 92.308L432.915 115.719L429.043 116.218L421.846 119.873L411.339 138.995L402.869 162.175L386.128 195.67L403.51 239.952L395.235 265.46L392.674 281.876L376.503 295.604L362.697 304.128L358.337 324.496L343.086 341.366L327.555 351.733L316.782 362.368L307.379 376.686L300.798 395.116L297.626 420.646L289.931 444.324L284.62 443.435L291.405 445.488L302.863 455.423L293.964 486.592L296.223 544.95L313.909 591.483L259.742 690.183L264.176 696.76L267.154 705.254L269.789 707.692 " class="lineBackground partialAttendance"></path>
+  <path d="M540.258 107.991L539.747 106.301L529.749 98.318L525.562 96.755L520.545 92.862L514.161 92.308L432.915 115.719L429.043 116.218L421.846 119.873L411.339 138.995L402.869 162.175L386.128 195.67L403.51 239.952L395.235 265.46L392.674 281.876L376.503 295.604L362.697 304.128L358.337 324.496L343.086 341.366L327.555 351.733L316.782 362.368L307.379 376.686L300.798 395.116L297.626 420.646L289.931 444.324L284.62 443.435L291.405 445.488L302.863 455.423L293.964 486.592L296.223 544.95L313.909 591.483L259.742 690.183L264.176 696.76L267.154 705.254L269.789 707.692 " class="line transit partialAttendance" mask="url(#SvgjsMask1611)"></path>
+  <circle r="5" cx="540.258" cy="107.991" class="stage partialAttendance"></circle>
+  <circle r="5" cx="269.789" cy="707.692" class="stage partialAttendance"></circle>
+  <rect width="70.2" height="21.6" x="193.932" y="713.349" opacity="0.2" fill="green" class="labelRect"></rect><text x="193.932" y="730.451" class="label partialAttendance">
+    <tspan dy="0" x="193.932">Florence</tspan>
+  </text>
+  <rect width="55.26" height="21.6" x="545.915" y="80.734" opacity="0.2" fill="green" class="labelRect"></rect><text x="545.915" y="97.836" class="label partialAttendance">
+    <tspan dy="0" x="545.915">Venice</tspan>
+  </text>
+</svg>

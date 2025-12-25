@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1624" result="SvgjsFeMorphology1624" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1625" result="SvgjsFeColorMatrix1625" in="SvgjsFeMorphology1624" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1626" result="SvgjsFeMerge1626" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1627" result="SvgjsFeMergeNode1627" in="SvgjsFeColorMatrix1625"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1628" result="SvgjsFeMergeNode1628" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1629">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="707.692" cy="702.586" fill="black"></circle>
+      <circle r="5" cx="107.385" cy="97.414" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M707.692 702.586L705.35 700.993L700.666 694.847L683.393 666.622L674.757 650.005L670.512 639.99L670.804 637.258L669.78 636.12L668.316 635.892L666.413 632.933L661.729 622.234L646.652 585.813L644.749 578.528L645.334 576.252L640.65 567.601L629.964 522.754L627.476 515.697L622.938 507.046L605.811 484.052L600.249 478.133L576.535 459.692L572.729 457.416L565.117 454.684L566.874 450.813L562.336 446.26L541.843 415.069L528.23 399.359L519.593 385.47L507.443 375.68L503.491 369.988L478.314 324.677L459.431 318.53L388.436 299.175L284.652 327.865L280.846 330.825L278.211 326.271L225.514 330.597L212.047 333.102L197.702 306.462L196.092 305.551L187.309 308.283L173.11 305.778L168.718 302.135L167.694 300.086L165.791 288.929L166.815 271.168L184.82 222.437L186.87 213.784L186.87 205.814L183.649 198.982L177.648 192.606L165.644 182.586L161.253 176.893L158.472 171.883L155.398 155.942L156.276 154.804L153.056 147.288L119.827 164.368L113.387 147.061L102.262 152.071L98.748 147.744L92.308 136.813L97.431 132.713L105.189 129.07L100.505 111.762L114.704 112.217L107.385 97.414 " class="lineBackground"></path>
+  <path d="M707.692 702.586L705.35 700.993L700.666 694.847L683.393 666.622L674.757 650.005L670.512 639.99L670.804 637.258L669.78 636.12L668.316 635.892L666.413 632.933L661.729 622.234L646.652 585.813L644.749 578.528L645.334 576.252L640.65 567.601L629.964 522.754L627.476 515.697L622.938 507.046L605.811 484.052L600.249 478.133L576.535 459.692L572.729 457.416L565.117 454.684L566.874 450.813L562.336 446.26L541.843 415.069L528.23 399.359L519.593 385.47L507.443 375.68L503.491 369.988L478.314 324.677L459.431 318.53L388.436 299.175L284.652 327.865L280.846 330.825L278.211 326.271L225.514 330.597L212.047 333.102L197.702 306.462L196.092 305.551L187.309 308.283L173.11 305.778L168.718 302.135L167.694 300.086L165.791 288.929L166.815 271.168L184.82 222.437L186.87 213.784L186.87 205.814L183.649 198.982L177.648 192.606L165.644 182.586L161.253 176.893L158.472 171.883L155.398 155.942L156.276 154.804L153.056 147.288L119.827 164.368L113.387 147.061L102.262 152.071L98.748 147.744L92.308 136.813L97.431 132.713L105.189 129.07L100.505 111.762L114.704 112.217L107.385 97.414 " class="line bicycling" mask="url(#SvgjsMask1629)"></path>
+  <circle r="5" cx="707.692" cy="702.586" class="stage"></circle>
+  <circle r="5" cx="107.385" cy="97.414" class="stage"></circle>
+  <rect width="78.3" height="21.6" x="668.542" y="710.586" opacity="0.2" fill="green" class="labelRect"></rect><text x="668.542" y="727.688" class="label">
+    <tspan dy="0" x="668.542">Ingelheim</tspan>
+  </text>
+  <rect width="127.08" height="21.6" x="43.845" y="67.814" opacity="0.2" fill="green" class="labelRect"></rect><text x="43.845" y="84.915" class="label">
+    <tspan dy="0" x="43.845">Oestrich-Winkel</tspan>
+  </text>
+</svg>

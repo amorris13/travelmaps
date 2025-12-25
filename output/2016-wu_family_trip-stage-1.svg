@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1594" result="SvgjsFeMorphology1594" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1595" result="SvgjsFeColorMatrix1595" in="SvgjsFeMorphology1594" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1596" result="SvgjsFeMerge1596" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1597" result="SvgjsFeMergeNode1597" in="SvgjsFeColorMatrix1595"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1598" result="SvgjsFeMergeNode1598" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1599">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="405.302" cy="92.308" fill="black"></circle>
+      <circle r="5" cx="394.698" cy="707.692" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M405.302 92.308A800.118 800.118 0 0 1 394.698 707.692 " class="lineBackground partialAttendance"></path>
+  <path d="M405.302 92.308A800.118 800.118 0 0 1 394.698 707.692 " class="line flying partialAttendance" mask="url(#SvgjsMask1599)"></path>
+  <circle r="5" cx="405.302" cy="92.308" class="stage partialAttendance"></circle>
+  <circle r="5" cx="394.698" cy="707.692" class="stage partialAttendance"></circle>
+  <rect width="81.36" height="21.6" x="354.018" y="715.692" opacity="0.2" fill="green" class="labelRect"></rect><text x="354.018" y="732.794" class="label partialAttendance">
+    <tspan dy="0" x="354.018">Barcelona</tspan>
+  </text>
+  <rect width="41.04" height="21.6" x="384.782" y="62.708" opacity="0.2" fill="green" class="labelRect"></rect><text x="384.782" y="79.809" class="label partialAttendance">
+    <tspan dy="0" x="384.782">Paris</tspan>
+  </text>
+</svg>

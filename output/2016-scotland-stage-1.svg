@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1534" result="SvgjsFeMorphology1534" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1535" result="SvgjsFeColorMatrix1535" in="SvgjsFeMorphology1534" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1536" result="SvgjsFeMerge1536" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1537" result="SvgjsFeMergeNode1537" in="SvgjsFeColorMatrix1535"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1538" result="SvgjsFeMergeNode1538" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1539">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="555.683" cy="687.784" fill="black"></circle>
+      <circle r="5" cx="241.268" cy="97.967" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M555.683 687.784L557.292 688.704L558.861 696.633L558.861 697.323L557.054 697.995L557.163 700.526L551.929 701.8L550.291 703.446L548.086 702.225L546.587 702.419L540.301 706.348L534.67 707.604L529.556 704.171L526.398 700.101L507.212 667.267L505.235 661.531L503.07 643.256L500.012 632.062L501.531 630.22L506.804 627.545L510.667 622.107L513.061 607.099L514.997 603.077L517.659 600.366L527.301 593.737L534.878 590.742L534.779 588.456L519.118 581.472L506.993 578.99L498.314 575.551L482.008 576.898L479.753 576.384L466.734 568.956L457.429 570.676L450.448 566.403L446.833 560.41L440.378 554.221L435.721 545.513L431.421 541.381L427.18 535.172L425.035 533.629L403.376 524.777L399.215 520.927L397.944 515.267L397.865 491.806L398.54 485.469L396.902 478.12L391.807 469.456L387.259 455.534L383.853 447.826L377.02 437.737L371.678 426.225L367.179 420.771L357.358 417.004L353.693 413.574L351.518 408.616L350.744 401.152L340.833 384.123L339.204 370.398L340.158 341.355L341.052 336.001L346.086 327.479L346.642 324.365L345.858 312.87L346.801 301.533L343.425 294.893L342.66 289.891L343.912 274.348L346.206 268.632L346.712 264.305L342.035 252.461L337.258 245.799L334.477 239.654L330.138 221.997L322.372 199.54L320.485 188.844L317.426 183.745L314.944 176.452L314.983 172.191L320.008 166.841L320.624 163.006L316.562 157.816L309.74 155.123L304.626 149.415L302.153 145.098L300.256 138.871L289.154 124.276L286.83 117.173L285.897 111.23L274.427 92.397L252.629 99.092L243.195 103.465L241.884 102.858L241.417 101.609L241.268 97.967 " class="lineBackground"></path>
+  <path d="M555.683 687.784L557.292 688.704L558.861 696.633L558.861 697.323L557.054 697.995L557.163 700.526L551.929 701.8L550.291 703.446L548.086 702.225L546.587 702.419L540.301 706.348L534.67 707.604L529.556 704.171L526.398 700.101L507.212 667.267L505.235 661.531L503.07 643.256L500.012 632.062L501.531 630.22L506.804 627.545L510.667 622.107L513.061 607.099L514.997 603.077L517.659 600.366L527.301 593.737L534.878 590.742L534.779 588.456L519.118 581.472L506.993 578.99L498.314 575.551L482.008 576.898L479.753 576.384L466.734 568.956L457.429 570.676L450.448 566.403L446.833 560.41L440.378 554.221L435.721 545.513L431.421 541.381L427.18 535.172L425.035 533.629L403.376 524.777L399.215 520.927L397.944 515.267L397.865 491.806L398.54 485.469L396.902 478.12L391.807 469.456L387.259 455.534L383.853 447.826L377.02 437.737L371.678 426.225L367.179 420.771L357.358 417.004L353.693 413.574L351.518 408.616L350.744 401.152L340.833 384.123L339.204 370.398L340.158 341.355L341.052 336.001L346.086 327.479L346.642 324.365L345.858 312.87L346.801 301.533L343.425 294.893L342.66 289.891L343.912 274.348L346.206 268.632L346.712 264.305L342.035 252.461L337.258 245.799L334.477 239.654L330.138 221.997L322.372 199.54L320.485 188.844L317.426 183.745L314.944 176.452L314.983 172.191L320.008 166.841L320.624 163.006L316.562 157.816L309.74 155.123L304.626 149.415L302.153 145.098L300.256 138.871L289.154 124.276L286.83 117.173L285.897 111.23L274.427 92.397L252.629 99.092L243.195 103.465L241.884 102.858L241.417 101.609L241.268 97.967 " class="line driving" mask="url(#SvgjsMask1539)"></path>
+  <circle r="5" cx="555.683" cy="687.784" class="stage"></circle>
+  <circle r="5" cx="241.268" cy="97.967" class="stage"></circle>
+  <rect width="128.34" height="21.6" x="561.34" y="693.441" opacity="0.2" fill="green" class="labelRect"></rect><text x="561.34" y="710.542" class="label">
+    <tspan dy="0" x="561.34">Glasgow Airport</tspan>
+  </text>
+  <rect width="69.12" height="21.6" x="166.491" y="70.71" opacity="0.2" fill="green" class="labelRect"></rect><text x="166.491" y="87.812" class="label">
+    <tspan dy="0" x="166.491">Arrochar</tspan>
+  </text>
+</svg>

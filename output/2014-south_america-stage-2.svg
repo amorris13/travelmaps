@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1168" result="SvgjsFeMorphology1168" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1169" result="SvgjsFeColorMatrix1169" in="SvgjsFeMorphology1168" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1170" result="SvgjsFeMerge1170" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1171" result="SvgjsFeMergeNode1171" in="SvgjsFeColorMatrix1169"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1172" result="SvgjsFeMergeNode1172" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1173">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="707.692" cy="507.777" fill="black"></circle>
+      <circle r="5" cx="92.308" cy="266.57" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M707.692 507.777L704.714 508.623L695.771 505.368L686.341 504.784L683.666 507.603L676.74 511.102L661.942 513.112L659.688 514.705L657.923 513.645L655.5 514.387L653.875 511.85L651.608 510.172L650.561 504.338L646.679 500.048L632.431 497.321L628.409 498.327L622.823 495.758L619.407 497.014L607.006 495.557L568.287 504.177L559.402 508.786L556.778 509.362L548.232 504.281L546.439 504.397L539.759 513.99L483.853 533.43L474.963 530.483L470.655 531.425L469.237 528.269L452.725 520.24L420.542 518.268L410.531 516.984L403.031 517.118L396.839 518.918L375.115 517.074L345.607 497.715L336.35 490.863L335.379 489.344L333.056 488.79L322.291 476.901L317.408 476.708L313.839 474.377L296.163 466.891L270.802 454.039L261.754 445.511L256.578 443.982L241.482 433.141L227.013 433.328L224.932 431.263L194.374 418.541L177.215 417.125L162.629 402.165L149.047 384.003L127.41 333.947L117.325 328.378L93.464 283.628L92.308 266.57 " class="lineBackground"></path>
+  <path d="M707.692 507.777L704.714 508.623L695.771 505.368L686.341 504.784L683.666 507.603L676.74 511.102L661.942 513.112L659.688 514.705L657.923 513.645L655.5 514.387L653.875 511.85L651.608 510.172L650.561 504.338L646.679 500.048L632.431 497.321L628.409 498.327L622.823 495.758L619.407 497.014L607.006 495.557L568.287 504.177L559.402 508.786L556.778 509.362L548.232 504.281L546.439 504.397L539.759 513.99L483.853 533.43L474.963 530.483L470.655 531.425L469.237 528.269L452.725 520.24L420.542 518.268L410.531 516.984L403.031 517.118L396.839 518.918L375.115 517.074L345.607 497.715L336.35 490.863L335.379 489.344L333.056 488.79L322.291 476.901L317.408 476.708L313.839 474.377L296.163 466.891L270.802 454.039L261.754 445.511L256.578 443.982L241.482 433.141L227.013 433.328L224.932 431.263L194.374 418.541L177.215 417.125L162.629 402.165L149.047 384.003L127.41 333.947L117.325 328.378L93.464 283.628L92.308 266.57 " class="line driving" mask="url(#SvgjsMask1173)"></path>
+  <circle r="5" cx="707.692" cy="507.777" class="stage"></circle>
+  <circle r="5" cx="92.308" cy="266.57" class="stage"></circle>
+  <rect width="71.46" height="21.6" x="56.578" y="236.97" opacity="0.2" fill="green" class="labelRect"></rect><text x="56.578" y="254.072" class="label">
+    <tspan dy="0" x="56.578">Pantanal</tspan>
+  </text>
+  <rect width="123.48" height="21.6" x="645.952" y="515.777" opacity="0.2" fill="green" class="labelRect"></rect><text x="645.952" y="532.879" class="label">
+    <tspan dy="0" x="645.952">Campo Grande</tspan>
+  </text>
+</svg>

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <image width="800" height="800" href="2015-south_of_france-stage-8.png"></image>
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1522" result="SvgjsFeMorphology1522" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1523" result="SvgjsFeColorMatrix1523" in="SvgjsFeMorphology1522" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1524" result="SvgjsFeMerge1524" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1525" result="SvgjsFeMergeNode1525" in="SvgjsFeColorMatrix1523"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1526" result="SvgjsFeMergeNode1526" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1527">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="706.981" cy="255.942" fill="black"></circle>
+      <circle r="5" cx="92.308" cy="516.909" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M706.981 255.942L707.692 261.242L701.025 263.578L702.19 265.276L700.152 266.966L692.29 269.938L683.46 281.113L678.607 284.957L674.458 291.227L672.372 292.147L664.847 291.091L661.504 291.43L658.768 293.012L656.939 295.302L655.606 298.809L652.747 301.235L642.508 303.02L629.318 313.582L624.14 314.337L615.827 317.269L602.107 324.052L589.38 336.427L586.843 342.04L581.34 348.385L579.284 352.803L577.516 354.415L565.625 361.594L559.203 366.428L546.739 369.663L540.624 375.227L535.14 376.648L528.718 383.292L520.592 389.55L508.214 402.299L499.025 405.5L491.703 406.53L483.568 412.496L478.785 414.446L475.158 417.008L468.527 418.814L464.477 423.186L462.182 427.038L459.495 429.139L452.963 431.084L445.557 435.133L438.391 437.474L425.323 448.795L415.647 449.688L406.6 454.767L397.966 455.661L395.738 456.579L389.138 462.563L379.552 465.836L366.447 477.629L353.628 481.873L349.295 485.737L344.877 494.928L333.041 508.512L330.835 509.832L321.938 512.187L319.067 515.202L317.425 519.393L313.056 525.534L309.946 528.417L301.407 533.292L289.454 538.446L284.938 544.058L277.438 543.004L273.544 540.521L271.38 540.492L257.375 542.05L251.83 543.986L239.844 537.867L230.076 535.896L214.511 536.224L205.813 537.342L195.88 535.123L191.29 535.375L187.583 534.539L178.33 534.434L170.679 536.178L165.21 532.888L162.137 532.477L154.174 532.187L149.489 533.161L144.621 531.418L141.532 531.363L136.78 533.195L134.822 533.048L123.069 526.888L116.92 525.24L112.817 525.661L111.138 521.512L107.017 521.84L97.182 520.083L92.942 518.46L92.308 516.909 " class="lineBackground"></path>
+  <path d="M706.981 255.942L707.692 261.242L701.025 263.578L702.19 265.276L700.152 266.966L692.29 269.938L683.46 281.113L678.607 284.957L674.458 291.227L672.372 292.147L664.847 291.091L661.504 291.43L658.768 293.012L656.939 295.302L655.606 298.809L652.747 301.235L642.508 303.02L629.318 313.582L624.14 314.337L615.827 317.269L602.107 324.052L589.38 336.427L586.843 342.04L581.34 348.385L579.284 352.803L577.516 354.415L565.625 361.594L559.203 366.428L546.739 369.663L540.624 375.227L535.14 376.648L528.718 383.292L520.592 389.55L508.214 402.299L499.025 405.5L491.703 406.53L483.568 412.496L478.785 414.446L475.158 417.008L468.527 418.814L464.477 423.186L462.182 427.038L459.495 429.139L452.963 431.084L445.557 435.133L438.391 437.474L425.323 448.795L415.647 449.688L406.6 454.767L397.966 455.661L395.738 456.579L389.138 462.563L379.552 465.836L366.447 477.629L353.628 481.873L349.295 485.737L344.877 494.928L333.041 508.512L330.835 509.832L321.938 512.187L319.067 515.202L317.425 519.393L313.056 525.534L309.946 528.417L301.407 533.292L289.454 538.446L284.938 544.058L277.438 543.004L273.544 540.521L271.38 540.492L257.375 542.05L251.83 543.986L239.844 537.867L230.076 535.896L214.511 536.224L205.813 537.342L195.88 535.123L191.29 535.375L187.583 534.539L178.33 534.434L170.679 536.178L165.21 532.888L162.137 532.477L154.174 532.187L149.489 533.161L144.621 531.418L141.532 531.363L136.78 533.195L134.822 533.048L123.069 526.888L116.92 525.24L112.817 525.661L111.138 521.512L107.017 521.84L97.182 520.083L92.942 518.46L92.308 516.909 " class="line driving" mask="url(#SvgjsMask1527)"></path>
+  <circle r="5" cx="706.981" cy="255.942" class="stage"></circle>
+  <circle r="5" cx="92.308" cy="516.909" class="stage"></circle>
+  <rect width="106.38" height="21.6" x="39.118" y="487.309" opacity="0.2" fill="green" class="labelRect"></rect><text x="39.118" y="504.411" class="label">
+    <tspan dy="0" x="39.118">Carcassonne</tspan>
+  </text>
+  <rect width="50.94" height="21.6" x="712.638" y="228.685" opacity="0.2" fill="green" class="labelRect"></rect><text x="712.638" y="245.787" class="label">
+    <tspan dy="0" x="712.638">Nimes</tspan>
+  </text>
+</svg>

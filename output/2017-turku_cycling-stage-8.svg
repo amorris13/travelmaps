@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology2152" result="SvgjsFeMorphology2152" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix2153" result="SvgjsFeColorMatrix2153" in="SvgjsFeMorphology2152" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge2154" result="SvgjsFeMerge2154" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode2155" result="SvgjsFeMergeNode2155" in="SvgjsFeColorMatrix2153"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode2156" result="SvgjsFeMergeNode2156" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask2157">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="346.255" cy="707.692" fill="black"></circle>
+      <circle r="5" cx="617.906" cy="95.226" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M346.255 707.692L339.498 700.789L339.732 698.555L342.107 695.374L342.709 692.938L342.174 687.794L340.234 684.883L327.855 680.348L320.462 678.859L303.534 669.112L294.568 664.983L292.762 663.358L292.394 661.936L294.066 657.063L294.133 651.918L275.098 646.773L265.496 646.096L261.716 644.336L260.244 642.711L255.627 632.42L250.943 625.379L247.966 617.39L245.925 614.411L242.914 611.364L224.615 601.478L220.801 597.551L203.137 574.392L199.825 567.958L194.472 548.115L188.149 532.537L183.064 501.919L182.295 492.3L184.369 484.509L191.026 472.314L192.833 466.284L191.495 440.333L188.317 417.496L190.893 386.931L190.959 376.425L189.454 364.699L182.83 343.21L182.094 335.753L184.101 320.702L185.874 295.073L190.826 267.678L191.327 257.37L189.789 236.277L192.264 224.272L199.357 211.452L224.916 174.21L236.926 152.363L243.951 145.51L261.548 133.025L272.421 128.071L284.866 127.529L313.871 131.193L314.139 129.225L316.849 126.443L319.96 125.425L327.32 126.714L330.431 131.6L342.207 132.143L365.324 137.028L375.06 138.182L412.629 139.335L443.909 134.721L454.581 133.975L466.39 135.807L476.728 140.625L481.077 133.771L489.173 124.679L498.273 121.896L508.978 120.268L531.995 121.761L556.383 129.496L564.278 136.893L565.583 136.689L572.609 139.268L581.842 139.268L590.741 135.536L593.484 133.568L602.952 122.507L603.387 120.132L597.298 112.939L597.231 109.206L600.209 104.252L615.23 92.308L617.906 95.226 " class="lineBackground"></path>
+  <path d="M346.255 707.692L339.498 700.789L339.732 698.555L342.107 695.374L342.709 692.938L342.174 687.794L340.234 684.883L327.855 680.348L320.462 678.859L303.534 669.112L294.568 664.983L292.762 663.358L292.394 661.936L294.066 657.063L294.133 651.918L275.098 646.773L265.496 646.096L261.716 644.336L260.244 642.711L255.627 632.42L250.943 625.379L247.966 617.39L245.925 614.411L242.914 611.364L224.615 601.478L220.801 597.551L203.137 574.392L199.825 567.958L194.472 548.115L188.149 532.537L183.064 501.919L182.295 492.3L184.369 484.509L191.026 472.314L192.833 466.284L191.495 440.333L188.317 417.496L190.893 386.931L190.959 376.425L189.454 364.699L182.83 343.21L182.094 335.753L184.101 320.702L185.874 295.073L190.826 267.678L191.327 257.37L189.789 236.277L192.264 224.272L199.357 211.452L224.916 174.21L236.926 152.363L243.951 145.51L261.548 133.025L272.421 128.071L284.866 127.529L313.871 131.193L314.139 129.225L316.849 126.443L319.96 125.425L327.32 126.714L330.431 131.6L342.207 132.143L365.324 137.028L375.06 138.182L412.629 139.335L443.909 134.721L454.581 133.975L466.39 135.807L476.728 140.625L481.077 133.771L489.173 124.679L498.273 121.896L508.978 120.268L531.995 121.761L556.383 129.496L564.278 136.893L565.583 136.689L572.609 139.268L581.842 139.268L590.741 135.536L593.484 133.568L602.952 122.507L603.387 120.132L597.298 112.939L597.231 109.206L600.209 104.252L615.23 92.308L617.906 95.226 " class="line bicycling" mask="url(#SvgjsMask2157)"></path>
+  <circle r="5" cx="346.255" cy="707.692" class="stage"></circle>
+  <circle r="5" cx="617.906" cy="95.226" class="stage"></circle>
+  <rect width="209.88" height="21.6" x="130.718" y="713.349" opacity="0.2" fill="green" class="labelRect"></rect><text x="130.718" y="730.451" class="label">
+    <tspan dy="0" x="130.718">Rymättylä, 21140, Finland</tspan>
+  </text>
+  <rect width="66.24" height="21.6" x="623.563" y="67.969" opacity="0.2" fill="green" class="labelRect"></rect><text x="623.563" y="85.071" class="label">
+    <tspan dy="0" x="623.563">Naantali</tspan>
+  </text>
+</svg>

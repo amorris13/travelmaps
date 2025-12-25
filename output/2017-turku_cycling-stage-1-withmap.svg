@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <image width="800" height="800" href="2017-turku_cycling-stage-1.png"></image>
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology2110" result="SvgjsFeMorphology2110" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix2111" result="SvgjsFeColorMatrix2111" in="SvgjsFeMorphology2110" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge2112" result="SvgjsFeMerge2112" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode2113" result="SvgjsFeMergeNode2113" in="SvgjsFeColorMatrix2111"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode2114" result="SvgjsFeMergeNode2114" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask2115">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="707.692" cy="503.771" fill="black"></circle>
+      <circle r="5" cx="98.224" cy="424.643" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M707.692 503.771L698.205 489.563L695.833 487.683L690.435 485.361L696.215 479.113L699.132 474.026L703.248 462.249L702.621 456.166L687.245 433.824L676.558 430.948L671.732 426.524L669.524 421.602L669.224 413.416L670.996 405.34L672.577 403.128L664.344 397.485L654.229 393.669L642.833 390.958L635.854 390.847L616.17 392.894L610.335 392.341L606.137 390.737L600.684 386.367L586.998 371.872L577.32 366.34L566.087 357.432L547.467 349.908L534.653 341.276L511.043 327.497L487.733 312.113L470.148 311.836L418.484 313.054L410.524 312.445L388.495 306.745L372.737 298.277L367.748 296.506L360.414 296.672L300.08 313.33L287.321 313.995L284.431 313.386L279.769 314.382L224.398 316.983L223.171 316.319L199.234 323.9L181.976 334.248L163.546 340.833L158.803 344.264L144.653 358.096L141.79 372.536L136.447 379.95L131.621 382.494L126.687 383.933L121.125 387.252L108.393 403.681L104.494 410.982L102.859 409.931L96.506 416.9L92.308 419.279L98.224 424.643 " class="lineBackground"></path>
+  <path d="M707.692 503.771L698.205 489.563L695.833 487.683L690.435 485.361L696.215 479.113L699.132 474.026L703.248 462.249L702.621 456.166L687.245 433.824L676.558 430.948L671.732 426.524L669.524 421.602L669.224 413.416L670.996 405.34L672.577 403.128L664.344 397.485L654.229 393.669L642.833 390.958L635.854 390.847L616.17 392.894L610.335 392.341L606.137 390.737L600.684 386.367L586.998 371.872L577.32 366.34L566.087 357.432L547.467 349.908L534.653 341.276L511.043 327.497L487.733 312.113L470.148 311.836L418.484 313.054L410.524 312.445L388.495 306.745L372.737 298.277L367.748 296.506L360.414 296.672L300.08 313.33L287.321 313.995L284.431 313.386L279.769 314.382L224.398 316.983L223.171 316.319L199.234 323.9L181.976 334.248L163.546 340.833L158.803 344.264L144.653 358.096L141.79 372.536L136.447 379.95L131.621 382.494L126.687 383.933L121.125 387.252L108.393 403.681L104.494 410.982L102.859 409.931L96.506 416.9L92.308 419.279L98.224 424.643 " class="line bicycling" mask="url(#SvgjsMask2115)"></path>
+  <circle r="5" cx="707.692" cy="503.771" class="stage"></circle>
+  <circle r="5" cx="98.224" cy="424.643" class="stage"></circle>
+  <rect width="66.24" height="21.6" x="23.984" y="413.843" opacity="0.2" fill="green" class="labelRect"></rect><text x="23.984" y="430.945" class="label">
+    <tspan dy="0" x="23.984">Naantali</tspan>
+  </text>
+  <rect width="46.08" height="21.6" x="715.692" y="492.971" opacity="0.2" fill="green" class="labelRect"></rect><text x="715.692" y="510.073" class="label">
+    <tspan dy="0" x="715.692">Turku</tspan>
+  </text>
+</svg>

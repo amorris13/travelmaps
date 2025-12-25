@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology2086" result="SvgjsFeMorphology2086" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix2087" result="SvgjsFeColorMatrix2087" in="SvgjsFeMorphology2086" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge2088" result="SvgjsFeMerge2088" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode2089" result="SvgjsFeMergeNode2089" in="SvgjsFeColorMatrix2087"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode2090" result="SvgjsFeMergeNode2090" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask2091">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="197.525" cy="92.308" fill="black"></circle>
+      <circle r="5" cx="602.475" cy="293.199" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M197.525 92.308L199.386 94.718L204.452 92.709L204.762 95.672L210.732 102.702L212.309 107.271L213.782 119.572L215.539 126.35L227.739 144.975L229.677 152.906L230.969 155.014L236.087 158.478L240.377 163.296L243.84 165.404L254.179 170.273L264.956 171.578L278.163 180.863L284.573 189.495L292.198 208.264L299.693 215.741L306.904 225.826L308.429 230.743L307.964 238.57L311.815 249.758L321.636 267.617L327.684 276.396L329.131 283.619L328.743 288.785L327.038 291.945L323.316 294.854L316.234 297.713L312.9 302.277L312.331 316.269L313.598 322.337L316.958 327.001L323.548 332.767L329.674 344.2L335.877 353.225L356.424 377.34L366.53 387.667L374.645 407.016L374.8 412.98L371.492 422.302L369.916 430.221L367.357 434.731L360.017 442.75L358.104 447.46L355.933 458.133L353.013 462.042L342.829 470.71L336.833 480.33L335.541 487.194L337.298 499.919L335.05 508.485L334.249 515.047L338.332 532.528L338.384 539.59L339.728 545.049L340.452 555.516L339.056 568.787L337.324 574.145L335.386 576.448L352.082 595.025L354.357 599.03L360.353 624.563L355.83 632.772L355.261 635.876L360.766 648.34L361.154 655.397L364.669 665.557L364.488 671.663L369.812 679.92L371.441 700.387L359.396 701.638L352.418 703.789L347.12 703.99L333.086 707.542L325.978 707.342L321.713 706.041L318.483 702.989L316.88 698.586L321.636 660.802L323.523 651.143L331.225 621.209L345.698 575.447L354.977 530.174L358.44 520.657L362.55 514.947L379.272 496.462L413.104 462.042L462.366 418.393L524.214 366.11L571.46 323.641L602.475 293.199 " class="lineBackground"></path>
+  <path d="M197.525 92.308L199.386 94.718L204.452 92.709L204.762 95.672L210.732 102.702L212.309 107.271L213.782 119.572L215.539 126.35L227.739 144.975L229.677 152.906L230.969 155.014L236.087 158.478L240.377 163.296L243.84 165.404L254.179 170.273L264.956 171.578L278.163 180.863L284.573 189.495L292.198 208.264L299.693 215.741L306.904 225.826L308.429 230.743L307.964 238.57L311.815 249.758L321.636 267.617L327.684 276.396L329.131 283.619L328.743 288.785L327.038 291.945L323.316 294.854L316.234 297.713L312.9 302.277L312.331 316.269L313.598 322.337L316.958 327.001L323.548 332.767L329.674 344.2L335.877 353.225L356.424 377.34L366.53 387.667L374.645 407.016L374.8 412.98L371.492 422.302L369.916 430.221L367.357 434.731L360.017 442.75L358.104 447.46L355.933 458.133L353.013 462.042L342.829 470.71L336.833 480.33L335.541 487.194L337.298 499.919L335.05 508.485L334.249 515.047L338.332 532.528L338.384 539.59L339.728 545.049L340.452 555.516L339.056 568.787L337.324 574.145L335.386 576.448L352.082 595.025L354.357 599.03L360.353 624.563L355.83 632.772L355.261 635.876L360.766 648.34L361.154 655.397L364.669 665.557L364.488 671.663L369.812 679.92L371.441 700.387L359.396 701.638L352.418 703.789L347.12 703.99L333.086 707.542L325.978 707.342L321.713 706.041L318.483 702.989L316.88 698.586L321.636 660.802L323.523 651.143L331.225 621.209L345.698 575.447L354.977 530.174L358.44 520.657L362.55 514.947L379.272 496.462L413.104 462.042L462.366 418.393L524.214 366.11L571.46 323.641L602.475 293.199 " class="line driving" mask="url(#SvgjsMask2091)"></path>
+  <circle r="5" cx="197.525" cy="92.308" class="stage"></circle>
+  <circle r="5" cx="602.475" cy="293.199" class="stage"></circle>
+  <rect width="79.38" height="21.6" x="112.488" y="65.051" opacity="0.2" fill="green" class="labelRect"></rect><text x="112.488" y="82.152" class="label">
+    <tspan dy="0" x="112.488">Jørpeland</tspan>
+  </text>
+  <rect width="99.36" height="21.6" x="608.132" y="298.856" opacity="0.2" fill="green" class="labelRect"></rect><text x="608.132" y="315.957" class="label">
+    <tspan dy="0" x="608.132">Preikestolen</tspan>
+  </text>
+</svg>

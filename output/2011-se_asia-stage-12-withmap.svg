@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <image width="800" height="800" href="2011-se_asia-stage-12.png"></image>
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1072" result="SvgjsFeMorphology1072" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1073" result="SvgjsFeColorMatrix1073" in="SvgjsFeMorphology1072" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1074" result="SvgjsFeMerge1074" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1075" result="SvgjsFeMergeNode1075" in="SvgjsFeColorMatrix1073"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1076" result="SvgjsFeMergeNode1076" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1077">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="539.39" cy="707.692" fill="black"></circle>
+      <circle r="5" cx="196.281" cy="93.414" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M539.39 707.692L538.042 701.067L536.248 696.566L536.096 690.438L539.4 689.606L537.78 683.385L535.032 677.042L534.519 671.252L536.351 667.047L541.281 660.217L560.677 643.544L564.911 637.703L565.687 633.936L564.113 632.02L555.282 627.939L554.425 622.447L556.271 615.739L548.949 606.742L548.112 601.995L537.551 596.676L539.364 589.088L542.61 583.081L544.468 576.718L543.479 566.771L544.494 562.564L545.923 561.236L548.26 556.434L551.787 554.656L553.688 551.265L560.011 546.591L583.231 542.892L584.456 539.623L586.376 538.578L586.761 536.172L587.042 533.405L585.859 526.416L590.928 519.556L599.765 511.402L602.749 506.018L603.674 502.692L602.067 465.708L589.473 431.039L590.019 424.446L591.244 420.712L600.024 407.858L601.508 403.521L602.067 397.501L600.118 394.614L599.892 391.899L594.222 386.773L589.305 379.63L580.829 376.381L577.703 372.026L575.114 371.569L569.612 366.193L554.137 347.023L549.085 344.429L538.866 344.787L532.56 339.708L530.707 335.394L526.573 334.314L525.212 333.015L522.244 328.727L521.359 322.288L523.473 318.613L529.767 316.969L532.197 312.153L531.625 311.202L512.501 299.386L506.689 298.345L503.783 299.717L498.268 300.078L481.924 293.909L451.903 289.115L441.798 276.387L427.438 253.804L427.969 249.134L426.986 246.391L423.95 243.982L421.888 240.921L421.283 229.668L415.313 224.529L404.933 217.564L393.428 217.325L371.058 200.272L360.313 199.628L349.898 188.894L336.702 182.796L298.907 156.684L282.902 150.65L273.686 145.489L237.975 114.567L226.651 114.388L203.147 110.929L202.985 107.779L200.364 106.015L200.299 105.035L200.267 100.818L202.119 96.402L202.268 92.308L196.281 93.414 " class="lineBackground"></path>
+  <path d="M539.39 707.692L538.042 701.067L536.248 696.566L536.096 690.438L539.4 689.606L537.78 683.385L535.032 677.042L534.519 671.252L536.351 667.047L541.281 660.217L560.677 643.544L564.911 637.703L565.687 633.936L564.113 632.02L555.282 627.939L554.425 622.447L556.271 615.739L548.949 606.742L548.112 601.995L537.551 596.676L539.364 589.088L542.61 583.081L544.468 576.718L543.479 566.771L544.494 562.564L545.923 561.236L548.26 556.434L551.787 554.656L553.688 551.265L560.011 546.591L583.231 542.892L584.456 539.623L586.376 538.578L586.761 536.172L587.042 533.405L585.859 526.416L590.928 519.556L599.765 511.402L602.749 506.018L603.674 502.692L602.067 465.708L589.473 431.039L590.019 424.446L591.244 420.712L600.024 407.858L601.508 403.521L602.067 397.501L600.118 394.614L599.892 391.899L594.222 386.773L589.305 379.63L580.829 376.381L577.703 372.026L575.114 371.569L569.612 366.193L554.137 347.023L549.085 344.429L538.866 344.787L532.56 339.708L530.707 335.394L526.573 334.314L525.212 333.015L522.244 328.727L521.359 322.288L523.473 318.613L529.767 316.969L532.197 312.153L531.625 311.202L512.501 299.386L506.689 298.345L503.783 299.717L498.268 300.078L481.924 293.909L451.903 289.115L441.798 276.387L427.438 253.804L427.969 249.134L426.986 246.391L423.95 243.982L421.888 240.921L421.283 229.668L415.313 224.529L404.933 217.564L393.428 217.325L371.058 200.272L360.313 199.628L349.898 188.894L336.702 182.796L298.907 156.684L282.902 150.65L273.686 145.489L237.975 114.567L226.651 114.388L203.147 110.929L202.985 107.779L200.364 106.015L200.299 105.035L200.267 100.818L202.119 96.402L202.268 92.308L196.281 93.414 " class="line driving" mask="url(#SvgjsMask1077)"></path>
+  <circle r="5" cx="539.39" cy="707.692" class="stage"></circle>
+  <circle r="5" cx="196.281" cy="93.414" class="stage"></circle>
+  <rect width="94.32" height="21.6" x="96.304" y="66.157" opacity="0.2" fill="green" class="labelRect"></rect><text x="96.304" y="83.259" class="label">
+    <tspan dy="0" x="96.304">Angkor Wat</tspan>
+  </text>
+  <rect width="104.58" height="21.6" x="545.047" y="713.349" opacity="0.2" fill="green" class="labelRect"></rect><text x="545.047" y="730.451" class="label">
+    <tspan dy="0" x="545.047">Phnom Penh</tspan>
+  </text>
+</svg>

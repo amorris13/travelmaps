@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <image width="800" height="800" href="2016-rhine_cycling-stage-3.png"></image>
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1636" result="SvgjsFeMorphology1636" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1637" result="SvgjsFeColorMatrix1637" in="SvgjsFeMorphology1636" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1638" result="SvgjsFeMerge1638" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1639" result="SvgjsFeMergeNode1639" in="SvgjsFeColorMatrix1637"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1640" result="SvgjsFeMergeNode1640" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1641">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="493.474" cy="92.308" fill="black"></circle>
+      <circle r="5" cx="355.303" cy="707.692" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M493.474 92.308L494.077 93.894L488.003 95.336L469.688 103.412L473.815 111.992L462.131 114.948L461.574 116.895L462.455 118.265L462.733 124.033L463.429 123.961L462.177 124.61L462.177 125.475L450.678 125.835L443.677 126.917L428.376 131.315L423.971 131.675L423.415 133.766L342.738 173.778L340.373 176.013L340.559 178.608L334.809 179.401L312.043 179.689L305.923 180.987L309.772 192.304L321.131 243.625L323.171 248.454L326.046 251.842L338.889 281.751L342.181 287.084L348.626 293.57L349.785 297.821L348.765 299.119L351.037 305.892L352.521 317.062L352.846 328.735L354.561 334.5L353.634 338.679L353.912 343.146L355.164 344.876L358.085 356.116L357.343 359.862L354.7 361.808L335.458 366.491L335.087 368.941L335.737 374.777L342.274 374.56L343.294 375.137L345.427 385.584L347.328 388.537L347.56 397.183L350.62 402.37L346.725 407.773L344.871 411.879L341.347 430.321L339.399 434.859L337.638 442.855L337.22 447.465L339.029 452.651L337.73 458.774L339.446 486.144L338.982 490.466L340.095 495.939L338.379 497.236L338.611 498.964L337.359 500.189L337.174 501.845L338.704 506.742L339.678 521.794L338.101 531.661L335.829 535.765L335.458 538.43L337.035 548.44L339.492 554.777L353.819 575.155L356.369 581.059L356.23 585.955L353.495 595.676L354.283 596.756L353.031 602.516L353.634 607.628L351.594 610.004L350.806 621.451L352.197 665.582L350.759 672.493L345.056 689.625L347.004 698.479L349.785 698.119L352.104 699.775L355.303 707.692 " class="lineBackground"></path>
+  <path d="M493.474 92.308L494.077 93.894L488.003 95.336L469.688 103.412L473.815 111.992L462.131 114.948L461.574 116.895L462.455 118.265L462.733 124.033L463.429 123.961L462.177 124.61L462.177 125.475L450.678 125.835L443.677 126.917L428.376 131.315L423.971 131.675L423.415 133.766L342.738 173.778L340.373 176.013L340.559 178.608L334.809 179.401L312.043 179.689L305.923 180.987L309.772 192.304L321.131 243.625L323.171 248.454L326.046 251.842L338.889 281.751L342.181 287.084L348.626 293.57L349.785 297.821L348.765 299.119L351.037 305.892L352.521 317.062L352.846 328.735L354.561 334.5L353.634 338.679L353.912 343.146L355.164 344.876L358.085 356.116L357.343 359.862L354.7 361.808L335.458 366.491L335.087 368.941L335.737 374.777L342.274 374.56L343.294 375.137L345.427 385.584L347.328 388.537L347.56 397.183L350.62 402.37L346.725 407.773L344.871 411.879L341.347 430.321L339.399 434.859L337.638 442.855L337.22 447.465L339.029 452.651L337.73 458.774L339.446 486.144L338.982 490.466L340.095 495.939L338.379 497.236L338.611 498.964L337.359 500.189L337.174 501.845L338.704 506.742L339.678 521.794L338.101 531.661L335.829 535.765L335.458 538.43L337.035 548.44L339.492 554.777L353.819 575.155L356.369 581.059L356.23 585.955L353.495 595.676L354.283 596.756L353.031 602.516L353.634 607.628L351.594 610.004L350.806 621.451L352.197 665.582L350.759 672.493L345.056 689.625L347.004 698.479L349.785 698.119L352.104 699.775L355.303 707.692 " class="line bicycling" mask="url(#SvgjsMask1641)"></path>
+  <circle r="5" cx="493.474" cy="92.308" class="stage"></circle>
+  <circle r="5" cx="355.303" cy="707.692" class="stage"></circle>
+  <rect width="132.66" height="21.6" x="216.986" y="713.349" opacity="0.2" fill="green" class="labelRect"></rect><text x="216.986" y="730.451" class="label">
+    <tspan dy="0" x="216.986">Langenlonsheim</tspan>
+  </text>
+  <rect width="173.52" height="21.6" x="499.131" y="65.051" opacity="0.2" fill="green" class="labelRect"></rect><text x="499.131" y="82.152" class="label">
+    <tspan dy="0" x="499.131">Rüdesheim am Rhein</tspan>
+  </text>
+</svg>

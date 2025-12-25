@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <image width="800" height="800" href="2013-europe_2013-stage-9.png"></image>
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1138" result="SvgjsFeMorphology1138" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1139" result="SvgjsFeColorMatrix1139" in="SvgjsFeMorphology1138" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1140" result="SvgjsFeMerge1140" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1141" result="SvgjsFeMergeNode1141" in="SvgjsFeColorMatrix1139"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1142" result="SvgjsFeMergeNode1142" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1143">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="528.57" cy="707.177" fill="black"></circle>
+      <circle r="5" cx="376.388" cy="92.308" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M528.57 707.177L530.124 707.38L519.417 694.248L508.42 689.327L499.346 681.488L487.425 674.401L476.847 662.828L447.388 647.257L439.099 639.29L430.473 633.7L392.514 612.618L387.692 619.37L367.927 614.108L364.642 608.088L358.942 607.442L341.612 600.659L329.384 598.836L314.897 595.448L310.111 591.123L298.926 586.857L294.545 583.435L290.383 582.077L282.348 574.831L279.039 568.917L281.843 550.027L293.117 525.928L299.543 490.961L281.609 459.846L281.177 457.94L278.426 454.817L269.658 422.248L270.631 358.3L293.045 329.469L318.842 312.78L352.708 271.466L354.265 244.089L363.949 223.513L367.172 191.631L382.737 153.855L389.255 143.417L395.093 108.595L385.633 102.465L378.39 96.084L378.42 94.217L376.388 92.308 " class="lineBackground"></path>
+  <path d="M528.57 707.177L530.124 707.38L519.417 694.248L508.42 689.327L499.346 681.488L487.425 674.401L476.847 662.828L447.388 647.257L439.099 639.29L430.473 633.7L392.514 612.618L387.692 619.37L367.927 614.108L364.642 608.088L358.942 607.442L341.612 600.659L329.384 598.836L314.897 595.448L310.111 591.123L298.926 586.857L294.545 583.435L290.383 582.077L282.348 574.831L279.039 568.917L281.843 550.027L293.117 525.928L299.543 490.961L281.609 459.846L281.177 457.94L278.426 454.817L269.658 422.248L270.631 358.3L293.045 329.469L318.842 312.78L352.708 271.466L354.265 244.089L363.949 223.513L367.172 191.631L382.737 153.855L389.255 143.417L395.093 108.595L385.633 102.465L378.39 96.084L378.42 94.217L376.388 92.308 " class="line transit" mask="url(#SvgjsMask1143)"></path>
+  <circle r="5" cx="528.57" cy="707.177" class="stage"></circle>
+  <circle r="5" cx="376.388" cy="92.308" class="stage"></circle>
+  <rect width="43.02" height="21.6" x="327.711" y="65.051" opacity="0.2" fill="green" class="labelRect"></rect><text x="327.711" y="82.152" class="label">
+    <tspan dy="0" x="327.711">Milan</tspan>
+  </text>
+  <rect width="105.3" height="21.6" x="534.227" y="712.834" opacity="0.2" fill="green" class="labelRect"></rect><text x="534.227" y="729.936" class="label">
+    <tspan dy="0" x="534.227">Cinque Terre</tspan>
+  </text>
+</svg>

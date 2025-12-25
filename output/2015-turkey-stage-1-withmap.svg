@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <image width="800" height="800" href="2015-turkey-stage-1.png"></image>
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1438" result="SvgjsFeMorphology1438" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1439" result="SvgjsFeColorMatrix1439" in="SvgjsFeMorphology1438" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1440" result="SvgjsFeMerge1440" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1441" result="SvgjsFeMergeNode1441" in="SvgjsFeColorMatrix1439"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1442" result="SvgjsFeMergeNode1442" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1443">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="707.692" cy="349.074" fill="black"></circle>
+      <circle r="5" cx="92.308" cy="450.926" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M707.692 349.074A810.883 810.883 0 0 1 92.308 450.926 " class="lineBackground"></path>
+  <path d="M707.692 349.074A810.883 810.883 0 0 1 92.308 450.926 " class="line flying" mask="url(#SvgjsMask1443)"></path>
+  <circle r="5" cx="707.692" cy="349.074" class="stage"></circle>
+  <circle r="5" cx="92.308" cy="450.926" class="stage"></circle>
+  <rect width="96.48" height="21.6" x="659.452" y="319.474" opacity="0.2" fill="green" class="labelRect"></rect><text x="659.452" y="336.576" class="label">
+    <tspan dy="0" x="659.452">Cappadocia</tspan>
+  </text>
+  <rect width="89.28" height="21.6" x="47.668" y="421.326" opacity="0.2" fill="green" class="labelRect"></rect><text x="47.668" y="438.427" class="label">
+    <tspan dy="0" x="47.668">Pamukkale</tspan>
+  </text>
+</svg>

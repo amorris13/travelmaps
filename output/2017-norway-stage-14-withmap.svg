@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <image width="800" height="800" href="2017-norway-stage-14.png"></image>
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology2074" result="SvgjsFeMorphology2074" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix2075" result="SvgjsFeColorMatrix2075" in="SvgjsFeMorphology2074" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge2076" result="SvgjsFeMerge2076" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode2077" result="SvgjsFeMergeNode2077" in="SvgjsFeColorMatrix2075"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode2078" result="SvgjsFeMergeNode2078" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask2079">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="115.023" cy="565.677" fill="black"></circle>
+      <circle r="5" cx="707.692" cy="223.537" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M115.023 565.677L115.099 564.571L112.7 565.235L101.647 576.192L94.973 575.726L92.358 572.483L94.668 553.416L97.447 541.005L106.482 511.507L111.482 487.557L114.756 481.802L139.578 455.827L194.132 408.726L217.329 387.874L232.557 372.927L248.013 359.406L292.605 324.301L313.467 302.492L314.851 299.879L317.985 300.89L331.436 301.334L344.596 299.559L347.375 298.721L349.697 296.355L350.903 297.71L352.603 298.129L361.626 297.538L385.635 291.819L390.533 290.069L391.333 289.133L396.003 291.647L401.206 292.855L480.441 306.854L481.317 303.946L483.817 301.605L494.718 294.802L510.77 287.185L513.118 286.717L518.473 287.308L528.485 291.08L530.998 287.851L537.8 282.748L610.373 244.257L630.69 232.048L632.733 229.976L636.083 233.232L640.981 235.403L647.352 237.104L655.156 237.45L679.102 231.999L707.692 223.537 " class="lineBackground"></path>
+  <path d="M115.023 565.677L115.099 564.571L112.7 565.235L101.647 576.192L94.973 575.726L92.358 572.483L94.668 553.416L97.447 541.005L106.482 511.507L111.482 487.557L114.756 481.802L139.578 455.827L194.132 408.726L217.329 387.874L232.557 372.927L248.013 359.406L292.605 324.301L313.467 302.492L314.851 299.879L317.985 300.89L331.436 301.334L344.596 299.559L347.375 298.721L349.697 296.355L350.903 297.71L352.603 298.129L361.626 297.538L385.635 291.819L390.533 290.069L391.333 289.133L396.003 291.647L401.206 292.855L480.441 306.854L481.317 303.946L483.817 301.605L494.718 294.802L510.77 287.185L513.118 286.717L518.473 287.308L528.485 291.08L530.998 287.851L537.8 282.748L610.373 244.257L630.69 232.048L632.733 229.976L636.083 233.232L640.981 235.403L647.352 237.104L655.156 237.45L679.102 231.999L707.692 223.537 " class="line driving" mask="url(#SvgjsMask2079)"></path>
+  <circle r="5" cx="115.023" cy="565.677" class="stage"></circle>
+  <circle r="5" cx="707.692" cy="223.537" class="stage"></circle>
+  <rect width="66.24" height="21.6" x="120.679" y="571.334" opacity="0.2" fill="green" class="labelRect"></rect><text x="120.679" y="588.435" class="label">
+    <tspan dy="0" x="120.679">Forsand</tspan>
+  </text>
+  <rect width="52.2" height="21.6" x="713.349" y="196.281" opacity="0.2" fill="green" class="labelRect"></rect><text x="713.349" y="213.382" class="label">
+    <tspan dy="0" x="713.349">Kjerag</tspan>
+  </text>
+</svg>

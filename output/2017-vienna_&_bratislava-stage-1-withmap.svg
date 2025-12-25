@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <image width="800" height="800" href="2017-vienna_&amp;_bratislava-stage-1.png"></image>
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1978" result="SvgjsFeMorphology1978" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1979" result="SvgjsFeColorMatrix1979" in="SvgjsFeMorphology1978" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1980" result="SvgjsFeMerge1980" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1981" result="SvgjsFeMergeNode1981" in="SvgjsFeColorMatrix1979"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1982" result="SvgjsFeMergeNode1982" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1983">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="102.788" cy="226.236" fill="black"></circle>
+      <circle r="5" cx="707.692" cy="480.952" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M102.788 226.236L101.443 227.179L100.64 225.358L100.401 228.253L95.758 232.383L93.718 236.545L94.912 248.643L95.91 282.555L95.693 283.596L94.478 284.213L92.329 282.1L92.46 281.287L101.812 281.255L150.548 284.311L156.45 283.531L161.419 281.255L169.817 273.777L185.18 255.894L192.991 250.854L196.637 250.789L198.307 251.894L200.369 260.381L202.777 265.421L206.141 269.453L215.168 275.988L218.748 281.092L219.941 285.481L218.922 299.785L220.137 309.245L234.284 356.34L239.188 364.334L250.277 374.18L253.575 378.144L257.481 385.422L262.124 402.707L266.659 409.919L274.731 417.196L280.786 420.379L289.313 422.523L314.05 423.693L329.478 426.194L346.512 431.423L359.553 437.14L369.513 442.077L387.48 453.023L425.713 482.64L433.373 487.771L446.675 495.077L457.177 499.623L471.824 504.428L502.051 510.694L514.896 514.103L533.861 521.311L549.463 529.232L567.3 540.983L598.004 566.009L600.521 569.06L601.606 574.642L617.815 562.698L639.427 529.167L661.213 498.551L702.723 484.686L705.457 480.627L707.692 480.952 " class="lineBackground"></path>
+  <path d="M102.788 226.236L101.443 227.179L100.64 225.358L100.401 228.253L95.758 232.383L93.718 236.545L94.912 248.643L95.91 282.555L95.693 283.596L94.478 284.213L92.329 282.1L92.46 281.287L101.812 281.255L150.548 284.311L156.45 283.531L161.419 281.255L169.817 273.777L185.18 255.894L192.991 250.854L196.637 250.789L198.307 251.894L200.369 260.381L202.777 265.421L206.141 269.453L215.168 275.988L218.748 281.092L219.941 285.481L218.922 299.785L220.137 309.245L234.284 356.34L239.188 364.334L250.277 374.18L253.575 378.144L257.481 385.422L262.124 402.707L266.659 409.919L274.731 417.196L280.786 420.379L289.313 422.523L314.05 423.693L329.478 426.194L346.512 431.423L359.553 437.14L369.513 442.077L387.48 453.023L425.713 482.64L433.373 487.771L446.675 495.077L457.177 499.623L471.824 504.428L502.051 510.694L514.896 514.103L533.861 521.311L549.463 529.232L567.3 540.983L598.004 566.009L600.521 569.06L601.606 574.642L617.815 562.698L639.427 529.167L661.213 498.551L702.723 484.686L705.457 480.627L707.692 480.952 " class="line driving" mask="url(#SvgjsMask1983)"></path>
+  <circle r="5" cx="102.788" cy="226.236" class="stage"></circle>
+  <circle r="5" cx="707.692" cy="480.952" class="stage"></circle>
+  <rect width="79.2" height="21.6" x="17.931" y="198.979" opacity="0.2" fill="green" class="labelRect"></rect><text x="17.931" y="216.081" class="label">
+    <tspan dy="0" x="17.931">Bratislava</tspan>
+  </text>
+  <rect width="64.08" height="21.6" x="715.692" y="470.152" opacity="0.2" fill="green" class="labelRect"></rect><text x="715.692" y="487.253" class="label">
+    <tspan dy="0" x="715.692">Mierovo</tspan>
+  </text>
+</svg>

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <image width="800" height="800" href="2016-brighton_cycling-stage-4.png"></image>
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1696" result="SvgjsFeMorphology1696" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1697" result="SvgjsFeColorMatrix1697" in="SvgjsFeMorphology1696" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1698" result="SvgjsFeMerge1698" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1699" result="SvgjsFeMergeNode1699" in="SvgjsFeColorMatrix1697"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1700" result="SvgjsFeMergeNode1700" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1701">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="213.257" cy="92.308" fill="black"></circle>
+      <circle r="5" cx="601.191" cy="700.676" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M213.257 92.308L212.708 94.029L210.612 93.565L210.2 94.466L207.983 93.756L206.626 94.548L204.204 93.1L203.74 94.712L202.589 94.548L201.816 95.477L198.809 106.434L198.895 111.79L200.751 118.811L203.792 125.013L208.722 131.432L250.383 169.589L281.254 211.174L289.724 226.106L293.486 234.595L295.359 245.922L292.318 285.709L293.864 305.025L295.634 315.282L300.118 325.183L307.075 333.229L307.11 345.938L315.356 346.102L316.679 345.12L338.961 381.631L342.294 389.783L345.197 402.05L346.279 402.295L346.589 403.304L347.259 406.602L346.64 407.965L349.87 424.727L349.251 431.677L346.778 438.735L327.914 465.929L322.846 471.841L308.33 483.774L299.482 480.886L294.655 485.326L290.428 494.397L289.93 497.693L292.009 500.09L294.861 501.588L297.317 507.853L297.455 513.436L297.043 517.195L295.634 517.494L294.861 521.198L291.201 529.776L288.951 530.049L288.556 534.95L292.49 540.995L298.846 546.604L299.516 548.891L306.251 557.876L310.855 567.813L313.535 567.922L318.362 570.563L318.758 573.911L322.949 577.123L323.104 583.765L321.386 586.651L319.393 587.576L322.52 593.183L330.13 599.416L333.566 604.342L334.752 608.642L334.563 614.956L335.525 618.711L341.005 631.528L342.345 637.16L342.706 652.641L344.493 657.483L348.684 663.822L350.849 669.534L353.924 673.206L355.075 673.369L354.732 674.675L355.556 675.137L356.845 674.43L362.617 676.987L373.217 673.995L381.549 673.478L398.849 676.225L405.824 678.565L412.077 678.945L426.594 677.966L426.216 680.441L428.054 681.529L427.556 684.059L451.109 684.902L475.985 689.444L483.957 689.934L485.262 688.873L489.712 689.635L490.88 686.18L496.549 687.132L501.927 689.798L507.716 691.13L528.589 693.66L560.647 699.942L588.976 707.692L590.574 701.274L591.673 701.655L592.343 700.323L593.769 700.54L599.009 705.218L601.191 700.676 " class="lineBackground partialAttendance"></path>
+  <path d="M213.257 92.308L212.708 94.029L210.612 93.565L210.2 94.466L207.983 93.756L206.626 94.548L204.204 93.1L203.74 94.712L202.589 94.548L201.816 95.477L198.809 106.434L198.895 111.79L200.751 118.811L203.792 125.013L208.722 131.432L250.383 169.589L281.254 211.174L289.724 226.106L293.486 234.595L295.359 245.922L292.318 285.709L293.864 305.025L295.634 315.282L300.118 325.183L307.075 333.229L307.11 345.938L315.356 346.102L316.679 345.12L338.961 381.631L342.294 389.783L345.197 402.05L346.279 402.295L346.589 403.304L347.259 406.602L346.64 407.965L349.87 424.727L349.251 431.677L346.778 438.735L327.914 465.929L322.846 471.841L308.33 483.774L299.482 480.886L294.655 485.326L290.428 494.397L289.93 497.693L292.009 500.09L294.861 501.588L297.317 507.853L297.455 513.436L297.043 517.195L295.634 517.494L294.861 521.198L291.201 529.776L288.951 530.049L288.556 534.95L292.49 540.995L298.846 546.604L299.516 548.891L306.251 557.876L310.855 567.813L313.535 567.922L318.362 570.563L318.758 573.911L322.949 577.123L323.104 583.765L321.386 586.651L319.393 587.576L322.52 593.183L330.13 599.416L333.566 604.342L334.752 608.642L334.563 614.956L335.525 618.711L341.005 631.528L342.345 637.16L342.706 652.641L344.493 657.483L348.684 663.822L350.849 669.534L353.924 673.206L355.075 673.369L354.732 674.675L355.556 675.137L356.845 674.43L362.617 676.987L373.217 673.995L381.549 673.478L398.849 676.225L405.824 678.565L412.077 678.945L426.594 677.966L426.216 680.441L428.054 681.529L427.556 684.059L451.109 684.902L475.985 689.444L483.957 689.934L485.262 688.873L489.712 689.635L490.88 686.18L496.549 687.132L501.927 689.798L507.716 691.13L528.589 693.66L560.647 699.942L588.976 707.692L590.574 701.274L591.673 701.655L592.343 700.323L593.769 700.54L599.009 705.218L601.191 700.676 " class="line bicycling partialAttendance" mask="url(#SvgjsMask1701)"></path>
+  <circle r="5" cx="213.257" cy="92.308" class="stage partialAttendance"></circle>
+  <circle r="5" cx="601.191" cy="700.676" class="stage partialAttendance"></circle>
+  <rect width="126.18" height="21.6" x="81.421" y="65.051" opacity="0.2" fill="green" class="labelRect"></rect><text x="81.421" y="82.152" class="label partialAttendance">
+    <tspan dy="0" x="81.421">Christs Hospital</tspan>
+  </text>
+  <rect width="67.32" height="21.6" x="606.847" y="706.333" opacity="0.2" fill="green" class="labelRect"></rect><text x="606.847" y="723.435" class="label partialAttendance">
+    <tspan dy="0" x="606.847">Brighton</tspan>
+  </text>
+</svg>

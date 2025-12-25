@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <image width="800" height="800" href="2016-south_tyrol_cycling-stage-5.png"></image>
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1792" result="SvgjsFeMorphology1792" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1793" result="SvgjsFeColorMatrix1793" in="SvgjsFeMorphology1792" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1794" result="SvgjsFeMerge1794" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1795" result="SvgjsFeMergeNode1795" in="SvgjsFeColorMatrix1793"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1796" result="SvgjsFeMergeNode1796" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1797">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="555.052" cy="92.308" fill="black"></circle>
+      <circle r="5" cx="426.33" cy="707.692" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M555.052 92.308L550.616 180.838L494.806 219.597L515.735 287.034L471.552 368.422L351.138 428.43L304.641 495.081L244.948 558.635L361.219 604.376L413.157 638.699L426.33 707.692 " class="lineBackground"></path>
+  <path d="M555.052 92.308L550.616 180.838L494.806 219.597L515.735 287.034L471.552 368.422L351.138 428.43L304.641 495.081L244.948 558.635L361.219 604.376L413.157 638.699L426.33 707.692 " class="line ferry" mask="url(#SvgjsMask1797)"></path>
+  <circle r="5" cx="555.052" cy="92.308" class="stage"></circle>
+  <circle r="5" cx="426.33" cy="707.692" class="stage"></circle>
+  <rect width="52.2" height="21.6" x="368.473" y="713.349" opacity="0.2" fill="green" class="labelRect"></rect><text x="368.473" y="730.451" class="label">
+    <tspan dy="0" x="368.473">Lazise</tspan>
+  </text>
+  <rect width="120.42" height="21.6" x="560.709" y="65.051" opacity="0.2" fill="green" class="labelRect"></rect><text x="560.709" y="82.152" class="label">
+    <tspan dy="0" x="560.709">Riva del Garda</tspan>
+  </text>
+</svg>

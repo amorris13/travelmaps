@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <image width="800" height="800" href="2015-bath-stage-1.png"></image>
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1270" result="SvgjsFeMorphology1270" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1271" result="SvgjsFeColorMatrix1271" in="SvgjsFeMorphology1270" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1272" result="SvgjsFeMerge1272" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1273" result="SvgjsFeMergeNode1273" in="SvgjsFeColorMatrix1271"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1274" result="SvgjsFeMergeNode1274" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1275">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="707.692" cy="471.001" fill="black"></circle>
+      <circle r="5" cx="103.983" cy="397.929" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M707.692 471.001L705.855 471.679L706.191 474.338L669.859 476.968L652.355 475.724L641.475 471.255L631.708 473.857L627.098 470.35L625.19 462.035L623 459.094L619.22 457.34L611.678 456.095L607.51 449.675L597.937 451.541L577.801 452.305L560.916 455.643L552.702 456.237L544.348 454.907L527.657 448.147L526.032 448.571L518.437 438.925L516.565 437.737L514.551 438.473L511.072 437.681L499.697 437.766L497.966 438.162L497.083 439.717L496.164 439.802L491.431 436.266L489.4 435.983L487.563 434.201L483.783 432.391L482.087 429.533L483.536 408.2L482.546 404.805L485.178 397.306L484.896 395.297L483.394 394.165L478.219 393.429L473.786 390.373L468.999 377.298L464.742 374.695L459.903 369.543L453.721 364.59L451.619 364.703L443.883 370.449L439.573 368.694L431.537 361.675L414.439 360.288L400.892 357.57L389.217 356.466L384.006 353.098L371.36 341.775L366.75 336.65L341.033 325.609L337.995 325.75L325.879 328.893L322.399 328.723L315.546 326.741L309.134 323.032L293.008 326.571L288.416 326.741L281.722 328.666L262.417 327.845L239.102 334.669L234.775 337.132L231.578 337.245L222.393 339.68L202.54 332.743L196.146 332.8L192.296 329.063L158.543 346.446L153.774 346.7L149.959 345.625L146.55 343.36L144.519 340.869L143.406 340.869L125.443 353.777L106.65 364.958L104.389 367.845L103.541 369.685L103.523 374.072L102.022 377.949L97.324 379.478L98.313 383.298L95.204 384.6L92.308 391.024L92.767 392.835L95.416 394.844L102.994 395.863L103.983 397.929 " class="lineBackground"></path>
+  <path d="M707.692 471.001L705.855 471.679L706.191 474.338L669.859 476.968L652.355 475.724L641.475 471.255L631.708 473.857L627.098 470.35L625.19 462.035L623 459.094L619.22 457.34L611.678 456.095L607.51 449.675L597.937 451.541L577.801 452.305L560.916 455.643L552.702 456.237L544.348 454.907L527.657 448.147L526.032 448.571L518.437 438.925L516.565 437.737L514.551 438.473L511.072 437.681L499.697 437.766L497.966 438.162L497.083 439.717L496.164 439.802L491.431 436.266L489.4 435.983L487.563 434.201L483.783 432.391L482.087 429.533L483.536 408.2L482.546 404.805L485.178 397.306L484.896 395.297L483.394 394.165L478.219 393.429L473.786 390.373L468.999 377.298L464.742 374.695L459.903 369.543L453.721 364.59L451.619 364.703L443.883 370.449L439.573 368.694L431.537 361.675L414.439 360.288L400.892 357.57L389.217 356.466L384.006 353.098L371.36 341.775L366.75 336.65L341.033 325.609L337.995 325.75L325.879 328.893L322.399 328.723L315.546 326.741L309.134 323.032L293.008 326.571L288.416 326.741L281.722 328.666L262.417 327.845L239.102 334.669L234.775 337.132L231.578 337.245L222.393 339.68L202.54 332.743L196.146 332.8L192.296 329.063L158.543 346.446L153.774 346.7L149.959 345.625L146.55 343.36L144.519 340.869L143.406 340.869L125.443 353.777L106.65 364.958L104.389 367.845L103.541 369.685L103.523 374.072L102.022 377.949L97.324 379.478L98.313 383.298L95.204 384.6L92.308 391.024L92.767 392.835L95.416 394.844L102.994 395.863L103.983 397.929 " class="line driving" mask="url(#SvgjsMask1275)"></path>
+  <circle r="5" cx="707.692" cy="471.001" class="stage"></circle>
+  <circle r="5" cx="103.983" cy="397.929" class="stage"></circle>
+  <rect width="125.28" height="21.6" x="645.052" y="479.001" opacity="0.2" fill="green" class="labelRect"></rect><text x="645.052" y="496.102" class="label">
+    <tspan dy="0" x="645.052">Caen Hill Locks</tspan>
+  </text>
+  <rect width="37.26" height="21.6" x="61.066" y="403.586" opacity="0.2" fill="green" class="labelRect"></rect><text x="61.066" y="420.687" class="label">
+    <tspan dy="0" x="61.066">Bath</tspan>
+  </text>
+</svg>

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <image width="800" height="800" href="2015-south_of_france-stage-5.png"></image>
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1504" result="SvgjsFeMorphology1504" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1505" result="SvgjsFeColorMatrix1505" in="SvgjsFeMorphology1504" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1506" result="SvgjsFeMerge1506" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1507" result="SvgjsFeMergeNode1507" in="SvgjsFeColorMatrix1505"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1508" result="SvgjsFeMergeNode1508" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1509">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="493.642" cy="661.813" fill="black"></circle>
+      <circle r="5" cx="515.1" cy="92.308" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M493.642 661.813L494.284 658.399L496.149 657.233L498.856 657.982L496.851 655.678L496.31 656.178L496.269 655.012L484.919 667.531L482.452 672.472L482.773 677.774L481.911 678.606L477.399 679.356L469.939 685.795L466.89 686.683L457.946 691.846L451.549 700.893L448.882 702.392L438.053 703.446L434.082 702.308L427.043 702.17L417.638 707.692L408.052 706.61L394.335 702.364L382.322 703.918L377.71 703.668L370.691 689.07L361.586 676.497L356.092 670.529L349.093 666.282L339.507 658.676L328.217 652.708L308.764 645.213L300.783 638.439L292.099 621.808L289.111 608.341L290.615 597.456L288.67 594.79L285.541 593.401L284.9 592.346L287.647 585.764L295.167 575.683L302.628 561.99L320.135 534.573L326.652 527.767L330.683 516.349L342.294 492.703L354.046 474.891L357.816 464.886L361.827 457.688L367.964 449.211L373.057 439.733L381.841 418.467L393.513 401.898L407.53 376.234L408.734 374.844L413.446 372.397L427.023 368.393L431.114 368.003L438.815 354.766L442.485 324.283L447.037 303.782L456.583 279.049L461.395 261.603L471.763 241.762L475.213 238.924L474.37 234.193L474.751 226.344L480.347 212.01L484.237 205.469L485.701 204.634L487.045 197.452L490.193 188.739L491.396 188.294L491.958 189.185L491.497 189.964L490.193 190.02L480.667 188.684L476.296 186.679L473.669 183.45L468.615 172.509L466.71 170.031L449.102 161.289L445.473 156.054L442.585 146.977L442.665 143.691L443.567 141.686L445.152 140.043L449.764 138.762L452.311 135.254L466.429 128.125L467.372 123.975L470.099 120.8L484.197 114.005L490.073 109.632L494.485 109.159L498.997 105.51L504.331 108.24L513.877 109.326L515.1 92.308 " class="lineBackground"></path>
+  <path d="M493.642 661.813L494.284 658.399L496.149 657.233L498.856 657.982L496.851 655.678L496.31 656.178L496.269 655.012L484.919 667.531L482.452 672.472L482.773 677.774L481.911 678.606L477.399 679.356L469.939 685.795L466.89 686.683L457.946 691.846L451.549 700.893L448.882 702.392L438.053 703.446L434.082 702.308L427.043 702.17L417.638 707.692L408.052 706.61L394.335 702.364L382.322 703.918L377.71 703.668L370.691 689.07L361.586 676.497L356.092 670.529L349.093 666.282L339.507 658.676L328.217 652.708L308.764 645.213L300.783 638.439L292.099 621.808L289.111 608.341L290.615 597.456L288.67 594.79L285.541 593.401L284.9 592.346L287.647 585.764L295.167 575.683L302.628 561.99L320.135 534.573L326.652 527.767L330.683 516.349L342.294 492.703L354.046 474.891L357.816 464.886L361.827 457.688L367.964 449.211L373.057 439.733L381.841 418.467L393.513 401.898L407.53 376.234L408.734 374.844L413.446 372.397L427.023 368.393L431.114 368.003L438.815 354.766L442.485 324.283L447.037 303.782L456.583 279.049L461.395 261.603L471.763 241.762L475.213 238.924L474.37 234.193L474.751 226.344L480.347 212.01L484.237 205.469L485.701 204.634L487.045 197.452L490.193 188.739L491.396 188.294L491.958 189.185L491.497 189.964L490.193 190.02L480.667 188.684L476.296 186.679L473.669 183.45L468.615 172.509L466.71 170.031L449.102 161.289L445.473 156.054L442.585 146.977L442.665 143.691L443.567 141.686L445.152 140.043L449.764 138.762L452.311 135.254L466.429 128.125L467.372 123.975L470.099 120.8L484.197 114.005L490.073 109.632L494.485 109.159L498.997 105.51L504.331 108.24L513.877 109.326L515.1 92.308 " class="line driving" mask="url(#SvgjsMask1509)"></path>
+  <circle r="5" cx="493.642" cy="661.813" class="stage"></circle>
+  <circle r="5" cx="515.1" cy="92.308" class="stage"></circle>
+  <rect width="181.98" height="21.6" x="499.299" y="667.47" opacity="0.2" fill="green" class="labelRect"></rect><text x="499.299" y="684.572" class="label">
+    <tspan dy="0" x="499.299">Les Baux de Provence</tspan>
+  </text>
+  <rect width="65.34" height="21.6" x="482.43" y="62.708" opacity="0.2" fill="green" class="labelRect"></rect><text x="482.43" y="79.809" class="label">
+    <tspan dy="0" x="482.43">Avignon</tspan>
+  </text>
+</svg>

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <image width="800" height="800" href="2015-loire_cycling-stage-3.png"></image>
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1348" result="SvgjsFeMorphology1348" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1349" result="SvgjsFeColorMatrix1349" in="SvgjsFeMorphology1348" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1350" result="SvgjsFeMerge1350" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1351" result="SvgjsFeMergeNode1351" in="SvgjsFeColorMatrix1349"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1352" result="SvgjsFeMergeNode1352" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1353">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="244.103" cy="98.955" fill="black"></circle>
+      <circle r="5" cx="546.535" cy="696.069" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M244.103 98.955L254.991 92.912L259.469 92.308L262.725 100.768L272.494 117.99L281.042 137.024L299.766 170.862L311.367 202.886L334.67 253.94L340.368 281.58L340.877 321.604L338.944 336.858L295.899 367.214L288.267 372.801L287.962 373.859L316.862 414.633L321.136 413.576L323.985 414.482L325.817 416.143L330.803 426.261L331.108 431.395L351.155 468.391L357.159 477.451L363.163 478.508L362.247 485.756L367.233 490.437L367.538 500.705L378.02 622.851L389.722 637.042L393.182 642.93L407.734 658.781L406.818 661.498L409.871 670.707L399.186 687.464L399.491 700.597L500.539 681.124L503.287 679.614L504.712 681.878L505.424 685.652L517.94 684.143L519.162 691.389L520.586 691.389L520.79 694.71L522.621 694.71L525.776 698.937L535.341 701.503L544.195 707.541L547.96 707.239L555.897 700.295L550.198 693.804L547.349 696.22L546.535 696.069 " class="lineBackground"></path>
+  <path d="M244.103 98.955L254.991 92.912L259.469 92.308L262.725 100.768L272.494 117.99L281.042 137.024L299.766 170.862L311.367 202.886L334.67 253.94L340.368 281.58L340.877 321.604L338.944 336.858L295.899 367.214L288.267 372.801L287.962 373.859L316.862 414.633L321.136 413.576L323.985 414.482L325.817 416.143L330.803 426.261L331.108 431.395L351.155 468.391L357.159 477.451L363.163 478.508L362.247 485.756L367.233 490.437L367.538 500.705L378.02 622.851L389.722 637.042L393.182 642.93L407.734 658.781L406.818 661.498L409.871 670.707L399.186 687.464L399.491 700.597L500.539 681.124L503.287 679.614L504.712 681.878L505.424 685.652L517.94 684.143L519.162 691.389L520.586 691.389L520.79 694.71L522.621 694.71L525.776 698.937L535.341 701.503L544.195 707.541L547.96 707.239L555.897 700.295L550.198 693.804L547.349 696.22L546.535 696.069 " class="line bicycling" mask="url(#SvgjsMask1353)"></path>
+  <circle r="5" cx="244.103" cy="98.955" class="stage"></circle>
+  <circle r="5" cx="546.535" cy="696.069" class="stage"></circle>
+  <rect width="182.88" height="21.6" x="552.192" y="668.812" opacity="0.2" fill="green" class="labelRect"></rect><text x="552.192" y="685.913" class="label">
+    <tspan dy="0" x="552.192">Chateau de Chambord</tspan>
+  </text>
+  <rect width="156.24" height="21.6" x="82.206" y="71.698" opacity="0.2" fill="green" class="labelRect"></rect><text x="82.206" y="88.8" class="label">
+    <tspan dy="0" x="82.206">Saint-Dye-sur-Loire</tspan>
+  </text>
+</svg>

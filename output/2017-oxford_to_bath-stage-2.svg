@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1840" result="SvgjsFeMorphology1840" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1841" result="SvgjsFeColorMatrix1841" in="SvgjsFeMorphology1840" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1842" result="SvgjsFeMerge1842" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1843" result="SvgjsFeMergeNode1843" in="SvgjsFeColorMatrix1841"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1844" result="SvgjsFeMergeNode1844" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1845">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="707.692" cy="339.89" fill="black"></circle>
+      <circle r="5" cx="94.187" cy="448.505" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M707.692 339.89L690.861 349.737L683.524 352.878L675.778 361.721L668.572 373.176L662.591 378.587L656.529 382.334L656.153 384.71L634.24 386.135L618.291 397.139L612.049 394.632L608.764 395.714L603.372 402.469L598.142 401.176L593.289 395.345L592.08 390.647L584.694 389.882L580.511 388.483L571.883 390.225L560.95 389.407L546.783 395.424L537.942 391.281L534.02 386.61L524.902 380.751L522.19 376.475L516.846 376.739L514.297 379.642L509.64 377.769L504.198 372.912L494.345 368.505L485.962 378.666L480.978 377.637L471.925 379.035L436.775 378.745L418.294 384.789L413.522 387.217L415.287 393.233L419.699 400.543L399.583 394.658L396.528 392.996L392.54 394.236L391.74 395.16L386.56 393.101L369.679 394.131L360.153 391.307L351.933 387.771L321.457 385.422L276.667 397.614L266.96 401.836L231.663 413.05L209.538 418.115L209.211 421.334L205.73 430.278L206.515 432.23L202.756 446.395L200.305 451.723L197.936 454.387L197.429 459.636L190.876 459.926L184.814 456.022L175.369 452.303L160.221 448.215L150.482 447.318L134.794 446.685L129.353 445.736L129.173 446.369L115.365 449.059L111.427 448.901L109.221 451.881L108.355 451.723L107.439 449.296L103.387 444.496L94.661 440.275L92.487 443.916L94.187 448.505 " class="lineBackground"></path>
+  <path d="M707.692 339.89L690.861 349.737L683.524 352.878L675.778 361.721L668.572 373.176L662.591 378.587L656.529 382.334L656.153 384.71L634.24 386.135L618.291 397.139L612.049 394.632L608.764 395.714L603.372 402.469L598.142 401.176L593.289 395.345L592.08 390.647L584.694 389.882L580.511 388.483L571.883 390.225L560.95 389.407L546.783 395.424L537.942 391.281L534.02 386.61L524.902 380.751L522.19 376.475L516.846 376.739L514.297 379.642L509.64 377.769L504.198 372.912L494.345 368.505L485.962 378.666L480.978 377.637L471.925 379.035L436.775 378.745L418.294 384.789L413.522 387.217L415.287 393.233L419.699 400.543L399.583 394.658L396.528 392.996L392.54 394.236L391.74 395.16L386.56 393.101L369.679 394.131L360.153 391.307L351.933 387.771L321.457 385.422L276.667 397.614L266.96 401.836L231.663 413.05L209.538 418.115L209.211 421.334L205.73 430.278L206.515 432.23L202.756 446.395L200.305 451.723L197.936 454.387L197.429 459.636L190.876 459.926L184.814 456.022L175.369 452.303L160.221 448.215L150.482 447.318L134.794 446.685L129.353 445.736L129.173 446.369L115.365 449.059L111.427 448.901L109.221 451.881L108.355 451.723L107.439 449.296L103.387 444.496L94.661 440.275L92.487 443.916L94.187 448.505 " class="line bicycling" mask="url(#SvgjsMask1845)"></path>
+  <circle r="5" cx="707.692" cy="339.89" class="stage"></circle>
+  <circle r="5" cx="94.187" cy="448.505" class="stage"></circle>
+  <rect width="92.16" height="21.6" x="48.107" y="456.505" opacity="0.2" fill="green" class="labelRect"></rect><text x="48.107" y="473.607" class="label">
+    <tspan dy="0" x="48.107">Cirencester</tspan>
+  </text>
+  <rect width="75.24" height="21.6" x="670.072" y="310.29" opacity="0.2" fill="green" class="labelRect"></rect><text x="670.072" y="327.391" class="label">
+    <tspan dy="0" x="670.072">Carterton</tspan>
+  </text>
+</svg>

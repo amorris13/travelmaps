@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1690" result="SvgjsFeMorphology1690" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1691" result="SvgjsFeColorMatrix1691" in="SvgjsFeMorphology1690" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1692" result="SvgjsFeMerge1692" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1693" result="SvgjsFeMergeNode1693" in="SvgjsFeColorMatrix1691"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1694" result="SvgjsFeMergeNode1694" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1695">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="174.629" cy="92.308" fill="black"></circle>
+      <circle r="5" cx="634.668" cy="703.72" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M174.629 92.308L171.5 105.12L165.904 116.3L165.332 119.322L165.844 124.072L177.668 127.431L184.377 131.989L185.219 131.653L190.063 143.983L202.909 160.774L206.82 169.552L211.243 183.703L209.799 191.137L206.339 198.284L205.346 221.305L205.858 224.423L208.385 226.964L220.479 232.815L216.418 236.316L216.328 237.419L217.501 238.426L217.441 240.152L232.784 242.838L243.224 248.544L247.707 253.052L247.436 269.978L245.33 282.204L246.202 293.519L245.932 302.148L247.647 313.031L246.112 324.775L247.827 338.82L256.702 351.762L254.566 358.04L254.356 385.933L255.83 396.572L258.086 401.843L262.058 407.258L269.669 410.756L273.851 415.5L278.665 419.285L280.681 422.591L281.252 425.514L287.149 436.055L291.361 440.798L292.955 444.583L292.745 452.057L295.392 455.41L297.799 463.459L301.109 470.261L306.163 474.764L306.945 479.075L306.825 485.207L305.441 489.326L324.816 504.654L337.843 512.988L344.492 514.664L351.472 515.287L360.287 513.563L368.47 516.149L371.599 516.388L385.439 514.042L386.853 514.76L411.854 533.055L419.887 542.489L426.927 552.881L438.72 566.433L454.455 584.005L461.465 589.846L476.086 598.752L557.077 633.029L571.608 641.98L593.27 661.557L595.225 659.882L591.976 663.854L588.486 664.237L586.501 665.434L583.913 673.522L584.094 683.764L580.844 693.575L597.843 698.456L609.366 699.27L615.834 700.753L618.451 701.663L619.264 704.295L618.812 705.108L620.557 705.347L622.994 707.597L625.04 706.065L629.102 707.501L629.703 706.352L633.705 706.735L634.668 703.72 " class="lineBackground"></path>
+  <path d="M174.629 92.308L171.5 105.12L165.904 116.3L165.332 119.322L165.844 124.072L177.668 127.431L184.377 131.989L185.219 131.653L190.063 143.983L202.909 160.774L206.82 169.552L211.243 183.703L209.799 191.137L206.339 198.284L205.346 221.305L205.858 224.423L208.385 226.964L220.479 232.815L216.418 236.316L216.328 237.419L217.501 238.426L217.441 240.152L232.784 242.838L243.224 248.544L247.707 253.052L247.436 269.978L245.33 282.204L246.202 293.519L245.932 302.148L247.647 313.031L246.112 324.775L247.827 338.82L256.702 351.762L254.566 358.04L254.356 385.933L255.83 396.572L258.086 401.843L262.058 407.258L269.669 410.756L273.851 415.5L278.665 419.285L280.681 422.591L281.252 425.514L287.149 436.055L291.361 440.798L292.955 444.583L292.745 452.057L295.392 455.41L297.799 463.459L301.109 470.261L306.163 474.764L306.945 479.075L306.825 485.207L305.441 489.326L324.816 504.654L337.843 512.988L344.492 514.664L351.472 515.287L360.287 513.563L368.47 516.149L371.599 516.388L385.439 514.042L386.853 514.76L411.854 533.055L419.887 542.489L426.927 552.881L438.72 566.433L454.455 584.005L461.465 589.846L476.086 598.752L557.077 633.029L571.608 641.98L593.27 661.557L595.225 659.882L591.976 663.854L588.486 664.237L586.501 665.434L583.913 673.522L584.094 683.764L580.844 693.575L597.843 698.456L609.366 699.27L615.834 700.753L618.451 701.663L619.264 704.295L618.812 705.108L620.557 705.347L622.994 707.597L625.04 706.065L629.102 707.501L629.703 706.352L633.705 706.735L634.668 703.72 " class="line bicycling" mask="url(#SvgjsMask1695)"></path>
+  <circle r="5" cx="174.629" cy="92.308" class="stage"></circle>
+  <circle r="5" cx="634.668" cy="703.72" class="stage"></circle>
+  <rect width="126.18" height="21.6" x="640.324" y="709.377" opacity="0.2" fill="green" class="labelRect"></rect><text x="640.324" y="726.479" class="label">
+    <tspan dy="0" x="640.324">Christs Hospital</tspan>
+  </text>
+  <rect width="131.4" height="21.6" x="37.572" y="65.051" opacity="0.2" fill="green" class="labelRect"></rect><text x="37.572" y="82.152" class="label">
+    <tspan dy="0" x="37.572">Stroud Common</tspan>
+  </text>
+</svg>

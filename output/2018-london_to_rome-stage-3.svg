@@ -54,14 +54,14 @@
   </style>
   <defs>
     <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
-      <feMorphology id="SvgjsFeMorphology1018" result="SvgjsFeMorphology1018" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
-      <feColorMatrix id="SvgjsFeColorMatrix1019" result="SvgjsFeColorMatrix1019" in="SvgjsFeMorphology1018" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
-      <feMerge id="SvgjsFeMerge1020" result="SvgjsFeMerge1020" in="SourceGraphic">
-        <feMergeNode id="SvgjsFeMergeNode1021" result="SvgjsFeMergeNode1021" in="SvgjsFeColorMatrix1019"></feMergeNode>
-        <feMergeNode id="SvgjsFeMergeNode1022" result="SvgjsFeMergeNode1022" in="SourceGraphic"></feMergeNode>
+      <feMorphology id="SvgjsFeMorphology2230" result="SvgjsFeMorphology2230" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix2231" result="SvgjsFeColorMatrix2231" in="SvgjsFeMorphology2230" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge2232" result="SvgjsFeMerge2232" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode2233" result="SvgjsFeMergeNode2233" in="SvgjsFeColorMatrix2231"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode2234" result="SvgjsFeMergeNode2234" in="SourceGraphic"></feMergeNode>
       </feMerge>
     </filter>
-    <mask id="SvgjsMask1023">
+    <mask id="SvgjsMask2235">
       <rect width="800" height="800" x="0" y="0" fill="white"></rect>
       <circle r="5" cx="92.308" cy="407.975" fill="black"></circle>
       <circle r="5" cx="707.692" cy="392.025" fill="black"></circle>
@@ -86,7 +86,7 @@
     }
   </style>
   <path d="M92.308 407.975A800.268 800.268 0 0 1 707.692 392.025 " class="lineBackground"></path>
-  <path d="M92.308 407.975A800.268 800.268 0 0 1 707.692 392.025 " class="line ferry" mask="url(#SvgjsMask1023)"></path>
+  <path d="M92.308 407.975A800.268 800.268 0 0 1 707.692 392.025 " class="line ferry" mask="url(#SvgjsMask2235)"></path>
   <circle r="5" cx="92.308" cy="407.975" class="stage"></circle>
   <circle r="5" cx="707.692" cy="392.025" class="stage"></circle>
   <rect width="64.98" height="21.6" x="19.328" y="397.175" opacity="0.2" fill="green" class="labelRect"></rect><text x="19.328" y="414.276" class="label">

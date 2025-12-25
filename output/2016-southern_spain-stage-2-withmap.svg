@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <image width="800" height="800" href="2016-southern_spain-stage-2.png"></image>
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1816" result="SvgjsFeMorphology1816" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1817" result="SvgjsFeColorMatrix1817" in="SvgjsFeMorphology1816" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1818" result="SvgjsFeMerge1818" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1819" result="SvgjsFeMergeNode1819" in="SvgjsFeColorMatrix1817"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1820" result="SvgjsFeMergeNode1820" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1821">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="92.308" cy="348.327" fill="black"></circle>
+      <circle r="5" cx="707.336" cy="415.352" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M92.308 348.327L93.957 348.947L110.361 349.509L116.472 352.189L121.816 358.212L134.265 362.854L134.618 367.329L135.403 368.125L146.22 369.705L160.449 376.47L163.536 379.308L176.007 386.064L189.091 391.119L200.626 391.852L203.389 393.434L205.89 392.718L209.678 389.453L222.003 384.916L229.933 384.55L249.343 397.93L252.2 398.118L260.047 401.041L266.948 398.812L270.145 401.411L281.959 399.512L303.207 399.158L310.886 397.807L319.165 400.688L322.641 400.322L327.361 397.561L334.465 398.128L345.257 393.11L347.811 391.077L356.464 388.96L361.682 385.133L366.438 383.528L371.137 379.412L373.033 378.977L376.574 376.525L380.731 376.875L382.409 378.864L383.103 382.283L384.434 383.051L392.542 385.597L396.25 385.036L398.021 386.093L401.419 395.256L401.93 401.939L398.821 407.597L399.156 410.772L407.127 417.875L416.335 429.12L427.715 432.215L437.01 440.969L442.483 444.398L449.022 451.188L452.101 451.673L462.026 450.842L472.98 451.414L480.675 447.209L492.587 446.786L497.882 444.638L501.392 439.551L505.182 435.791L512.643 432.199L520.691 433.238L523.246 434.28L528.405 432.995L529.15 433.383L527.803 436.121L529.994 436.147L530.81 437.244L534.381 438.199L536.853 439.759L538.149 441.868L539.372 438.451L541.38 437.315L544.056 432.762L546.662 431.001L546.401 432.522L548.726 432.386L553.289 424.889L555.97 422.966L556.754 421.369L558.687 420.479L566.831 422.846L570.426 422.849L574.33 421.616L576.516 421.991L582.162 419.906L584.214 415.961L594.606 415.368L599.411 411.319L609.449 412.074L619.505 416.236L623.477 415.89L629.43 416.625L638.722 411.274L645.285 411.659L648.361 413.224L652.626 411.245L661.694 412.664L673.08 412.9L679.433 412.139L692.932 412.317L695.553 410.406L699.081 410.746L699.133 413.635L703.994 417.428L706.27 415.213L707.336 415.352 " class="lineBackground"></path>
+  <path d="M92.308 348.327L93.957 348.947L110.361 349.509L116.472 352.189L121.816 358.212L134.265 362.854L134.618 367.329L135.403 368.125L146.22 369.705L160.449 376.47L163.536 379.308L176.007 386.064L189.091 391.119L200.626 391.852L203.389 393.434L205.89 392.718L209.678 389.453L222.003 384.916L229.933 384.55L249.343 397.93L252.2 398.118L260.047 401.041L266.948 398.812L270.145 401.411L281.959 399.512L303.207 399.158L310.886 397.807L319.165 400.688L322.641 400.322L327.361 397.561L334.465 398.128L345.257 393.11L347.811 391.077L356.464 388.96L361.682 385.133L366.438 383.528L371.137 379.412L373.033 378.977L376.574 376.525L380.731 376.875L382.409 378.864L383.103 382.283L384.434 383.051L392.542 385.597L396.25 385.036L398.021 386.093L401.419 395.256L401.93 401.939L398.821 407.597L399.156 410.772L407.127 417.875L416.335 429.12L427.715 432.215L437.01 440.969L442.483 444.398L449.022 451.188L452.101 451.673L462.026 450.842L472.98 451.414L480.675 447.209L492.587 446.786L497.882 444.638L501.392 439.551L505.182 435.791L512.643 432.199L520.691 433.238L523.246 434.28L528.405 432.995L529.15 433.383L527.803 436.121L529.994 436.147L530.81 437.244L534.381 438.199L536.853 439.759L538.149 441.868L539.372 438.451L541.38 437.315L544.056 432.762L546.662 431.001L546.401 432.522L548.726 432.386L553.289 424.889L555.97 422.966L556.754 421.369L558.687 420.479L566.831 422.846L570.426 422.849L574.33 421.616L576.516 421.991L582.162 419.906L584.214 415.961L594.606 415.368L599.411 411.319L609.449 412.074L619.505 416.236L623.477 415.89L629.43 416.625L638.722 411.274L645.285 411.659L648.361 413.224L652.626 411.245L661.694 412.664L673.08 412.9L679.433 412.139L692.932 412.317L695.553 410.406L699.081 410.746L699.133 413.635L703.994 417.428L706.27 415.213L707.336 415.352 " class="line driving" mask="url(#SvgjsMask1821)"></path>
+  <circle r="5" cx="92.308" cy="348.327" class="stage"></circle>
+  <circle r="5" cx="707.336" cy="415.352" class="stage"></circle>
+  <rect width="70.38" height="21.6" x="712.993" y="421.009" opacity="0.2" fill="green" class="labelRect"></rect><text x="712.993" y="438.111" class="label">
+    <tspan dy="0" x="712.993">Granada</tspan>
+  </text>
+  <rect width="53.1" height="21.6" x="31.208" y="337.527" opacity="0.2" fill="green" class="labelRect"></rect><text x="31.208" y="354.629" class="label">
+    <tspan dy="0" x="31.208">Seville</tspan>
+  </text>
+</svg>

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <image width="800" height="800" href="2017-norway-stage-17.png"></image>
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology2092" result="SvgjsFeMorphology2092" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix2093" result="SvgjsFeColorMatrix2093" in="SvgjsFeMorphology2092" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge2094" result="SvgjsFeMerge2094" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode2095" result="SvgjsFeMergeNode2095" in="SvgjsFeColorMatrix2093"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode2096" result="SvgjsFeMergeNode2096" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask2097">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="707.692" cy="167.238" fill="black"></circle>
+      <circle r="5" cx="92.308" cy="565.45" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M707.692 167.238L676.224 198.124L628.288 241.215L565.535 294.261L515.553 338.548L481.227 373.471L464.26 392.226L460.091 398.02L456.577 407.676L447.163 453.61L432.478 500.041L424.663 530.412L419.13 566.211L418.291 573.167L418.684 577.736L417.897 579.412L419.55 583.016L421.91 585.606L427.154 587.433L430.957 587.789L436.805 587.332L448.605 584.032L453.981 583.829L464.942 580.986L473.596 580.681L472.311 570.628L473.648 565.653L472.232 564.891L471 558.138L466.227 551.232L466.411 545.037L462.635 533.815L462.661 528.533L456.865 514.923L457.259 512.18L462.031 503.444L456.289 478.605L454.348 474.44L437.119 454.322L426.656 458.285L417.137 466.616L409.296 468.852L405.415 470.833L402.767 474.236L397.496 489.019L392.723 496.181L390.363 507.05L391.989 521.728L390.284 527.568L389.445 535.846L385.171 547.119L384.672 552.045L384.935 553.924L390.861 561.997L392.146 566.16L391.779 571.339L388.632 579.209L378.746 589.058L361.543 601.394L352.051 606.977L345.101 610.328L335.189 613.627L330.102 612.612L314.42 629.159L310.014 632.153L303.144 632.407L298.607 630.072L289.796 623.474L280.12 622.358L276.842 620.378L269.394 613.12L265.539 611.089L262.026 610.378L257.436 611.495L255.601 612.815L250.697 619.972L244.928 624.134L240.942 625.048L219.203 625.504L214.85 627.687L212.647 631.646L211.939 631.341L211.546 629.108L210.942 619.312L211.1 610.683L212.044 608.094L204.649 598.754L200.584 597.18L196.86 597.84L189.413 601.698L184.876 603.069L174.754 601.698L164.815 597.789L157.106 591.901L149.973 584.489L136.442 575.858L129.991 569.207L120.314 574.741L117.141 575.35L105.682 571.796L92.308 565.45 " class="lineBackground"></path>
+  <path d="M707.692 167.238L676.224 198.124L628.288 241.215L565.535 294.261L515.553 338.548L481.227 373.471L464.26 392.226L460.091 398.02L456.577 407.676L447.163 453.61L432.478 500.041L424.663 530.412L419.13 566.211L418.291 573.167L418.684 577.736L417.897 579.412L419.55 583.016L421.91 585.606L427.154 587.433L430.957 587.789L436.805 587.332L448.605 584.032L453.981 583.829L464.942 580.986L473.596 580.681L472.311 570.628L473.648 565.653L472.232 564.891L471 558.138L466.227 551.232L466.411 545.037L462.635 533.815L462.661 528.533L456.865 514.923L457.259 512.18L462.031 503.444L456.289 478.605L454.348 474.44L437.119 454.322L426.656 458.285L417.137 466.616L409.296 468.852L405.415 470.833L402.767 474.236L397.496 489.019L392.723 496.181L390.363 507.05L391.989 521.728L390.284 527.568L389.445 535.846L385.171 547.119L384.672 552.045L384.935 553.924L390.861 561.997L392.146 566.16L391.779 571.339L388.632 579.209L378.746 589.058L361.543 601.394L352.051 606.977L345.101 610.328L335.189 613.627L330.102 612.612L314.42 629.159L310.014 632.153L303.144 632.407L298.607 630.072L289.796 623.474L280.12 622.358L276.842 620.378L269.394 613.12L265.539 611.089L262.026 610.378L257.436 611.495L255.601 612.815L250.697 619.972L244.928 624.134L240.942 625.048L219.203 625.504L214.85 627.687L212.647 631.646L211.939 631.341L211.546 629.108L210.942 619.312L211.1 610.683L212.044 608.094L204.649 598.754L200.584 597.18L196.86 597.84L189.413 601.698L184.876 603.069L174.754 601.698L164.815 597.789L157.106 591.901L149.973 584.489L136.442 575.858L129.991 569.207L120.314 574.741L117.141 575.35L105.682 571.796L92.308 565.45 " class="line driving" mask="url(#SvgjsMask2097)"></path>
+  <circle r="5" cx="707.692" cy="167.238" class="stage"></circle>
+  <circle r="5" cx="92.308" cy="565.45" class="stage"></circle>
+  <rect width="99.36" height="21.6" x="658.012" y="137.638" opacity="0.2" fill="green" class="labelRect"></rect><text x="658.012" y="154.739" class="label">
+    <tspan dy="0" x="658.012">Preikestolen</tspan>
+  </text>
+  <rect width="140.4" height="21.6" x="22.108" y="535.85" opacity="0.2" fill="green" class="labelRect"></rect><text x="22.108" y="552.951" class="label">
+    <tspan dy="0" x="22.108">Ims 4308 Norway</tspan>
+  </text>
+</svg>

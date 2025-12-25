@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1864" result="SvgjsFeMorphology1864" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1865" result="SvgjsFeColorMatrix1865" in="SvgjsFeMorphology1864" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1866" result="SvgjsFeMerge1866" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1867" result="SvgjsFeMergeNode1867" in="SvgjsFeColorMatrix1865"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1868" result="SvgjsFeMergeNode1868" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1869">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="92.692" cy="615.705" fill="black"></circle>
+      <circle r="5" cx="707.692" cy="178.168" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M92.692 615.705L93.185 615.404L92.308 613.86L94.848 611.954L103.88 619.436L104.782 621.321L106.671 621.612L107.891 619.506L123.089 609.156L133.801 602.426L155.501 591.774L186.667 571.839L197.437 563.15L232.279 541.272L236.265 539.425L251.74 522.812L270.163 511.948L285.17 500.461L292.364 491.925L300.377 477.965L307.187 471.797L320.104 462.716L340.826 442.41L352.616 434.381L370.839 425.155L395.923 406.137L401.537 403.342L431.057 392.554L449.273 388.734L457.77 385.325L476.762 371.759L492.479 364.347L514.003 348.998L522.375 339.813L526.386 336.945L532.159 335.024L551.862 330.858L564.061 324.71L569.734 320.152L575.332 313.933L582.61 299.762L604.334 286.123L641.625 251.193L664.544 225.368L669.19 222.678L679.543 220.079L683.194 217.731L697.992 195.07L703.531 183.258L707.692 178.168 " class="lineBackground"></path>
+  <path d="M92.692 615.705L93.185 615.404L92.308 613.86L94.848 611.954L103.88 619.436L104.782 621.321L106.671 621.612L107.891 619.506L123.089 609.156L133.801 602.426L155.501 591.774L186.667 571.839L197.437 563.15L232.279 541.272L236.265 539.425L251.74 522.812L270.163 511.948L285.17 500.461L292.364 491.925L300.377 477.965L307.187 471.797L320.104 462.716L340.826 442.41L352.616 434.381L370.839 425.155L395.923 406.137L401.537 403.342L431.057 392.554L449.273 388.734L457.77 385.325L476.762 371.759L492.479 364.347L514.003 348.998L522.375 339.813L526.386 336.945L532.159 335.024L551.862 330.858L564.061 324.71L569.734 320.152L575.332 313.933L582.61 299.762L604.334 286.123L641.625 251.193L664.544 225.368L669.19 222.678L679.543 220.079L683.194 217.731L697.992 195.07L703.531 183.258L707.692 178.168 " class="line transit" mask="url(#SvgjsMask1869)"></path>
+  <circle r="5" cx="92.692" cy="615.705" class="stage"></circle>
+  <circle r="5" cx="707.692" cy="178.168" class="stage"></circle>
+  <rect width="95.4" height="21.6" x="44.992" y="623.705" opacity="0.2" fill="green" class="labelRect"></rect><text x="44.992" y="640.807" class="label">
+    <tspan dy="0" x="44.992">Casablance</tspan>
+  </text>
+  <rect width="48.24" height="21.6" x="713.349" y="150.911" opacity="0.2" fill="green" class="labelRect"></rect><text x="713.349" y="168.013" class="label">
+    <tspan dy="0" x="713.349">Rabat</tspan>
+  </text>
+</svg>

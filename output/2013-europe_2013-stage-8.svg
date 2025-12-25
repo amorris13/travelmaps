@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1132" result="SvgjsFeMorphology1132" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1133" result="SvgjsFeColorMatrix1133" in="SvgjsFeMorphology1132" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1134" result="SvgjsFeMerge1134" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1135" result="SvgjsFeMergeNode1135" in="SvgjsFeColorMatrix1133"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1136" result="SvgjsFeMergeNode1136" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1137">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="92.308" cy="516.332" fill="black"></circle>
+      <circle r="5" cx="706.439" cy="364.13" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M92.308 516.332L94.49 516.403L97.384 515.006L99.591 518.942L103.452 521.181L104.53 519.904L105.375 520.849L106.315 520.426L107.055 523.43L107.841 523.988L109.111 522.656L113.006 521.349L114.285 522.636L117.886 522.41L119.793 521.488L123.594 522.701L124.715 520.139L127.443 521.891L133.378 521.539L139.079 519.494L138.486 519.662L537.305 276.013L539.319 277.316L539.877 279.754L540.406 279.979L541.387 278.538L543.865 279.162L551.872 282.017L555.259 285.078L574.16 288.764L586.422 293.563L590.394 294.014L592.779 298.28L606.763 302.003L610.175 297.226L637.032 312.142L643.135 316.097L649 321.734L669.843 332.751L677.327 340.939L685.762 345.953L692.182 351.5L699.963 354.982L707.692 364.169L706.439 364.13 " class="lineBackground"></path>
+  <path d="M92.308 516.332L94.49 516.403L97.384 515.006L99.591 518.942L103.452 521.181L104.53 519.904L105.375 520.849L106.315 520.426L107.055 523.43L107.841 523.988L109.111 522.656L113.006 521.349L114.285 522.636L117.886 522.41L119.793 521.488L123.594 522.701L124.715 520.139L127.443 521.891L133.378 521.539L139.079 519.494L138.486 519.662L537.305 276.013L539.319 277.316L539.877 279.754L540.406 279.979L541.387 278.538L543.865 279.162L551.872 282.017L555.259 285.078L574.16 288.764L586.422 293.563L590.394 294.014L592.779 298.28L606.763 302.003L610.175 297.226L637.032 312.142L643.135 316.097L649 321.734L669.843 332.751L677.327 340.939L685.762 345.953L692.182 351.5L699.963 354.982L707.692 364.169L706.439 364.13 " class="line transit" mask="url(#SvgjsMask1137)"></path>
+  <circle r="5" cx="92.308" cy="516.332" class="stage"></circle>
+  <circle r="5" cx="706.439" cy="364.13" class="stage"></circle>
+  <rect width="105.3" height="21.6" x="653.789" y="372.13" opacity="0.2" fill="green" class="labelRect"></rect><text x="653.789" y="389.231" class="label">
+    <tspan dy="0" x="653.789">Cinque Terre</tspan>
+  </text>
+  <rect width="79.38" height="21.6" x="52.618" y="486.732" opacity="0.2" fill="green" class="labelRect"></rect><text x="52.618" y="503.834" class="label">
+    <tspan dy="0" x="52.618">Le Rouret</tspan>
+  </text>
+</svg>

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <image width="800" height="800" href="2011-se_asia-stage-3.png"></image>
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1018" result="SvgjsFeMorphology1018" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1019" result="SvgjsFeColorMatrix1019" in="SvgjsFeMorphology1018" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1020" result="SvgjsFeMerge1020" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1021" result="SvgjsFeMergeNode1021" in="SvgjsFeColorMatrix1019"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1022" result="SvgjsFeMergeNode1022" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1023">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="92.308" cy="237.512" fill="black"></circle>
+      <circle r="5" cx="707.692" cy="562.488" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M92.308 237.512A904.698 904.698 0 0 1 707.692 562.488 " class="lineBackground"></path>
+  <path d="M92.308 237.512A904.698 904.698 0 0 1 707.692 562.488 " class="line boat" mask="url(#SvgjsMask1023)"></path>
+  <circle r="5" cx="92.308" cy="237.512" class="stage"></circle>
+  <circle r="5" cx="707.692" cy="562.488" class="stage"></circle>
+  <rect width="71.46" height="21.6" x="671.962" y="570.488" opacity="0.2" fill="green" class="labelRect"></rect><text x="671.962" y="587.589" class="label">
+    <tspan dy="0" x="671.962">Pakbeng</tspan>
+  </text>
+  <rect width="114.66" height="21.6" x="34.978" y="207.912" opacity="0.2" fill="green" class="labelRect"></rect><text x="34.978" y="225.014" class="label">
+    <tspan dy="0" x="34.978">Chiang Khong</tspan>
+  </text>
+</svg>

@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1642" result="SvgjsFeMorphology1642" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1643" result="SvgjsFeColorMatrix1643" in="SvgjsFeMorphology1642" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1644" result="SvgjsFeMerge1644" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1645" result="SvgjsFeMergeNode1645" in="SvgjsFeColorMatrix1643"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1646" result="SvgjsFeMergeNode1646" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1647">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="570.188" cy="707.692" fill="black"></circle>
+      <circle r="5" cx="229.036" cy="96.581" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M570.188 707.692L569.437 705.737L567.911 705.164L567.377 702.577L569.348 695.802L568.979 683.397L570.493 673.816L569.781 671.327L565.85 665.735L564.769 662.159L565.901 656.132L565.201 650.876L565.977 649.769L565.265 635.856L567.567 625.934L568.903 623.918L566.893 616.446L564.794 616.129L564.718 614.844L564.781 614.172L570.392 612.61L570.964 611.642L568.331 594.124L565.557 590.526L561.321 581.607L557.148 563.906L557.25 565.073L551.792 565.37L536.513 559.238L528.524 554.016L525.496 548.24L522.29 544.481L519.275 534.055L517.697 514.327L513.563 500.948L514.262 496.376L512.723 496.138L511.273 488.359L505.319 478.738L482.966 465.968L474.57 458.345L466.746 453.513L457.853 441.592L448.452 430.897L430.259 419.507L423.784 416.337L411.036 404.193L406.266 395.891L403.708 386.36L403.314 375.758L405.604 358.851L403.848 352.468L393.505 338.333L373.278 316.403L367.247 306.348L362.871 301.806L357.019 297.323L340.2 277.189L339.424 273.519L341.256 268.578L350.798 261.396L360.301 250.303L362.846 246.017L359.474 235.419L350.518 232.541L344.208 226.427L342.541 219.619L342.834 216.462L344.615 211.797L343.941 209.911L339.615 206.933L338.203 206.734L334.552 203.915L334.908 203.339L331.244 201.076L330.99 201.592L326.97 199.309L326.359 199.726L325.01 198.475L322.161 193.928L320.443 188.13L316.385 179.968L310.876 175.261L303.816 171.885L295.915 169.481L273.207 168.17L268.436 165.906L263.83 162.053L250.625 156.034L247.203 153.491L241.771 146.658L240.816 143.102L245.04 125.617L242.712 110.931L235.346 96.939L231.911 92.427L230.054 95.031L230.766 95.925L230.283 96.681L229.036 96.581 " class="lineBackground"></path>
+  <path d="M570.188 707.692L569.437 705.737L567.911 705.164L567.377 702.577L569.348 695.802L568.979 683.397L570.493 673.816L569.781 671.327L565.85 665.735L564.769 662.159L565.901 656.132L565.201 650.876L565.977 649.769L565.265 635.856L567.567 625.934L568.903 623.918L566.893 616.446L564.794 616.129L564.718 614.844L564.781 614.172L570.392 612.61L570.964 611.642L568.331 594.124L565.557 590.526L561.321 581.607L557.148 563.906L557.25 565.073L551.792 565.37L536.513 559.238L528.524 554.016L525.496 548.24L522.29 544.481L519.275 534.055L517.697 514.327L513.563 500.948L514.262 496.376L512.723 496.138L511.273 488.359L505.319 478.738L482.966 465.968L474.57 458.345L466.746 453.513L457.853 441.592L448.452 430.897L430.259 419.507L423.784 416.337L411.036 404.193L406.266 395.891L403.708 386.36L403.314 375.758L405.604 358.851L403.848 352.468L393.505 338.333L373.278 316.403L367.247 306.348L362.871 301.806L357.019 297.323L340.2 277.189L339.424 273.519L341.256 268.578L350.798 261.396L360.301 250.303L362.846 246.017L359.474 235.419L350.518 232.541L344.208 226.427L342.541 219.619L342.834 216.462L344.615 211.797L343.941 209.911L339.615 206.933L338.203 206.734L334.552 203.915L334.908 203.339L331.244 201.076L330.99 201.592L326.97 199.309L326.359 199.726L325.01 198.475L322.161 193.928L320.443 188.13L316.385 179.968L310.876 175.261L303.816 171.885L295.915 169.481L273.207 168.17L268.436 165.906L263.83 162.053L250.625 156.034L247.203 153.491L241.771 146.658L240.816 143.102L245.04 125.617L242.712 110.931L235.346 96.939L231.911 92.427L230.054 95.031L230.766 95.925L230.283 96.681L229.036 96.581 " class="line bicycling" mask="url(#SvgjsMask1647)"></path>
+  <circle r="5" cx="570.188" cy="707.692" class="stage"></circle>
+  <circle r="5" cx="229.036" cy="96.581" class="stage"></circle>
+  <rect width="86.4" height="21.6" x="136.979" y="69.324" opacity="0.2" fill="green" class="labelRect"></rect><text x="136.979" y="86.426" class="label">
+    <tspan dy="0" x="136.979">Bad Salzig</tspan>
+  </text>
+  <rect width="132.66" height="21.6" x="575.845" y="713.349" opacity="0.2" fill="green" class="labelRect"></rect><text x="575.845" y="730.451" class="label">
+    <tspan dy="0" x="575.845">Langenlonsheim</tspan>
+  </text>
+</svg>

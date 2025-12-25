@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology2032" result="SvgjsFeMorphology2032" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix2033" result="SvgjsFeColorMatrix2033" in="SvgjsFeMorphology2032" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge2034" result="SvgjsFeMerge2034" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode2035" result="SvgjsFeMergeNode2035" in="SvgjsFeColorMatrix2033"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode2036" result="SvgjsFeMergeNode2036" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask2037">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="704.842" cy="225.102" fill="black"></circle>
+      <circle r="5" cx="92.308" cy="574.898" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M704.842 225.102L707.393 227.137L707.302 228.652L698.037 232.014L691.762 235.375L687.578 238.736L682.061 247.068L679.463 253.411L675.325 258.333L674.797 268.462L670.636 274.615L669.349 277.833L668.337 289.901L668.452 300.454L662.107 307.647L655.924 316.495L654.016 323.829L650.591 330.074L646.246 344.172L642.453 366.121L640.108 370.992L639.418 374.965L629.809 389.674L626.131 398.99L620.959 409.11L619.304 415.73L615.534 422.255L614.132 428.969L612.615 430.623L608.891 432.373L607.603 434.122L604.937 450.574L602.339 455.869L597.282 462.628L596.155 465.559L596.04 469.624L598.178 473.642L592.799 496.328L591.075 500.344L586.96 503.936L583.19 505.354L578.868 505.873L540.755 506.913L516.709 508.898L447.148 520.569L408.46 526.192L287.084 540.272L236.396 548.256L180.466 558.224L156.03 560.869L119.525 562.192L113.824 563.845L103.089 570.08L92.308 574.898 " class="lineBackground"></path>
+  <path d="M704.842 225.102L707.393 227.137L707.302 228.652L698.037 232.014L691.762 235.375L687.578 238.736L682.061 247.068L679.463 253.411L675.325 258.333L674.797 268.462L670.636 274.615L669.349 277.833L668.337 289.901L668.452 300.454L662.107 307.647L655.924 316.495L654.016 323.829L650.591 330.074L646.246 344.172L642.453 366.121L640.108 370.992L639.418 374.965L629.809 389.674L626.131 398.99L620.959 409.11L619.304 415.73L615.534 422.255L614.132 428.969L612.615 430.623L608.891 432.373L607.603 434.122L604.937 450.574L602.339 455.869L597.282 462.628L596.155 465.559L596.04 469.624L598.178 473.642L592.799 496.328L591.075 500.344L586.96 503.936L583.19 505.354L578.868 505.873L540.755 506.913L516.709 508.898L447.148 520.569L408.46 526.192L287.084 540.272L236.396 548.256L180.466 558.224L156.03 560.869L119.525 562.192L113.824 563.845L103.089 570.08L92.308 574.898 " class="line driving" mask="url(#SvgjsMask2037)"></path>
+  <circle r="5" cx="704.842" cy="225.102" class="stage"></circle>
+  <circle r="5" cx="92.308" cy="574.898" class="stage"></circle>
+  <rect width="93.6" height="21.6" x="45.508" y="582.898" opacity="0.2" fill="green" class="labelRect"></rect><text x="45.508" y="600" class="label">
+    <tspan dy="0" x="45.508">Gudvangen</tspan>
+  </text>
+  <rect width="73.26" height="21.6" x="710.499" y="197.845" opacity="0.2" fill="green" class="labelRect"></rect><text x="710.499" y="214.946" class="label">
+    <tspan dy="0" x="710.499">Undredal</tspan>
+  </text>
+</svg>

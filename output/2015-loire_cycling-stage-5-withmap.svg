@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+  <image width="800" height="800" href="2015-loire_cycling-stage-5.png"></image>
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphology1360" result="SvgjsFeMorphology1360" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrix1361" result="SvgjsFeColorMatrix1361" in="SvgjsFeMorphology1360" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMerge1362" result="SvgjsFeMerge1362" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNode1363" result="SvgjsFeMergeNode1363" in="SvgjsFeColorMatrix1361"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNode1364" result="SvgjsFeMergeNode1364" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMask1365">
+      <rect width="800" height="800" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="683.644" cy="685.523" fill="black"></circle>
+      <circle r="5" cx="116.356" cy="92.308" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M683.644 685.523L679.876 706.384L665.783 706.04L648.386 707.692L642.479 702.047L639.828 700.532L607.268 685.936L606.57 687.107L594.104 689.379L565.358 668.724L561.73 664.868L556.288 662.596L552.055 662.182L548.706 657.294L540.659 652.956L535.31 651.854L526.938 641.663L523.309 640.562L497.727 626.445L481.493 625.481L472.423 623.002L475.214 612.191L475.865 607.164L475.353 604.616L470.423 604.134L457.864 606.682L458.608 602.205L464.05 587.468L463.539 575.76L464.376 568.873L454.933 561.572L454.701 560.539L457.12 555.649L457.166 551.241L447.398 543.665L451.352 532.92L451.863 523.208L445.119 517.215L443.863 514.873L439.537 499.236L434.653 487.87L424.885 488.146L419.583 486.01L407.21 485.666L398.419 487.457L375.254 494.965L360.556 507.985L353.997 501.992L350.881 500.545L352.416 496.343L351.02 493.381L346.136 490.006L343.95 492.554L333.624 481.808L329.531 468.099L326.507 462.587L311.948 451.22L306.599 454.389L300.18 437.923L310.832 436.614L299.715 417.322L290.366 273.428L288.877 271.016L288.18 267.362L288.831 264.399L291.157 263.502L291.947 262.331L291.575 259.918L289.575 258.677L285.528 260.194L283.854 258.884L281.575 255.782L178.825 154.369L175.987 149.405L173.615 148.37L169.057 144.578L116.356 92.308 " class="lineBackground"></path>
+  <path d="M683.644 685.523L679.876 706.384L665.783 706.04L648.386 707.692L642.479 702.047L639.828 700.532L607.268 685.936L606.57 687.107L594.104 689.379L565.358 668.724L561.73 664.868L556.288 662.596L552.055 662.182L548.706 657.294L540.659 652.956L535.31 651.854L526.938 641.663L523.309 640.562L497.727 626.445L481.493 625.481L472.423 623.002L475.214 612.191L475.865 607.164L475.353 604.616L470.423 604.134L457.864 606.682L458.608 602.205L464.05 587.468L463.539 575.76L464.376 568.873L454.933 561.572L454.701 560.539L457.12 555.649L457.166 551.241L447.398 543.665L451.352 532.92L451.863 523.208L445.119 517.215L443.863 514.873L439.537 499.236L434.653 487.87L424.885 488.146L419.583 486.01L407.21 485.666L398.419 487.457L375.254 494.965L360.556 507.985L353.997 501.992L350.881 500.545L352.416 496.343L351.02 493.381L346.136 490.006L343.95 492.554L333.624 481.808L329.531 468.099L326.507 462.587L311.948 451.22L306.599 454.389L300.18 437.923L310.832 436.614L299.715 417.322L290.366 273.428L288.877 271.016L288.18 267.362L288.831 264.399L291.157 263.502L291.947 262.331L291.575 259.918L289.575 258.677L285.528 260.194L283.854 258.884L281.575 255.782L178.825 154.369L175.987 149.405L173.615 148.37L169.057 144.578L116.356 92.308 " class="line bicycling" mask="url(#SvgjsMask1365)"></path>
+  <circle r="5" cx="683.644" cy="685.523" class="stage"></circle>
+  <circle r="5" cx="116.356" cy="92.308" class="stage"></circle>
+  <rect width="175.86" height="21.6" x="595.714" y="655.923" opacity="0.2" fill="green" class="labelRect"></rect><text x="595.714" y="673.025" class="label">
+    <tspan dy="0" x="595.714">Chateau de Cheverny</tspan>
+  </text>
+  <rect width="39.06" height="21.6" x="71.639" y="65.051" opacity="0.2" fill="green" class="labelRect"></rect><text x="71.639" y="82.152" class="label">
+    <tspan dy="0" x="71.639">Blois</tspan>
+  </text>
+</svg>
