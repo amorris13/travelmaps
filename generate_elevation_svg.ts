@@ -111,11 +111,7 @@ async function generateElevationSvg(
   // Peak elevation
   const actualMaxElevation = Math.max(...clampedElevationData);
   canvas
-<<<<<<< HEAD
-    .text(`⏶ ${Math.round(maxElevation)}m`)
-=======
     .text(`⏶ ${Math.round(actualMaxElevation)}m`)
->>>>>>> 5866a18 (feat: Update elevation SVG labels and layout)
     .amove(SVG_WIDTH / 2, keyElevationsY)
     .addClass("keyElevationLabel")
     .font({ anchor: "middle" });
