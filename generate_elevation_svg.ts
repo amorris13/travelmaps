@@ -221,7 +221,7 @@ async function main() {
           distanceStream = stage.strava_data.distance_stream;
         }
 
-        await generateElevationSvg(trip, stage, i, elevationStream, distanceStream);
+        await generateElevationSvg(trip, stage, i + 1, elevationStream, distanceStream);
       }
     }
   }
