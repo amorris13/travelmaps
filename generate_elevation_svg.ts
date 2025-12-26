@@ -88,52 +88,56 @@ function generateElevationSvg(
     .fill("none")
     .stroke({ color: "#C61016", width: 2, linecap: "round", linejoin: "round" });
 
+  canvas.style().rule(".label", {
+    fontFamily: "Helvetica Neue, sans-serif",
+    fontSize: "16px",
+    fontWeight: 300,
+    "letter-spacing": "0.05em",
+    "dominant-baseline": "alphabetical",
+  });
+
   if (stageMarkers) {
-    for (const marker of stageMarkers) {
+    for (const [i, marker] of stageMarkers.entries()) {
       const x = (marker.distance / maxDistance) * plotWidth + LEFT_PADDING;
+      const xNext =
+        ((stageMarkers[i + 1]?.distance || maxDistance) / maxDistance) * plotWidth + LEFT_PADDING;
       canvas
         .line(x, TOP_PADDING, x, svgHeight - BOTTOM_PADDING)
-        .stroke({ color: "#cccccc", width: 1, dasharray: "4 2" });
+        .stroke({ color: "#b0b0b0", width: 1, dasharray: "2 4" });
       canvas
         .text(marker.label)
-        .amove(x + 5, TOP_PADDING + 5)
-        .font({ family: "Helvetica Neue, sans-serif", size: 12 });
+        .amove((x + xNext) / 2, TOP_PADDING + 15)
+        .addClass("label")
+        .font({ anchor: "middle" });
     }
-  } else {
-    // Key elevations
-    const keyElevationsY = svgHeight - 5; // Position labels near the bottom
-    canvas.style().rule(".keyElevationLabel", {
-      fontFamily: "Helvetica Neue, sans-serif",
-      fontSize: "16px",
-      fontWeight: 300,
-      "letter-spacing": "0.05em",
-      "dominant-baseline": "alphabetical",
-    });
-
-    // Start elevation
-    const startElevation = clampedElevationData[0];
-    canvas
-      .text(`${Math.round(startElevation)}m`)
-      .amove(LEFT_PADDING, keyElevationsY)
-      .addClass("keyElevationLabel")
-      .font({ anchor: "start" });
-
-    // Peak elevation
-    const actualMaxElevation = Math.max(...clampedElevationData);
-    canvas
-      .text(`⏶ ${Math.round(actualMaxElevation)}m`)
-      .amove(svgWidth / 2, keyElevationsY)
-      .addClass("keyElevationLabel")
-      .font({ anchor: "middle" });
-
-    // End elevation
-    const endElevation = clampedElevationData[clampedElevationData.length - 1];
-    canvas
-      .text(`${Math.round(endElevation)}m`)
-      .amove(svgWidth - RIGHT_PADDING, keyElevationsY)
-      .addClass("keyElevationLabel")
-      .font({ anchor: "end" });
   }
+
+  // Key elevations
+  const keyElevationsY = svgHeight - 5; // Position labels near the bottom
+
+  // Start elevation
+  const startElevation = clampedElevationData[0];
+  canvas
+    .text(`${Math.round(startElevation)}m`)
+    .amove(LEFT_PADDING, keyElevationsY)
+    .addClass("label")
+    .font({ anchor: "start" });
+
+  // Peak elevation
+  const actualMaxElevation = Math.max(...clampedElevationData);
+  canvas
+    .text(`⏶ ${Math.round(actualMaxElevation)}m`)
+    .amove(svgWidth / 2, keyElevationsY)
+    .addClass("label")
+    .font({ anchor: "middle" });
+
+  // End elevation
+  const endElevation = clampedElevationData[clampedElevationData.length - 1];
+  canvas
+    .text(`${Math.round(endElevation)}m`)
+    .amove(svgWidth - RIGHT_PADDING, keyElevationsY)
+    .addClass("label")
+    .font({ anchor: "end" });
 
   // Add distance labels with ticks
   // const numVerticalTicks = 4;
@@ -248,8 +252,8 @@ async function main() {
         tripDistanceData = tripDistanceData.concat(
           distanceStream.map((d) => d + cumulativeDistance)
         );
+        stageMarkers.push({ distance: cumulativeDistance, label: `${i + 1}` });
         cumulativeDistance += lastDistance;
-        stageMarkers.push({ distance: cumulativeDistance, label: `Stage ${i + 1}` });
       }
     }
 
