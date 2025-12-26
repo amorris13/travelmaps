@@ -200,7 +200,8 @@ async function main() {
 
   for (const trip of travelsJson) {
     if (!trip.stages) continue;
-    for (const [i, stage] of trip.stages.entries()) {
+    const filteredStages = trip.stages.filter((stage) => stage.strava_data);
+    for (const [i, stage] of filteredStages.entries()) {
       if (
         stage.strava_data &&
         stage.strava_data.elevation_stream &&

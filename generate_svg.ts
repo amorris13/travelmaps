@@ -681,10 +681,12 @@ async function processStageMaps(
   await fs.mkdir("output", { recursive: true });
 
   // Process each stage individually
+  let j = 1;
   for (let i = 1; i < tripJson.stages.length; i++) {
     const stage = tripJson.stages[i];
+    if (!stage.strava_data) continue;
     stage.startLocation = tripJson.stages[i - 1].endLocation;
-    const stageFilename = `${tripFilename}-stage-${i}`;
+    const stageFilename = `${tripFilename}-stage-${j++}`;
 
     await processStage(stageFilename, tripJson.name, stage, fetchStaticMap);
   }
