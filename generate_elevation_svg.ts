@@ -31,17 +31,17 @@ async function generateElevationSvg(
   distanceData: number[]
 ) {
   const SVG_WIDTH = 600;
-  const SVG_HEIGHT = 150;
-  const LEFT_PADDING = 70;
-  const RIGHT_PADDING = 10;
+  const SVG_HEIGHT = 200;
+  const LEFT_PADDING = 5;
+  const RIGHT_PADDING = 5;
   const TOP_PADDING = 10;
-  const BOTTOM_PADDING = 10;
+  const BOTTOM_PADDING = 25;
 
   const canvas = SVG.SVG().size(SVG_WIDTH, SVG_HEIGHT);
 
   const clampedElevationData = elevationData.map((e) => Math.max(0, e));
   const maxElevation = Math.max(Math.max(...clampedElevationData), 200);
-  const minElevation = Math.min(...clampedElevationData);
+  const minElevation = 0;
   const elevationRange = maxElevation - minElevation;
 
   const maxDistance = Math.max(...distanceData);
@@ -80,9 +80,9 @@ async function generateElevationSvg(
   // Create a path for the fill area
   const fillPathString =
     pathString +
-    ` L ${simplifiedPoints[simplifiedPoints.length - 1][0]} ${
-      SVG_HEIGHT - BOTTOM_PADDING
-    } L ${simplifiedPoints[0][0]} ${SVG_HEIGHT - BOTTOM_PADDING} Z`;
+    ` L ${simplifiedPoints[simplifiedPoints.length - 1][0]} ${SVG_HEIGHT - BOTTOM_PADDING} L ${
+      simplifiedPoints[0][0]
+    } ${SVG_HEIGHT - BOTTOM_PADDING} Z`;
   canvas.path(fillPathString).fill(gradient).stroke("none");
 
   canvas
@@ -90,27 +90,39 @@ async function generateElevationSvg(
     .fill("none")
     .stroke({ color: "#C61016", width: 2, linecap: "round", linejoin: "round" });
 
-  // Add elevation labels
-  canvas.style().rule(".axisLabel", {
+  // Key elevations
+  const keyElevationsY = SVG_HEIGHT - 5; // Position labels near the bottom
+  canvas.style().rule(".keyElevationLabel", {
     fontFamily: "Helvetica Neue, sans-serif",
     fontSize: "16px",
     fontWeight: 300,
     "letter-spacing": "0.05em",
+    "dominant-baseline": "alphabetical",
   });
-  canvas.style().rule(".verticalAxisLabel", {
-    textAnchor: "end",
-    "dominant-baseline": "middle",
-  });
+
+  // Start elevation
+  const startElevation = clampedElevationData[0];
   canvas
-    .text(`${Math.round(maxElevation)}m`)
-    .amove(LEFT_PADDING - 5, TOP_PADDING)
-    .addClass("axisLabel")
-    .addClass("verticalAxisLabel");
+    .text(`${Math.round(startElevation)}m`)
+    .amove(LEFT_PADDING, keyElevationsY)
+    .addClass("keyElevationLabel")
+    .font({ anchor: "start" });
+
+  // Peak elevation
+  const actualMaxElevation = Math.max(...clampedElevationData);
   canvas
-    .text(`${Math.round(minElevation)}m`)
-    .amove(LEFT_PADDING - 5, SVG_HEIGHT - BOTTOM_PADDING)
-    .addClass("axisLabel")
-    .addClass("verticalAxisLabel");
+    .text(`⏶ ${Math.round(actualMaxElevation)}m`)
+    .amove(SVG_WIDTH / 2, keyElevationsY)
+    .addClass("keyElevationLabel")
+    .font({ anchor: "middle" });
+
+  // End elevation
+  const endElevation = clampedElevationData[clampedElevationData.length - 1];
+  canvas
+    .text(`${Math.round(endElevation)}m`)
+    .amove(SVG_WIDTH - RIGHT_PADDING, keyElevationsY)
+    .addClass("keyElevationLabel")
+    .font({ anchor: "end" });
 
   // Add distance labels with ticks
   // const numVerticalTicks = 4;
