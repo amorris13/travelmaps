@@ -41,7 +41,7 @@ async function generateElevationSvg(
 
   const clampedElevationData = elevationData.map((e) => Math.max(0, e));
   const maxElevation = Math.max(Math.max(...clampedElevationData), 200);
-  const minElevation = Math.min(...clampedElevationData);
+  const minElevation = 0;
   const elevationRange = maxElevation - minElevation;
 
   const maxDistance = Math.max(...distanceData);
