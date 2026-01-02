@@ -106,6 +106,29 @@ function generateElevationSvg(
     .fill("none")
     .stroke({ color: "#C61016", width: 2, linecap: "round", linejoin: "round" });
 
+  // Add max elevation indicator
+  const maxElevationIndex = clampedElevationData.indexOf(Math.max(...clampedElevationData));
+  const maxElevationPoint = points[maxElevationIndex];
+
+  // Use a filled triangle for the max elevation indicator
+  const triangleSize = 10;
+  const cx = maxElevationPoint.x;
+  const cy = maxElevationPoint.y;
+
+  // Points for an upward-pointing equilateral triangle centered at (cx, cy)
+  const trianglePoints = [
+    [cx, cy - triangleSize * (Math.sqrt(3) / 3)], // Top vertex
+    [cx - triangleSize / 2, cy + triangleSize * (Math.sqrt(3) / 6)], // Bottom-left vertex
+    [cx + triangleSize / 2, cy + triangleSize * (Math.sqrt(3) / 6)], // Bottom-right vertex
+  ]
+    .map(([x, y]) => `${x},${y}`)
+    .join(" ");
+
+  canvas
+    .polygon(trianglePoints)
+    .fill("#C61016")
+    .stroke({ color: "white", width: 2, linejoin: "round" });
+
   svgY += plotHeight;
 
   canvas.style().rule(".label", {
@@ -128,7 +151,7 @@ function generateElevationSvg(
       let hasHigherLeft = false;
       // Scan left
       for (let j = i - 1; j >= 0; j--) {
-        if (clampedElevationData[j] > elevation) {
+        if (clampedElevationData[j] >= elevation) {
           hasHigherLeft = true;
           break;
         }
@@ -163,14 +186,22 @@ function generateElevationSvg(
       }
 
       if (prominence >= minProminence) {
-        const x = points[i].x;
+        let x = points[i].x;
+        let anchor = "middle";
+        if (x < 25) {
+          x = 0;
+          anchor = "start";
+        } else if (x > svgWidth - 25) {
+          x = svgWidth;
+          anchor = "end";
+        }
         const labelY = points[i].y - 5;
 
         canvas
           .text(`${Math.round(elevation)}m`)
           .amove(x, labelY)
           .addClass("label")
-          .font({ anchor: "middle" });
+          .font({ anchor });
       }
     }
   }
@@ -246,29 +277,6 @@ function generateElevationSvg(
       .font({ anchor: "end" });
   }
 
-  // Add max elevation indicator
-  const maxElevationIndex = clampedElevationData.indexOf(Math.max(...clampedElevationData));
-  const maxElevationPoint = points[maxElevationIndex];
-
-  // Use a filled triangle for the max elevation indicator
-  const triangleSize = 10;
-  const cx = maxElevationPoint.x;
-  const cy = maxElevationPoint.y;
-
-  // Points for an upward-pointing equilateral triangle centered at (cx, cy)
-  const trianglePoints = [
-    [cx, cy - triangleSize * (Math.sqrt(3) / 3)], // Top vertex
-    [cx - triangleSize / 2, cy + triangleSize * (Math.sqrt(3) / 6)], // Bottom-left vertex
-    [cx + triangleSize / 2, cy + triangleSize * (Math.sqrt(3) / 6)], // Bottom-right vertex
-  ]
-    .map(([x, y]) => `${x},${y}`)
-    .join(" ");
-
-  canvas
-    .polygon(trianglePoints)
-    .fill("#C61016")
-    .stroke({ color: "white", width: 2, linejoin: "round" });
-
   return pretty(canvas.svg());
 }
 
@@ -323,7 +331,7 @@ async function main() {
 
         const svgContent = generateElevationSvg(elevationStream, distanceStream, 600, 180, {
           horizontalGridlines: true,
-          showKeyElevations: true,
+          labelProminentElevations: { minProminence: 100 },
         });
 
         const tripYear = new Date(trip.startDate).getFullYear();
