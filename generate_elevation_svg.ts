@@ -13,6 +13,7 @@ const OUTPUT_DIR = "./output";
 const PADDING = 5;
 const KEY_ELEVATIONS_HEIGHT = 20;
 const STAGE_MARKERS_HEIGHT = 15;
+const PROMINENT_ELEVATION_LABELS_HEIGHT = 15;
 
 // We need to extend the Element prototype with the namespaces for svgdom
 const window = createSVGWindow();
@@ -35,17 +36,23 @@ function generateElevationSvg(
   options?: {
     stageMarkers?: { distance: number; label: string }[];
     horizontalGridlines?: boolean;
+    labelProminentElevations?: {
+      minProminence?: number;
+    };
     showKeyElevations?: boolean;
   }
 ): string {
   const svgWidth = PADDING + plotWidth + PADDING;
   const svgHeight =
     PADDING +
+    (options?.labelProminentElevations ? PROMINENT_ELEVATION_LABELS_HEIGHT : 0) +
     plotHeight +
     (options?.stageMarkers ? STAGE_MARKERS_HEIGHT : 0) +
     (options?.showKeyElevations ? KEY_ELEVATIONS_HEIGHT : 0) +
     PADDING;
   const canvas = SVG.SVG().size(svgWidth, svgHeight);
+
+  let svgY = PADDING;
 
   const clampedElevationData = elevationData.map((e) => Math.max(0, e));
   const maxElevation = Math.max(Math.max(...clampedElevationData), 200);
@@ -54,9 +61,13 @@ function generateElevationSvg(
 
   const maxDistance = Math.max(...distanceData);
 
+  if (options?.labelProminentElevations) {
+    svgY += PROMINENT_ELEVATION_LABELS_HEIGHT;
+  }
+
   const points = clampedElevationData.map((elevation, index) => {
     const x = (distanceData[index] / maxDistance) * plotWidth + PADDING;
-    const y = (1 - (elevation - minElevation) / elevationRange) * plotHeight + PADDING;
+    const y = (1 - (elevation - minElevation) / elevationRange) * plotHeight + svgY;
     return { x, y };
   });
 
@@ -67,7 +78,7 @@ function generateElevationSvg(
     const gridlineColor = "#e0e0e0";
     const numHorizontalGridlines = 4;
     for (let i = 0; i < numHorizontalGridlines; i++) {
-      const y = PADDING + (i / (numHorizontalGridlines - 1)) * plotHeight;
+      const y = svgY + (i / (numHorizontalGridlines - 1)) * plotHeight;
       canvas.line(PADDING, y, plotWidth - PADDING, y).stroke({ color: gridlineColor, width: 1 });
     }
   }
@@ -85,15 +96,17 @@ function generateElevationSvg(
   // Create a path for the fill area
   const fillPathString =
     pathString +
-    ` L ${simplifiedPoints[simplifiedPoints.length - 1][0]} ${plotHeight + PADDING} L ${
+    ` L ${simplifiedPoints[simplifiedPoints.length - 1][0]} ${plotHeight + svgY} L ${
       simplifiedPoints[0][0]
-    } ${plotHeight + PADDING} Z`;
+    } ${plotHeight + svgY} Z`;
   canvas.path(fillPathString).fill(gradient).stroke("none");
 
   canvas
     .path(pathString)
     .fill("none")
     .stroke({ color: "#C61016", width: 2, linecap: "round", linejoin: "round" });
+
+  svgY += plotHeight;
 
   canvas.style().rule(".label", {
     fontFamily: "Helvetica Neue, sans-serif",
@@ -103,7 +116,64 @@ function generateElevationSvg(
     "dominant-baseline": "alphabetical",
   });
 
-  let y = PADDING + plotHeight;
+  if (options?.labelProminentElevations) {
+    // Calculate most prominent elevations based on the 1D elevation profile
+
+    const minProminence = options.labelProminentElevations.minProminence ?? 30;
+
+    for (let i = 0; i < clampedElevationData.length; i++) {
+      const elevation = clampedElevationData[i];
+
+      let minLeft = elevation;
+      let hasHigherLeft = false;
+      // Scan left
+      for (let j = i - 1; j >= 0; j--) {
+        if (clampedElevationData[j] > elevation) {
+          hasHigherLeft = true;
+          break;
+        }
+        if (clampedElevationData[j] < minLeft) {
+          minLeft = clampedElevationData[j];
+        }
+      }
+
+      let minRight = elevation;
+      let hasHigherRight = false;
+      // Scan right
+      for (let j = i + 1; j < clampedElevationData.length; j++) {
+        if (clampedElevationData[j] > elevation) {
+          hasHigherRight = true;
+          break;
+        }
+        if (clampedElevationData[j] < minRight) {
+          minRight = clampedElevationData[j];
+        }
+      }
+
+      let prominence = 0;
+      if (hasHigherLeft && hasHigherRight) {
+        prominence = elevation - Math.max(minLeft, minRight);
+      } else if (hasHigherLeft) {
+        prominence = elevation - minLeft;
+      } else if (hasHigherRight) {
+        prominence = elevation - minRight;
+      } else {
+        // Global maximum
+        prominence = Infinity;
+      }
+
+      if (prominence >= minProminence) {
+        const x = points[i].x;
+        const labelY = points[i].y - 5;
+
+        canvas
+          .text(`${Math.round(elevation)}m`)
+          .amove(x, labelY)
+          .addClass("label")
+          .font({ anchor: "middle" });
+      }
+    }
+  }
 
   if (options?.stageMarkers) {
     const stageMarkers = options.stageMarkers;
@@ -112,20 +182,20 @@ function generateElevationSvg(
       const x = (marker.distance / maxDistance) * plotWidth + PADDING;
       const xNext =
         ((stageMarkers[i + 1]?.distance || maxDistance) / maxDistance) * plotWidth + PADDING;
-      canvas.line(x, y, x, y + 5).stroke({ color, width: 1 });
+      canvas.line(x, svgY, x, svgY + 5).stroke({ color, width: 1 });
       const elevationY = points[distanceData.findIndex((value) => value >= marker.distance)];
-      canvas
-        .line(x, y, x, y - plotHeight + elevationY.y)
-        .stroke({ color, width: 1, dasharray: "2 4" });
+      canvas.line(x, svgY, x, elevationY.y).stroke({ color, width: 1, dasharray: "2 4" });
       canvas
         .text(marker.label)
-        .amove((x + xNext) / 2, y + 15)
+        .amove((x + xNext) / 2, svgY + 15)
         .addClass("label")
         .font({ anchor: "middle" });
     }
-    canvas.line(plotWidth + PADDING, y, plotWidth + PADDING, y + 5).stroke({ color, width: 1 });
+    canvas
+      .line(plotWidth + PADDING, svgY, plotWidth + PADDING, svgY + 5)
+      .stroke({ color, width: 1 });
 
-    y += STAGE_MARKERS_HEIGHT;
+    svgY += STAGE_MARKERS_HEIGHT;
   }
 
   // Add distance labels with ticks
@@ -149,13 +219,13 @@ function generateElevationSvg(
 
   // Key elevations
   if (options?.showKeyElevations) {
-    y += KEY_ELEVATIONS_HEIGHT;
+    svgY += KEY_ELEVATIONS_HEIGHT;
 
     // Start elevation
     const startElevation = clampedElevationData[0];
     canvas
       .text(`${Math.round(startElevation)}m`)
-      .amove(PADDING, y)
+      .amove(PADDING, svgY)
       .addClass("label")
       .font({ anchor: "start" });
 
@@ -163,7 +233,7 @@ function generateElevationSvg(
     const actualMaxElevation = Math.max(...clampedElevationData);
     canvas
       .text(`⏶ ${Math.round(actualMaxElevation)}m`)
-      .amove(plotWidth / 2, y)
+      .amove(plotWidth / 2, svgY)
       .addClass("label")
       .font({ anchor: "middle" });
 
@@ -171,7 +241,7 @@ function generateElevationSvg(
     const endElevation = clampedElevationData[clampedElevationData.length - 1];
     canvas
       .text(`${Math.round(endElevation)}m`)
-      .amove(plotWidth - PADDING, y)
+      .amove(plotWidth - PADDING, svgY)
       .addClass("label")
       .font({ anchor: "end" });
   }
@@ -281,6 +351,7 @@ async function main() {
     if (tripElevationData.length > 0) {
       const svgContent = generateElevationSvg(tripElevationData, tripDistanceData, 1600, 200, {
         stageMarkers,
+        labelProminentElevations: { minProminence: 300 },
       });
       const tripYear = new Date(trip.startDate).getFullYear();
       const filename = `${tripYear}-${toSnakeCase(trip.name)}-elevation.svg`;
