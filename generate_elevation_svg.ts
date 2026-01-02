@@ -10,6 +10,9 @@ import simplify from "simplify-js";
 const FILENAME = "./travels.json";
 const OUTPUT_DIR = "./output";
 
+const PADDING = 5;
+const KEY_ELEVATIONS_HEIGHT = 20;
+
 // We need to extend the Element prototype with the namespaces for svgdom
 const window = createSVGWindow();
 const document = window.document;
@@ -26,18 +29,17 @@ function toSnakeCase(str: string): string {
 function generateElevationSvg(
   elevationData: number[],
   distanceData: number[],
-  svgWidth: number,
-  svgHeight: number,
+  plotWidth: number,
+  plotHeight: number,
   options?: {
     stageMarkers?: { distance: number; label: string }[];
     horizontalGridlines?: boolean;
     showKeyElevations?: boolean;
   }
 ): string {
-  const LEFT_PADDING = 5;
-  const RIGHT_PADDING = 5;
-  const TOP_PADDING = 10;
-  const BOTTOM_PADDING = 25;
+  const svgWidth = plotWidth + PADDING * 2;
+  const svgHeight =
+    plotHeight + PADDING * 2 + (options?.showKeyElevations ? KEY_ELEVATIONS_HEIGHT : 0);
 
   const canvas = SVG.SVG().size(svgWidth, svgHeight);
 
@@ -48,12 +50,9 @@ function generateElevationSvg(
 
   const maxDistance = Math.max(...distanceData);
 
-  const plotWidth = svgWidth - LEFT_PADDING - RIGHT_PADDING;
-  const plotHeight = svgHeight - TOP_PADDING - BOTTOM_PADDING;
-
   const points = clampedElevationData.map((elevation, index) => {
-    const x = (distanceData[index] / maxDistance) * plotWidth + LEFT_PADDING;
-    const y = (1 - (elevation - minElevation) / elevationRange) * plotHeight + TOP_PADDING;
+    const x = (distanceData[index] / maxDistance) * plotWidth + PADDING;
+    const y = (1 - (elevation - minElevation) / elevationRange) * plotHeight + PADDING;
     return { x, y };
   });
 
@@ -64,10 +63,8 @@ function generateElevationSvg(
     const gridlineColor = "#e0e0e0";
     const numHorizontalGridlines = 4;
     for (let i = 0; i < numHorizontalGridlines; i++) {
-      const y = TOP_PADDING + (i / (numHorizontalGridlines - 1)) * plotHeight;
-      canvas
-        .line(LEFT_PADDING, y, svgWidth - RIGHT_PADDING, y)
-        .stroke({ color: gridlineColor, width: 1 });
+      const y = PADDING + (i / (numHorizontalGridlines - 1)) * plotHeight;
+      canvas.line(PADDING, y, plotWidth - PADDING, y).stroke({ color: gridlineColor, width: 1 });
     }
   }
 
@@ -84,9 +81,9 @@ function generateElevationSvg(
   // Create a path for the fill area
   const fillPathString =
     pathString +
-    ` L ${simplifiedPoints[simplifiedPoints.length - 1][0]} ${svgHeight - BOTTOM_PADDING} L ${
+    ` L ${simplifiedPoints[simplifiedPoints.length - 1][0]} ${plotHeight + PADDING} L ${
       simplifiedPoints[0][0]
-    } ${svgHeight - BOTTOM_PADDING} Z`;
+    } ${plotHeight + PADDING} Z`;
   canvas.path(fillPathString).fill(gradient).stroke("none");
 
   canvas
@@ -105,15 +102,15 @@ function generateElevationSvg(
   if (options?.stageMarkers) {
     const stageMarkers = options.stageMarkers;
     for (const [i, marker] of stageMarkers.entries()) {
-      const x = (marker.distance / maxDistance) * plotWidth + LEFT_PADDING;
+      const x = (marker.distance / maxDistance) * plotWidth + PADDING;
       const xNext =
-        ((stageMarkers[i + 1]?.distance || maxDistance) / maxDistance) * plotWidth + LEFT_PADDING;
+        ((stageMarkers[i + 1]?.distance || maxDistance) / maxDistance) * plotWidth + PADDING;
       canvas
-        .line(x, TOP_PADDING, x, svgHeight - BOTTOM_PADDING)
+        .line(x, PADDING, x, plotHeight + PADDING)
         .stroke({ color: "#b0b0b0", width: 1, dasharray: "2 4" });
       canvas
         .text(marker.label)
-        .amove((x + xNext) / 2, TOP_PADDING + 15)
+        .amove((x + xNext) / 2, PADDING + 15)
         .addClass("label")
         .font({ anchor: "middle" });
     }
@@ -121,13 +118,13 @@ function generateElevationSvg(
 
   // Key elevations
   if (options?.showKeyElevations) {
-    const keyElevationsY = svgHeight - 5; // Position labels near the bottom
+    const keyElevationsY = plotHeight + PADDING + KEY_ELEVATIONS_HEIGHT; // Position labels near the bottom
 
     // Start elevation
     const startElevation = clampedElevationData[0];
     canvas
       .text(`${Math.round(startElevation)}m`)
-      .amove(LEFT_PADDING, keyElevationsY)
+      .amove(PADDING, keyElevationsY)
       .addClass("label")
       .font({ anchor: "start" });
 
@@ -135,7 +132,7 @@ function generateElevationSvg(
     const actualMaxElevation = Math.max(...clampedElevationData);
     canvas
       .text(`⏶ ${Math.round(actualMaxElevation)}m`)
-      .amove(svgWidth / 2, keyElevationsY)
+      .amove(plotWidth / 2, keyElevationsY)
       .addClass("label")
       .font({ anchor: "middle" });
 
@@ -143,7 +140,7 @@ function generateElevationSvg(
     const endElevation = clampedElevationData[clampedElevationData.length - 1];
     canvas
       .text(`${Math.round(endElevation)}m`)
-      .amove(svgWidth - RIGHT_PADDING, keyElevationsY)
+      .amove(plotWidth - PADDING, keyElevationsY)
       .addClass("label")
       .font({ anchor: "end" });
   }
@@ -242,7 +239,7 @@ async function main() {
           distanceStream = stage.strava_data.distance_stream;
         }
 
-        const svgContent = generateElevationSvg(elevationStream, distanceStream, 600, 200, {
+        const svgContent = generateElevationSvg(elevationStream, distanceStream, 600, 180, {
           horizontalGridlines: true,
           showKeyElevations: true,
         });
