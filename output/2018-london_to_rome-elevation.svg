@@ -1,8 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="1600" height="200">
-  <line x1="5" y1="10" x2="1595" y2="10" stroke-width="1" stroke="#e0e0e0"></line>
-  <line x1="5" y1="65" x2="1595" y2="65" stroke-width="1" stroke="#e0e0e0"></line>
-  <line x1="5" y1="120" x2="1595" y2="120" stroke-width="1" stroke="#e0e0e0"></line>
-  <line x1="5" y1="175" x2="1595" y2="175" stroke-width="1" stroke="#e0e0e0"></line>
   <defs>
     <linearGradient x1="0" y1="0" x2="0" y2="1" id="SvgjsLinearGradient1032">
       <stop stop-opacity="1" stop-color="#ffcccb" offset="0"></stop>
@@ -115,12 +111,6 @@
   </text>
   <line x1="1539.8048462222757" y1="10" x2="1539.8048462222757" y2="175" stroke-dasharray="2 4" stroke-width="1" stroke="#b0b0b0"></line><text x="1567.402423111138" y="25" class="label" text-anchor="middle">
     <tspan dy="0" x="1567.402423111138">32</tspan>
-  </text><text x="5" y="195" class="label" text-anchor="start">
-    <tspan dy="0" x="5">48m</tspan>
-  </text><text x="800" y="195" class="label" text-anchor="middle">
-    <tspan dy="0" x="800">⏶ 2094m</tspan>
-  </text><text x="1595" y="195" class="label" text-anchor="end">
-    <tspan dy="0" x="1595">22m</tspan>
   </text>
   <polygon points="881.7025992053647,4.226497308103743 876.7025992053647,12.886751345948129 886.7025992053647,12.886751345948129" fill="#c61016" stroke-linejoin="round" stroke-width="2" stroke="white"></polygon>
 </svg>

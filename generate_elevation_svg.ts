@@ -28,7 +28,11 @@ function generateElevationSvg(
   distanceData: number[],
   svgWidth: number,
   svgHeight: number,
-  stageMarkers?: { distance: number; label: string }[]
+  options?: {
+    stageMarkers?: { distance: number; label: string }[];
+    horizontalGridlines?: boolean;
+    showKeyElevations?: boolean;
+  }
 ): string {
   const LEFT_PADDING = 5;
   const RIGHT_PADDING = 5;
@@ -55,14 +59,16 @@ function generateElevationSvg(
 
   const simplifiedPoints = simplify(points, 0.1, true).map(({ x, y }) => [x, y]);
 
-  // Add gridlines
-  const gridlineColor = "#e0e0e0";
-  const numHorizontalGridlines = 4;
-  for (let i = 0; i < numHorizontalGridlines; i++) {
-    const y = TOP_PADDING + (i / (numHorizontalGridlines - 1)) * plotHeight;
-    canvas
-      .line(LEFT_PADDING, y, svgWidth - RIGHT_PADDING, y)
-      .stroke({ color: gridlineColor, width: 1 });
+  if (options?.horizontalGridlines) {
+    // Add gridlines
+    const gridlineColor = "#e0e0e0";
+    const numHorizontalGridlines = 4;
+    for (let i = 0; i < numHorizontalGridlines; i++) {
+      const y = TOP_PADDING + (i / (numHorizontalGridlines - 1)) * plotHeight;
+      canvas
+        .line(LEFT_PADDING, y, svgWidth - RIGHT_PADDING, y)
+        .stroke({ color: gridlineColor, width: 1 });
+    }
   }
 
   // Create a path from the points
@@ -96,7 +102,8 @@ function generateElevationSvg(
     "dominant-baseline": "alphabetical",
   });
 
-  if (stageMarkers) {
+  if (options?.stageMarkers) {
+    const stageMarkers = options.stageMarkers;
     for (const [i, marker] of stageMarkers.entries()) {
       const x = (marker.distance / maxDistance) * plotWidth + LEFT_PADDING;
       const xNext =
@@ -113,31 +120,33 @@ function generateElevationSvg(
   }
 
   // Key elevations
-  const keyElevationsY = svgHeight - 5; // Position labels near the bottom
+  if (options?.showKeyElevations) {
+    const keyElevationsY = svgHeight - 5; // Position labels near the bottom
 
-  // Start elevation
-  const startElevation = clampedElevationData[0];
-  canvas
-    .text(`${Math.round(startElevation)}m`)
-    .amove(LEFT_PADDING, keyElevationsY)
-    .addClass("label")
-    .font({ anchor: "start" });
+    // Start elevation
+    const startElevation = clampedElevationData[0];
+    canvas
+      .text(`${Math.round(startElevation)}m`)
+      .amove(LEFT_PADDING, keyElevationsY)
+      .addClass("label")
+      .font({ anchor: "start" });
 
-  // Peak elevation
-  const actualMaxElevation = Math.max(...clampedElevationData);
-  canvas
-    .text(`⏶ ${Math.round(actualMaxElevation)}m`)
-    .amove(svgWidth / 2, keyElevationsY)
-    .addClass("label")
-    .font({ anchor: "middle" });
+    // Peak elevation
+    const actualMaxElevation = Math.max(...clampedElevationData);
+    canvas
+      .text(`⏶ ${Math.round(actualMaxElevation)}m`)
+      .amove(svgWidth / 2, keyElevationsY)
+      .addClass("label")
+      .font({ anchor: "middle" });
 
-  // End elevation
-  const endElevation = clampedElevationData[clampedElevationData.length - 1];
-  canvas
-    .text(`${Math.round(endElevation)}m`)
-    .amove(svgWidth - RIGHT_PADDING, keyElevationsY)
-    .addClass("label")
-    .font({ anchor: "end" });
+    // End elevation
+    const endElevation = clampedElevationData[clampedElevationData.length - 1];
+    canvas
+      .text(`${Math.round(endElevation)}m`)
+      .amove(svgWidth - RIGHT_PADDING, keyElevationsY)
+      .addClass("label")
+      .font({ anchor: "end" });
+  }
 
   // Add distance labels with ticks
   // const numVerticalTicks = 4;
@@ -233,7 +242,10 @@ async function main() {
           distanceStream = stage.strava_data.distance_stream;
         }
 
-        const svgContent = generateElevationSvg(elevationStream, distanceStream, 600, 200);
+        const svgContent = generateElevationSvg(elevationStream, distanceStream, 600, 200, {
+          horizontalGridlines: true,
+          showKeyElevations: true,
+        });
 
         const tripYear = new Date(trip.startDate).getFullYear();
         const filename = `${tripYear}-${toSnakeCase(trip.name)}-stage-${i + 1}-elevation.svg`;
@@ -258,13 +270,9 @@ async function main() {
     }
 
     if (tripElevationData.length > 0) {
-      const svgContent = generateElevationSvg(
-        tripElevationData,
-        tripDistanceData,
-        1600,
-        200,
-        stageMarkers
-      );
+      const svgContent = generateElevationSvg(tripElevationData, tripDistanceData, 1600, 200, {
+        stageMarkers,
+      });
       const tripYear = new Date(trip.startDate).getFullYear();
       const filename = `${tripYear}-${toSnakeCase(trip.name)}-elevation.svg`;
       const filepath = `${OUTPUT_DIR}/${filename}`;
