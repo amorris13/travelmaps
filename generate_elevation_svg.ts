@@ -359,7 +359,7 @@ async function main() {
     if (tripElevationData.length > 0) {
       const svgContent = generateElevationSvg(tripElevationData, tripDistanceData, 1600, 200, {
         stageMarkers,
-        labelProminentElevations: { minProminence: 300 },
+        labelProminentElevations: { minProminence: 250 },
       });
       const tripYear = new Date(trip.startDate).getFullYear();
       const filename = `${tripYear}-${toSnakeCase(trip.name)}-elevation.svg`;
