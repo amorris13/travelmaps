@@ -73,8 +73,8 @@ function generateElevationSvg(
 
   // Create a gradient fill
   const gradient = canvas.gradient("linear", function (add) {
-    add.stop({ offset: 0, color: "#ffcccb", opacity: 1 });
-    add.stop({ offset: 1, color: "#ffffff", opacity: 1 });
+    add.stop({ offset: 0, color: "#ec9598", opacity: 1 });
+    add.stop({ offset: 1, color: "#ffe8e9", opacity: 1 });
   });
   gradient.from(0, 0).to(0, 1);
 
