@@ -12,6 +12,7 @@ const OUTPUT_DIR = "./output";
 
 const PADDING = 5;
 const KEY_ELEVATIONS_HEIGHT = 20;
+const STAGE_MARKERS_HEIGHT = 15;
 
 // We need to extend the Element prototype with the namespaces for svgdom
 const window = createSVGWindow();
@@ -37,10 +38,13 @@ function generateElevationSvg(
     showKeyElevations?: boolean;
   }
 ): string {
-  const svgWidth = plotWidth + PADDING * 2;
+  const svgWidth = PADDING + plotWidth + PADDING;
   const svgHeight =
-    plotHeight + PADDING * 2 + (options?.showKeyElevations ? KEY_ELEVATIONS_HEIGHT : 0);
-
+    PADDING +
+    plotHeight +
+    (options?.stageMarkers ? STAGE_MARKERS_HEIGHT : 0) +
+    (options?.showKeyElevations ? KEY_ELEVATIONS_HEIGHT : 0) +
+    PADDING;
   const canvas = SVG.SVG().size(svgWidth, svgHeight);
 
   const clampedElevationData = elevationData.map((e) => Math.max(0, e));
@@ -99,50 +103,29 @@ function generateElevationSvg(
     "dominant-baseline": "alphabetical",
   });
 
+  let y = PADDING + plotHeight;
+
   if (options?.stageMarkers) {
     const stageMarkers = options.stageMarkers;
+    const color = "#808080";
     for (const [i, marker] of stageMarkers.entries()) {
       const x = (marker.distance / maxDistance) * plotWidth + PADDING;
       const xNext =
         ((stageMarkers[i + 1]?.distance || maxDistance) / maxDistance) * plotWidth + PADDING;
+      canvas.line(x, y, x, y + 5).stroke({ color, width: 1 });
+      const elevationY = points[distanceData.findIndex((value) => value >= marker.distance)];
       canvas
-        .line(x, PADDING, x, plotHeight + PADDING)
-        .stroke({ color: "#b0b0b0", width: 1, dasharray: "2 4" });
+        .line(x, y, x, y - plotHeight + elevationY.y)
+        .stroke({ color, width: 1, dasharray: "2 4" });
       canvas
         .text(marker.label)
-        .amove((x + xNext) / 2, PADDING + 15)
+        .amove((x + xNext) / 2, y + 15)
         .addClass("label")
         .font({ anchor: "middle" });
     }
-  }
+    canvas.line(plotWidth + PADDING, y, plotWidth + PADDING, y + 5).stroke({ color, width: 1 });
 
-  // Key elevations
-  if (options?.showKeyElevations) {
-    const keyElevationsY = plotHeight + PADDING + KEY_ELEVATIONS_HEIGHT; // Position labels near the bottom
-
-    // Start elevation
-    const startElevation = clampedElevationData[0];
-    canvas
-      .text(`${Math.round(startElevation)}m`)
-      .amove(PADDING, keyElevationsY)
-      .addClass("label")
-      .font({ anchor: "start" });
-
-    // Peak elevation
-    const actualMaxElevation = Math.max(...clampedElevationData);
-    canvas
-      .text(`⏶ ${Math.round(actualMaxElevation)}m`)
-      .amove(plotWidth / 2, keyElevationsY)
-      .addClass("label")
-      .font({ anchor: "middle" });
-
-    // End elevation
-    const endElevation = clampedElevationData[clampedElevationData.length - 1];
-    canvas
-      .text(`${Math.round(endElevation)}m`)
-      .amove(plotWidth - PADDING, keyElevationsY)
-      .addClass("label")
-      .font({ anchor: "end" });
+    y += STAGE_MARKERS_HEIGHT;
   }
 
   // Add distance labels with ticks
@@ -163,6 +146,35 @@ function generateElevationSvg(
   //       "dominant-baseline": "hanging",
   //     });
   // }
+
+  // Key elevations
+  if (options?.showKeyElevations) {
+    y += KEY_ELEVATIONS_HEIGHT;
+
+    // Start elevation
+    const startElevation = clampedElevationData[0];
+    canvas
+      .text(`${Math.round(startElevation)}m`)
+      .amove(PADDING, y)
+      .addClass("label")
+      .font({ anchor: "start" });
+
+    // Peak elevation
+    const actualMaxElevation = Math.max(...clampedElevationData);
+    canvas
+      .text(`⏶ ${Math.round(actualMaxElevation)}m`)
+      .amove(plotWidth / 2, y)
+      .addClass("label")
+      .font({ anchor: "middle" });
+
+    // End elevation
+    const endElevation = clampedElevationData[clampedElevationData.length - 1];
+    canvas
+      .text(`${Math.round(endElevation)}m`)
+      .amove(plotWidth - PADDING, y)
+      .addClass("label")
+      .font({ anchor: "end" });
+  }
 
   // Add max elevation indicator
   const maxElevationIndex = clampedElevationData.indexOf(Math.max(...clampedElevationData));
