@@ -135,43 +135,43 @@
   <circle r="5" cx="679.391" cy="994.735" class="stage dayStop"></circle>
   <circle r="5" cx="592.945" cy="1015.668" class="stage dayStop"></circle>
   <circle r="5" cx="467.716" cy="1061.538" class="stage dayStop"></circle>
-  <rect width="79.38" height="21.6" x="474.643" y="1005.854" opacity="0.2" fill="green" class="labelRect"></rect><text x="474.643" y="1022.956" class="label">
-    <tspan dy="0" x="474.643">Jørpeland</tspan>
-  </text>
-  <rect width="40.14" height="21.6" x="598.896" y="258.55" opacity="0.2" fill="green" class="labelRect"></rect><text x="598.896" y="275.651" class="label">
-    <tspan dy="0" x="598.896">Voss</tspan>
-  </text>
-  <rect width="93.6" height="21.6" x="638.338" y="145.206" opacity="0.2" fill="green" class="labelRect"></rect><text x="638.338" y="162.308" class="label">
+  <rect width="93.6" height="18" x="638.338" y="150.606" opacity="0.2" fill="green" class="labelRect"></rect><text x="638.338" y="165.908" class="label">
     <tspan dy="0" x="638.338">Gudvangen</tspan>
   </text>
-  <rect width="93.24" height="21.6" x="675.913" y="113.38" opacity="0.2" fill="green" class="labelRect"></rect><text x="675.913" y="130.481" class="label">
+  <rect width="93.24" height="18" x="675.913" y="118.78" opacity="0.2" fill="green" class="labelRect"></rect><text x="675.913" y="134.081" class="label">
     <tspan dy="0" x="675.913">Nærøyfjord</tspan>
   </text>
-  <rect width="58.32" height="21.6" x="369.852" y="401.917" opacity="0.2" fill="green" class="labelRect"></rect><text x="369.852" y="419.019" class="label">
-    <tspan dy="0" x="369.852">Bergen</tspan>
-  </text>
-  <rect width="52.2" height="21.6" x="621.534" y="967.478" opacity="0.2" fill="green" class="labelRect"></rect><text x="621.534" y="984.58" class="label">
-    <tspan dy="0" x="621.534">Kjerag</tspan>
-  </text>
-  <rect width="54" height="21.6" x="806.645" y="243.683" opacity="0.2" fill="green" class="labelRect"></rect><text x="806.645" y="260.784" class="label">
-    <tspan dy="0" x="806.645">Myrdal</tspan>
-  </text>
-  <rect width="99.36" height="21.6" x="598.602" y="1021.325" opacity="0.2" fill="green" class="labelRect"></rect><text x="598.602" y="1038.427" class="label">
+  <rect width="99.36" height="18" x="598.602" y="1023.125" opacity="0.2" fill="green" class="labelRect"></rect><text x="598.602" y="1038.427" class="label">
     <tspan dy="0" x="598.602">Preikestolen</tspan>
   </text>
-  <rect width="39.96" height="21.6" x="806.706" y="169.347" opacity="0.2" fill="green" class="labelRect"></rect><text x="806.706" y="186.448" class="label">
+  <rect width="82.44" height="18" x="377.276" y="1054.338" opacity="0.2" fill="green" class="labelRect"></rect><text x="377.276" y="1069.64" class="label">
+    <tspan dy="0" x="377.276">Stavanger</tspan>
+  </text>
+  <rect width="39.96" height="18" x="806.706" y="172.947" opacity="0.2" fill="green" class="labelRect"></rect><text x="806.706" y="188.248" class="label">
     <tspan dy="0" x="806.706">Flåm</tspan>
   </text>
-  <rect width="80.28" height="21.6" x="721.334" y="519.812" opacity="0.2" fill="green" class="labelRect"></rect><text x="721.334" y="536.913" class="label">
+  <rect width="79.38" height="18" x="474.643" y="1007.654" opacity="0.2" fill="green" class="labelRect"></rect><text x="474.643" y="1022.956" class="label">
+    <tspan dy="0" x="474.643">Jørpeland</tspan>
+  </text>
+  <rect width="80.28" height="18" x="721.334" y="492.298" opacity="0.2" fill="green" class="labelRect"></rect><text x="721.334" y="507.6" class="label">
     <tspan dy="0" x="721.334">Trolltunga</tspan>
   </text>
-  <rect width="44.28" height="21.6" x="622.467" y="544.446" opacity="0.2" fill="green" class="labelRect"></rect><text x="622.467" y="561.548" class="label">
+  <rect width="44.28" height="18" x="622.467" y="516.932" opacity="0.2" fill="green" class="labelRect"></rect><text x="622.467" y="532.234" class="label">
     <tspan dy="0" x="622.467">Odda</tspan>
   </text>
-  <rect width="82.44" height="21.6" x="379.619" y="1067.195" opacity="0.2" fill="green" class="labelRect"></rect><text x="379.619" y="1084.297" class="label">
-    <tspan dy="0" x="379.619">Stavanger</tspan>
+  <rect width="40.14" height="18" x="598.896" y="293.263" opacity="0.2" fill="green" class="labelRect"></rect><text x="598.896" y="308.565" class="label">
+    <tspan dy="0" x="598.896">Voss</tspan>
   </text>
-  <rect width="73.26" height="21.6" x="802.756" y="111.205" opacity="0.2" fill="green" class="labelRect"></rect><text x="802.756" y="128.306" class="label">
+  <rect width="54" height="18" x="808.988" y="230.826" opacity="0.2" fill="green" class="labelRect"></rect><text x="808.988" y="246.128" class="label">
+    <tspan dy="0" x="808.988">Myrdal</tspan>
+  </text>
+  <rect width="58.32" height="18" x="332.692" y="386.717" opacity="0.2" fill="green" class="labelRect"></rect><text x="332.692" y="402.019" class="label">
+    <tspan dy="0" x="332.692">Bergen</tspan>
+  </text>
+  <rect width="52.2" height="18" x="685.048" y="972.878" opacity="0.2" fill="green" class="labelRect"></rect><text x="685.048" y="988.18" class="label">
+    <tspan dy="0" x="685.048">Kjerag</tspan>
+  </text>
+  <rect width="73.26" height="18" x="802.756" y="116.605" opacity="0.2" fill="green" class="labelRect"></rect><text x="802.756" y="131.906" class="label">
     <tspan dy="0" x="802.756">Undredal</tspan>
   </text>
 </svg>

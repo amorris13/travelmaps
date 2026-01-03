@@ -95,16 +95,16 @@
   <circle r="3.5" cx="258.88" cy="458.115" class="dayStop"></circle>
   <circle r="3.5" cx="335.608" cy="301.108" class="dayStop"></circle>
   <polygon points="229.2107110277948,103.13950844111245 221.7107110277948,116.12988949787903 236.7107110277948,116.12988949787903" class="elevationMarker"></polygon>
-  <rect width="132.3" height="21.6" x="341.265" y="273.851" opacity="0.2" fill="green" class="labelRect"></rect><text x="341.265" y="290.953" class="label">
+  <rect width="48.06" height="18" x="156.622" y="71.078" opacity="0.2" fill="green" class="labelRect"></rect><text x="156.622" y="86.38" class="label">
+    <tspan dy="0" x="156.622">Como</tspan>
+  </text>
+  <rect width="43.02" height="18" x="237.37" y="463.915" opacity="0.2" fill="green" class="labelRect"></rect><text x="237.37" y="479.217" class="label">
+    <tspan dy="0" x="237.37">Milan</tspan>
+  </text>
+  <rect width="132.3" height="18" x="341.265" y="279.251" opacity="0.2" fill="green" class="labelRect"></rect><text x="341.265" y="294.553" class="label">
     <tspan dy="0" x="341.265">Monza F1 circuit</tspan>
   </text>
-  <rect width="43.02" height="21.6" x="210.204" y="463.772" opacity="0.2" fill="green" class="labelRect"></rect><text x="210.204" y="480.874" class="label">
-    <tspan dy="0" x="210.204">Milan</tspan>
-  </text>
-  <rect width="48.06" height="21.6" x="126.935" y="68.021" opacity="0.2" fill="green" class="labelRect"></rect><text x="126.935" y="85.123" class="label">
-    <tspan dy="0" x="126.935">Como</tspan>
-  </text>
-  <rect width="76.32" height="21.6" x="627.002" y="676.157" opacity="0.2" fill="green" class="labelRect"></rect><text x="627.002" y="693.258" class="label">
+  <rect width="76.32" height="18" x="627.002" y="681.557" opacity="0.2" fill="green" class="labelRect"></rect><text x="627.002" y="696.858" class="label">
     <tspan dy="0" x="627.002">Bertonico</tspan>
   </text>
 </svg>

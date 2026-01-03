@@ -102,19 +102,19 @@
   <circle r="5" cx="438.527" cy="586.229" class="stage"></circle>
   <circle r="5" cx="568.648" cy="759.452" class="stage dayStop"></circle>
   <circle r="5" cx="761.473" cy="1061.538" class="stage dayStop partialAttendance"></circle>
-  <rect width="67.32" height="21.6" x="688.496" y="1067.195" opacity="0.2" fill="green" class="labelRect"></rect><text x="688.496" y="1084.297" class="label partialAttendance">
-    <tspan dy="0" x="688.496">Brighton</tspan>
+  <rect width="60.48" height="18" x="703.556" y="131.262" opacity="0.2" fill="green" class="labelRect"></rect><text x="703.556" y="146.563" class="label">
+    <tspan dy="0" x="703.556">London</tspan>
   </text>
-  <rect width="131.4" height="21.6" x="301.47" y="591.886" opacity="0.2" fill="green" class="labelRect"></rect><text x="301.47" y="608.987" class="label">
-    <tspan dy="0" x="301.47">Stroud Common</tspan>
-  </text>
-  <rect width="60.48" height="21.6" x="701.213" y="111.205" opacity="0.2" fill="green" class="labelRect"></rect><text x="701.213" y="128.306" class="label">
-    <tspan dy="0" x="701.213">London</tspan>
-  </text>
-  <rect width="126.18" height="21.6" x="576.648" y="748.652" opacity="0.2" fill="green" class="labelRect"></rect><text x="576.648" y="765.753" class="label">
-    <tspan dy="0" x="576.648">Christs Hospital</tspan>
-  </text>
-  <rect width="73.26" height="21.6" x="570.608" y="265.01" opacity="0.2" fill="green" class="labelRect"></rect><text x="570.608" y="282.112" class="label">
+  <rect width="73.26" height="18" x="570.608" y="266.81" opacity="0.2" fill="green" class="labelRect"></rect><text x="570.608" y="282.112" class="label">
     <tspan dy="0" x="570.608">Hampton</tspan>
+  </text>
+  <rect width="126.18" height="18" x="574.305" y="737.595" opacity="0.2" fill="green" class="labelRect"></rect><text x="574.305" y="752.896" class="label">
+    <tspan dy="0" x="574.305">Christs Hospital</tspan>
+  </text>
+  <rect width="67.32" height="18" x="727.813" y="1071.338" opacity="0.2" fill="green" class="labelRect"></rect><text x="727.813" y="1086.64" class="label partialAttendance">
+    <tspan dy="0" x="727.813">Brighton</tspan>
+  </text>
+  <rect width="131.4" height="18" x="299.127" y="579.029" opacity="0.2" fill="green" class="labelRect"></rect><text x="299.127" y="594.33" class="label">
+    <tspan dy="0" x="299.127">Stroud Common</tspan>
   </text>
 </svg>

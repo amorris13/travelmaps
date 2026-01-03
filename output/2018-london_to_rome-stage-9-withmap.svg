@@ -96,16 +96,16 @@
   <circle r="3.5" cx="337.434" cy="390.65" class="dayStop"></circle>
   <circle r="3.5" cx="505.914" cy="447.713" class="dayStop"></circle>
   <polygon points="502.3425084395567,439.177765726985 494.8425084395567,452.1681467837516 509.8425084395567,452.1681467837516" class="elevationMarker"></polygon>
-  <rect width="81.54" height="21.6" x="250.238" y="396.307" opacity="0.2" fill="green" class="labelRect"></rect><text x="250.238" y="413.408" class="label">
-    <tspan dy="0" x="250.238">Schengen</tspan>
+  <rect width="136.44" height="18" x="105.143" y="167.308" opacity="0.2" fill="green" class="labelRect"></rect><text x="105.143" y="182.61" class="label">
+    <tspan dy="0" x="105.143">Luxembourg City</tspan>
   </text>
-  <rect width="136.44" height="21.6" x="28.923" y="144.908" opacity="0.2" fill="green" class="labelRect"></rect><text x="28.923" y="162.01" class="label">
-    <tspan dy="0" x="28.923">Luxembourg City</tspan>
+  <rect width="81.54" height="18" x="253.066" y="395.278" opacity="0.2" fill="green" class="labelRect"></rect><text x="253.066" y="410.58" class="label">
+    <tspan dy="0" x="253.066">Schengen</tspan>
   </text>
-  <rect width="151.56" height="21.6" x="511.571" y="420.456" opacity="0.2" fill="green" class="labelRect"></rect><text x="511.571" y="437.558" class="label">
+  <rect width="151.56" height="18" x="511.571" y="425.856" opacity="0.2" fill="green" class="labelRect"></rect><text x="511.571" y="441.158" class="label">
     <tspan dy="0" x="511.571">Route des Menhirs</tspan>
   </text>
-  <rect width="75.24" height="21.6" x="626.734" y="631.149" opacity="0.2" fill="green" class="labelRect"></rect><text x="626.734" y="648.25" class="label">
-    <tspan dy="0" x="626.734">Saarlouis</tspan>
+  <rect width="75.24" height="18" x="670.011" y="635.292" opacity="0.2" fill="green" class="labelRect"></rect><text x="670.011" y="650.593" class="label">
+    <tspan dy="0" x="670.011">Saarlouis</tspan>
   </text>
 </svg>

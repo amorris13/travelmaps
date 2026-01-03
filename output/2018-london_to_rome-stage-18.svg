@@ -93,13 +93,13 @@
   <circle r="5" cx="302.195" cy="707.692" class="stage"></circle>
   <circle r="3.5" cx="284.812" cy="549.744" class="dayStop"></circle>
   <polygon points="309.70468116652773,694.9793506398928 302.20468116652773,707.9697316966594 317.20468116652773,707.9697316966594" class="elevationMarker"></polygon>
-  <rect width="92.52" height="21.6" x="186.635" y="522.487" opacity="0.2" fill="green" class="labelRect"></rect><text x="186.635" y="539.589" class="label">
-    <tspan dy="0" x="186.635">Göschenen</tspan>
+  <rect width="61.2" height="18" x="544.736" y="85.108" opacity="0.2" fill="green" class="labelRect"></rect><text x="544.736" y="100.409" class="label">
+    <tspan dy="0" x="544.736">Amsteg</tspan>
   </text>
-  <rect width="61.2" height="21.6" x="542.393" y="65.051" opacity="0.2" fill="green" class="labelRect"></rect><text x="542.393" y="82.152" class="label">
-    <tspan dy="0" x="542.393">Amsteg</tspan>
+  <rect width="92.52" height="18" x="287.641" y="554.373" opacity="0.2" fill="green" class="labelRect"></rect><text x="287.641" y="569.674" class="label">
+    <tspan dy="0" x="287.641">Göschenen</tspan>
   </text>
-  <rect width="83.34" height="21.6" x="307.852" y="713.349" opacity="0.2" fill="green" class="labelRect"></rect><text x="307.852" y="730.451" class="label">
-    <tspan dy="0" x="307.852">Andermatt</tspan>
+  <rect width="83.34" height="18" x="213.198" y="685.835" opacity="0.2" fill="green" class="labelRect"></rect><text x="213.198" y="701.137" class="label">
+    <tspan dy="0" x="213.198">Andermatt</tspan>
   </text>
 </svg>

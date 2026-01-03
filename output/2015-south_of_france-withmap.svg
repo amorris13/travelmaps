@@ -116,28 +116,28 @@
   <circle r="5" cx="535.506" cy="508.262" class="stage dayStop"></circle>
   <circle r="5" cx="503.656" cy="536.981" class="stage dayStop"></circle>
   <circle r="5" cx="138.462" cy="692.025" class="stage"></circle>
-  <rect width="41.04" height="21.6" x="503.362" y="565.806" opacity="0.2" fill="green" class="labelRect"></rect><text x="503.362" y="582.907" class="label">
-    <tspan dy="0" x="503.362">Arles</tspan>
-  </text>
-  <rect width="50.94" height="21.6" x="447.059" y="509.724" opacity="0.2" fill="green" class="labelRect"></rect><text x="447.059" y="526.825" class="label">
-    <tspan dy="0" x="447.059">Nimes</tspan>
-  </text>
-  <rect width="64.26" height="21.6" x="1069.538" y="550.25" opacity="0.2" fill="green" class="labelRect"></rect><text x="1069.538" y="567.352" class="label">
-    <tspan dy="0" x="1069.538">Monaco</tspan>
-  </text>
-  <rect width="65.34" height="21.6" x="590.492" y="480.718" opacity="0.2" fill="green" class="labelRect"></rect><text x="590.492" y="497.82" class="label">
-    <tspan dy="0" x="590.492">Avignon</tspan>
-  </text>
-  <rect width="106.38" height="21.6" x="24.082" y="681.225" opacity="0.2" fill="green" class="labelRect"></rect><text x="24.082" y="698.326" class="label">
-    <tspan dy="0" x="24.082">Carcassonne</tspan>
-  </text>
-  <rect width="107.64" height="21.6" x="422.209" y="481.005" opacity="0.2" fill="green" class="labelRect"></rect><text x="422.209" y="498.106" class="label">
-    <tspan dy="0" x="422.209">Pont du Gard</tspan>
-  </text>
-  <rect width="38.16" height="21.6" x="986.642" y="584.282" opacity="0.2" fill="green" class="labelRect"></rect><text x="986.642" y="601.384" class="label">
+  <rect width="38.16" height="18" x="986.642" y="586.082" opacity="0.2" fill="green" class="labelRect"></rect><text x="986.642" y="601.384" class="label">
     <tspan dy="0" x="986.642">Opio</tspan>
   </text>
-  <rect width="181.98" height="21.6" x="590.933" y="548.872" opacity="0.2" fill="green" class="labelRect"></rect><text x="590.933" y="565.974" class="label">
+  <rect width="41.04" height="18" x="505.705" y="584.063" opacity="0.2" fill="green" class="labelRect"></rect><text x="505.705" y="599.364" class="label">
+    <tspan dy="0" x="505.705">Arles</tspan>
+  </text>
+  <rect width="64.26" height="18" x="1069.538" y="553.85" opacity="0.2" fill="green" class="labelRect"></rect><text x="1069.538" y="569.152" class="label">
+    <tspan dy="0" x="1069.538">Monaco</tspan>
+  </text>
+  <rect width="106.38" height="18" x="144.118" y="670.168" opacity="0.2" fill="green" class="labelRect"></rect><text x="144.118" y="685.469" class="label">
+    <tspan dy="0" x="144.118">Carcassonne</tspan>
+  </text>
+  <rect width="107.64" height="18" x="422.209" y="486.405" opacity="0.2" fill="green" class="labelRect"></rect><text x="422.209" y="501.706" class="label">
+    <tspan dy="0" x="422.209">Pont du Gard</tspan>
+  </text>
+  <rect width="65.34" height="18" x="590.492" y="486.118" opacity="0.2" fill="green" class="labelRect"></rect><text x="590.492" y="501.42" class="label">
+    <tspan dy="0" x="590.492">Avignon</tspan>
+  </text>
+  <rect width="50.94" height="18" x="447.059" y="515.124" opacity="0.2" fill="green" class="labelRect"></rect><text x="447.059" y="530.425" class="label">
+    <tspan dy="0" x="447.059">Nimes</tspan>
+  </text>
+  <rect width="181.98" height="18" x="590.933" y="552.472" opacity="0.2" fill="green" class="labelRect"></rect><text x="590.933" y="567.774" class="label">
     <tspan dy="0" x="590.933">Les Baux de Provence</tspan>
   </text>
 </svg>

@@ -82,7 +82,7 @@
   </style>
   <path d="M0 0M330.65171272681505 492.8822762148245A580.928 580.928 0 0 1 530.638 892.502A191.056 191.056 0 0 1 488.555 751.69 " class="lineBackground"></path>
   <path d="M0 0M330.65171272681505 492.8822762148245A580.928 580.928 0 0 1 530.638 892.502A191.056 191.056 0 0 1 488.555 751.69 " class="line"></path>
-  <rect width="103.68" height="21.6" x="322.965" y="681.892" opacity="0.2" fill="green" class="labelRect"></rect><text x="322.965" y="698.994" class="label">
-    <tspan dy="0" x="322.965">Europe 2022</tspan>
+  <rect width="103.68" height="18" x="326.965" y="685.492" opacity="0.2" fill="green" class="labelRect"></rect><text x="326.965" y="700.794" class="label">
+    <tspan dy="0" x="326.965">Europe 2022</tspan>
   </text>
 </svg>

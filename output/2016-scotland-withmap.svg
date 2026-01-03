@@ -122,31 +122,31 @@
   <circle r="5" cx="1044.444" cy="777.445" class="stage dayStop"></circle>
   <circle r="5" cx="711.431" cy="982.19" class="stage dayStop"></circle>
   <circle r="5" cx="491.902" cy="1061.538" class="stage dayStop"></circle>
-  <rect width="92.34" height="21.6" x="1050.101" y="783.102" opacity="0.2" fill="green" class="labelRect"></rect><text x="1050.101" y="800.204" class="label">
-    <tspan dy="0" x="1050.101">St Andrews</tspan>
-  </text>
-  <rect width="128.34" height="21.6" x="355.077" y="1070.024" opacity="0.2" fill="green" class="labelRect"></rect><text x="355.077" y="1087.125" class="label">
-    <tspan dy="0" x="355.077">Glasgow Airport</tspan>
-  </text>
-  <rect width="152.82" height="21.6" x="79.146" y="419.038" opacity="0.2" fill="green" class="labelRect"></rect><text x="79.146" y="436.139" class="label">
-    <tspan dy="0" x="79.146">Glenfinnan Viaduct</tspan>
-  </text>
-  <rect width="112.14" height="21.6" x="980.948" y="578.888" opacity="0.2" fill="green" class="labelRect"></rect><text x="980.948" y="595.989" class="label">
+  <rect width="112.14" height="18" x="980.948" y="584.288" opacity="0.2" fill="green" class="labelRect"></rect><text x="980.948" y="599.589" class="label">
     <tspan dy="0" x="980.948">Glamis Castle</tspan>
   </text>
-  <rect width="69.12" height="21.6" x="312.285" y="867.426" opacity="0.2" fill="green" class="labelRect"></rect><text x="312.285" y="884.528" class="label">
-    <tspan dy="0" x="312.285">Arrochar</tspan>
+  <rect width="152.82" height="18" x="79.146" y="424.438" opacity="0.2" fill="green" class="labelRect"></rect><text x="79.146" y="439.739" class="label">
+    <tspan dy="0" x="79.146">Glenfinnan Viaduct</tspan>
   </text>
-  <rect width="69.12" height="21.6" x="654.938" y="560.142" opacity="0.2" fill="green" class="labelRect"></rect><text x="654.938" y="577.243" class="label">
-    <tspan dy="0" x="654.938">Pitlochry</tspan>
+  <rect width="128.34" height="18" x="355.077" y="1071.824" opacity="0.2" fill="green" class="labelRect"></rect><text x="355.077" y="1087.125" class="label">
+    <tspan dy="0" x="355.077">Glasgow Airport</tspan>
   </text>
-  <rect width="126.36" height="21.6" x="497.435" y="159.654" opacity="0.2" fill="green" class="labelRect"></rect><text x="497.435" y="176.755" class="label">
+  <rect width="126.36" height="18" x="497.435" y="163.254" opacity="0.2" fill="green" class="labelRect"></rect><text x="497.435" y="178.555" class="label">
     <tspan dy="0" x="497.435">Urquhart Castle</tspan>
   </text>
-  <rect width="52.92" height="21.6" x="684.971" y="952.59" opacity="0.2" fill="green" class="labelRect"></rect><text x="684.971" y="969.692" class="label">
-    <tspan dy="0" x="684.971">Falkirk</tspan>
+  <rect width="69.12" height="18" x="312.285" y="869.226" opacity="0.2" fill="green" class="labelRect"></rect><text x="312.285" y="884.528" class="label">
+    <tspan dy="0" x="312.285">Arrochar</tspan>
   </text>
-  <rect width="85.32" height="21.6" x="428.849" y="105.548" opacity="0.2" fill="green" class="labelRect"></rect><text x="428.849" y="122.649" class="label">
-    <tspan dy="0" x="428.849">Loch Ness</tspan>
+  <rect width="69.12" height="18" x="654.938" y="561.942" opacity="0.2" fill="green" class="labelRect"></rect><text x="654.938" y="577.243" class="label">
+    <tspan dy="0" x="654.938">Pitlochry</tspan>
+  </text>
+  <rect width="92.34" height="18" x="1050.101" y="784.902" opacity="0.2" fill="green" class="labelRect"></rect><text x="1050.101" y="800.204" class="label">
+    <tspan dy="0" x="1050.101">St Andrews</tspan>
+  </text>
+  <rect width="52.92" height="18" x="717.087" y="960.333" opacity="0.2" fill="green" class="labelRect"></rect><text x="717.087" y="975.635" class="label">
+    <tspan dy="0" x="717.087">Falkirk</tspan>
+  </text>
+  <rect width="85.32" height="18" x="426.02" y="108.119" opacity="0.2" fill="green" class="labelRect"></rect><text x="426.02" y="123.421" class="label">
+    <tspan dy="0" x="426.02">Loch Ness</tspan>
   </text>
 </svg>

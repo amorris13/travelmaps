@@ -93,28 +93,28 @@
   <circle r="5" cx="405.106" cy="503.482" class="stage"></circle>
   <path d="M0 0M488.5550093650288 751.6903124829587L492.673 751.927L494.325 749.68L498.381 749.55M488.5550093650288 751.6903124829587L487.2 753.338L487.687 755.408L484.624 755.438L482.328 758.163L479.532 757.951L473.843 760.07L465.483 759.03L461.601 757.462L456.82 757.42L455.482 756.471L449.935 755.275L447.456 753.049L439.076 752.887L436.266 751.444L439.985 749.378L439.093 749.881L437.704 748.535L440.223 743.07L434.156 743.034L435.564 743.343L430.099 747.298L430.319 746.61L427.962 749.167L422.554 751.666L420.684 753.888L416.115 757.025L404.533 763.111L399.726 767.494L388.987 766.707L385.763 765.527 " class="lineBackground"></path>
   <path d="M0 0M488.5550093650288 751.6903124829587L492.673 751.927L494.325 749.68L498.381 749.55M488.5550093650288 751.6903124829587L487.2 753.338L487.687 755.408L484.624 755.438L482.328 758.163L479.532 757.951L473.843 760.07L465.483 759.03L461.601 757.462L456.82 757.42L455.482 756.471L449.935 755.275L447.456 753.049L439.076 752.887L436.266 751.444L439.985 749.378L439.093 749.881L437.704 748.535L440.223 743.07L434.156 743.034L435.564 743.343L430.099 747.298L430.319 746.61L427.962 749.167L422.554 751.666L420.684 753.888L416.115 757.025L404.533 763.111L399.726 767.494L388.987 766.707L385.763 765.527 " class="line"></path>
-  <rect width="103.68" height="21.6" x="503.286" y="309.469" opacity="0.2" fill="green" class="labelRect"></rect><text x="503.286" y="326.57" class="label">
-    <tspan dy="0" x="503.286">Copenhagen</tspan>
+  <rect width="128.7" height="18" x="447.73" y="761.755" opacity="0.2" fill="green" class="labelRect"></rect><text x="447.73" y="777.057" class="label">
+    <tspan dy="0" x="447.73">South of France</tspan>
   </text>
-  <rect width="92.16" height="21.6" x="396.324" y="432.288" opacity="0.2" fill="green" class="labelRect"></rect><text x="396.324" y="449.389" class="label">
-    <tspan dy="0" x="396.324">Amsterdam</tspan>
-  </text>
-  <rect width="61.2" height="21.6" x="521.956" y="599.719" opacity="0.2" fill="green" class="labelRect"></rect><text x="521.956" y="616.82" class="label">
-    <tspan dy="0" x="521.956">Bavaria</tspan>
-  </text>
-  <rect width="128.7" height="21.6" x="450.559" y="762.783" opacity="0.2" fill="green" class="labelRect"></rect><text x="450.559" y="779.885" class="label">
-    <tspan dy="0" x="450.559">South of France</tspan>
-  </text>
-  <rect width="76.5" height="21.6" x="764.36" y="619.303" opacity="0.2" fill="green" class="labelRect"></rect><text x="764.36" y="636.404" class="label">
-    <tspan dy="0" x="764.36">Budapest</tspan>
-  </text>
-  <rect width="57.24" height="21.6" x="410.763" y="509.139" opacity="0.2" fill="green" class="labelRect"></rect><text x="410.763" y="526.241" class="label">
-    <tspan dy="0" x="410.763">Bruges</tspan>
-  </text>
-  <rect width="104.22" height="21.6" x="255.289" y="601.826" opacity="0.2" fill="green" class="labelRect"></rect><text x="255.289" y="618.928" class="label">
+  <rect width="104.22" height="18" x="255.289" y="607.226" opacity="0.2" fill="green" class="labelRect"></rect><text x="255.289" y="622.528" class="label">
     <tspan dy="0" x="255.289">Loire Cycling</tspan>
   </text>
-  <rect width="55.08" height="21.6" x="1015.197" y="878.995" opacity="0.2" fill="green" class="labelRect"></rect><text x="1015.197" y="896.097" class="label">
-    <tspan dy="0" x="1015.197">Turkey</tspan>
+  <rect width="76.5" height="18" x="764.36" y="622.903" opacity="0.2" fill="green" class="labelRect"></rect><text x="764.36" y="638.204" class="label">
+    <tspan dy="0" x="764.36">Budapest</tspan>
+  </text>
+  <rect width="61.2" height="18" x="585.985" y="625.947" opacity="0.2" fill="green" class="labelRect"></rect><text x="585.985" y="641.249" class="label">
+    <tspan dy="0" x="585.985">Bavaria</tspan>
+  </text>
+  <rect width="92.16" height="18" x="448.061" y="440.031" opacity="0.2" fill="green" class="labelRect"></rect><text x="448.061" y="455.332" class="label">
+    <tspan dy="0" x="448.061">Amsterdam</tspan>
+  </text>
+  <rect width="57.24" height="18" x="410.763" y="510.939" opacity="0.2" fill="green" class="labelRect"></rect><text x="410.763" y="526.241" class="label">
+    <tspan dy="0" x="410.763">Bruges</tspan>
+  </text>
+  <rect width="55.08" height="18" x="984.828" y="877.967" opacity="0.2" fill="green" class="labelRect"></rect><text x="984.828" y="893.268" class="label">
+    <tspan dy="0" x="984.828">Turkey</tspan>
+  </text>
+  <rect width="103.68" height="18" x="618.279" y="314.869" opacity="0.2" fill="green" class="labelRect"></rect><text x="618.279" y="330.17" class="label">
+    <tspan dy="0" x="618.279">Copenhagen</tspan>
   </text>
 </svg>

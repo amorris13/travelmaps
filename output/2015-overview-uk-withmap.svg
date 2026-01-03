@@ -92,28 +92,28 @@
   <path d="M0 0M376.39933169558367 588.4036286176656L373.658 596.865 " class="lineBackground"></path>
   <path d="M0 0M376.39933169558367 588.4036286176656L373.658 596.865 " class="line"></path>
   <circle r="5" cx="323.01" cy="630.313" class="stage dayStop"></circle>
-  <rect width="82.44" height="21.6" x="234.175" y="359.4" opacity="0.2" fill="green" class="labelRect"></rect><text x="234.175" y="376.502" class="label">
-    <tspan dy="0" x="234.175">Edinburgh</tspan>
+  <rect width="60.48" height="18" x="442.696" y="604.246" opacity="0.2" fill="green" class="labelRect"></rect><text x="442.696" y="619.548" class="label">
+    <tspan dy="0" x="442.696">London</tspan>
   </text>
-  <rect width="53.1" height="21.6" x="296.46" y="638.313" opacity="0.2" fill="green" class="labelRect"></rect><text x="296.46" y="655.414" class="label">
-    <tspan dy="0" x="296.46">Cardiff</tspan>
-  </text>
-  <rect width="60.48" height="21.6" x="403.971" y="599.332" opacity="0.2" fill="green" class="labelRect"></rect><text x="403.971" y="616.433" class="label">
-    <tspan dy="0" x="403.971">London</tspan>
-  </text>
-  <rect width="54.18" height="21.6" x="330.698" y="603.708" opacity="0.2" fill="green" class="labelRect"></rect><text x="330.698" y="620.81" class="label">
-    <tspan dy="0" x="330.698">Oxford</tspan>
-  </text>
-  <rect width="83.16" height="21.6" x="289.041" y="568.207" opacity="0.2" fill="green" class="labelRect"></rect><text x="289.041" y="585.308" class="label">
+  <rect width="83.16" height="18" x="289.041" y="573.607" opacity="0.2" fill="green" class="labelRect"></rect><text x="289.041" y="588.908" class="label">
     <tspan dy="0" x="289.041">Cotswolds</tspan>
   </text>
-  <rect width="37.26" height="21.6" x="374.912" y="634.739" opacity="0.2" fill="green" class="labelRect"></rect><text x="374.912" y="651.841" class="label">
-    <tspan dy="0" x="374.912">Bath</tspan>
+  <rect width="82.44" height="18" x="327.929" y="331.887" opacity="0.2" fill="green" class="labelRect"></rect><text x="327.929" y="347.188" class="label">
+    <tspan dy="0" x="327.929">Edinburgh</tspan>
   </text>
-  <rect width="102.24" height="21.6" x="206.627" y="607.578" opacity="0.2" fill="green" class="labelRect"></rect><text x="206.627" y="624.679" class="label">
-    <tspan dy="0" x="206.627">Merthyr Vale</tspan>
+  <rect width="102.24" height="18" x="208.97" y="596.521" opacity="0.2" fill="green" class="labelRect"></rect><text x="208.97" y="611.822" class="label">
+    <tspan dy="0" x="208.97">Merthyr Vale</tspan>
   </text>
-  <rect width="37.26" height="21.6" x="424.888" y="649.297" opacity="0.2" fill="green" class="labelRect"></rect><text x="424.888" y="666.398" class="label">
+  <rect width="54.18" height="18" x="407.02" y="584.166" opacity="0.2" fill="green" class="labelRect"></rect><text x="407.02" y="599.468" class="label">
+    <tspan dy="0" x="407.02">Oxford</tspan>
+  </text>
+  <rect width="37.26" height="18" x="322.824" y="650.168" opacity="0.2" fill="green" class="labelRect"></rect><text x="322.824" y="665.469" class="label">
+    <tspan dy="0" x="322.824">Bath</tspan>
+  </text>
+  <rect width="53.1" height="18" x="264.253" y="637.77" opacity="0.2" fill="green" class="labelRect"></rect><text x="264.253" y="653.071" class="label">
+    <tspan dy="0" x="264.253">Cardiff</tspan>
+  </text>
+  <rect width="37.26" height="18" x="424.888" y="651.097" opacity="0.2" fill="green" class="labelRect"></rect><text x="424.888" y="666.398" class="label">
     <tspan dy="0" x="424.888">Kent</tspan>
   </text>
 </svg>

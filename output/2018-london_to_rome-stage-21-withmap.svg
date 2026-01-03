@@ -96,16 +96,16 @@
   <circle r="3.5" cx="269.975" cy="104.59" class="dayStop"></circle>
   <circle r="3.5" cx="261.94" cy="187.746" class="dayStop"></circle>
   <polygon points="356.77065671465607,93.63592263586911 349.27065671465607,106.62630369263569 364.27065671465607,106.62630369263569" class="elevationMarker"></polygon>
-  <rect width="168.84" height="21.6" x="87.443" y="193.403" opacity="0.2" fill="green" class="labelRect"></rect><text x="87.443" y="210.505" class="label">
-    <tspan dy="0" x="87.443">Monte San Salvatore</tspan>
+  <rect width="64.26" height="18" x="387.533" y="106.121" opacity="0.2" fill="green" class="labelRect"></rect><text x="387.533" y="121.422" class="label">
+    <tspan dy="0" x="387.533">Gandria</tspan>
   </text>
-  <rect width="48.06" height="21.6" x="548.433" y="678.262" opacity="0.2" fill="green" class="labelRect"></rect><text x="548.433" y="695.364" class="label">
+  <rect width="48.06" height="18" x="548.433" y="712.976" opacity="0.2" fill="green" class="labelRect"></rect><text x="548.433" y="728.277" class="label">
     <tspan dy="0" x="548.433">Como</tspan>
   </text>
-  <rect width="60.48" height="21.6" x="203.838" y="77.333" opacity="0.2" fill="green" class="labelRect"></rect><text x="203.838" y="94.435" class="label">
+  <rect width="60.48" height="18" x="203.838" y="82.733" opacity="0.2" fill="green" class="labelRect"></rect><text x="203.838" y="98.035" class="label">
     <tspan dy="0" x="203.838">Lugano</tspan>
   </text>
-  <rect width="64.26" height="21.6" x="387.533" y="104.321" opacity="0.2" fill="green" class="labelRect"></rect><text x="387.533" y="121.422" class="label">
-    <tspan dy="0" x="387.533">Gandria</tspan>
+  <rect width="168.84" height="18" x="90.271" y="192.375" opacity="0.2" fill="green" class="labelRect"></rect><text x="90.271" y="207.676" class="label">
+    <tspan dy="0" x="90.271">Monte San Salvatore</tspan>
   </text>
 </svg>

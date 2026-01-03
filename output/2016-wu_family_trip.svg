@@ -101,19 +101,19 @@
   <circle r="5" cx="1034.193" cy="575.826" class="stage partialAttendance"></circle>
   <circle r="5" cx="942.119" cy="779.973" class="stage partialAttendance"></circle>
   <circle r="5" cx="1048.657" cy="1002.244" class="stage"></circle>
-  <rect width="48.06" height="21.6" x="1056.657" y="991.444" opacity="0.2" fill="green" class="labelRect"></rect><text x="1056.657" y="1008.545" class="label">
-    <tspan dy="0" x="1056.657">Rome</tspan>
-  </text>
-  <rect width="55.26" height="21.6" x="1039.85" y="548.569" opacity="0.2" fill="green" class="labelRect"></rect><text x="1039.85" y="565.671" class="label partialAttendance">
-    <tspan dy="0" x="1039.85">Venice</tspan>
-  </text>
-  <rect width="41.04" height="21.6" x="118.208" y="127.662" opacity="0.2" fill="green" class="labelRect"></rect><text x="118.208" y="144.763" class="label partialAttendance">
+  <rect width="41.04" height="18" x="118.208" y="131.262" opacity="0.2" fill="green" class="labelRect"></rect><text x="118.208" y="146.563" class="label partialAttendance">
     <tspan dy="0" x="118.208">Paris</tspan>
   </text>
-  <rect width="81.36" height="21.6" x="61.983" y="1050.738" opacity="0.2" fill="green" class="labelRect"></rect><text x="61.983" y="1067.84" class="label partialAttendance">
-    <tspan dy="0" x="61.983">Barcelona</tspan>
+  <rect width="81.36" height="18" x="157" y="1068.995" opacity="0.2" fill="green" class="labelRect"></rect><text x="157" y="1084.297" class="label partialAttendance">
+    <tspan dy="0" x="157">Barcelona</tspan>
   </text>
-  <rect width="70.2" height="21.6" x="866.262" y="785.63" opacity="0.2" fill="green" class="labelRect"></rect><text x="866.262" y="802.732" class="label partialAttendance">
+  <rect width="70.2" height="18" x="866.262" y="787.43" opacity="0.2" fill="green" class="labelRect"></rect><text x="866.262" y="802.732" class="label partialAttendance">
     <tspan dy="0" x="866.262">Florence</tspan>
+  </text>
+  <rect width="48.06" height="18" x="1054.314" y="1009.701" opacity="0.2" fill="green" class="labelRect"></rect><text x="1054.314" y="1025.002" class="label">
+    <tspan dy="0" x="1054.314">Rome</tspan>
+  </text>
+  <rect width="55.26" height="18" x="1042.193" y="568.626" opacity="0.2" fill="green" class="labelRect"></rect><text x="1042.193" y="583.928" class="label partialAttendance">
+    <tspan dy="0" x="1042.193">Venice</tspan>
   </text>
 </svg>

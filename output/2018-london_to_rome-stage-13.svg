@@ -91,10 +91,10 @@
   <circle r="5" cx="707.692" cy="150.177" class="stage"></circle>
   <circle r="5" cx="96.106" cy="649.925" class="stage"></circle>
   <polygon points="134.21488391392086,598.566931974965 126.71488391392086,611.5573130317316 141.71488391392086,611.5573130317316" class="elevationMarker"></polygon>
-  <rect width="100.44" height="21.6" x="657.472" y="120.577" opacity="0.2" fill="green" class="labelRect"></rect><text x="657.472" y="137.678" class="label">
-    <tspan dy="0" x="657.472">Europa Park</tspan>
-  </text>
-  <rect width="57.96" height="21.6" x="32.489" y="655.582" opacity="0.2" fill="green" class="labelRect"></rect><text x="32.489" y="672.683" class="label">
+  <rect width="57.96" height="18" x="32.489" y="628.068" opacity="0.2" fill="green" class="labelRect"></rect><text x="32.489" y="643.37" class="label">
     <tspan dy="0" x="32.489">Colmar</tspan>
+  </text>
+  <rect width="100.44" height="18" x="601.595" y="128.32" opacity="0.2" fill="green" class="labelRect"></rect><text x="601.595" y="143.621" class="label">
+    <tspan dy="0" x="601.595">Europa Park</tspan>
   </text>
 </svg>

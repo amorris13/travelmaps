@@ -96,16 +96,16 @@
   <circle r="3.5" cx="97.983" cy="562.719" class="dayStop"></circle>
   <circle r="3.5" cx="159.784" cy="556.612" class="dayStop"></circle>
   <polygon points="512.901806776795,375.2063121351603 505.40180677679496,388.1966931919269 520.401806776795,388.1966931919269" class="elevationMarker"></polygon>
-  <rect width="92.16" height="21.6" x="609.875" y="211.044" opacity="0.2" fill="green" class="labelRect"></rect><text x="609.875" y="228.145" class="label">
+  <rect width="107.28" height="18" x="162.612" y="561.241" opacity="0.2" fill="green" class="labelRect"></rect><text x="162.612" y="576.542" class="label">
+    <tspan dy="0" x="162.612">Tower Bridge</tspan>
+  </text>
+  <rect width="60.48" height="18" x="43.717" y="446.169" opacity="0.2" fill="green" class="labelRect"></rect><text x="43.717" y="461.471" class="label">
+    <tspan dy="0" x="43.717">London</tspan>
+  </text>
+  <rect width="92.16" height="18" x="609.875" y="216.444" opacity="0.2" fill="green" class="labelRect"></rect><text x="609.875" y="231.745" class="label">
     <tspan dy="0" x="609.875">Chelmsford</tspan>
   </text>
-  <rect width="159.66" height="21.6" x="18.153" y="570.719" opacity="0.2" fill="green" class="labelRect"></rect><text x="18.153" y="587.821" class="label">
+  <rect width="159.66" height="18" x="18.153" y="584.519" opacity="0.2" fill="green" class="labelRect"></rect><text x="18.153" y="599.821" class="label">
     <tspan dy="0" x="18.153">Buckingham Palace</tspan>
-  </text>
-  <rect width="107.28" height="21.6" x="171.784" y="545.812" opacity="0.2" fill="green" class="labelRect"></rect><text x="171.784" y="562.914" class="label">
-    <tspan dy="0" x="171.784">Tower Bridge</tspan>
-  </text>
-  <rect width="60.48" height="21.6" x="43.717" y="440.769" opacity="0.2" fill="green" class="labelRect"></rect><text x="43.717" y="457.871" class="label">
-    <tspan dy="0" x="43.717">London</tspan>
   </text>
 </svg>

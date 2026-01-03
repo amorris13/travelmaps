@@ -98,19 +98,19 @@
   <circle r="3.5" cx="329.037" cy="469.596" class="dayStop"></circle>
   <circle r="3.5" cx="372.934" cy="703.216" class="dayStop"></circle>
   <polygon points="322.58576097130754,465.6973450449296 315.08576097130754,478.68772610169617 330.08576097130754,478.68772610169617" class="elevationMarker"></polygon>
-  <rect width="153.54" height="21.6" x="167.012" y="439.511" opacity="0.2" fill="green" class="labelRect"></rect><text x="167.012" y="456.612" class="label">
+  <rect width="60.48" height="18" x="309.625" y="707.844" opacity="0.2" fill="green" class="labelRect"></rect><text x="309.625" y="723.146" class="label">
+    <tspan dy="0" x="309.625">Lugano</tspan>
+  </text>
+  <rect width="153.54" height="18" x="167.012" y="444.911" opacity="0.2" fill="green" class="labelRect"></rect><text x="167.012" y="460.212" class="label">
     <tspan dy="0" x="167.012">Monte Ceneri Pass</tspan>
   </text>
-  <rect width="83.34" height="21.6" x="467.743" y="366.566" opacity="0.2" fill="green" class="labelRect"></rect><text x="467.743" y="383.668" class="label">
-    <tspan dy="0" x="467.743">Bellinzona</tspan>
+  <rect width="83.34" height="18" x="462.571" y="381.994" opacity="0.2" fill="green" class="labelRect"></rect><text x="462.571" y="397.296" class="label">
+    <tspan dy="0" x="462.571">Bellinzona</tspan>
   </text>
-  <rect width="64.26" height="21.6" x="441.967" y="689.38" opacity="0.2" fill="green" class="labelRect"></rect><text x="441.967" y="706.481" class="label">
-    <tspan dy="0" x="441.967">Gandria</tspan>
+  <rect width="54.18" height="18" x="386.292" y="99.782" opacity="0.2" fill="green" class="labelRect"></rect><text x="386.292" y="115.083" class="label">
+    <tspan dy="0" x="386.292">Biasca</tspan>
   </text>
-  <rect width="54.18" height="21.6" x="320.798" y="65.068" opacity="0.2" fill="green" class="labelRect"></rect><text x="320.798" y="82.17" class="label">
-    <tspan dy="0" x="320.798">Biasca</tspan>
-  </text>
-  <rect width="60.48" height="21.6" x="304.454" y="692.416" opacity="0.2" fill="green" class="labelRect"></rect><text x="304.454" y="709.517" class="label">
-    <tspan dy="0" x="304.454">Lugano</tspan>
+  <rect width="64.26" height="18" x="439.624" y="678.323" opacity="0.2" fill="green" class="labelRect"></rect><text x="439.624" y="693.624" class="label">
+    <tspan dy="0" x="439.624">Gandria</tspan>
   </text>
 </svg>

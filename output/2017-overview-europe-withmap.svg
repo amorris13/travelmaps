@@ -102,46 +102,46 @@
   <circle r="5" cx="646.502" cy="666.996" class="stage"></circle>
   <circle r="5" cx="555.296" cy="418.333" class="stage"></circle>
   <circle r="5" cx="488.555" cy="751.69" class="stage"></circle>
-  <rect width="69.12" height="21.6" x="194.806" y="1041.369" opacity="0.2" fill="green" class="labelRect"></rect><text x="194.806" y="1058.471" class="label">
-    <tspan dy="0" x="194.806">Morocco</tspan>
+  <rect width="46.08" height="18" x="579.467" y="463.79" opacity="0.2" fill="green" class="labelRect"></rect><text x="579.467" y="479.092" class="label">
+    <tspan dy="0" x="579.467">Berlin</tspan>
   </text>
-  <rect width="73.26" height="21.6" x="265.271" y="720.62" opacity="0.2" fill="green" class="labelRect"></rect><text x="265.271" y="737.721" class="label">
-    <tspan dy="0" x="265.271">Bergerac</tspan>
-  </text>
-  <rect width="92.52" height="21.6" x="266.612" y="657.985" opacity="0.2" fill="green" class="labelRect"></rect><text x="266.612" y="675.087" class="label">
-    <tspan dy="0" x="266.612">Puy de Fou</tspan>
-  </text>
-  <rect width="38.16" height="21.6" x="444.738" y="757.347" opacity="0.2" fill="green" class="labelRect"></rect><text x="444.738" y="774.449" class="label">
-    <tspan dy="0" x="444.738">Opio</tspan>
-  </text>
-  <rect width="61.02" height="21.6" x="407.825" y="161.901" opacity="0.2" fill="green" class="labelRect"></rect><text x="407.825" y="179.002" class="label">
-    <tspan dy="0" x="407.825">Norway</tspan>
-  </text>
-  <rect width="80.46" height="21.6" x="606.272" y="637.396" opacity="0.2" fill="green" class="labelRect"></rect><text x="606.272" y="654.498" class="label">
-    <tspan dy="0" x="606.272">Lake Bled</tspan>
-  </text>
-  <rect width="46.08" height="21.6" x="636.86" y="461.99" opacity="0.2" fill="green" class="labelRect"></rect><text x="636.86" y="479.092" class="label">
-    <tspan dy="0" x="636.86">Berlin</tspan>
-  </text>
-  <rect width="143.46" height="21.6" x="420.085" y="623.022" opacity="0.2" fill="green" class="labelRect"></rect><text x="420.085" y="640.123" class="label">
+  <rect width="143.46" height="18" x="420.085" y="628.422" opacity="0.2" fill="green" class="labelRect"></rect><text x="420.085" y="643.723" class="label">
     <tspan dy="0" x="420.085">Inn Valley Cycling</tspan>
   </text>
-  <rect width="110.16" height="21.6" x="823.261" y="146.547" opacity="0.2" fill="green" class="labelRect"></rect><text x="823.261" y="163.649" class="label">
-    <tspan dy="0" x="823.261">Turku Cycling</tspan>
+  <rect width="138.42" height="18" x="409.338" y="675.742" opacity="0.2" fill="green" class="labelRect"></rect><text x="409.338" y="691.044" class="label">
+    <tspan dy="0" x="409.338">Les Trois Vallees</tspan>
   </text>
-  <rect width="100.26" height="21.6" x="542.592" y="515.345" opacity="0.2" fill="green" class="labelRect"></rect><text x="542.592" y="532.446" class="label">
+  <rect width="100.26" height="18" x="542.592" y="518.945" opacity="0.2" fill="green" class="labelRect"></rect><text x="542.592" y="534.246" class="label">
     <tspan dy="0" x="542.592">Elbe Cycling</tspan>
   </text>
-  <rect width="175.5" height="21.6" x="566.104" y="549.799" opacity="0.2" fill="green" class="labelRect"></rect><text x="566.104" y="566.901" class="label">
-    <tspan dy="0" x="566.104">Tauber Valley Cycling</tspan>
+  <rect width="92.52" height="18" x="212.352" y="642.785" opacity="0.2" fill="green" class="labelRect"></rect><text x="212.352" y="658.087" class="label">
+    <tspan dy="0" x="212.352">Puy de Fou</tspan>
   </text>
-  <rect width="74.16" height="21.6" x="475.479" y="423.99" opacity="0.2" fill="green" class="labelRect"></rect><text x="475.479" y="441.091" class="label">
-    <tspan dy="0" x="475.479">Hamburg</tspan>
+  <rect width="38.16" height="18" x="494.212" y="759.147" opacity="0.2" fill="green" class="labelRect"></rect><text x="494.212" y="774.449" class="label">
+    <tspan dy="0" x="494.212">Opio</tspan>
   </text>
-  <rect width="138.42" height="21.6" x="486.548" y="689.142" opacity="0.2" fill="green" class="labelRect"></rect><text x="486.548" y="706.244" class="label">
-    <tspan dy="0" x="486.548">Les Trois Vallees</tspan>
+  <rect width="69.12" height="18" x="194.806" y="1043.169" opacity="0.2" fill="green" class="labelRect"></rect><text x="194.806" y="1058.471" class="label">
+    <tspan dy="0" x="194.806">Morocco</tspan>
   </text>
-  <rect width="157.68" height="21.6" x="711.19" y="584.466" opacity="0.2" fill="green" class="labelRect"></rect><text x="711.19" y="601.568" class="label">
+  <rect width="157.68" height="18" x="711.19" y="613.523" opacity="0.2" fill="green" class="labelRect"></rect><text x="711.19" y="628.825" class="label">
     <tspan dy="0" x="711.19">Vienna &amp; Bratislava</tspan>
+  </text>
+  <rect width="73.26" height="18" x="349.845" y="722.42" opacity="0.2" fill="green" class="labelRect"></rect><text x="349.845" y="737.721" class="label">
+    <tspan dy="0" x="349.845">Bergerac</tspan>
+  </text>
+  <rect width="80.46" height="18" x="606.272" y="676.796" opacity="0.2" fill="green" class="labelRect"></rect><text x="606.272" y="692.098" class="label">
+    <tspan dy="0" x="606.272">Lake Bled</tspan>
+  </text>
+  <rect width="61.02" height="18" x="410.654" y="151.872" opacity="0.2" fill="green" class="labelRect"></rect><text x="410.654" y="167.174" class="label">
+    <tspan dy="0" x="410.654">Norway</tspan>
+  </text>
+  <rect width="110.16" height="18" x="762.524" y="150.691" opacity="0.2" fill="green" class="labelRect"></rect><text x="762.524" y="165.992" class="label">
+    <tspan dy="0" x="762.524">Turku Cycling</tspan>
+  </text>
+  <rect width="74.16" height="18" x="563.296" y="411.133" opacity="0.2" fill="green" class="labelRect"></rect><text x="563.296" y="426.435" class="label">
+    <tspan dy="0" x="563.296">Hamburg</tspan>
+  </text>
+  <rect width="175.5" height="18" x="562.104" y="562.399" opacity="0.2" fill="green" class="labelRect"></rect><text x="562.104" y="577.701" class="label">
+    <tspan dy="0" x="562.104">Tauber Valley Cycling</tspan>
   </text>
 </svg>

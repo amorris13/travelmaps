@@ -95,16 +95,16 @@
   <circle r="3.5" cx="439.534" cy="453.719" class="dayStop"></circle>
   <circle r="3.5" cx="634.344" cy="525.813" class="dayStop"></circle>
   <polygon points="439.80510776962,443.6327675015273 432.30510776962,456.6231485582939 447.30510776962,456.6231485582939" class="elevationMarker"></polygon>
-  <rect width="87.48" height="21.6" x="346.397" y="459.376" opacity="0.2" fill="green" class="labelRect"></rect><text x="346.397" y="476.477" class="label">
-    <tspan dy="0" x="346.397">Trequanda</tspan>
+  <rect width="60.3" height="18" x="711.687" y="476.923" opacity="0.2" fill="green" class="labelRect"></rect><text x="711.687" y="492.224" class="label">
+    <tspan dy="0" x="711.687">Valiano</tspan>
   </text>
-  <rect width="60.3" height="21.6" x="675.88" y="469.179" opacity="0.2" fill="green" class="labelRect"></rect><text x="675.88" y="486.281" class="label">
-    <tspan dy="0" x="675.88">Valiano</tspan>
+  <rect width="87.48" height="18" x="349.225" y="458.347" opacity="0.2" fill="green" class="labelRect"></rect><text x="349.225" y="473.649" class="label">
+    <tspan dy="0" x="349.225">Trequanda</tspan>
   </text>
-  <rect width="46.26" height="21.6" x="69.178" y="237.893" opacity="0.2" fill="green" class="labelRect"></rect><text x="69.178" y="254.994" class="label">
-    <tspan dy="0" x="69.178">Siena</tspan>
+  <rect width="46.26" height="18" x="40.391" y="245.636" opacity="0.2" fill="green" class="labelRect"></rect><text x="40.391" y="260.938" class="label">
+    <tspan dy="0" x="40.391">Siena</tspan>
   </text>
-  <rect width="192.96" height="21.6" x="537.864" y="533.813" opacity="0.2" fill="green" class="labelRect"></rect><text x="537.864" y="550.914" class="label">
+  <rect width="192.96" height="18" x="537.864" y="535.613" opacity="0.2" fill="green" class="labelRect"></rect><text x="537.864" y="550.914" class="label">
     <tspan dy="0" x="537.864">Montepulciano Stazione</tspan>
   </text>
 </svg>

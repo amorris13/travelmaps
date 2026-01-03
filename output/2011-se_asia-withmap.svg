@@ -136,40 +136,40 @@
   <circle r="5" cx="673.008" cy="996.618" class="stage"></circle>
   <circle r="5" cx="580.839" cy="831.503" class="stage"></circle>
   <circle r="5" cx="288.567" cy="800.779" class="stage"></circle>
-  <rect width="91.26" height="21.6" x="59.944" y="318.078" opacity="0.2" fill="green" class="labelRect"></rect><text x="59.944" y="335.18" class="label">
+  <rect width="47.16" height="18" x="728.11" y="114.262" opacity="0.2" fill="green" class="labelRect"></rect><text x="728.11" y="129.563" class="label">
+    <tspan dy="0" x="728.11">Hanoi</tspan>
+  </text>
+  <rect width="91.26" height="18" x="59.944" y="352.792" opacity="0.2" fill="green" class="labelRect"></rect><text x="59.944" y="368.094" class="label">
     <tspan dy="0" x="59.944">Chiang Mai</tspan>
   </text>
-  <rect width="85.32" height="21.6" x="952.162" y="907.536" opacity="0.2" fill="green" class="labelRect"></rect><text x="952.162" y="924.638" class="label">
-    <tspan dy="0" x="952.162">Nha Trang</tspan>
+  <rect width="104.58" height="18" x="560.428" y="989.418" opacity="0.2" fill="green" class="labelRect"></rect><text x="560.428" y="1004.72" class="label">
+    <tspan dy="0" x="560.428">Phnom Penh</tspan>
   </text>
-  <rect width="123.84" height="21.6" x="436.395" y="250.209" opacity="0.2" fill="green" class="labelRect"></rect><text x="436.395" y="267.311" class="label">
-    <tspan dy="0" x="436.395">Luang Prabang</tspan>
-  </text>
-  <rect width="71.46" height="21.6" x="308.435" y="251.103" opacity="0.2" fill="green" class="labelRect"></rect><text x="308.435" y="268.204" class="label">
+  <rect width="71.46" height="18" x="308.435" y="252.903" opacity="0.2" fill="green" class="labelRect"></rect><text x="308.435" y="268.204" class="label">
     <tspan dy="0" x="308.435">Pakbeng</tspan>
   </text>
-  <rect width="70.38" height="21.6" x="294.224" y="773.522" opacity="0.2" fill="green" class="labelRect"></rect><text x="294.224" y="790.624" class="label">
-    <tspan dy="0" x="294.224">Bangkok</tspan>
-  </text>
-  <rect width="54.18" height="21.6" x="974.811" y="582.717" opacity="0.2" fill="green" class="labelRect"></rect><text x="974.811" y="599.818" class="label">
-    <tspan dy="0" x="974.811">Hoi An</tspan>
-  </text>
-  <rect width="56.34" height="21.6" x="826.437" y="1067.195" opacity="0.2" fill="green" class="labelRect"></rect><text x="826.437" y="1084.297" class="label">
-    <tspan dy="0" x="826.437">Saigon</tspan>
-  </text>
-  <rect width="114.66" height="21.6" x="159.813" y="182.029" opacity="0.2" fill="green" class="labelRect"></rect><text x="159.813" y="199.131" class="label">
-    <tspan dy="0" x="159.813">Chiang Khong</tspan>
-  </text>
-  <rect width="104.58" height="21.6" x="874.573" y="122.153" opacity="0.2" fill="green" class="labelRect"></rect><text x="874.573" y="139.255" class="label">
+  <rect width="104.58" height="18" x="874.573" y="127.553" opacity="0.2" fill="green" class="labelRect"></rect><text x="874.573" y="142.855" class="label">
     <tspan dy="0" x="874.573">Ha Long Bay</tspan>
   </text>
-  <rect width="104.58" height="21.6" x="562.771" y="969.362" opacity="0.2" fill="green" class="labelRect"></rect><text x="562.771" y="986.463" class="label">
-    <tspan dy="0" x="562.771">Phnom Penh</tspan>
+  <rect width="54.18" height="18" x="909.318" y="588.117" opacity="0.2" fill="green" class="labelRect"></rect><text x="909.318" y="603.418" class="label">
+    <tspan dy="0" x="909.318">Hoi An</tspan>
   </text>
-  <rect width="94.32" height="21.6" x="480.863" y="804.246" opacity="0.2" fill="green" class="labelRect"></rect><text x="480.863" y="821.348" class="label">
-    <tspan dy="0" x="480.863">Angkor Wat</tspan>
+  <rect width="94.32" height="18" x="533.679" y="807.303" opacity="0.2" fill="green" class="labelRect"></rect><text x="533.679" y="822.605" class="label">
+    <tspan dy="0" x="533.679">Angkor Wat</tspan>
   </text>
-  <rect width="47.16" height="21.6" x="728.11" y="108.862" opacity="0.2" fill="green" class="labelRect"></rect><text x="728.11" y="125.963" class="label">
-    <tspan dy="0" x="728.11">Hanoi</tspan>
+  <rect width="114.66" height="18" x="159.813" y="187.429" opacity="0.2" fill="green" class="labelRect"></rect><text x="159.813" y="202.731" class="label">
+    <tspan dy="0" x="159.813">Chiang Khong</tspan>
+  </text>
+  <rect width="70.38" height="18" x="210.187" y="793.579" opacity="0.2" fill="green" class="labelRect"></rect><text x="210.187" y="808.88" class="label">
+    <tspan dy="0" x="210.187">Bangkok</tspan>
+  </text>
+  <rect width="85.32" height="18" x="952.162" y="912.936" opacity="0.2" fill="green" class="labelRect"></rect><text x="952.162" y="928.238" class="label">
+    <tspan dy="0" x="952.162">Nha Trang</tspan>
+  </text>
+  <rect width="56.34" height="18" x="758.783" y="1068.995" opacity="0.2" fill="green" class="labelRect"></rect><text x="758.783" y="1084.297" class="label">
+    <tspan dy="0" x="758.783">Saigon</tspan>
+  </text>
+  <rect width="123.84" height="18" x="436.395" y="252.009" opacity="0.2" fill="green" class="labelRect"></rect><text x="436.395" y="267.311" class="label">
+    <tspan dy="0" x="436.395">Luang Prabang</tspan>
   </text>
 </svg>

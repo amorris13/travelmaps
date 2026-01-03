@@ -125,37 +125,37 @@
   <circle r="5" cx="361.689" cy="825.966" class="stage"></circle>
   <circle r="5" cx="426.738" cy="924.877" class="stage dayStop"></circle>
   <circle r="5" cx="138.462" cy="854.001" class="stage"></circle>
-  <rect width="70.2" height="21.6" x="285.832" y="831.623" opacity="0.2" fill="green" class="labelRect"></rect><text x="285.832" y="848.724" class="label">
-    <tspan dy="0" x="285.832">Amboise</tspan>
+  <rect width="39.06" height="18" x="583.201" y="610.443" opacity="0.2" fill="green" class="labelRect"></rect><text x="583.201" y="625.745" class="label">
+    <tspan dy="0" x="583.201">Blois</tspan>
   </text>
-  <rect width="201.24" height="21.6" x="434.738" y="914.077" opacity="0.2" fill="green" class="labelRect"></rect><text x="434.738" y="931.179" class="label">
-    <tspan dy="0" x="434.738">Chateau de Chenonceau</tspan>
-  </text>
-  <rect width="63.18" height="21.6" x="1029.948" y="245.523" opacity="0.2" fill="green" class="labelRect"></rect><text x="1029.948" y="262.625" class="label">
-    <tspan dy="0" x="1029.948">Orleans</tspan>
-  </text>
-  <rect width="156.24" height="21.6" x="580.602" y="527.23" opacity="0.2" fill="green" class="labelRect"></rect><text x="580.602" y="544.332" class="label">
+  <rect width="156.24" height="18" x="580.602" y="532.63" opacity="0.2" fill="green" class="labelRect"></rect><text x="580.602" y="547.932" class="label">
     <tspan dy="0" x="580.602">Saint-Dye-sur-Loire</tspan>
   </text>
-  <rect width="132.3" height="21.6" x="763.72" y="333.914" opacity="0.2" fill="green" class="labelRect"></rect><text x="763.72" y="351.016" class="label">
-    <tspan dy="0" x="763.72">Meung-sur-Loire</tspan>
+  <rect width="201.24" height="18" x="219.841" y="932.334" opacity="0.2" fill="green" class="labelRect"></rect><text x="219.841" y="947.635" class="label">
+    <tspan dy="0" x="219.841">Chateau de Chenonceau</tspan>
   </text>
-  <rect width="46.08" height="21.6" x="144.118" y="859.658" opacity="0.2" fill="green" class="labelRect"></rect><text x="144.118" y="876.759" class="label">
-    <tspan dy="0" x="144.118">Tours</tspan>
+  <rect width="175.86" height="18" x="726.004" y="736.127" opacity="0.2" fill="green" class="labelRect"></rect><text x="726.004" y="751.428" class="label">
+    <tspan dy="0" x="726.004">Chateau de Cheverny</tspan>
   </text>
-  <rect width="68.22" height="21.6" x="461.175" y="630.749" opacity="0.2" fill="green" class="labelRect"></rect><text x="461.175" y="647.851" class="label">
-    <tspan dy="0" x="461.175">Molineuf</tspan>
-  </text>
-  <rect width="39.06" height="21.6" x="608.388" y="602.7" opacity="0.2" fill="green" class="labelRect"></rect><text x="608.388" y="619.802" class="label">
-    <tspan dy="0" x="608.388">Blois</tspan>
-  </text>
-  <rect width="175.86" height="21.6" x="632.417" y="736.67" opacity="0.2" fill="green" class="labelRect"></rect><text x="632.417" y="753.772" class="label">
-    <tspan dy="0" x="632.417">Chateau de Cheverny</tspan>
-  </text>
-  <rect width="182.88" height="21.6" x="772.971" y="588.124" opacity="0.2" fill="green" class="labelRect"></rect><text x="772.971" y="605.226" class="label">
+  <rect width="182.88" height="18" x="772.971" y="591.724" opacity="0.2" fill="green" class="labelRect"></rect><text x="772.971" y="607.026" class="label">
     <tspan dy="0" x="772.971">Chateau de Chambord</tspan>
   </text>
-  <rect width="181.98" height="21.6" x="323.668" y="725.096" opacity="0.2" fill="green" class="labelRect"></rect><text x="323.668" y="742.197" class="label">
+  <rect width="70.2" height="18" x="283.489" y="818.766" opacity="0.2" fill="green" class="labelRect"></rect><text x="283.489" y="834.067" class="label">
+    <tspan dy="0" x="283.489">Amboise</tspan>
+  </text>
+  <rect width="132.3" height="18" x="761.377" y="353.971" opacity="0.2" fill="green" class="labelRect"></rect><text x="761.377" y="369.273" class="label">
+    <tspan dy="0" x="761.377">Meung-sur-Loire</tspan>
+  </text>
+  <rect width="181.98" height="18" x="323.668" y="730.496" opacity="0.2" fill="green" class="labelRect"></rect><text x="323.668" y="745.797" class="label">
     <tspan dy="0" x="323.668">Chateau de Chaumont</tspan>
+  </text>
+  <rect width="46.08" height="18" x="115.422" y="863.801" opacity="0.2" fill="green" class="labelRect"></rect><text x="115.422" y="879.103" class="label">
+    <tspan dy="0" x="115.422">Tours</tspan>
+  </text>
+  <rect width="63.18" height="18" x="1067.195" y="253.266" opacity="0.2" fill="green" class="labelRect"></rect><text x="1067.195" y="268.568" class="label">
+    <tspan dy="0" x="1067.195">Orleans</tspan>
+  </text>
+  <rect width="68.22" height="18" x="461.175" y="634.349" opacity="0.2" fill="green" class="labelRect"></rect><text x="461.175" y="649.651" class="label">
+    <tspan dy="0" x="461.175">Molineuf</tspan>
   </text>
 </svg>

@@ -97,16 +97,16 @@
   <circle r="5" cx="1061.538" cy="698.078" class="stage dayStop"></circle>
   <circle r="5" cx="1039.828" cy="501.922" class="stage"></circle>
   <circle r="5" cx="881.089" cy="510.952" class="stage dayStop"></circle>
-  <rect width="89.28" height="21.6" x="786.152" y="516.609" opacity="0.2" fill="green" class="labelRect"></rect><text x="786.152" y="533.71" class="label">
-    <tspan dy="0" x="786.152">Canterbury</tspan>
-  </text>
-  <rect width="48.06" height="21.6" x="1067.195" y="703.735" opacity="0.2" fill="green" class="labelRect"></rect><text x="1067.195" y="720.836" class="label">
-    <tspan dy="0" x="1067.195">Dover</tspan>
-  </text>
-  <rect width="104.22" height="21.6" x="26.242" y="614.877" opacity="0.2" fill="green" class="labelRect"></rect><text x="26.242" y="631.979" class="label">
+  <rect width="104.22" height="18" x="26.242" y="618.477" opacity="0.2" fill="green" class="labelRect"></rect><text x="26.242" y="633.779" class="label">
     <tspan dy="0" x="26.242">Hever Castle</tspan>
   </text>
-  <rect width="31.14" height="21.6" x="1045.485" y="474.665" opacity="0.2" fill="green" class="labelRect"></rect><text x="1045.485" y="491.767" class="label">
+  <rect width="31.14" height="18" x="1045.485" y="480.065" opacity="0.2" fill="green" class="labelRect"></rect><text x="1045.485" y="495.367" class="label">
     <tspan dy="0" x="1045.485">Ash</tspan>
+  </text>
+  <rect width="89.28" height="18" x="786.152" y="518.409" opacity="0.2" fill="green" class="labelRect"></rect><text x="786.152" y="533.71" class="label">
+    <tspan dy="0" x="786.152">Canterbury</tspan>
+  </text>
+  <rect width="48.06" height="18" x="1007.822" y="676.221" opacity="0.2" fill="green" class="labelRect"></rect><text x="1007.822" y="691.522" class="label">
+    <tspan dy="0" x="1007.822">Dover</tspan>
   </text>
 </svg>

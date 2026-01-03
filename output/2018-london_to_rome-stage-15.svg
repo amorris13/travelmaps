@@ -91,10 +91,10 @@
   <circle r="5" cx="92.308" cy="202.263" class="stage"></circle>
   <circle r="5" cx="707.692" cy="597.737" class="stage"></circle>
   <polygon points="644.9747083237999,487.66144469253055 637.4747083237999,500.65182574929713 652.4747083237999,500.65182574929713" class="elevationMarker"></polygon>
-  <rect width="45.18" height="21.6" x="41.471" y="175.006" opacity="0.2" fill="green" class="labelRect"></rect><text x="41.471" y="192.108" class="label">
-    <tspan dy="0" x="41.471">Basel</tspan>
-  </text>
-  <rect width="112.5" height="21.6" x="651.442" y="605.737" opacity="0.2" fill="green" class="labelRect"></rect><text x="651.442" y="622.839" class="label">
+  <rect width="112.5" height="18" x="651.442" y="607.537" opacity="0.2" fill="green" class="labelRect"></rect><text x="651.442" y="622.839" class="label">
     <tspan dy="0" x="651.442">Niedergösgen</tspan>
+  </text>
+  <rect width="45.18" height="18" x="41.471" y="209.72" opacity="0.2" fill="green" class="labelRect"></rect><text x="41.471" y="225.021" class="label">
+    <tspan dy="0" x="41.471">Basel</tspan>
   </text>
 </svg>

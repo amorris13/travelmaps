@@ -92,10 +92,10 @@
   <circle r="5" cx="98.011" cy="243.568" class="stage"></circle>
   <circle r="5" cx="707.692" cy="556.105" class="stage"></circle>
   <polygon points="702.3605996123861,547.0625043381515 694.8605996123861,560.0528853949181 709.8605996123861,560.0528853949181" class="elevationMarker"></polygon>
-  <rect width="66.42" height="21.6" x="713.349" y="561.762" opacity="0.2" fill="green" class="labelRect"></rect><text x="713.349" y="578.864" class="label">
-    <tspan dy="0" x="713.349">Bologna</tspan>
+  <rect width="66.42" height="18" x="674.482" y="565.905" opacity="0.2" fill="green" class="labelRect"></rect><text x="674.482" y="581.207" class="label">
+    <tspan dy="0" x="674.482">Bologna</tspan>
   </text>
-  <rect width="65.34" height="21.6" x="27.014" y="216.311" opacity="0.2" fill="green" class="labelRect"></rect><text x="27.014" y="233.413" class="label">
-    <tspan dy="0" x="27.014">Modena</tspan>
+  <rect width="65.34" height="18" x="24.671" y="236.368" opacity="0.2" fill="green" class="labelRect"></rect><text x="24.671" y="251.67" class="label">
+    <tspan dy="0" x="24.671">Modena</tspan>
   </text>
 </svg>

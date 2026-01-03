@@ -94,10 +94,10 @@
   <circle r="5" cx="479.55" cy="707.692" class="stage"></circle>
   <circle r="3.5" cx="-761.024" cy="-1552.666" class="dayStop"></circle>
   <polygon points="418.9033649439025,479.34327130518074 411.4033649439025,492.3336523619473 426.4033649439025,492.3336523619473" class="elevationMarker"></polygon>
-  <rect width="70.2" height="21.6" x="330.33" y="70.277" opacity="0.2" fill="green" class="labelRect"></rect><text x="330.33" y="87.379" class="label">
-    <tspan dy="0" x="330.33">Florence</tspan>
+  <rect width="70.2" height="18" x="371.087" y="73.334" opacity="0.2" fill="green" class="labelRect"></rect><text x="371.087" y="88.636" class="label">
+    <tspan dy="0" x="371.087">Florence</tspan>
   </text>
-  <rect width="46.26" height="21.6" x="485.207" y="713.349" opacity="0.2" fill="green" class="labelRect"></rect><text x="485.207" y="730.451" class="label">
+  <rect width="46.26" height="18" x="485.207" y="715.149" opacity="0.2" fill="green" class="labelRect"></rect><text x="485.207" y="730.451" class="label">
     <tspan dy="0" x="485.207">Siena</tspan>
   </text>
 </svg>

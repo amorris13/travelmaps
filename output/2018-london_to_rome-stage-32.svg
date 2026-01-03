@@ -95,16 +95,16 @@
   <circle r="3.5" cx="388.823" cy="682.343" class="dayStop"></circle>
   <circle r="3.5" cx="426.768" cy="699.018" class="dayStop"></circle>
   <polygon points="382.76365636763876,382.7979529118748 375.26365636763876,395.7883339686414 390.26365636763876,395.7883339686414" class="elevationMarker"></polygon>
-  <rect width="96.3" height="21.6" x="284.523" y="671.543" opacity="0.2" fill="green" class="labelRect"></rect><text x="284.523" y="688.644" class="label">
-    <tspan dy="0" x="284.523">Vatican City</tspan>
+  <rect width="96.3" height="18" x="289.695" y="686.971" opacity="0.2" fill="green" class="labelRect"></rect><text x="289.695" y="702.273" class="label">
+    <tspan dy="0" x="289.695">Vatican City</tspan>
   </text>
-  <rect width="48.06" height="21.6" x="412.173" y="661.302" opacity="0.2" fill="green" class="labelRect"></rect><text x="412.173" y="678.403" class="label">
-    <tspan dy="0" x="412.173">Rome</tspan>
+  <rect width="48.06" height="18" x="415.001" y="663.873" opacity="0.2" fill="green" class="labelRect"></rect><text x="415.001" y="679.175" class="label">
+    <tspan dy="0" x="415.001">Rome</tspan>
   </text>
-  <rect width="90.18" height="21.6" x="432.425" y="704.675" opacity="0.2" fill="green" class="labelRect"></rect><text x="432.425" y="721.777" class="label">
-    <tspan dy="0" x="432.425">Colosseum</tspan>
+  <rect width="90.18" height="18" x="429.597" y="703.647" opacity="0.2" fill="green" class="labelRect"></rect><text x="429.597" y="718.948" class="label">
+    <tspan dy="0" x="429.597">Colosseum</tspan>
   </text>
-  <rect width="135.36" height="21.6" x="313.407" y="62.708" opacity="0.2" fill="green" class="labelRect"></rect><text x="313.407" y="79.809" class="label">
+  <rect width="135.36" height="18" x="313.407" y="68.108" opacity="0.2" fill="green" class="labelRect"></rect><text x="313.407" y="83.409" class="label">
     <tspan dy="0" x="313.407">Civita Castellana</tspan>
   </text>
 </svg>

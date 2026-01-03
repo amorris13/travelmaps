@@ -92,10 +92,10 @@
   <circle r="5" cx="304.398" cy="92.308" class="stage"></circle>
   <circle r="5" cx="329.851" cy="693.656" class="stage"></circle>
   <polygon points="387.6730243030315,673.8638380206685 380.1730243030315,686.8542190774351 395.1730243030315,686.8542190774351" class="elevationMarker"></polygon>
-  <rect width="64.98" height="21.6" x="259.214" y="699.312" opacity="0.2" fill="green" class="labelRect"></rect><text x="259.214" y="716.414" class="label">
-    <tspan dy="0" x="259.214">Waimes</tspan>
+  <rect width="64.98" height="18" x="256.871" y="686.456" opacity="0.2" fill="green" class="labelRect"></rect><text x="256.871" y="701.757" class="label">
+    <tspan dy="0" x="256.871">Waimes</tspan>
   </text>
-  <rect width="61.38" height="21.6" x="273.708" y="62.708" opacity="0.2" fill="green" class="labelRect"></rect><text x="273.708" y="79.809" class="label">
-    <tspan dy="0" x="273.708">Aachen</tspan>
+  <rect width="61.38" height="18" x="310.055" y="70.451" opacity="0.2" fill="green" class="labelRect"></rect><text x="310.055" y="85.752" class="label">
+    <tspan dy="0" x="310.055">Aachen</tspan>
   </text>
 </svg>

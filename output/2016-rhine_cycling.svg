@@ -115,28 +115,28 @@
   <circle r="5" cx="447.632" cy="463.843" class="stage dayStop"></circle>
   <circle r="5" cx="368.32" cy="317.523" class="stage"></circle>
   <circle r="5" cx="290.374" cy="138.462" class="stage dayStop"></circle>
-  <rect width="42.3" height="21.6" x="318.02" y="306.723" opacity="0.2" fill="green" class="labelRect"></rect><text x="318.02" y="323.824" class="label">
-    <tspan dy="0" x="318.02">Bonn</tspan>
-  </text>
-  <rect width="78.3" height="21.6" x="870.476" y="999.617" opacity="0.2" fill="green" class="labelRect"></rect><text x="870.476" y="1016.719" class="label">
+  <rect width="78.3" height="18" x="870.476" y="1001.417" opacity="0.2" fill="green" class="labelRect"></rect><text x="870.476" y="1016.719" class="label">
     <tspan dy="0" x="870.476">Ingelheim</tspan>
   </text>
-  <rect width="78.3" height="21.6" x="363.676" y="469.499" opacity="0.2" fill="green" class="labelRect"></rect><text x="363.676" y="486.601" class="label">
+  <rect width="86.4" height="18" x="678.056" y="783.206" opacity="0.2" fill="green" class="labelRect"></rect><text x="678.056" y="798.508" class="label">
+    <tspan dy="0" x="678.056">Bad Salzig</tspan>
+  </text>
+  <rect width="78.3" height="18" x="363.676" y="471.299" opacity="0.2" fill="green" class="labelRect"></rect><text x="363.676" y="486.601" class="label">
     <tspan dy="0" x="363.676">Remagen</tspan>
   </text>
-  <rect width="67.32" height="21.6" x="298.374" y="127.662" opacity="0.2" fill="green" class="labelRect"></rect><text x="298.374" y="144.763" class="label">
-    <tspan dy="0" x="298.374">Cologne</tspan>
+  <rect width="65.34" height="18" x="574.678" y="663.362" opacity="0.2" fill="green" class="labelRect"></rect><text x="574.678" y="678.663" class="label">
+    <tspan dy="0" x="574.678">Koblenz</tspan>
   </text>
-  <rect width="132.66" height="21.6" x="683.517" y="1067.195" opacity="0.2" fill="green" class="labelRect"></rect><text x="683.517" y="1084.297" class="label">
-    <tspan dy="0" x="683.517">Langenlonsheim</tspan>
+  <rect width="132.66" height="18" x="755.504" y="1071.338" opacity="0.2" fill="green" class="labelRect"></rect><text x="755.504" y="1086.64" class="label">
+    <tspan dy="0" x="755.504">Langenlonsheim</tspan>
   </text>
-  <rect width="65.34" height="21.6" x="651.331" y="628.648" opacity="0.2" fill="green" class="labelRect"></rect><text x="651.331" y="645.75" class="label">
-    <tspan dy="0" x="651.331">Koblenz</tspan>
+  <rect width="173.52" height="18" x="642.299" y="1011.014" opacity="0.2" fill="green" class="labelRect"></rect><text x="642.299" y="1026.316" class="label">
+    <tspan dy="0" x="642.299">Rüdesheim am Rhein</tspan>
   </text>
-  <rect width="86.4" height="21.6" x="577.999" y="796.063" opacity="0.2" fill="green" class="labelRect"></rect><text x="577.999" y="813.165" class="label">
-    <tspan dy="0" x="577.999">Bad Salzig</tspan>
+  <rect width="67.32" height="18" x="256.714" y="114.262" opacity="0.2" fill="green" class="labelRect"></rect><text x="256.714" y="129.563" class="label">
+    <tspan dy="0" x="256.714">Cologne</tspan>
   </text>
-  <rect width="173.52" height="21.6" x="858.245" y="945.188" opacity="0.2" fill="green" class="labelRect"></rect><text x="858.245" y="962.289" class="label">
-    <tspan dy="0" x="858.245">Rüdesheim am Rhein</tspan>
+  <rect width="42.3" height="18" x="373.977" y="295.666" opacity="0.2" fill="green" class="labelRect"></rect><text x="373.977" y="310.968" class="label">
+    <tspan dy="0" x="373.977">Bonn</tspan>
   </text>
 </svg>

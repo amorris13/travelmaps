@@ -91,10 +91,10 @@
   <circle r="5" cx="581.018" cy="92.308" class="stage"></circle>
   <circle r="5" cx="218.948" cy="707.501" class="stage"></circle>
   <polygon points="216.20019628264163,695.9556340526105 208.70019628264163,708.9460151093772 223.70019628264163,708.9460151093772" class="elevationMarker"></polygon>
-  <rect width="36.18" height="21.6" x="177.111" y="713.158" opacity="0.2" fill="green" class="labelRect"></rect><text x="177.111" y="730.26" class="label">
+  <rect width="36.18" height="18" x="177.111" y="714.958" opacity="0.2" fill="green" class="labelRect"></rect><text x="177.111" y="730.26" class="label">
     <tspan dy="0" x="177.111">Badi</tspan>
   </text>
-  <rect width="66.42" height="21.6" x="586.675" y="65.051" opacity="0.2" fill="green" class="labelRect"></rect><text x="586.675" y="82.152" class="label">
-    <tspan dy="0" x="586.675">Bologna</tspan>
+  <rect width="66.42" height="18" x="589.018" y="85.108" opacity="0.2" fill="green" class="labelRect"></rect><text x="589.018" y="100.409" class="label">
+    <tspan dy="0" x="589.018">Bologna</tspan>
   </text>
 </svg>

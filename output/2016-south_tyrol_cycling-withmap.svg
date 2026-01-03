@@ -110,25 +110,25 @@
   <circle r="5" cx="456.654" cy="797.776" class="stage dayStop"></circle>
   <circle r="5" cx="412.508" cy="1022.105" class="stage"></circle>
   <circle r="5" cx="517.398" cy="1061.538" class="stage"></circle>
-  <rect width="51.12" height="21.6" x="795.492" y="301.151" opacity="0.2" fill="green" class="labelRect"></rect><text x="795.492" y="318.252" class="label">
+  <rect width="52.2" height="18" x="510.235" y="685.622" opacity="0.2" fill="green" class="labelRect"></rect><text x="510.235" y="700.924" class="label">
+    <tspan dy="0" x="510.235">Trento</tspan>
+  </text>
+  <rect width="65.34" height="18" x="665.526" y="447.619" opacity="0.2" fill="green" class="labelRect"></rect><text x="665.526" y="462.921" class="label">
+    <tspan dy="0" x="665.526">Bolzano</tspan>
+  </text>
+  <rect width="58.32" height="18" x="525.398" y="1054.338" opacity="0.2" fill="green" class="labelRect"></rect><text x="525.398" y="1069.64" class="label">
+    <tspan dy="0" x="525.398">Verona</tspan>
+  </text>
+  <rect width="64.26" height="18" x="656.721" y="116.605" opacity="0.2" fill="green" class="labelRect"></rect><text x="656.721" y="131.906" class="label">
+    <tspan dy="0" x="656.721">Brenner</tspan>
+  </text>
+  <rect width="52.2" height="18" x="354.651" y="1029.562" opacity="0.2" fill="green" class="labelRect"></rect><text x="354.651" y="1044.864" class="label">
+    <tspan dy="0" x="354.651">Lazise</tspan>
+  </text>
+  <rect width="51.12" height="18" x="795.492" y="304.751" opacity="0.2" fill="green" class="labelRect"></rect><text x="795.492" y="320.052" class="label">
     <tspan dy="0" x="795.492">Brixen</tspan>
   </text>
-  <rect width="58.32" height="21.6" x="523.055" y="1067.195" opacity="0.2" fill="green" class="labelRect"></rect><text x="523.055" y="1084.297" class="label">
-    <tspan dy="0" x="523.055">Verona</tspan>
-  </text>
-  <rect width="52.2" height="21.6" x="352.308" y="1011.305" opacity="0.2" fill="green" class="labelRect"></rect><text x="352.308" y="1028.407" class="label">
-    <tspan dy="0" x="352.308">Lazise</tspan>
-  </text>
-  <rect width="64.26" height="21.6" x="734.638" y="127.662" opacity="0.2" fill="green" class="labelRect"></rect><text x="734.638" y="144.763" class="label">
-    <tspan dy="0" x="734.638">Brenner</tspan>
-  </text>
-  <rect width="52.2" height="21.6" x="578.435" y="682.022" opacity="0.2" fill="green" class="labelRect"></rect><text x="578.435" y="699.124" class="label">
-    <tspan dy="0" x="578.435">Trento</tspan>
-  </text>
-  <rect width="120.42" height="21.6" x="330.577" y="770.52" opacity="0.2" fill="green" class="labelRect"></rect><text x="330.577" y="787.621" class="label">
+  <rect width="120.42" height="18" x="330.577" y="805.233" opacity="0.2" fill="green" class="labelRect"></rect><text x="330.577" y="820.535" class="label">
     <tspan dy="0" x="330.577">Riva del Garda</tspan>
-  </text>
-  <rect width="65.34" height="21.6" x="665.526" y="445.819" opacity="0.2" fill="green" class="labelRect"></rect><text x="665.526" y="462.921" class="label">
-    <tspan dy="0" x="665.526">Bolzano</tspan>
   </text>
 </svg>

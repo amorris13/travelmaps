@@ -130,37 +130,37 @@
   <circle r="5" cx="497.643" cy="637.089" class="stage"></circle>
   <circle r="5" cx="154.943" cy="548.704" class="stage"></circle>
   <circle r="5" cx="138.462" cy="540.477" class="stage"></circle>
-  <rect width="113.4" height="21.6" x="816.912" y="482.829" opacity="0.2" fill="green" class="labelRect"></rect><text x="816.912" y="499.93" class="label">
-    <tspan dy="0" x="816.912">Machu Picchu</tspan>
-  </text>
-  <rect width="51.12" height="21.6" x="833.149" y="530.286" opacity="0.2" fill="green" class="labelRect"></rect><text x="833.149" y="547.387" class="label">
-    <tspan dy="0" x="833.149">Cuzco</tspan>
-  </text>
-  <rect width="71.46" height="21.6" x="863.937" y="556.265" opacity="0.2" fill="green" class="labelRect"></rect><text x="863.937" y="573.367" class="label">
+  <rect width="71.46" height="18" x="863.937" y="559.865" opacity="0.2" fill="green" class="labelRect"></rect><text x="863.937" y="575.167" class="label">
     <tspan dy="0" x="863.937">Pantanal</tspan>
   </text>
-  <rect width="116.46" height="21.6" x="1003.308" y="605.53" opacity="0.2" fill="green" class="labelRect"></rect><text x="1003.308" y="622.631" class="label">
+  <rect width="105.48" height="18" x="503.3" y="615.232" opacity="0.2" fill="green" class="labelRect"></rect><text x="503.3" y="630.534" class="label">
+    <tspan dy="0" x="503.3">Easter Island</tspan>
+  </text>
+  <rect width="116.46" height="18" x="1003.308" y="607.33" opacity="0.2" fill="green" class="labelRect"></rect><text x="1003.308" y="622.631" class="label">
     <tspan dy="0" x="1003.308">Rio de Janeiro</tspan>
   </text>
-  <rect width="105.48" height="21.6" x="386.506" y="642.746" opacity="0.2" fill="green" class="labelRect"></rect><text x="386.506" y="659.847" class="label">
-    <tspan dy="0" x="386.506">Easter Island</tspan>
-  </text>
-  <rect width="39.06" height="21.6" x="728.212" y="473.08" opacity="0.2" fill="green" class="labelRect"></rect><text x="728.212" y="490.181" class="label">
+  <rect width="39.06" height="18" x="728.212" y="478.48" opacity="0.2" fill="green" class="labelRect"></rect><text x="728.212" y="493.781" class="label">
     <tspan dy="0" x="728.212">Lima</tspan>
   </text>
-  <rect width="123.48" height="21.6" x="969.638" y="547.877" opacity="0.2" fill="green" class="labelRect"></rect><text x="969.638" y="564.979" class="label">
-    <tspan dy="0" x="969.638">Campo Grande</tspan>
-  </text>
-  <rect width="97.38" height="21.6" x="862.522" y="629.26" opacity="0.2" fill="green" class="labelRect"></rect><text x="862.522" y="646.362" class="label">
+  <rect width="97.38" height="18" x="862.522" y="631.06" opacity="0.2" fill="green" class="labelRect"></rect><text x="862.522" y="646.362" class="label">
     <tspan dy="0" x="862.522">Iguazu Falls</tspan>
   </text>
-  <rect width="71.46" height="21.6" x="832.897" y="705.32" opacity="0.2" fill="green" class="labelRect"></rect><text x="832.897" y="722.422" class="label">
-    <tspan dy="0" x="832.897">Santiago</tspan>
+  <rect width="113.4" height="18" x="816.912" y="488.229" opacity="0.2" fill="green" class="labelRect"></rect><text x="816.912" y="503.53" class="label">
+    <tspan dy="0" x="816.912">Machu Picchu</tspan>
   </text>
-  <rect width="54.72" height="21.6" x="78.085" y="513.22" opacity="0.2" fill="green" class="labelRect"></rect><text x="78.085" y="530.321" class="label">
+  <rect width="67.5" height="18" x="160.6" y="526.847" opacity="0.2" fill="green" class="labelRect"></rect><text x="160.6" y="542.149" class="label">
+    <tspan dy="0" x="160.6">Papeete</tspan>
+  </text>
+  <rect width="123.48" height="18" x="969.638" y="553.277" opacity="0.2" fill="green" class="labelRect"></rect><text x="969.638" y="568.579" class="label">
+    <tspan dy="0" x="969.638">Campo Grande</tspan>
+  </text>
+  <rect width="71.46" height="18" x="791.511" y="709.463" opacity="0.2" fill="green" class="labelRect"></rect><text x="791.511" y="724.765" class="label">
+    <tspan dy="0" x="791.511">Santiago</tspan>
+  </text>
+  <rect width="54.72" height="18" x="78.085" y="518.62" opacity="0.2" fill="green" class="labelRect"></rect><text x="78.085" y="533.921" class="label">
     <tspan dy="0" x="78.085">Taha'a</tspan>
   </text>
-  <rect width="67.5" height="21.6" x="160.6" y="521.447" opacity="0.2" fill="green" class="labelRect"></rect><text x="160.6" y="538.549" class="label">
-    <tspan dy="0" x="160.6">Papeete</tspan>
+  <rect width="51.12" height="18" x="833.149" y="532.086" opacity="0.2" fill="green" class="labelRect"></rect><text x="833.149" y="547.387" class="label">
+    <tspan dy="0" x="833.149">Cuzco</tspan>
   </text>
 </svg>

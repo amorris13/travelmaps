@@ -130,40 +130,40 @@
   <circle r="5" cx="553.364" cy="412.016" class="stage"></circle>
   <circle r="5" cx="1007.41" cy="725.651" class="stage"></circle>
   <circle r="5" cx="1061.538" cy="787.984" class="stage"></circle>
-  <rect width="79.38" height="21.6" x="400.582" y="463.304" opacity="0.2" fill="green" class="labelRect"></rect><text x="400.582" y="480.406" class="label">
-    <tspan dy="0" x="400.582">Le Rouret</tspan>
-  </text>
-  <rect width="51.12" height="21.6" x="237.841" y="603.285" opacity="0.2" fill="green" class="labelRect"></rect><text x="237.841" y="620.386" class="label">
+  <rect width="51.12" height="18" x="237.841" y="608.685" opacity="0.2" fill="green" class="labelRect"></rect><text x="237.841" y="623.986" class="label">
     <tspan dy="0" x="237.841">Teruel</tspan>
   </text>
-  <rect width="65.34" height="21.6" x="65.122" y="595.171" opacity="0.2" fill="green" class="labelRect"></rect><text x="65.122" y="612.273" class="label">
-    <tspan dy="0" x="65.122">Segovia</tspan>
-  </text>
-  <rect width="71.28" height="21.6" x="984.602" y="793.641" opacity="0.2" fill="green" class="labelRect"></rect><text x="984.602" y="810.742" class="label">
-    <tspan dy="0" x="984.602">Santorini</tspan>
-  </text>
-  <rect width="43.02" height="21.6" x="559.021" y="384.759" opacity="0.2" fill="green" class="labelRect"></rect><text x="559.021" y="401.861" class="label">
-    <tspan dy="0" x="559.021">Milan</tspan>
-  </text>
-  <rect width="76.32" height="21.6" x="200.809" y="547.041" opacity="0.2" fill="green" class="labelRect"></rect><text x="200.809" y="564.142" class="label">
-    <tspan dy="0" x="200.809">Zaragoza</tspan>
-  </text>
-  <rect width="56.34" height="21.6" x="1013.067" y="698.394" opacity="0.2" fill="green" class="labelRect"></rect><text x="1013.067" y="715.496" class="label">
-    <tspan dy="0" x="1013.067">Athens</tspan>
-  </text>
-  <rect width="105.3" height="21.6" x="573.427" y="475.861" opacity="0.2" fill="green" class="labelRect"></rect><text x="573.427" y="492.963" class="label">
-    <tspan dy="0" x="573.427">Cinque Terre</tspan>
-  </text>
-  <rect width="81.36" height="21.6" x="340.075" y="593.197" opacity="0.2" fill="green" class="labelRect"></rect><text x="340.075" y="610.298" class="label">
-    <tspan dy="0" x="340.075">Barcelona</tspan>
-  </text>
-  <rect width="62.28" height="21.6" x="168.861" y="649.794" opacity="0.2" fill="green" class="labelRect"></rect><text x="168.861" y="666.896" class="label">
+  <rect width="62.28" height="18" x="168.861" y="651.594" opacity="0.2" fill="green" class="labelRect"></rect><text x="168.861" y="666.896" class="label">
     <tspan dy="0" x="168.861">Cuenca</tspan>
   </text>
-  <rect width="81.36" height="21.6" x="174.668" y="497.978" opacity="0.2" fill="green" class="labelRect"></rect><text x="174.668" y="515.08" class="label">
+  <rect width="71.28" height="18" x="1025.898" y="797.784" opacity="0.2" fill="green" class="labelRect"></rect><text x="1025.898" y="813.086" class="label">
+    <tspan dy="0" x="1025.898">Santorini</tspan>
+  </text>
+  <rect width="76.32" height="18" x="244.626" y="554.784" opacity="0.2" fill="green" class="labelRect"></rect><text x="244.626" y="570.085" class="label">
+    <tspan dy="0" x="244.626">Zaragoza</tspan>
+  </text>
+  <rect width="65.34" height="18" x="65.122" y="598.771" opacity="0.2" fill="green" class="labelRect"></rect><text x="65.122" y="614.073" class="label">
+    <tspan dy="0" x="65.122">Segovia</tspan>
+  </text>
+  <rect width="55.26" height="18" x="77.746" y="643.048" opacity="0.2" fill="green" class="labelRect"></rect><text x="77.746" y="658.35" class="label">
+    <tspan dy="0" x="77.746">Toledo</tspan>
+  </text>
+  <rect width="43.02" height="18" x="504.688" y="390.159" opacity="0.2" fill="green" class="labelRect"></rect><text x="504.688" y="405.461" class="label">
+    <tspan dy="0" x="504.688">Milan</tspan>
+  </text>
+  <rect width="56.34" height="18" x="945.413" y="733.108" opacity="0.2" fill="green" class="labelRect"></rect><text x="945.413" y="748.409" class="label">
+    <tspan dy="0" x="945.413">Athens</tspan>
+  </text>
+  <rect width="105.3" height="18" x="515.12" y="480.004" opacity="0.2" fill="green" class="labelRect"></rect><text x="515.12" y="495.306" class="label">
+    <tspan dy="0" x="515.12">Cinque Terre</tspan>
+  </text>
+  <rect width="81.36" height="18" x="174.668" y="503.378" opacity="0.2" fill="green" class="labelRect"></rect><text x="174.668" y="518.68" class="label">
     <tspan dy="0" x="174.668">Pamplona</tspan>
   </text>
-  <rect width="55.26" height="21.6" x="80.089" y="655.905" opacity="0.2" fill="green" class="labelRect"></rect><text x="80.089" y="673.007" class="label">
-    <tspan dy="0" x="80.089">Toledo</tspan>
+  <rect width="81.36" height="18" x="340.075" y="594.997" opacity="0.2" fill="green" class="labelRect"></rect><text x="340.075" y="610.298" class="label">
+    <tspan dy="0" x="340.075">Barcelona</tspan>
+  </text>
+  <rect width="79.38" height="18" x="400.582" y="468.704" opacity="0.2" fill="green" class="labelRect"></rect><text x="400.582" y="484.006" class="label">
+    <tspan dy="0" x="400.582">Le Rouret</tspan>
   </text>
 </svg>

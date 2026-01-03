@@ -115,28 +115,28 @@
   <circle r="5" cx="828.348" cy="273.045" class="stage"></circle>
   <circle r="5" cx="723.387" cy="138.462" class="stage"></circle>
   <circle r="5" cx="323.306" cy="1061.538" class="stage"></circle>
-  <rect width="63.18" height="21.6" x="746.213" y="576.915" opacity="0.2" fill="green" class="labelRect"></rect><text x="746.213" y="594.017" class="label">
-    <tspan dy="0" x="746.213">Meknes</tspan>
-  </text>
-  <rect width="106.2" height="21.6" x="669.598" y="496.737" opacity="0.2" fill="green" class="labelRect"></rect><text x="669.598" y="513.839" class="label">
+  <rect width="106.2" height="18" x="669.598" y="502.137" opacity="0.2" fill="green" class="labelRect"></rect><text x="669.598" y="517.439" class="label">
     <tspan dy="0" x="669.598">Moulay Idriss</tspan>
   </text>
-  <rect width="61.2" height="21.6" x="656.53" y="111.205" opacity="0.2" fill="green" class="labelRect"></rect><text x="656.53" y="128.306" class="label">
+  <rect width="61.2" height="18" x="656.53" y="116.605" opacity="0.2" fill="green" class="labelRect"></rect><text x="656.53" y="131.906" class="label">
     <tspan dy="0" x="656.53">Tangier</tspan>
   </text>
-  <rect width="107.64" height="21.6" x="836.348" y="262.245" opacity="0.2" fill="green" class="labelRect"></rect><text x="836.348" y="279.347" class="label">
-    <tspan dy="0" x="836.348">Chefchaouen</tspan>
-  </text>
-  <rect width="48.24" height="21.6" x="480.216" y="507.383" opacity="0.2" fill="green" class="labelRect"></rect><text x="480.216" y="524.484" class="label">
+  <rect width="48.24" height="18" x="480.216" y="512.783" opacity="0.2" fill="green" class="labelRect"></rect><text x="480.216" y="528.084" class="label">
     <tspan dy="0" x="480.216">Rabat</tspan>
   </text>
-  <rect width="95.4" height="21.6" x="294.134" y="621.031" opacity="0.2" fill="green" class="labelRect"></rect><text x="294.134" y="638.133" class="label">
-    <tspan dy="0" x="294.134">Casablance</tspan>
+  <rect width="95.4" height="18" x="349.834" y="641.631" opacity="0.2" fill="green" class="labelRect"></rect><text x="349.834" y="656.933" class="label">
+    <tspan dy="0" x="349.834">Casablance</tspan>
   </text>
-  <rect width="85.14" height="21.6" x="232.509" y="1067.195" opacity="0.2" fill="green" class="labelRect"></rect><text x="232.509" y="1084.297" class="label">
-    <tspan dy="0" x="232.509">Marrakesh</tspan>
+  <rect width="107.64" height="18" x="836.348" y="265.845" opacity="0.2" fill="green" class="labelRect"></rect><text x="836.348" y="281.147" class="label">
+    <tspan dy="0" x="836.348">Chefchaouen</tspan>
   </text>
-  <rect width="30.06" height="21.6" x="882.351" y="505.197" opacity="0.2" fill="green" class="labelRect"></rect><text x="882.351" y="522.299" class="label">
+  <rect width="63.18" height="18" x="746.213" y="578.715" opacity="0.2" fill="green" class="labelRect"></rect><text x="746.213" y="594.017" class="label">
+    <tspan dy="0" x="746.213">Meknes</tspan>
+  </text>
+  <rect width="85.14" height="18" x="280.736" y="1071.338" opacity="0.2" fill="green" class="labelRect"></rect><text x="280.736" y="1086.64" class="label">
+    <tspan dy="0" x="280.736">Marrakesh</tspan>
+  </text>
+  <rect width="30.06" height="18" x="882.351" y="510.597" opacity="0.2" fill="green" class="labelRect"></rect><text x="882.351" y="525.899" class="label">
     <tspan dy="0" x="882.351">Fes</tspan>
   </text>
 </svg>

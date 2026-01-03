@@ -107,16 +107,16 @@
   <circle r="5" cx="832.727" cy="338.148" class="stage"></circle>
   <circle r="5" cx="240.109" cy="258.759" class="stage"></circle>
   <circle r="5" cx="464.511" cy="941.241" class="stage"></circle>
-  <rect width="46.08" height="21.6" x="1069.538" y="357.119" opacity="0.2" fill="green" class="labelRect"></rect><text x="1069.538" y="374.221" class="label">
-    <tspan dy="0" x="1069.538">Turku</tspan>
+  <rect width="46.08" height="18" x="1007.458" y="360.719" opacity="0.2" fill="green" class="labelRect"></rect><text x="1007.458" y="376.021" class="label">
+    <tspan dy="0" x="1007.458">Turku</tspan>
   </text>
-  <rect width="88.2" height="21.6" x="370.655" y="946.898" opacity="0.2" fill="green" class="labelRect"></rect><text x="370.655" y="964" class="label">
+  <rect width="72.36" height="18" x="245.766" y="266.216" opacity="0.2" fill="green" class="labelRect"></rect><text x="245.766" y="281.517" class="label">
+    <tspan dy="0" x="245.766">Parattula</tspan>
+  </text>
+  <rect width="88.2" height="18" x="370.655" y="948.698" opacity="0.2" fill="green" class="labelRect"></rect><text x="370.655" y="964" class="label">
     <tspan dy="0" x="370.655">Österretais</tspan>
   </text>
-  <rect width="72.36" height="21.6" x="159.749" y="247.959" opacity="0.2" fill="green" class="labelRect"></rect><text x="159.749" y="265.06" class="label">
-    <tspan dy="0" x="159.749">Parattula</tspan>
-  </text>
-  <rect width="66.24" height="21.6" x="760.83" y="310.891" opacity="0.2" fill="green" class="labelRect"></rect><text x="760.83" y="327.993" class="label">
-    <tspan dy="0" x="760.83">Naantali</tspan>
+  <rect width="66.24" height="18" x="840.727" y="330.948" opacity="0.2" fill="green" class="labelRect"></rect><text x="840.727" y="346.25" class="label">
+    <tspan dy="0" x="840.727">Naantali</tspan>
   </text>
 </svg>

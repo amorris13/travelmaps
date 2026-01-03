@@ -93,34 +93,34 @@
   <path d="M0 0M431.06642960626914 629.2544672790405L425.164 632.987L425.47 634.438L418.564 639.706L418.042 646.436L420.042 648.456L421.65 653.159L425.634 655.89L428.486 662.581L427.237 665.285L428.523 668.07L433.892 668.841 " class="lineBackground"></path>
   <path d="M0 0M431.06642960626914 629.2544672790405L425.164 632.987L425.47 634.438L418.564 639.706L418.042 646.436L420.042 648.456L421.65 653.159L425.634 655.89L428.486 662.581L427.237 665.285L428.523 668.07L433.892 668.841 " class="line"></path>
   <circle r="5" cx="392.878" cy="614.508" class="stage dayStop"></circle>
-  <rect width="66.06" height="21.6" x="424.844" y="600.425" opacity="0.2" fill="green" class="labelRect"></rect><text x="424.844" y="617.527" class="label">
-    <tspan dy="0" x="424.844">Windsor</tspan>
+  <rect width="60.48" height="18" x="442.211" y="621.732" opacity="0.2" fill="green" class="labelRect"></rect><text x="442.211" y="637.033" class="label">
+    <tspan dy="0" x="442.211">London</tspan>
   </text>
-  <rect width="54.18" height="21.6" x="333.041" y="587.251" opacity="0.2" fill="green" class="labelRect"></rect><text x="333.041" y="604.353" class="label">
-    <tspan dy="0" x="333.041">Oxford</tspan>
+  <rect width="66.06" height="18" x="342.299" y="623.31" opacity="0.2" fill="green" class="labelRect"></rect><text x="342.299" y="638.612" class="label">
+    <tspan dy="0" x="342.299">Windsor</tspan>
   </text>
-  <rect width="87.12" height="21.6" x="287.197" y="660.303" opacity="0.2" fill="green" class="labelRect"></rect><text x="287.197" y="677.405" class="label">
-    <tspan dy="0" x="287.197">Hampshire</tspan>
+  <rect width="97.38" height="18" x="238.784" y="641.723" opacity="0.2" fill="green" class="labelRect"></rect><text x="238.784" y="657.025" class="label">
+    <tspan dy="0" x="238.784">Glastonbury</tspan>
   </text>
-  <rect width="60.48" height="21.6" x="442.696" y="637.417" opacity="0.2" fill="green" class="labelRect"></rect><text x="442.696" y="654.518" class="label">
-    <tspan dy="0" x="442.696">London</tspan>
-  </text>
-  <rect width="88.2" height="21.6" x="399.578" y="558.604" opacity="0.2" fill="green" class="labelRect"></rect><text x="399.578" y="575.705" class="label">
-    <tspan dy="0" x="399.578">Cambridge</tspan>
-  </text>
-  <rect width="101.16" height="21.6" x="263.824" y="510.693" opacity="0.2" fill="green" class="labelRect"></rect><text x="263.824" y="527.794" class="label">
-    <tspan dy="0" x="263.824">Peak District</tspan>
-  </text>
-  <rect width="70.38" height="21.6" x="299.72" y="276.215" opacity="0.2" fill="green" class="labelRect"></rect><text x="299.72" y="293.317" class="label">
+  <rect width="70.38" height="18" x="299.72" y="281.615" opacity="0.2" fill="green" class="labelRect"></rect><text x="299.72" y="296.917" class="label">
     <tspan dy="0" x="299.72">Scotland</tspan>
   </text>
-  <rect width="97.38" height="21.6" x="241.127" y="621.666" opacity="0.2" fill="green" class="labelRect"></rect><text x="241.127" y="638.768" class="label">
-    <tspan dy="0" x="241.127">Glastonbury</tspan>
+  <rect width="82.44" height="18" x="281.052" y="363.543" opacity="0.2" fill="green" class="labelRect"></rect><text x="281.052" y="378.845" class="label">
+    <tspan dy="0" x="281.052">Edinburgh</tspan>
   </text>
-  <rect width="131.4" height="21.6" x="361.268" y="685.048" opacity="0.2" fill="green" class="labelRect"></rect><text x="361.268" y="702.15" class="label">
+  <rect width="87.12" height="18" x="336.414" y="664.446" opacity="0.2" fill="green" class="labelRect"></rect><text x="336.414" y="679.748" class="label">
+    <tspan dy="0" x="336.414">Hampshire</tspan>
+  </text>
+  <rect width="131.4" height="18" x="361.268" y="686.848" opacity="0.2" fill="green" class="labelRect"></rect><text x="361.268" y="702.15" class="label">
     <tspan dy="0" x="361.268">Brighton Cycling</tspan>
   </text>
-  <rect width="82.44" height="21.6" x="327.929" y="359.4" opacity="0.2" fill="green" class="labelRect"></rect><text x="327.929" y="376.502" class="label">
-    <tspan dy="0" x="327.929">Edinburgh</tspan>
+  <rect width="101.16" height="18" x="266.167" y="499.636" opacity="0.2" fill="green" class="labelRect"></rect><text x="266.167" y="514.938" class="label">
+    <tspan dy="0" x="266.167">Peak District</tspan>
+  </text>
+  <rect width="88.2" height="18" x="399.578" y="564.004" opacity="0.2" fill="green" class="labelRect"></rect><text x="399.578" y="579.305" class="label">
+    <tspan dy="0" x="399.578">Cambridge</tspan>
+  </text>
+  <rect width="54.18" height="18" x="333.041" y="592.651" opacity="0.2" fill="green" class="labelRect"></rect><text x="333.041" y="607.953" class="label">
+    <tspan dy="0" x="333.041">Oxford</tspan>
   </text>
 </svg>

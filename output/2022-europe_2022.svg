@@ -93,13 +93,13 @@
   <circle r="5" cx="369.027" cy="138.462" class="stage"></circle>
   <circle r="5" cx="830.973" cy="1061.538" class="stage"></circle>
   <circle r="5" cx="733.766" cy="736.279" class="stage"></circle>
-  <rect width="37.08" height="21.6" x="836.63" y="1067.195" opacity="0.2" fill="green" class="labelRect"></rect><text x="836.63" y="1084.297" class="label">
-    <tspan dy="0" x="836.63">Chia</tspan>
+  <rect width="60.48" height="18" x="338.787" y="114.262" opacity="0.2" fill="green" class="labelRect"></rect><text x="338.787" y="129.563" class="label">
+    <tspan dy="0" x="338.787">London</tspan>
   </text>
-  <rect width="60.48" height="21.6" x="300.547" y="127.662" opacity="0.2" fill="green" class="labelRect"></rect><text x="300.547" y="144.763" class="label">
-    <tspan dy="0" x="300.547">London</tspan>
+  <rect width="38.16" height="18" x="714.686" y="712.079" opacity="0.2" fill="green" class="labelRect"></rect><text x="714.686" y="727.38" class="label">
+    <tspan dy="0" x="714.686">Opio</tspan>
   </text>
-  <rect width="38.16" height="21.6" x="689.949" y="709.022" opacity="0.2" fill="green" class="labelRect"></rect><text x="689.949" y="726.123" class="label">
-    <tspan dy="0" x="689.949">Opio</tspan>
+  <rect width="37.08" height="18" x="812.433" y="1071.338" opacity="0.2" fill="green" class="labelRect"></rect><text x="812.433" y="1086.64" class="label">
+    <tspan dy="0" x="812.433">Chia</tspan>
   </text>
 </svg>

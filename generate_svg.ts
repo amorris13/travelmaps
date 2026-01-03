@@ -66,13 +66,26 @@ interface LabelPoint {
   partialAttendance?: boolean;
 }
 
-interface LabelPlacement {
-  label: LabelPoint;
+interface SimpleRect {
+  x: number;
+  y: number;
   width: number;
   height: number;
-  point: SVG.Point;
+}
+
+interface LabelOffsetOption {
   offset: number;
+  offsetPoint: SVG.Point;
+  labelRect: SimpleRect;
   shape: Shape;
+  prominence: {
+    prominence: number;
+    closestPoint: LabelPoint | undefined;
+  };
+}
+
+interface LabelPlacement extends LabelOffsetOption {
+  label: LabelPoint;
   intersects: boolean;
 }
 
@@ -460,15 +473,20 @@ function generateTripSvg(trip: Trip): TripSvgResult {
     if (labelPlacement.intersects) {
       console.log(`Intersecting ${labelPlacement.label.name}`);
     }
+    const rect = labelPlacement.labelRect;
     canvas
-      .rect(labelPlacement.width, labelPlacement.height)
-      .at(labelPlacement.point)
+      .rect(rect.width, rect.height)
+      .x(rect.x)
+      .y(rect.y)
       .opacity(0.2)
       .fill(labelPlacement.intersects ? "red" : "green")
       .addClass("labelRect");
     // Add the label's shape to the list for future intersection checks
     shapes.push(labelPlacement.shape);
-    const label = canvas.text(labelPlacement.label.name).at(labelPlacement.point).addClass("label");
+    const label = canvas
+      .text(labelPlacement.label.name)
+      .at(labelPlacement.offsetPoint)
+      .addClass("label");
     if (labelPlacement.label.partialAttendance) {
       label.addClass("partialAttendance");
     }
@@ -652,14 +670,18 @@ function generateStageSvg(tripName: string, stage: Stage): TripSvgResult {
       console.log(`Intersecting ${labelPlacement.label.name}`);
     }
     canvas
-      .rect(labelPlacement.width, labelPlacement.height)
-      .at(labelPlacement.point)
+      .rect(labelPlacement.labelRect.width, labelPlacement.labelRect.height)
+      .x(labelPlacement.labelRect.x)
+      .y(labelPlacement.labelRect.y)
       .opacity(0.2)
       .fill(labelPlacement.intersects ? "red" : "green")
       .addClass("labelRect");
     // Add the label's shape to the list for future intersection checks
     shapes.push(labelPlacement.shape);
-    const label = canvas.text(labelPlacement.label.name).at(labelPlacement.point).addClass("label");
+    const label = canvas
+      .text(labelPlacement.label.name)
+      .at(labelPlacement.offsetPoint)
+      .addClass("label");
     if (labelPlacement.label.partialAttendance) {
       label.addClass("partialAttendance");
     }
@@ -883,14 +905,18 @@ function generateRegionSvg(
       console.log(`Intersecting ${labelPlacement.label.name}`);
     }
     canvas
-      .rect(labelPlacement.width, labelPlacement.height)
-      .at(labelPlacement.point)
+      .rect(labelPlacement.labelRect.width, labelPlacement.labelRect.height)
+      .x(labelPlacement.labelRect.x)
+      .y(labelPlacement.labelRect.y)
       .opacity(0.2)
       .fill(labelPlacement.intersects ? "red" : "green")
       .addClass("labelRect");
     // Add the label's shape to the list for future intersection checks
     shapes.push(labelPlacement.shape);
-    const label = canvas.text(labelPlacement.label.name).at(labelPlacement.point).addClass("label");
+    const label = canvas
+      .text(labelPlacement.label.name)
+      .at(labelPlacement.offsetPoint)
+      .addClass("label");
     if (labelPlacement.label.partialAttendance) {
       label.addClass("partialAttendance");
     }
@@ -1186,6 +1212,69 @@ function calculateBestLabelPositions(
   maxWidth: number,
   maxHeight: number
 ): LabelPlacementResult {
+  // First calculate potential positions for each label with no intersections (with lines) and sufficient prominence
+  const labelOffsetOptions: Map<LabelPoint, LabelOffsetOption[]> = new Map();
+  for (let i = 0; i < labelPoints.length; i++) {
+    const label = labelPoints[i];
+    if (!label.name) continue; // Skip labels without names
+
+    const options: LabelOffsetOption[] = [];
+    const labelWidth = pixelWidth(label.name, {
+      font: "helvetica", // Ensure this matches the SVG style
+      size: labelFontSizePx,
+    });
+    const labelHeight = labelFontSizePx; // Approximate height
+
+    for (let offset = 0; offset <= maxOffset; offset += 4) {
+      const labelOffsetOptions = generateLabelOffsetOptions(
+        label.point,
+        offset,
+        labelWidth,
+        labelHeight,
+        maxWidth,
+        maxHeight
+      );
+
+      for (const offsetPoint of labelOffsetOptions) {
+        const labelRect = {
+          x: offsetPoint.x,
+          y: offsetPoint.y + labelHeight * 0.1,
+          width: labelWidth,
+          height: labelHeight,
+        };
+
+        // Create shape for intersection testing using svg-intersections
+        const shape = shapeForLabel(labelRect);
+
+        const intersects = hasIntersections(shapesToAvoid, shape);
+        const prominence = calculateIndividualLabelProminence(
+          label,
+          labelRect,
+          labelPoints.filter((_, index) => index !== i)
+        );
+        if (!intersects) {
+          options.push({
+            offsetPoint,
+            labelRect,
+            shape,
+            prominence,
+            offset,
+          });
+        }
+      }
+    }
+    // Filter to those with sufficient prominence, with a minimum of 5 options
+    const filteredOptions = options.filter((option) => option.prominence.prominence > 5);
+    if (filteredOptions.length < 5) {
+      filteredOptions.push(
+        ...options
+          .sort((a, b) => b.prominence.prominence - a.prominence.prominence)
+          .slice(0, 5 - filteredOptions.length)
+      );
+    }
+    labelOffsetOptions.set(label, filteredOptions);
+  }
+
   const rng = seedrandom("travelmaps"); // Consistent randomness
   const numAttempts = 50;
   let bestLabelPlacement: LabelPlacementResult | null = null;
@@ -1194,11 +1283,8 @@ function calculateBestLabelPositions(
     const currentPlacement = calculateLabelPositions(
       rng,
       labelPoints,
-      maxOffset,
-      labelFontSizePx,
-      shapesToAvoid,
-      maxWidth,
-      maxHeight
+      labelOffsetOptions,
+      shapesToAvoid
     );
     if (!bestLabelPlacement || compareLabelPlacement(currentPlacement, bestLabelPlacement) > 0) {
       bestLabelPlacement = currentPlacement;
@@ -1232,11 +1318,8 @@ function calculateBestLabelPositions(
 function calculateLabelPositions(
   rng: seedrandom.PRNG,
   labels: LabelPoint[],
-  maxOffset: number,
-  labelFontSizePx: number,
-  existingShapes: Shape[], // Updated type
-  maxWidth: number,
-  maxHeight: number
+  labelOffsetOptionsMap: Map<LabelPoint, LabelOffsetOption[]>,
+  existingShapes: Shape[] // Updated type
 ): LabelPlacementResult {
   const shapes = [...existingShapes];
   const shuffledLabels = [...labels];
@@ -1246,50 +1329,36 @@ function calculateLabelPositions(
   for (const label of shuffledLabels) {
     if (!label.name) continue; // Skip labels without names
 
-    const labelWidth = pixelWidth(label.name, {
-      font: "helvetica", // Ensure this matches the SVG style
-      size: labelFontSizePx,
-    });
-    const labelHeight = labelFontSizePx * 1.2; // Approximate height
+    const labelOffsetOptions = [...labelOffsetOptionsMap.get(label)!];
+    shuffleArray(labelOffsetOptions, rng); // Shuffle options
+    labelOffsetOptions.sort((a, b) => a.offset - b.offset); // Sort by offset
 
-    let hasPlaced = false;
-    for (let offset = 4; !hasPlaced && offset <= maxOffset; offset += 4) {
-      const labelOffsetOptions = generateLabelOffsetOptions(
-        label.point,
-        offset,
-        labelWidth,
-        labelHeight,
-        maxWidth,
-        maxHeight
-      );
-      shuffleArray(labelOffsetOptions, rng); // Shuffle options
+    let hasLabelled = false;
+    for (const labelOffsetOption of labelOffsetOptions) {
+      const intersects = hasIntersections(shapes, labelOffsetOption.shape);
 
-      for (let i = 0; !hasPlaced && i < labelOffsetOptions.length; i++) {
-        const offsetPoint = labelOffsetOptions[i];
-        const buffer = 1; // Small buffer around label
-        // Create shape for intersection testing using svg-intersections
-        const shapeInfo = shapeForLabel(
-          offsetPoint.x - buffer,
-          offsetPoint.y - buffer,
-          labelWidth + 2 * buffer,
-          labelHeight + 2 * buffer
-        );
-
-        const intersects = hasIntersections(shapes, shapeInfo);
-        // Place if it doesn't intersect, OR if it's the last resort (widest offset, last option)
-        if (!intersects || (i === labelOffsetOptions.length - 1 && offset >= maxOffset - 4)) {
-          shapes.push(shapeInfo);
-          result.push({
-            label,
-            width: labelWidth,
-            height: labelHeight,
-            point: offsetPoint,
-            offset: offset,
-            shape: shapeInfo,
-            intersects,
-          });
-          hasPlaced = true;
-        }
+      // Place if it doesn't intersect
+      if (!intersects) {
+        shapes.push(labelOffsetOption.shape);
+        result.push({
+          ...labelOffsetOption,
+          label,
+          intersects,
+        });
+        hasLabelled = true;
+        break;
+      }
+    }
+    if (!hasLabelled) {
+      console.log(`No non-intersecting options found for ${label.name}`);
+      if (labelOffsetOptions.length > 0) {
+        const lastOption = labelOffsetOptions[labelOffsetOptions.length - 1];
+        shapes.push(lastOption.shape);
+        result.push({
+          ...lastOption,
+          label,
+          intersects: true,
+        });
       }
     }
   }
@@ -1313,8 +1382,8 @@ function scoreLabelPlacement(labelPlacements: LabelPlacementResult): number {
   return (
     -10000 * labelPlacements.numberOfIntersections +
     -2 * labelPlacements.averageOffset +
-    labelPlacements.labelSeparationScore +
-    2 * labelPlacements.labelProminenceScore
+    Math.min(labelPlacements.labelSeparationScore, 100) +
+    2 * Math.min(labelPlacements.labelProminenceScore, 100)
   );
 }
 
@@ -1336,13 +1405,11 @@ function calculateLabelSeparation(labelPlacements: LabelPlacement[]): number {
   const labelSeparations: number[] = [];
   for (let i = 0; i < labelPlacements.length; i++) {
     let minDistanceToOtherLabel = Infinity;
-    const labelRect1 = rectangleForLabelPlacement(labelPlacements[i]);
     for (let j = 0; j < labelPlacements.length; j++) {
       if (i !== j) {
-        const labelRect2 = rectangleForLabelPlacement(labelPlacements[j]);
         minDistanceToOtherLabel = Math.min(
           minDistanceToOtherLabel,
-          distanceBetweenRectangles(labelRect1, labelRect2)
+          distanceBetweenRectangles(labelPlacements[i].labelRect, labelPlacements[j].labelRect)
         );
       }
     }
@@ -1353,9 +1420,17 @@ function calculateLabelSeparation(labelPlacements: LabelPlacement[]): number {
 }
 
 // Updated to return svg-intersection shape object
-function shapeForLabel(x: number, y: number, width: number, height: number): Shape {
+function shapeForLabel(rect: SimpleRect): Shape {
   // Construct a shape that includes lines within the fill of the rectangle to ensure we detect
   // collisions where the label fully overlaps with another shape.
+
+  let { x, y, width, height } = rect;
+  const buffer = height * 0.05; // Small buffer around label
+  x -= buffer;
+  y -= buffer;
+  width += 2 * buffer;
+  height += 2 * buffer;
+
   const divisions = 3;
   const pathArray = new SVG.PathArray([
     ["M", x, y],
@@ -1372,43 +1447,39 @@ function shapeForLabel(x: number, y: number, width: number, height: number): Sha
   return shape("path", { d: pathArray.toString() });
 }
 
-interface SimpleRect {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}
-
-function rectangleForLabelPlacement(labelPlacement: LabelPlacement): SimpleRect {
-  return {
-    x: labelPlacement.point.x,
-    y: labelPlacement.point.y,
-    width: labelPlacement.width,
-    height: labelPlacement.height,
-  };
-}
-
 function calculateLabelProminenceScore(labelPlacements: LabelPlacement[]): number {
   if (labelPlacements.length === 0) return 0;
-  const labelProminences: number[] = [];
-  for (let i = 0; i < labelPlacements.length; i++) {
-    let minDistanceToOtherLabelPoint = Infinity;
-    const labelRect = rectangleForLabelPlacement(labelPlacements[i]);
-    for (let j = 0; j < labelPlacements.length; j++) {
-      if (i !== j) {
-        minDistanceToOtherLabelPoint = Math.min(
-          minDistanceToOtherLabelPoint,
-          distanceFromPointToRectangle(labelPlacements[j].label.point, labelRect)
-        );
-      }
+  const minProminence = labelPlacements.reduce(
+    (min, current) => (current.prominence.prominence < min.prominence.prominence ? current : min),
+    labelPlacements[0]
+  );
+  // console.log(
+  //   `Label prominence score: ${minProminence.prominence.prominence.toFixed(2)} for ${
+  //     minProminence.label.name
+  //   } closest to ${minProminence.prominence.closestPoint?.name}`
+  // );
+  return minProminence.prominence.prominence;
+}
+
+function calculateIndividualLabelProminence(
+  labelPoint: LabelPoint,
+  labelRect: SimpleRect,
+  otherPoints: LabelPoint[]
+) {
+  let minDistanceToOtherLabelPoint = Infinity;
+  let closestPoint = undefined;
+  for (const point of otherPoints) {
+    const distance = distanceFromPointToRectangle(point.point, labelRect);
+    if (distance < minDistanceToOtherLabelPoint) {
+      minDistanceToOtherLabelPoint = distance;
+      closestPoint = point;
     }
-    // Score is higher if other label points are further away,
-    // and lower if its own point is far from its placed label (high offset)
-    const ownDistance = distanceFromPointToRectangle(labelPlacements[i].label.point, labelRect);
-    labelProminences.push(minDistanceToOtherLabelPoint - ownDistance);
   }
-  // Use generalized mean (p=-Infinity, minimum) to focus on the worst case
-  return generalizedMean(labelProminences, -Infinity);
+  // Score is higher if other label points are further away,
+  // and lower if its own point is far from its placed label (high offset)
+  const ownDistance = distanceFromPointToRectangle(labelPoint.point, labelRect);
+  const prominence = minDistanceToOtherLabelPoint - ownDistance;
+  return { prominence, closestPoint };
 }
 
 function distanceFromPointToRectangle(point: SVG.Point, rectangle: SimpleRect): number {

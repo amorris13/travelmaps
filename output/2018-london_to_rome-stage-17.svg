@@ -95,16 +95,16 @@
   <circle r="3.5" cx="456.954" cy="211.919" class="dayStop"></circle>
   <circle r="3.5" cx="607.285" cy="416.855" class="dayStop"></circle>
   <polygon points="678.9626137749401,699.0320536544532 671.4626137749401,712.0224347112198 686.4626137749401,712.0224347112198" class="elevationMarker"></polygon>
-  <rect width="61.2" height="21.6" x="648.363" y="715.692" opacity="0.2" fill="green" class="labelRect"></rect><text x="648.363" y="732.794" class="label">
-    <tspan dy="0" x="648.363">Amsteg</tspan>
+  <rect width="65.34" height="18" x="94.241" y="69.496" opacity="0.2" fill="green" class="labelRect"></rect><text x="94.241" y="84.797" class="label">
+    <tspan dy="0" x="94.241">Lucerne</tspan>
   </text>
-  <rect width="65.34" height="21.6" x="55.914" y="66.439" opacity="0.2" fill="green" class="labelRect"></rect><text x="55.914" y="83.541" class="label">
-    <tspan dy="0" x="55.914">Lucerne</tspan>
-  </text>
-  <rect width="59.22" height="21.6" x="615.285" y="406.055" opacity="0.2" fill="green" class="labelRect"></rect><text x="615.285" y="423.157" class="label">
-    <tspan dy="0" x="615.285">Flüelen</tspan>
-  </text>
-  <rect width="59.22" height="21.6" x="427.344" y="182.319" opacity="0.2" fill="green" class="labelRect"></rect><text x="427.344" y="199.42" class="label">
+  <rect width="59.22" height="18" x="427.344" y="221.719" opacity="0.2" fill="green" class="labelRect"></rect><text x="427.344" y="237.02" class="label">
     <tspan dy="0" x="427.344">Gersau</tspan>
+  </text>
+  <rect width="59.22" height="18" x="542.408" y="394.998" opacity="0.2" fill="green" class="labelRect"></rect><text x="542.408" y="410.3" class="label">
+    <tspan dy="0" x="542.408">Flüelen</tspan>
+  </text>
+  <rect width="61.2" height="18" x="612.106" y="715.149" opacity="0.2" fill="green" class="labelRect"></rect><text x="612.106" y="730.451" class="label">
+    <tspan dy="0" x="612.106">Amsteg</tspan>
   </text>
 </svg>

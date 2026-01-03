@@ -92,10 +92,10 @@
   <circle r="5" cx="92.854" cy="222.849" class="stage"></circle>
   <circle r="5" cx="705.499" cy="551.574" class="stage"></circle>
   <polygon points="122.09754174542104,240.95040817224802 114.59754174542104,253.9407892290146 129.59754174542104,253.9407892290146" class="elevationMarker"></polygon>
-  <rect width="76.32" height="21.6" x="54.694" y="193.249" opacity="0.2" fill="green" class="labelRect"></rect><text x="54.694" y="210.35" class="label">
-    <tspan dy="0" x="54.694">Bertonico</tspan>
+  <rect width="50.22" height="18" x="680.389" y="527.374" opacity="0.2" fill="green" class="labelRect"></rect><text x="680.389" y="542.675" class="label">
+    <tspan dy="0" x="680.389">Sacca</tspan>
   </text>
-  <rect width="50.22" height="21.6" x="711.156" y="557.231" opacity="0.2" fill="green" class="labelRect"></rect><text x="711.156" y="574.332" class="label">
-    <tspan dy="0" x="711.156">Sacca</tspan>
+  <rect width="76.32" height="18" x="98.511" y="200.992" opacity="0.2" fill="green" class="labelRect"></rect><text x="98.511" y="216.293" class="label">
+    <tspan dy="0" x="98.511">Bertonico</tspan>
   </text>
 </svg>

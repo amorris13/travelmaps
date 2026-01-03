@@ -98,13 +98,13 @@
   <circle r="5" cx="138.462" cy="437.111" class="stage"></circle>
   <circle r="5" cx="1061.538" cy="537.7" class="stage"></circle>
   <circle r="5" cx="742.243" cy="762.889" class="stage dayStop"></circle>
-  <rect width="53.1" height="21.6" x="79.705" y="442.768" opacity="0.2" fill="green" class="labelRect"></rect><text x="79.705" y="459.869" class="label">
-    <tspan dy="0" x="79.705">Seville</tspan>
+  <rect width="59.22" height="18" x="712.633" y="772.689" opacity="0.2" fill="green" class="labelRect"></rect><text x="712.633" y="787.991" class="label">
+    <tspan dy="0" x="712.633">Malaga</tspan>
   </text>
-  <rect width="70.38" height="21.6" x="1067.195" y="510.443" opacity="0.2" fill="green" class="labelRect"></rect><text x="1067.195" y="527.545" class="label">
+  <rect width="70.38" height="18" x="1067.195" y="545.157" opacity="0.2" fill="green" class="labelRect"></rect><text x="1067.195" y="560.458" class="label">
     <tspan dy="0" x="1067.195">Granada</tspan>
   </text>
-  <rect width="59.22" height="21.6" x="677.366" y="768.546" opacity="0.2" fill="green" class="labelRect"></rect><text x="677.366" y="785.648" class="label">
-    <tspan dy="0" x="677.366">Malaga</tspan>
+  <rect width="53.1" height="18" x="79.705" y="444.568" opacity="0.2" fill="green" class="labelRect"></rect><text x="79.705" y="459.869" class="label">
+    <tspan dy="0" x="79.705">Seville</tspan>
   </text>
 </svg>

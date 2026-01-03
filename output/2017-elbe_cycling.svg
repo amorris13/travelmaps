@@ -115,25 +115,25 @@
   <circle r="5" cx="625.953" cy="265.13" class="stage"></circle>
   <circle r="5" cx="577.907" cy="223.014" class="stage dayStop"></circle>
   <circle r="5" cx="376.104" cy="138.462" class="stage dayStop"></circle>
-  <rect width="107.46" height="21.6" x="524.177" y="193.414" opacity="0.2" fill="green" class="labelRect"></rect><text x="524.177" y="210.516" class="label">
-    <tspan dy="0" x="524.177">Bastel Bridge</tspan>
-  </text>
-  <rect width="52.02" height="21.6" x="829.553" y="772.647" opacity="0.2" fill="green" class="labelRect"></rect><text x="829.553" y="789.749" class="label">
-    <tspan dy="0" x="829.553">Melnik</tspan>
-  </text>
-  <rect width="152.28" height="21.6" x="711.442" y="286.665" opacity="0.2" fill="green" class="labelRect"></rect><text x="711.442" y="303.766" class="label">
+  <rect width="152.28" height="18" x="711.442" y="290.265" opacity="0.2" fill="green" class="labelRect"></rect><text x="711.442" y="305.566" class="label">
     <tspan dy="0" x="711.442">Pravčická Archway</tspan>
   </text>
-  <rect width="126.54" height="21.6" x="433.896" y="482.109" opacity="0.2" fill="green" class="labelRect"></rect><text x="433.896" y="499.21" class="label">
-    <tspan dy="0" x="433.896">Usti nad Labem</tspan>
+  <rect width="52.02" height="18" x="829.553" y="778.047" opacity="0.2" fill="green" class="labelRect"></rect><text x="829.553" y="793.349" class="label">
+    <tspan dy="0" x="829.553">Melnik</tspan>
   </text>
-  <rect width="68.22" height="21.6" x="299.884" y="127.662" opacity="0.2" fill="green" class="labelRect"></rect><text x="299.884" y="144.763" class="label">
-    <tspan dy="0" x="299.884">Dresden</tspan>
-  </text>
-  <rect width="118.8" height="21.6" x="501.496" y="270.787" opacity="0.2" fill="green" class="labelRect"></rect><text x="501.496" y="287.889" class="label">
+  <rect width="118.8" height="18" x="501.496" y="272.587" opacity="0.2" fill="green" class="labelRect"></rect><text x="501.496" y="287.889" class="label">
     <tspan dy="0" x="501.496">Bad Schandau</tspan>
   </text>
-  <rect width="58.32" height="21.6" x="733.467" y="1067.195" opacity="0.2" fill="green" class="labelRect"></rect><text x="733.467" y="1084.297" class="label">
-    <tspan dy="0" x="733.467">Prague</tspan>
+  <rect width="68.22" height="18" x="341.994" y="148.262" opacity="0.2" fill="green" class="labelRect"></rect><text x="341.994" y="163.563" class="label">
+    <tspan dy="0" x="341.994">Dresden</tspan>
+  </text>
+  <rect width="107.46" height="18" x="524.177" y="198.814" opacity="0.2" fill="green" class="labelRect"></rect><text x="524.177" y="214.116" class="label">
+    <tspan dy="0" x="524.177">Bastel Bridge</tspan>
+  </text>
+  <rect width="126.54" height="18" x="433.896" y="487.509" opacity="0.2" fill="green" class="labelRect"></rect><text x="433.896" y="502.81" class="label">
+    <tspan dy="0" x="433.896">Usti nad Labem</tspan>
+  </text>
+  <rect width="58.32" height="18" x="731.124" y="1054.338" opacity="0.2" fill="green" class="labelRect"></rect><text x="731.124" y="1069.64" class="label">
+    <tspan dy="0" x="731.124">Prague</tspan>
   </text>
 </svg>

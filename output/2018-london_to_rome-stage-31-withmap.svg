@@ -94,13 +94,13 @@
   <circle r="5" cx="589.056" cy="694.374" class="stage"></circle>
   <circle r="3.5" cx="454.827" cy="439.236" class="dayStop"></circle>
   <polygon points="497.47275397700287,434.3270637379829 489.97275397700287,447.31744479474946 504.97275397700287,447.31744479474946" class="elevationMarker"></polygon>
-  <rect width="135.36" height="21.6" x="448.04" y="700.031" opacity="0.2" fill="green" class="labelRect"></rect><text x="448.04" y="717.132" class="label">
-    <tspan dy="0" x="448.04">Civita Castellana</tspan>
+  <rect width="58.14" height="18" x="171.9" y="68.639" opacity="0.2" fill="green" class="labelRect"></rect><text x="171.9" y="83.94" class="label">
+    <tspan dy="0" x="171.9">Orvieto</tspan>
   </text>
-  <rect width="58.14" height="21.6" x="137.173" y="65.582" opacity="0.2" fill="green" class="labelRect"></rect><text x="137.173" y="82.683" class="label">
-    <tspan dy="0" x="137.173">Orvieto</tspan>
-  </text>
-  <rect width="47.16" height="21.6" x="431.247" y="409.636" opacity="0.2" fill="green" class="labelRect"></rect><text x="431.247" y="426.737" class="label">
+  <rect width="47.16" height="18" x="431.247" y="411.036" opacity="0.2" fill="green" class="labelRect"></rect><text x="431.247" y="426.337" class="label">
     <tspan dy="0" x="431.247">Giove</tspan>
+  </text>
+  <rect width="135.36" height="18" x="448.04" y="672.517" opacity="0.2" fill="green" class="labelRect"></rect><text x="448.04" y="687.819" class="label">
+    <tspan dy="0" x="448.04">Civita Castellana</tspan>
   </text>
 </svg>

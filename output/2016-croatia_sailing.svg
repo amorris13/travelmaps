@@ -111,22 +111,22 @@
   <circle r="5" cx="299.475" cy="543.956" class="stage"></circle>
   <circle r="5" cx="397.659" cy="487.483" class="stage"></circle>
   <circle r="5" cx="300.581" cy="327.344" class="stage"></circle>
-  <rect width="35.1" height="21.6" x="259.824" y="300.087" opacity="0.2" fill="green" class="labelRect"></rect><text x="259.824" y="317.188" class="label">
-    <tspan dy="0" x="259.824">Split</tspan>
-  </text>
-  <rect width="81.18" height="21.6" x="1069.538" y="861.856" opacity="0.2" fill="green" class="labelRect"></rect><text x="1069.538" y="878.958" class="label">
-    <tspan dy="0" x="1069.538">Dubrovnik</tspan>
-  </text>
-  <rect width="25.02" height="21.6" x="186.102" y="620.8" opacity="0.2" fill="green" class="labelRect"></rect><text x="186.102" y="637.902" class="label">
-    <tspan dy="0" x="186.102">Vis</tspan>
-  </text>
-  <rect width="37.98" height="21.6" x="280.485" y="551.956" opacity="0.2" fill="green" class="labelRect"></rect><text x="280.485" y="569.057" class="label">
-    <tspan dy="0" x="280.485">Hvar</tspan>
-  </text>
-  <rect width="60.12" height="21.6" x="70.342" y="614.278" opacity="0.2" fill="green" class="labelRect"></rect><text x="70.342" y="631.38" class="label">
+  <rect width="60.12" height="18" x="70.342" y="617.878" opacity="0.2" fill="green" class="labelRect"></rect><text x="70.342" y="633.18" class="label">
     <tspan dy="0" x="70.342">Komiza</tspan>
   </text>
-  <rect width="26.1" height="21.6" x="403.316" y="460.226" opacity="0.2" fill="green" class="labelRect"></rect><text x="403.316" y="477.327" class="label">
+  <rect width="37.98" height="18" x="280.485" y="553.756" opacity="0.2" fill="green" class="labelRect"></rect><text x="280.485" y="569.057" class="label">
+    <tspan dy="0" x="280.485">Hvar</tspan>
+  </text>
+  <rect width="25.02" height="18" x="188.446" y="607.943" opacity="0.2" fill="green" class="labelRect"></rect><text x="188.446" y="623.245" class="label">
+    <tspan dy="0" x="188.446">Vis</tspan>
+  </text>
+  <rect width="26.1" height="18" x="403.316" y="465.626" opacity="0.2" fill="green" class="labelRect"></rect><text x="403.316" y="480.927" class="label">
     <tspan dy="0" x="403.316">Bol</tspan>
+  </text>
+  <rect width="35.1" height="18" x="259.824" y="334.8" opacity="0.2" fill="green" class="labelRect"></rect><text x="259.824" y="350.102" class="label">
+    <tspan dy="0" x="259.824">Split</tspan>
+  </text>
+  <rect width="81.18" height="18" x="1067.195" y="850.8" opacity="0.2" fill="green" class="labelRect"></rect><text x="1067.195" y="866.101" class="label">
+    <tspan dy="0" x="1067.195">Dubrovnik</tspan>
   </text>
 </svg>

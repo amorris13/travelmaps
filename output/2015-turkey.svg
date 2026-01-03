@@ -109,25 +109,25 @@
   <circle r="5" cx="152.182" cy="506.276" class="stage"></circle>
   <circle r="5" cx="138.462" cy="493.017" class="stage dayStop"></circle>
   <circle r="5" cx="428.909" cy="384.128" class="stage"></circle>
-  <rect width="63.36" height="21.6" x="397.229" y="392.128" opacity="0.2" fill="green" class="labelRect"></rect><text x="397.229" y="409.229" class="label">
-    <tspan dy="0" x="397.229">Istanbul</tspan>
-  </text>
-  <rect width="89.28" height="21.6" x="449.68" y="788.616" opacity="0.2" fill="green" class="labelRect"></rect><text x="449.68" y="805.717" class="label">
-    <tspan dy="0" x="449.68">Pamukkale</tspan>
-  </text>
-  <rect width="83.34" height="21.6" x="235.145" y="653.722" opacity="0.2" fill="green" class="labelRect"></rect><text x="235.145" y="670.824" class="label">
-    <tspan dy="0" x="235.145">Pergamon</tspan>
-  </text>
-  <rect width="96.48" height="21.6" x="1067.195" y="719.324" opacity="0.2" fill="green" class="labelRect"></rect><text x="1067.195" y="736.426" class="label">
-    <tspan dy="0" x="1067.195">Cappadocia</tspan>
-  </text>
-  <rect width="97.38" height="21.6" x="35.425" y="465.76" opacity="0.2" fill="green" class="labelRect"></rect><text x="35.425" y="482.862" class="label">
+  <rect width="97.38" height="18" x="35.425" y="471.16" opacity="0.2" fill="green" class="labelRect"></rect><text x="35.425" y="486.462" class="label">
     <tspan dy="0" x="35.425">Anzac Cove</tspan>
   </text>
-  <rect width="70.38" height="21.6" x="174.76" y="802.09" opacity="0.2" fill="green" class="labelRect"></rect><text x="174.76" y="819.191" class="label">
-    <tspan dy="0" x="174.76">Ephesus</tspan>
+  <rect width="89.28" height="18" x="449.68" y="794.016" opacity="0.2" fill="green" class="labelRect"></rect><text x="449.68" y="809.317" class="label">
+    <tspan dy="0" x="449.68">Pamukkale</tspan>
   </text>
-  <rect width="85.32" height="21.6" x="157.839" y="511.933" opacity="0.2" fill="green" class="labelRect"></rect><text x="157.839" y="529.034" class="label">
+  <rect width="85.32" height="18" x="157.839" y="513.733" opacity="0.2" fill="green" class="labelRect"></rect><text x="157.839" y="529.034" class="label">
     <tspan dy="0" x="157.839">Canakkale</tspan>
+  </text>
+  <rect width="83.34" height="18" x="235.145" y="626.209" opacity="0.2" fill="green" class="labelRect"></rect><text x="235.145" y="641.51" class="label">
+    <tspan dy="0" x="235.145">Pergamon</tspan>
+  </text>
+  <rect width="63.36" height="18" x="436.909" y="376.928" opacity="0.2" fill="green" class="labelRect"></rect><text x="436.909" y="392.229" class="label">
+    <tspan dy="0" x="436.909">Istanbul</tspan>
+  </text>
+  <rect width="96.48" height="18" x="1067.195" y="691.811" opacity="0.2" fill="green" class="labelRect"></rect><text x="1067.195" y="707.112" class="label">
+    <tspan dy="0" x="1067.195">Cappadocia</tspan>
+  </text>
+  <rect width="70.38" height="18" x="177.103" y="820.347" opacity="0.2" fill="green" class="labelRect"></rect><text x="177.103" y="835.648" class="label">
+    <tspan dy="0" x="177.103">Ephesus</tspan>
   </text>
 </svg>

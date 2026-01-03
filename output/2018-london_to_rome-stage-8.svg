@@ -95,16 +95,16 @@
   <circle r="3.5" cx="449.673" cy="259.599" class="dayStop"></circle>
   <circle r="3.5" cx="355.424" cy="402.807" class="dayStop"></circle>
   <polygon points="371.36502706212286,188.6615266990921 363.86502706212286,201.65190775585867 378.86502706212286,201.65190775585867" class="elevationMarker"></polygon>
-  <rect width="122.58" height="21.6" x="455.33" y="232.342" opacity="0.2" fill="green" class="labelRect"></rect><text x="455.33" y="249.444" class="label">
+  <rect width="49.14" height="18" x="350.765" y="85.108" opacity="0.2" fill="green" class="labelRect"></rect><text x="350.765" y="100.409" class="label">
+    <tspan dy="0" x="350.765">Roder</tspan>
+  </text>
+  <rect width="122.58" height="18" x="455.33" y="237.742" opacity="0.2" fill="green" class="labelRect"></rect><text x="455.33" y="253.044" class="label">
     <tspan dy="0" x="455.33">Vianden Castle</tspan>
   </text>
-  <rect width="71.28" height="21.6" x="278.487" y="408.463" opacity="0.2" fill="green" class="labelRect"></rect><text x="278.487" y="425.565" class="label">
-    <tspan dy="0" x="278.487">Schieren</tspan>
+  <rect width="71.28" height="18" x="281.316" y="407.435" opacity="0.2" fill="green" class="labelRect"></rect><text x="281.316" y="422.737" class="label">
+    <tspan dy="0" x="281.316">Schieren</tspan>
   </text>
-  <rect width="49.14" height="21.6" x="287.968" y="65.051" opacity="0.2" fill="green" class="labelRect"></rect><text x="287.968" y="82.152" class="label">
-    <tspan dy="0" x="287.968">Roder</tspan>
-  </text>
-  <rect width="136.44" height="21.6" x="390.346" y="713.349" opacity="0.2" fill="green" class="labelRect"></rect><text x="390.346" y="730.451" class="label">
+  <rect width="136.44" height="18" x="390.346" y="685.835" opacity="0.2" fill="green" class="labelRect"></rect><text x="390.346" y="701.137" class="label">
     <tspan dy="0" x="390.346">Luxembourg City</tspan>
   </text>
 </svg>

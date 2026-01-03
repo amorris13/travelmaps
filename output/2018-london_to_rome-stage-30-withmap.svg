@@ -92,10 +92,10 @@
   <circle r="5" cx="319.581" cy="95.523" class="stage"></circle>
   <circle r="5" cx="517.977" cy="705.418" class="stage"></circle>
   <polygon points="467.3551512746453,554.7178371134723 459.8551512746453,567.708218170239 474.8551512746453,567.708218170239" class="elevationMarker"></polygon>
-  <rect width="58.14" height="21.6" x="523.634" y="711.075" opacity="0.2" fill="green" class="labelRect"></rect><text x="523.634" y="728.176" class="label">
-    <tspan dy="0" x="523.634">Orvieto</tspan>
+  <rect width="58.14" height="18" x="488.907" y="715.218" opacity="0.2" fill="green" class="labelRect"></rect><text x="488.907" y="730.519" class="label">
+    <tspan dy="0" x="488.907">Orvieto</tspan>
   </text>
-  <rect width="60.3" height="21.6" x="253.624" y="68.266" opacity="0.2" fill="green" class="labelRect"></rect><text x="253.624" y="85.368" class="label">
+  <rect width="60.3" height="18" x="253.624" y="73.666" opacity="0.2" fill="green" class="labelRect"></rect><text x="253.624" y="88.968" class="label">
     <tspan dy="0" x="253.624">Valiano</tspan>
   </text>
 </svg>

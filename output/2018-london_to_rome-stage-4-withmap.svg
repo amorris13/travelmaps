@@ -96,16 +96,16 @@
   <circle r="3.5" cx="284.219" cy="177.093" class="dayStop"></circle>
   <circle r="3.5" cx="452.681" cy="244.842" class="dayStop"></circle>
   <polygon points="488.74768056415223,469.95926918301853 481.24768056415223,482.9496502397851 496.24768056415223,482.9496502397851" class="elevationMarker"></polygon>
-  <rect width="137.52" height="21.6" x="141.042" y="182.749" opacity="0.2" fill="green" class="labelRect"></rect><text x="141.042" y="199.851" class="label">
-    <tspan dy="0" x="141.042">Collapsed Bridge</tspan>
-  </text>
-  <rect width="126.18" height="21.6" x="592.694" y="715.692" opacity="0.2" fill="green" class="labelRect"></rect><text x="592.694" y="732.794" class="label">
-    <tspan dy="0" x="592.694">Dilsen-Stokkem</tspan>
-  </text>
-  <rect width="85.5" height="21.6" x="460.681" y="234.042" opacity="0.2" fill="green" class="labelRect"></rect><text x="460.681" y="251.144" class="label">
-    <tspan dy="0" x="460.681">Eindhoven</tspan>
-  </text>
-  <rect width="55.08" height="21.6" x="116.617" y="72.596" opacity="0.2" fill="green" class="labelRect"></rect><text x="116.617" y="89.698" class="label">
+  <rect width="55.08" height="18" x="116.617" y="77.996" opacity="0.2" fill="green" class="labelRect"></rect><text x="116.617" y="93.298" class="label">
     <tspan dy="0" x="116.617">Tilburg</tspan>
+  </text>
+  <rect width="137.52" height="18" x="143.871" y="181.721" opacity="0.2" fill="green" class="labelRect"></rect><text x="143.871" y="197.023" class="label">
+    <tspan dy="0" x="143.871">Collapsed Bridge</tspan>
+  </text>
+  <rect width="85.5" height="18" x="455.51" y="249.47" opacity="0.2" fill="green" class="labelRect"></rect><text x="455.51" y="264.772" class="label">
+    <tspan dy="0" x="455.51">Eindhoven</tspan>
+  </text>
+  <rect width="126.18" height="18" x="523.947" y="715.149" opacity="0.2" fill="green" class="labelRect"></rect><text x="523.947" y="730.451" class="label">
+    <tspan dy="0" x="523.947">Dilsen-Stokkem</tspan>
   </text>
 </svg>

@@ -81,7 +81,7 @@
     }
   </style>
   <rect width="10" height="10" x="1089.213" y="720.081" class="home"></rect>
-  <rect width="60.3" height="21.6" x="1102.213" y="714.281" opacity="0.2" fill="green" class="labelRect"></rect><text x="1102.213" y="731.383" class="label">
-    <tspan dy="0" x="1102.213">Sydney</tspan>
+  <rect width="60.3" height="18" x="1028.256" y="732.538" opacity="0.2" fill="green" class="labelRect"></rect><text x="1028.256" y="747.84" class="label">
+    <tspan dy="0" x="1028.256">Sydney</tspan>
   </text>
 </svg>

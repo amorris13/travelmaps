@@ -94,13 +94,13 @@
   <circle r="5" cx="419.151" cy="707.692" class="stage"></circle>
   <circle r="3.5" cx="396.04" cy="595.435" class="dayStop"></circle>
   <polygon points="419.3179545075254,697.120261708762 411.8179545075254,710.1106427655286 426.8179545075254,710.1106427655286" class="elevationMarker"></polygon>
-  <rect width="100.44" height="21.6" x="424.808" y="713.349" opacity="0.2" fill="green" class="labelRect"></rect><text x="424.808" y="730.451" class="label">
-    <tspan dy="0" x="424.808">Europa Park</tspan>
+  <rect width="88.38" height="18" x="452.729" y="85.108" opacity="0.2" fill="green" class="labelRect"></rect><text x="452.729" y="100.409" class="label">
+    <tspan dy="0" x="452.729">Strasbourg</tspan>
   </text>
-  <rect width="88.38" height="21.6" x="450.385" y="65.051" opacity="0.2" fill="green" class="labelRect"></rect><text x="450.385" y="82.152" class="label">
-    <tspan dy="0" x="450.385">Strasbourg</tspan>
+  <rect width="57.24" height="18" x="335.972" y="600.064" opacity="0.2" fill="green" class="labelRect"></rect><text x="335.972" y="615.365" class="label">
+    <tspan dy="0" x="335.972">Rhinau</tspan>
   </text>
-  <rect width="57.24" height="21.6" x="333.144" y="601.092" opacity="0.2" fill="green" class="labelRect"></rect><text x="333.144" y="618.194" class="label">
-    <tspan dy="0" x="333.144">Rhinau</tspan>
+  <rect width="100.44" height="18" x="313.054" y="715.149" opacity="0.2" fill="green" class="labelRect"></rect><text x="313.054" y="730.451" class="label">
+    <tspan dy="0" x="313.054">Europa Park</tspan>
   </text>
 </svg>

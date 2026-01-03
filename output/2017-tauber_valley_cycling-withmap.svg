@@ -96,16 +96,16 @@
   <circle r="5" cx="536.774" cy="772.447" class="stage dayStop"></circle>
   <circle r="5" cx="290.7" cy="673.966" class="stage"></circle>
   <circle r="5" cx="138.462" cy="427.553" class="stage dayStop"></circle>
-  <rect width="142.56" height="21.6" x="142.483" y="679.623" opacity="0.2" fill="green" class="labelRect"></rect><text x="142.483" y="696.724" class="label">
+  <rect width="90.18" height="18" x="1016.448" y="680.918" opacity="0.2" fill="green" class="labelRect"></rect><text x="1016.448" y="696.219" class="label">
+    <tspan dy="0" x="1016.448">Nuremberg</tspan>
+  </text>
+  <rect width="142.56" height="18" x="142.483" y="681.423" opacity="0.2" fill="green" class="labelRect"></rect><text x="142.483" y="696.724" class="label">
     <tspan dy="0" x="142.483">Bad Mergentheim</tspan>
   </text>
-  <rect width="90.18" height="21.6" x="1069.538" y="694.318" opacity="0.2" fill="green" class="labelRect"></rect><text x="1069.538" y="711.419" class="label">
-    <tspan dy="0" x="1069.538">Nuremberg</tspan>
-  </text>
-  <rect width="213.12" height="21.6" x="544.774" y="761.647" opacity="0.2" fill="green" class="labelRect"></rect><text x="544.774" y="778.749" class="label">
-    <tspan dy="0" x="544.774">Rothenburg ob der Tauber</tspan>
-  </text>
-  <rect width="77.04" height="21.6" x="55.765" y="400.296" opacity="0.2" fill="green" class="labelRect"></rect><text x="55.765" y="417.398" class="label">
+  <rect width="77.04" height="18" x="55.765" y="435.01" opacity="0.2" fill="green" class="labelRect"></rect><text x="55.765" y="450.311" class="label">
     <tspan dy="0" x="55.765">Wertheim</tspan>
+  </text>
+  <rect width="213.12" height="18" x="542.431" y="750.59" opacity="0.2" fill="green" class="labelRect"></rect><text x="542.431" y="765.892" class="label">
+    <tspan dy="0" x="542.431">Rothenburg ob der Tauber</tspan>
   </text>
 </svg>

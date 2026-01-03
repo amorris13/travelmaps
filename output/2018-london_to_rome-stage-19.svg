@@ -97,16 +97,16 @@
   <circle r="3.5" cx="-11694.043" cy="3939.781" class="dayStop"></circle>
   <circle r="3.5" cx="178.98" cy="329.739" class="dayStop"></circle>
   <polygon points="102.04021215764078,253.58097321220706 94.54021215764078,266.57135426897366 109.54021215764078,266.57135426897366" class="elevationMarker"></polygon>
-  <rect width="54.18" height="21.6" x="713.349" y="707.377" opacity="0.2" fill="green" class="labelRect"></rect><text x="713.349" y="724.479" class="label">
+  <rect width="83.34" height="18" x="158.299" y="75.649" opacity="0.2" fill="green" class="labelRect"></rect><text x="158.299" y="90.95" class="label">
+    <tspan dy="0" x="158.299">Andermatt</tspan>
+  </text>
+  <rect width="54.18" height="18" x="713.349" y="709.177" opacity="0.2" fill="green" class="labelRect"></rect><text x="713.349" y="724.479" class="label">
     <tspan dy="0" x="713.349">Biasca</tspan>
   </text>
-  <rect width="115.56" height="21.6" x="111.11" y="232.495" opacity="0.2" fill="green" class="labelRect"></rect><text x="111.11" y="249.596" class="label">
-    <tspan dy="0" x="111.11">Gotthard Pass</tspan>
-  </text>
-  <rect width="46.08" height="21.6" x="127.243" y="335.395" opacity="0.2" fill="green" class="labelRect"></rect><text x="127.243" y="352.497" class="label">
+  <rect width="46.08" height="18" x="127.243" y="337.195" opacity="0.2" fill="green" class="labelRect"></rect><text x="127.243" y="352.497" class="label">
     <tspan dy="0" x="127.243">Airolo</tspan>
   </text>
-  <rect width="83.34" height="21.6" x="110.973" y="67.906" opacity="0.2" fill="green" class="labelRect"></rect><text x="110.973" y="85.007" class="label">
-    <tspan dy="0" x="110.973">Andermatt</tspan>
+  <rect width="115.56" height="18" x="111.11" y="237.895" opacity="0.2" fill="green" class="labelRect"></rect><text x="111.11" y="253.196" class="label">
+    <tspan dy="0" x="111.11">Gotthard Pass</tspan>
   </text>
 </svg>

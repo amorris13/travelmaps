@@ -92,10 +92,10 @@
   <circle r="5" cx="395.016" cy="95.31" class="stage"></circle>
   <circle r="5" cx="360.61" cy="703.714" class="stage"></circle>
   <polygon points="353.0858907567408,656.7679005703831 345.5858907567408,669.7582816271497 360.5858907567408,669.7582816271497" class="elevationMarker"></polygon>
-  <rect width="49.14" height="21.6" x="336.04" y="711.714" opacity="0.2" fill="green" class="labelRect"></rect><text x="336.04" y="728.815" class="label">
+  <rect width="49.14" height="18" x="336.04" y="713.514" opacity="0.2" fill="green" class="labelRect"></rect><text x="336.04" y="728.815" class="label">
     <tspan dy="0" x="336.04">Roder</tspan>
   </text>
-  <rect width="64.98" height="21.6" x="362.526" y="65.71" opacity="0.2" fill="green" class="labelRect"></rect><text x="362.526" y="82.812" class="label">
-    <tspan dy="0" x="362.526">Waimes</tspan>
+  <rect width="64.98" height="18" x="400.673" y="73.453" opacity="0.2" fill="green" class="labelRect"></rect><text x="400.673" y="88.755" class="label">
+    <tspan dy="0" x="400.673">Waimes</tspan>
   </text>
 </svg>

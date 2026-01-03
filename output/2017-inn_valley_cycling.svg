@@ -101,19 +101,19 @@
   <circle r="5" cx="585.861" cy="358.877" class="stage"></circle>
   <circle r="5" cx="991.968" cy="273.851" class="stage"></circle>
   <circle r="5" cx="1061.538" cy="262.829" class="stage"></circle>
-  <rect width="78.3" height="21.6" x="1067.195" y="235.572" opacity="0.2" fill="green" class="labelRect"></rect><text x="1067.195" y="252.673" class="label">
-    <tspan dy="0" x="1067.195">Innsbruck</tspan>
+  <rect width="45" height="18" x="593.861" y="351.677" opacity="0.2" fill="green" class="labelRect"></rect><text x="593.861" y="366.979" class="label">
+    <tspan dy="0" x="593.861">Zams</tspan>
   </text>
-  <rect width="71.1" height="21.6" x="61.705" y="909.914" opacity="0.2" fill="green" class="labelRect"></rect><text x="61.705" y="927.016" class="label">
-    <tspan dy="0" x="61.705">St Moritz</tspan>
+  <rect width="71.1" height="18" x="102.912" y="946.971" opacity="0.2" fill="green" class="labelRect"></rect><text x="102.912" y="962.273" class="label">
+    <tspan dy="0" x="102.912">St Moritz</tspan>
   </text>
-  <rect width="45" height="21.6" x="535.205" y="331.62" opacity="0.2" fill="green" class="labelRect"></rect><text x="535.205" y="348.722" class="label">
-    <tspan dy="0" x="535.205">Zams</tspan>
-  </text>
-  <rect width="60.3" height="21.6" x="296.641" y="661.383" opacity="0.2" fill="green" class="labelRect"></rect><text x="296.641" y="678.484" class="label">
+  <rect width="60.3" height="18" x="296.641" y="666.783" opacity="0.2" fill="green" class="labelRect"></rect><text x="296.641" y="682.084" class="label">
     <tspan dy="0" x="296.641">Guarda</tspan>
   </text>
-  <rect width="131.4" height="21.6" x="854.911" y="279.508" opacity="0.2" fill="green" class="labelRect"></rect><text x="854.911" y="296.61" class="label">
+  <rect width="131.4" height="18" x="854.911" y="281.308" opacity="0.2" fill="green" class="labelRect"></rect><text x="854.911" y="296.61" class="label">
     <tspan dy="0" x="854.911">Kematen in Tirol</tspan>
+  </text>
+  <rect width="78.3" height="18" x="1067.195" y="240.972" opacity="0.2" fill="green" class="labelRect"></rect><text x="1067.195" y="256.273" class="label">
+    <tspan dy="0" x="1067.195">Innsbruck</tspan>
   </text>
 </svg>

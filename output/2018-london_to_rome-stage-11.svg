@@ -93,13 +93,13 @@
   <circle r="5" cx="672.138" cy="707.692" class="stage"></circle>
   <circle r="3.5" cx="345.288" cy="425.215" class="dayStop"></circle>
   <polygon points="189.3831572050958,302.6111930959233 181.8831572050958,315.60157415268986 196.8831572050958,315.60157415268986" class="elevationMarker"></polygon>
-  <rect width="61.2" height="21.6" x="121.031" y="62.723" opacity="0.2" fill="green" class="labelRect"></rect><text x="121.031" y="79.824" class="label">
+  <rect width="61.2" height="18" x="121.031" y="68.123" opacity="0.2" fill="green" class="labelRect"></rect><text x="121.031" y="83.424" class="label">
     <tspan dy="0" x="121.031">Rahling</tspan>
   </text>
-  <rect width="88.38" height="21.6" x="680.138" y="696.892" opacity="0.2" fill="green" class="labelRect"></rect><text x="680.138" y="713.994" class="label">
-    <tspan dy="0" x="680.138">Strasbourg</tspan>
+  <rect width="87.48" height="18" x="254.979" y="429.844" opacity="0.2" fill="green" class="labelRect"></rect><text x="254.979" y="445.145" class="label">
+    <tspan dy="0" x="254.979">Steinbourg</tspan>
   </text>
-  <rect width="87.48" height="21.6" x="252.151" y="430.872" opacity="0.2" fill="green" class="labelRect"></rect><text x="252.151" y="447.974" class="label">
-    <tspan dy="0" x="252.151">Steinbourg</tspan>
+  <rect width="88.38" height="18" x="575.758" y="700.492" opacity="0.2" fill="green" class="labelRect"></rect><text x="575.758" y="715.794" class="label">
+    <tspan dy="0" x="575.758">Strasbourg</tspan>
   </text>
 </svg>

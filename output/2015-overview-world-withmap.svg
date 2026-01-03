@@ -89,22 +89,22 @@
   <circle r="5" cx="599.575" cy="186.273" class="stage"></circle>
   <path d="M0 0M1104.0309849999999 507.35183568530294A364.63 364.63 0 0 1 1068.958 229.069A40.195 40.195 0 0 1 1065.5 259.794M1065.5 259.794A634.765 634.765 0 0 1 1553.313 238.418M-134.5 259.794A634.765 634.765 0 0 1 353.313 238.418A283.668 283.668 0 0 1 526.864 106.153A140.653 140.653 0 0 1 599.575 186.273 " class="lineBackground"></path>
   <path d="M0 0M1104.0309849999999 507.35183568530294A364.63 364.63 0 0 1 1068.958 229.069A40.195 40.195 0 0 1 1065.5 259.794M1065.5 259.794A634.765 634.765 0 0 1 1553.313 238.418M-134.5 259.794A634.765 634.765 0 0 1 353.313 238.418A283.668 283.668 0 0 1 526.864 106.153A140.653 140.653 0 0 1 599.575 186.273 " class="line"></path>
-  <rect width="77.04" height="21.6" x="444.167" y="78.896" opacity="0.2" fill="green" class="labelRect"></rect><text x="444.167" y="95.997" class="label">
-    <tspan dy="0" x="444.167">Reykjavik</tspan>
-  </text>
-  <rect width="55.08" height="21.6" x="1074.615" y="201.812" opacity="0.2" fill="green" class="labelRect"></rect><text x="1074.615" y="218.913" class="label">
-    <tspan dy="0" x="1074.615">Niseko</tspan>
-  </text>
-  <rect width="60.48" height="21.6" x="611.575" y="175.473" opacity="0.2" fill="green" class="labelRect"></rect><text x="611.575" y="192.574" class="label">
-    <tspan dy="0" x="611.575">London</tspan>
-  </text>
-  <rect width="49.14" height="21.6" x="1071.157" y="265.451" opacity="0.2" fill="green" class="labelRect"></rect><text x="1071.157" y="282.553" class="label">
+  <rect width="49.14" height="18" x="1071.157" y="267.251" opacity="0.2" fill="green" class="labelRect"></rect><text x="1071.157" y="282.553" class="label">
     <tspan dy="0" x="1071.157">Tokyo</tspan>
   </text>
-  <rect width="78.12" height="21.6" x="269.537" y="244.075" opacity="0.2" fill="green" class="labelRect"></rect><text x="269.537" y="261.177" class="label">
+  <rect width="55.08" height="18" x="1041.418" y="204.869" opacity="0.2" fill="green" class="labelRect"></rect><text x="1041.418" y="220.17" class="label">
+    <tspan dy="0" x="1041.418">Niseko</tspan>
+  </text>
+  <rect width="78.12" height="18" x="269.537" y="245.875" opacity="0.2" fill="green" class="labelRect"></rect><text x="269.537" y="261.177" class="label">
     <tspan dy="0" x="269.537">New York</tspan>
   </text>
-  <rect width="60.3" height="21.6" x="1038.074" y="513.009" opacity="0.2" fill="green" class="labelRect"></rect><text x="1038.074" y="530.11" class="label">
-    <tspan dy="0" x="1038.074">Sydney</tspan>
+  <rect width="77.04" height="18" x="444.167" y="84.296" opacity="0.2" fill="green" class="labelRect"></rect><text x="444.167" y="99.597" class="label">
+    <tspan dy="0" x="444.167">Reykjavik</tspan>
+  </text>
+  <rect width="60.48" height="18" x="611.575" y="179.073" opacity="0.2" fill="green" class="labelRect"></rect><text x="611.575" y="194.374" class="label">
+    <tspan dy="0" x="611.575">London</tspan>
+  </text>
+  <rect width="60.3" height="18" x="1035.731" y="500.152" opacity="0.2" fill="green" class="labelRect"></rect><text x="1035.731" y="515.453" class="label">
+    <tspan dy="0" x="1035.731">Sydney</tspan>
   </text>
 </svg>

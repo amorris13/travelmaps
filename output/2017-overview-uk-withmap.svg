@@ -90,28 +90,28 @@
   <circle r="5" cx="300.722" cy="699.868" class="stage"></circle>
   <circle r="5" cx="296.376" cy="545.773" class="stage"></circle>
   <circle r="5" cx="356.857" cy="510.356" class="stage dayStop"></circle>
-  <rect width="99.36" height="21.6" x="396.816" y="681.962" opacity="0.2" fill="green" class="labelRect"></rect><text x="396.816" y="699.064" class="label">
-    <tspan dy="0" x="396.816">Isle of Wight</tspan>
+  <rect width="89.46" height="18" x="302.033" y="553.23" opacity="0.2" fill="green" class="labelRect"></rect><text x="302.033" y="568.532" class="label">
+    <tspan dy="0" x="302.033">Snowdonia</tspan>
   </text>
-  <rect width="116.64" height="21.6" x="247.602" y="595.196" opacity="0.2" fill="green" class="labelRect"></rect><text x="247.602" y="612.297" class="label">
-    <tspan dy="0" x="247.602">Oxford to Bath</tspan>
+  <rect width="60.48" height="18" x="439.868" y="636.389" opacity="0.2" fill="green" class="labelRect"></rect><text x="439.868" y="651.69" class="label">
+    <tspan dy="0" x="439.868">London</tspan>
   </text>
-  <rect width="37.08" height="21.6" x="381.061" y="451.047" opacity="0.2" fill="green" class="labelRect"></rect><text x="381.061" y="468.148" class="label">
-    <tspan dy="0" x="381.061">York</tspan>
+  <rect width="52.2" height="18" x="306.379" y="678.011" opacity="0.2" fill="green" class="labelRect"></rect><text x="306.379" y="693.313" class="label">
+    <tspan dy="0" x="306.379">Devon</tspan>
   </text>
-  <rect width="94.32" height="21.6" x="362.514" y="516.013" opacity="0.2" fill="green" class="labelRect"></rect><text x="362.514" y="533.114" class="label">
-    <tspan dy="0" x="362.514">Manchester</tspan>
+  <rect width="94.32" height="18" x="254.537" y="503.156" opacity="0.2" fill="green" class="labelRect"></rect><text x="254.537" y="518.457" class="label">
+    <tspan dy="0" x="254.537">Manchester</tspan>
   </text>
-  <rect width="89.46" height="21.6" x="201.259" y="551.43" opacity="0.2" fill="green" class="labelRect"></rect><text x="201.259" y="568.532" class="label">
-    <tspan dy="0" x="201.259">Snowdonia</tspan>
-  </text>
-  <rect width="51.12" height="21.6" x="153.141" y="491.135" opacity="0.2" fill="green" class="labelRect"></rect><text x="153.141" y="508.236" class="label partialAttendance">
+  <rect width="51.12" height="18" x="153.141" y="496.535" opacity="0.2" fill="green" class="labelRect"></rect><text x="153.141" y="511.836" class="label partialAttendance">
     <tspan dy="0" x="153.141">Dublin</tspan>
   </text>
-  <rect width="52.2" height="21.6" x="240.522" y="689.068" opacity="0.2" fill="green" class="labelRect"></rect><text x="240.522" y="706.17" class="label">
-    <tspan dy="0" x="240.522">Devon</tspan>
+  <rect width="99.36" height="18" x="396.816" y="683.762" opacity="0.2" fill="green" class="labelRect"></rect><text x="396.816" y="699.064" class="label">
+    <tspan dy="0" x="396.816">Isle of Wight</tspan>
   </text>
-  <rect width="60.48" height="21.6" x="442.211" y="618.132" opacity="0.2" fill="green" class="labelRect"></rect><text x="442.211" y="635.233" class="label">
-    <tspan dy="0" x="442.211">London</tspan>
+  <rect width="37.08" height="18" x="356.864" y="458.79" opacity="0.2" fill="green" class="labelRect"></rect><text x="356.864" y="474.091" class="label">
+    <tspan dy="0" x="356.864">York</tspan>
+  </text>
+  <rect width="116.64" height="18" x="247.602" y="600.596" opacity="0.2" fill="green" class="labelRect"></rect><text x="247.602" y="615.897" class="label">
+    <tspan dy="0" x="247.602">Oxford to Bath</tspan>
   </text>
 </svg>

@@ -93,13 +93,13 @@
   <circle r="5" cx="704.788" cy="633.964" class="stage"></circle>
   <circle r="3.5" cx="326.205" cy="224.077" class="dayStop"></circle>
   <polygon points="698.2067674218038,608.7291553808973 690.7067674218038,621.7195364376639 705.7067674218038,621.7195364376639" class="elevationMarker"></polygon>
-  <rect width="142.56" height="21.6" x="22.593" y="140.394" opacity="0.2" fill="green" class="labelRect"></rect><text x="22.593" y="157.496" class="label">
+  <rect width="142.56" height="18" x="22.593" y="145.794" opacity="0.2" fill="green" class="labelRect"></rect><text x="22.593" y="161.096" class="label">
     <tspan dy="0" x="22.593">Hoek van Holland</tspan>
   </text>
-  <rect width="55.08" height="21.6" x="710.445" y="639.621" opacity="0.2" fill="green" class="labelRect"></rect><text x="710.445" y="656.722" class="label">
-    <tspan dy="0" x="710.445">Tilburg</tspan>
+  <rect width="84.24" height="18" x="236.308" y="202.221" opacity="0.2" fill="green" class="labelRect"></rect><text x="236.308" y="217.522" class="label">
+    <tspan dy="0" x="236.308">Rotterdam</tspan>
   </text>
-  <rect width="84.24" height="21.6" x="334.205" y="213.277" opacity="0.2" fill="green" class="labelRect"></rect><text x="334.205" y="230.379" class="label">
-    <tspan dy="0" x="334.205">Rotterdam</tspan>
+  <rect width="55.08" height="18" x="712.788" y="626.764" opacity="0.2" fill="green" class="labelRect"></rect><text x="712.788" y="642.065" class="label">
+    <tspan dy="0" x="712.788">Tilburg</tspan>
   </text>
 </svg>

@@ -96,16 +96,16 @@
   <circle r="3.5" cx="277.233" cy="170.929" class="dayStop"></circle>
   <circle r="3.5" cx="347.753" cy="471.584" class="dayStop"></circle>
   <polygon points="499.43827607165076,570.4479553493366 491.93827607165076,583.4383364061032 506.93827607165076,583.4383364061032" class="elevationMarker"></polygon>
-  <rect width="65.34" height="21.6" x="603.75" y="680.435" opacity="0.2" fill="green" class="labelRect"></rect><text x="603.75" y="697.537" class="label">
-    <tspan dy="0" x="603.75">Lucerne</tspan>
+  <rect width="65.34" height="18" x="527.097" y="715.149" opacity="0.2" fill="green" class="labelRect"></rect><text x="527.097" y="730.451" class="label">
+    <tspan dy="0" x="527.097">Lucerne</tspan>
   </text>
-  <rect width="112.5" height="21.6" x="83.75" y="70.501" opacity="0.2" fill="green" class="labelRect"></rect><text x="83.75" y="87.602" class="label">
+  <rect width="112.5" height="18" x="83.75" y="75.901" opacity="0.2" fill="green" class="labelRect"></rect><text x="83.75" y="91.202" class="label">
     <tspan dy="0" x="83.75">Niedergösgen</tspan>
   </text>
-  <rect width="134.1" height="21.6" x="282.89" y="176.586" opacity="0.2" fill="green" class="labelRect"></rect><text x="282.89" y="193.688" class="label">
-    <tspan dy="0" x="282.89">Strawberry Farm</tspan>
+  <rect width="134.1" height="18" x="280.062" y="175.558" opacity="0.2" fill="green" class="labelRect"></rect><text x="280.062" y="190.859" class="label">
+    <tspan dy="0" x="280.062">Strawberry Farm</tspan>
   </text>
-  <rect width="57.24" height="21.6" x="284.856" y="477.241" opacity="0.2" fill="green" class="labelRect"></rect><text x="284.856" y="494.342" class="label">
-    <tspan dy="0" x="284.856">Sursee</tspan>
+  <rect width="57.24" height="18" x="287.684" y="476.212" opacity="0.2" fill="green" class="labelRect"></rect><text x="287.684" y="491.514" class="label">
+    <tspan dy="0" x="287.684">Sursee</tspan>
   </text>
 </svg>

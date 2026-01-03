@@ -112,70 +112,70 @@
   <path d="M0 0M235.1956957883281 954.0863283655268L234.818 947.141L233.055 944.616L231.283 944.259L228.085 941.94L226.947 940.537L226.886 938.652L225.434 937.872L220.357 939.875L214.682 939.86L212.528 938.602L208.601 938.959L202.735 935.772L200.572 935.405L202.652 935.737L208.637 938.978L212.417 938.522L214.789 939.894L220.396 939.88L225.037 937.832L226.731 938.564L227.221 940.986L231.273 944.258L235.478 943.694L236.402 942.789L238.832 943.274L240.477 941.829L244.216 940.826L253.505 941.173L244.397 940.808L238.29 942.562L234.775 947.239L234.955 948.37L233.962 949.668L233.801 952.893L234.47 954.143L235.196 954.087 " class="line"></path>
   <circle r="5" cx="442.404" cy="461.888" class="stage"></circle>
   <circle r="5" cx="488.555" cy="751.69" class="stage"></circle>
-  <rect width="79.2" height="21.6" x="412.086" y="481.855" opacity="0.2" fill="green" class="labelRect"></rect><text x="412.086" y="498.957" class="label partialAttendance">
-    <tspan dy="0" x="412.086">Dortmund</tspan>
+  <rect width="41.04" height="18" x="339.012" y="592.271" opacity="0.2" fill="green" class="labelRect"></rect><text x="339.012" y="607.573" class="label">
+    <tspan dy="0" x="339.012">Paris</tspan>
   </text>
-  <rect width="81.36" height="21.6" x="292.288" y="809.652" opacity="0.2" fill="green" class="labelRect"></rect><text x="292.288" y="826.754" class="label partialAttendance">
-    <tspan dy="0" x="292.288">Barcelona</tspan>
-  </text>
-  <rect width="117.36" height="21.6" x="592.927" y="772.376" opacity="0.2" fill="green" class="labelRect"></rect><text x="592.927" y="789.478" class="label">
-    <tspan dy="0" x="592.927">Croatia Sailing</tspan>
-  </text>
-  <rect width="58.32" height="21.6" x="513.63" y="702.183" opacity="0.2" fill="green" class="labelRect"></rect><text x="513.63" y="719.285" class="label">
-    <tspan dy="0" x="513.63">Verona</tspan>
-  </text>
-  <rect width="93.24" height="21.6" x="784.644" y="581.611" opacity="0.2" fill="green" class="labelRect"></rect><text x="784.644" y="598.713" class="label">
-    <tspan dy="0" x="784.644">High Tatras</tspan>
-  </text>
-  <rect width="41.04" height="21.6" x="391.365" y="557.558" opacity="0.2" fill="green" class="labelRect"></rect><text x="391.365" y="574.659" class="label">
-    <tspan dy="0" x="391.365">Paris</tspan>
-  </text>
-  <rect width="55.26" height="21.6" x="612.674" y="702.119" opacity="0.2" fill="green" class="labelRect"></rect><text x="612.674" y="719.221" class="label partialAttendance">
-    <tspan dy="0" x="612.674">Venice</tspan>
-  </text>
-  <rect width="38.16" height="21.6" x="444.738" y="724.433" opacity="0.2" fill="green" class="labelRect"></rect><text x="444.738" y="741.535" class="label">
-    <tspan dy="0" x="444.738">Opio</tspan>
-  </text>
-  <rect width="53.28" height="21.6" x="71.568" y="870.544" opacity="0.2" fill="green" class="labelRect"></rect><text x="71.568" y="887.645" class="label">
+  <rect width="53.28" height="18" x="71.568" y="875.944" opacity="0.2" fill="green" class="labelRect"></rect><text x="71.568" y="891.245" class="label">
     <tspan dy="0" x="71.568">Lisbon</tspan>
   </text>
-  <rect width="156.42" height="21.6" x="422.846" y="647.021" opacity="0.2" fill="green" class="labelRect"></rect><text x="422.846" y="664.122" class="label">
-    <tspan dy="0" x="422.846">South Tyrol Cycling</tspan>
+  <rect width="62.1" height="18" x="474.54" y="653.797" opacity="0.2" fill="green" class="labelRect"></rect><text x="474.54" y="669.099" class="label">
+    <tspan dy="0" x="474.54">Zermatt</tspan>
   </text>
-  <rect width="53.1" height="21.6" x="139.473" y="924.605" opacity="0.2" fill="green" class="labelRect"></rect><text x="139.473" y="941.707" class="label">
-    <tspan dy="0" x="139.473">Seville</tspan>
+  <rect width="81.36" height="18" x="292.288" y="813.252" opacity="0.2" fill="green" class="labelRect"></rect><text x="292.288" y="828.554" class="label partialAttendance">
+    <tspan dy="0" x="292.288">Barcelona</tspan>
   </text>
-  <rect width="194.4" height="21.6" x="587.895" y="619.5" opacity="0.2" fill="green" class="labelRect"></rect><text x="587.895" y="636.602" class="label">
-    <tspan dy="0" x="587.895">Garmisch-Partenkirchen</tspan>
+  <rect width="70.2" height="18" x="591.513" y="741.376" opacity="0.2" fill="green" class="labelRect"></rect><text x="591.513" y="756.678" class="label partialAttendance">
+    <tspan dy="0" x="591.513">Florence</tspan>
   </text>
-  <rect width="48.06" height="21.6" x="556.993" y="810.973" opacity="0.2" fill="green" class="labelRect"></rect><text x="556.993" y="828.074" class="label">
-    <tspan dy="0" x="556.993">Rome</tspan>
+  <rect width="58.32" height="18" x="513.63" y="703.983" opacity="0.2" fill="green" class="labelRect"></rect><text x="513.63" y="719.285" class="label">
+    <tspan dy="0" x="513.63">Verona</tspan>
   </text>
-  <rect width="92.16" height="21.6" x="396.324" y="432.288" opacity="0.2" fill="green" class="labelRect"></rect><text x="396.324" y="449.389" class="label">
+  <rect width="72" height="18" x="372.73" y="755.695" opacity="0.2" fill="green" class="labelRect"></rect><text x="372.73" y="770.997" class="label partialAttendance">
+    <tspan dy="0" x="372.73">Marseille</tspan>
+  </text>
+  <rect width="93.24" height="18" x="680.09" y="583.411" opacity="0.2" fill="green" class="labelRect"></rect><text x="680.09" y="598.713" class="label">
+    <tspan dy="0" x="680.09">High Tatras</tspan>
+  </text>
+  <rect width="81.18" height="18" x="741.011" y="760.828" opacity="0.2" fill="green" class="labelRect"></rect><text x="741.011" y="776.13" class="label">
+    <tspan dy="0" x="741.011">Dubrovnik</tspan>
+  </text>
+  <rect width="92.16" height="18" x="396.324" y="437.688" opacity="0.2" fill="green" class="labelRect"></rect><text x="396.324" y="452.989" class="label">
     <tspan dy="0" x="396.324">Amsterdam</tspan>
   </text>
-  <rect width="60.12" height="21.6" x="746.394" y="513.964" opacity="0.2" fill="green" class="labelRect"></rect><text x="746.394" y="531.066" class="label">
-    <tspan dy="0" x="746.394">Krakow</tspan>
+  <rect width="60.12" height="18" x="784.454" y="536.364" opacity="0.2" fill="green" class="labelRect"></rect><text x="784.454" y="551.666" class="label">
+    <tspan dy="0" x="784.454">Krakow</tspan>
   </text>
-  <rect width="70.2" height="21.6" x="505.313" y="737.776" opacity="0.2" fill="green" class="labelRect"></rect><text x="505.313" y="754.878" class="label partialAttendance">
-    <tspan dy="0" x="505.313">Florence</tspan>
+  <rect width="156.42" height="18" x="586.094" y="664.249" opacity="0.2" fill="green" class="labelRect"></rect><text x="586.094" y="679.551" class="label">
+    <tspan dy="0" x="586.094">South Tyrol Cycling</tspan>
   </text>
-  <rect width="62.1" height="21.6" x="437.833" y="683.654" opacity="0.2" fill="green" class="labelRect"></rect><text x="437.833" y="700.756" class="label">
-    <tspan dy="0" x="437.833">Zermatt</tspan>
+  <rect width="117.36" height="18" x="592.927" y="774.176" opacity="0.2" fill="green" class="labelRect"></rect><text x="592.927" y="789.478" class="label">
+    <tspan dy="0" x="592.927">Croatia Sailing</tspan>
   </text>
-  <rect width="81.18" height="21.6" x="743.354" y="771.885" opacity="0.2" fill="green" class="labelRect"></rect><text x="743.354" y="788.987" class="label">
-    <tspan dy="0" x="743.354">Dubrovnik</tspan>
+  <rect width="111.24" height="18" x="388.999" y="533.023" opacity="0.2" fill="green" class="labelRect"></rect><text x="388.999" y="548.325" class="label">
+    <tspan dy="0" x="388.999">Rhine Cycling</tspan>
   </text>
-  <rect width="35.1" height="21.6" x="657.932" y="729.153" opacity="0.2" fill="green" class="labelRect"></rect><text x="657.932" y="746.255" class="label">
-    <tspan dy="0" x="657.932">Split</tspan>
+  <rect width="55.26" height="18" x="612.674" y="703.919" opacity="0.2" fill="green" class="labelRect"></rect><text x="612.674" y="719.221" class="label partialAttendance">
+    <tspan dy="0" x="612.674">Venice</tspan>
   </text>
-  <rect width="70.38" height="21.6" x="218.315" y="911.573" opacity="0.2" fill="green" class="labelRect"></rect><text x="218.315" y="928.675" class="label">
-    <tspan dy="0" x="218.315">Granada</tspan>
+  <rect width="194.4" height="18" x="377.495" y="623.1" opacity="0.2" fill="green" class="labelRect"></rect><text x="377.495" y="638.402" class="label">
+    <tspan dy="0" x="377.495">Garmisch-Partenkirchen</tspan>
   </text>
-  <rect width="72" height="21.6" x="375.073" y="768.552" opacity="0.2" fill="green" class="labelRect"></rect><text x="375.073" y="785.654" class="label partialAttendance">
-    <tspan dy="0" x="375.073">Marseille</tspan>
+  <rect width="48.06" height="18" x="586.68" y="815.116" opacity="0.2" fill="green" class="labelRect"></rect><text x="586.68" y="830.418" class="label">
+    <tspan dy="0" x="586.68">Rome</tspan>
   </text>
-  <rect width="111.24" height="21.6" x="503.067" y="506.795" opacity="0.2" fill="green" class="labelRect"></rect><text x="503.067" y="523.896" class="label">
-    <tspan dy="0" x="503.067">Rhine Cycling</tspan>
+  <rect width="38.16" height="18" x="469.475" y="761.49" opacity="0.2" fill="green" class="labelRect"></rect><text x="469.475" y="776.792" class="label">
+    <tspan dy="0" x="469.475">Opio</tspan>
+  </text>
+  <rect width="70.38" height="18" x="259.162" y="919.316" opacity="0.2" fill="green" class="labelRect"></rect><text x="259.162" y="934.618" class="label">
+    <tspan dy="0" x="259.162">Granada</tspan>
+  </text>
+  <rect width="79.2" height="18" x="504.943" y="470.798" opacity="0.2" fill="green" class="labelRect"></rect><text x="504.943" y="486.1" class="label partialAttendance">
+    <tspan dy="0" x="504.943">Dortmund</tspan>
+  </text>
+  <rect width="35.1" height="18" x="704.345" y="734.553" opacity="0.2" fill="green" class="labelRect"></rect><text x="704.345" y="749.855" class="label">
+    <tspan dy="0" x="704.345">Split</tspan>
+  </text>
+  <rect width="53.1" height="18" x="139.473" y="928.205" opacity="0.2" fill="green" class="labelRect"></rect><text x="139.473" y="943.507" class="label">
+    <tspan dy="0" x="139.473">Seville</tspan>
   </text>
 </svg>

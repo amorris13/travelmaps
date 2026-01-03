@@ -94,13 +94,13 @@
   <circle r="5" cx="707.692" cy="647.789" class="stage"></circle>
   <circle r="3.5" cx="379.867" cy="559.858" class="dayStop"></circle>
   <polygon points="569.2337989239877,636.0133097752405 561.7337989239877,649.0036908320071 576.7337989239877,649.0036908320071" class="elevationMarker"></polygon>
-  <rect width="50.22" height="21.6" x="36.666" y="113.303" opacity="0.2" fill="green" class="labelRect"></rect><text x="36.666" y="130.404" class="label">
-    <tspan dy="0" x="36.666">Sacca</tspan>
+  <rect width="50.22" height="18" x="34.323" y="133.36" opacity="0.2" fill="green" class="labelRect"></rect><text x="34.323" y="148.661" class="label">
+    <tspan dy="0" x="34.323">Sacca</tspan>
   </text>
-  <rect width="111.24" height="21.6" x="385.524" y="532.601" opacity="0.2" fill="green" class="labelRect"></rect><text x="385.524" y="549.703" class="label">
+  <rect width="111.24" height="18" x="385.524" y="538.001" opacity="0.2" fill="green" class="labelRect"></rect><text x="385.524" y="553.303" class="label">
     <tspan dy="0" x="385.524">Reggio Emilia</tspan>
   </text>
-  <rect width="65.34" height="21.6" x="713.349" y="653.446" opacity="0.2" fill="green" class="labelRect"></rect><text x="713.349" y="670.548" class="label">
-    <tspan dy="0" x="713.349">Modena</tspan>
+  <rect width="65.34" height="18" x="715.692" y="640.589" opacity="0.2" fill="green" class="labelRect"></rect><text x="715.692" y="655.891" class="label">
+    <tspan dy="0" x="715.692">Modena</tspan>
   </text>
 </svg>

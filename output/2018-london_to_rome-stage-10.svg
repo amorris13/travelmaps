@@ -95,16 +95,16 @@
   <circle r="3.5" cx="430.116" cy="249.118" class="dayStop"></circle>
   <circle r="3.5" cx="519.57" cy="495.724" class="dayStop"></circle>
   <polygon points="664.2248485223608,676.895073246349 656.7248485223608,689.8854543031157 671.7248485223608,689.8854543031157" class="elevationMarker"></polygon>
-  <rect width="112.5" height="21.6" x="435.772" y="221.861" opacity="0.2" fill="green" class="labelRect"></rect><text x="435.772" y="238.963" class="label">
-    <tspan dy="0" x="435.772">Saarbruecken</tspan>
+  <rect width="75.24" height="18" x="19.649" y="85.108" opacity="0.2" fill="green" class="labelRect"></rect><text x="19.649" y="100.409" class="label">
+    <tspan dy="0" x="19.649">Saarlouis</tspan>
   </text>
-  <rect width="116.28" height="21.6" x="397.633" y="501.381" opacity="0.2" fill="green" class="labelRect"></rect><text x="397.633" y="518.482" class="label">
-    <tspan dy="0" x="397.633">Sarreguimines</tspan>
+  <rect width="112.5" height="18" x="438.116" y="241.918" opacity="0.2" fill="green" class="labelRect"></rect><text x="438.116" y="257.22" class="label">
+    <tspan dy="0" x="438.116">Saarbruecken</tspan>
   </text>
-  <rect width="75.24" height="21.6" x="21.992" y="65.051" opacity="0.2" fill="green" class="labelRect"></rect><text x="21.992" y="82.152" class="label">
-    <tspan dy="0" x="21.992">Saarlouis</tspan>
+  <rect width="116.28" height="18" x="400.462" y="500.352" opacity="0.2" fill="green" class="labelRect"></rect><text x="400.462" y="515.654" class="label">
+    <tspan dy="0" x="400.462">Sarreguimines</tspan>
   </text>
-  <rect width="61.2" height="21.6" x="702.768" y="713.014" opacity="0.2" fill="green" class="labelRect"></rect><text x="702.768" y="730.116" class="label">
+  <rect width="61.2" height="18" x="702.768" y="685.501" opacity="0.2" fill="green" class="labelRect"></rect><text x="702.768" y="700.802" class="label">
     <tspan dy="0" x="702.768">Rahling</tspan>
   </text>
 </svg>

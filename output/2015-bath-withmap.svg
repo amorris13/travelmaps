@@ -98,16 +98,16 @@
   <circle r="5" cx="138.462" cy="196.697" class="stage"></circle>
   <circle r="5" cx="1009.697" cy="716.824" class="stage dayStop"></circle>
   <circle r="5" cx="1061.538" cy="1003.303" class="stage dayStop"></circle>
-  <rect width="97.74" height="21.6" x="1015.354" y="689.567" opacity="0.2" fill="green" class="labelRect"></rect><text x="1015.354" y="706.668" class="label">
+  <rect width="125.28" height="18" x="633.857" y="239.528" opacity="0.2" fill="green" class="labelRect"></rect><text x="633.857" y="254.829" class="label">
+    <tspan dy="0" x="633.857">Caen Hill Locks</tspan>
+  </text>
+  <rect width="97.74" height="18" x="1015.354" y="694.967" opacity="0.2" fill="green" class="labelRect"></rect><text x="1015.354" y="710.268" class="label">
     <tspan dy="0" x="1015.354">Stonehenge</tspan>
   </text>
-  <rect width="125.28" height="21.6" x="702.154" y="236.471" opacity="0.2" fill="green" class="labelRect"></rect><text x="702.154" y="253.572" class="label">
-    <tspan dy="0" x="702.154">Caen Hill Locks</tspan>
-  </text>
-  <rect width="74.16" height="21.6" x="981.722" y="1008.96" opacity="0.2" fill="green" class="labelRect"></rect><text x="981.722" y="1026.061" class="label">
+  <rect width="74.16" height="18" x="981.722" y="1010.76" opacity="0.2" fill="green" class="labelRect"></rect><text x="981.722" y="1026.061" class="label">
     <tspan dy="0" x="981.722">Salisbury</tspan>
   </text>
-  <rect width="37.26" height="21.6" x="95.545" y="202.354" opacity="0.2" fill="green" class="labelRect"></rect><text x="95.545" y="219.456" class="label">
+  <rect width="37.26" height="18" x="95.545" y="204.154" opacity="0.2" fill="green" class="labelRect"></rect><text x="95.545" y="219.456" class="label">
     <tspan dy="0" x="95.545">Bath</tspan>
   </text>
 </svg>

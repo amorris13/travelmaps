@@ -110,25 +110,25 @@
   <circle r="5" cx="654.3" cy="565.959" class="stage"></circle>
   <circle r="5" cx="869.931" cy="527.308" class="stage dayStop"></circle>
   <circle r="5" cx="1061.538" cy="549.774" class="stage"></circle>
-  <rect width="67.32" height="21.6" x="157.683" y="678.349" opacity="0.2" fill="green" class="labelRect"></rect><text x="157.683" y="695.45" class="label">
-    <tspan dy="0" x="157.683">Bregenz</tspan>
-  </text>
-  <rect width="71.28" height="21.6" x="1067.195" y="555.431" opacity="0.2" fill="green" class="labelRect"></rect><text x="1067.195" y="572.532" class="label">
-    <tspan dy="0" x="1067.195">Salzburg</tspan>
-  </text>
-  <rect width="54.36" height="21.6" x="78.445" y="623.858" opacity="0.2" fill="green" class="labelRect"></rect><text x="78.445" y="640.96" class="label">
-    <tspan dy="0" x="78.445">Lindau</tspan>
-  </text>
-  <rect width="75.42" height="21.6" x="449.893" y="614.186" opacity="0.2" fill="green" class="labelRect"></rect><text x="449.893" y="631.287" class="label">
-    <tspan dy="0" x="449.893">Linderhof</tspan>
-  </text>
-  <rect width="132.3" height="21.6" x="803.781" y="497.708" opacity="0.2" fill="green" class="labelRect"></rect><text x="803.781" y="514.81" class="label">
+  <rect width="132.3" height="18" x="803.781" y="503.108" opacity="0.2" fill="green" class="labelRect"></rect><text x="803.781" y="518.41" class="label">
     <tspan dy="0" x="803.781">Herrenchiemsee</tspan>
   </text>
-  <rect width="71.28" height="21.6" x="659.957" y="571.616" opacity="0.2" fill="green" class="labelRect"></rect><text x="659.957" y="588.718" class="label">
-    <tspan dy="0" x="659.957">Bad Tolz</tspan>
+  <rect width="71.28" height="18" x="577.363" y="544.102" opacity="0.2" fill="green" class="labelRect"></rect><text x="577.363" y="559.404" class="label">
+    <tspan dy="0" x="577.363">Bad Tolz</tspan>
   </text>
-  <rect width="132.48" height="21.6" x="282.865" y="663.658" opacity="0.2" fill="green" class="labelRect"></rect><text x="282.865" y="680.759" class="label">
+  <rect width="75.42" height="18" x="493.26" y="651.243" opacity="0.2" fill="green" class="labelRect"></rect><text x="493.26" y="666.544" class="label">
+    <tspan dy="0" x="493.26">Linderhof</tspan>
+  </text>
+  <rect width="54.36" height="18" x="78.445" y="629.258" opacity="0.2" fill="green" class="labelRect"></rect><text x="78.445" y="644.56" class="label">
+    <tspan dy="0" x="78.445">Lindau</tspan>
+  </text>
+  <rect width="67.32" height="18" x="118.366" y="682.492" opacity="0.2" fill="green" class="labelRect"></rect><text x="118.366" y="697.794" class="label">
+    <tspan dy="0" x="118.366">Bregenz</tspan>
+  </text>
+  <rect width="71.28" height="18" x="1067.195" y="557.231" opacity="0.2" fill="green" class="labelRect"></rect><text x="1067.195" y="572.532" class="label">
+    <tspan dy="0" x="1067.195">Salzburg</tspan>
+  </text>
+  <rect width="132.48" height="18" x="282.865" y="665.458" opacity="0.2" fill="green" class="labelRect"></rect><text x="282.865" y="680.759" class="label">
     <tspan dy="0" x="282.865">Neuschwanstein</tspan>
   </text>
 </svg>

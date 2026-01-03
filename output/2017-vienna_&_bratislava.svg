@@ -93,13 +93,13 @@
   <circle r="5" cx="807.908" cy="587.07" class="stage"></circle>
   <circle r="5" cx="1061.538" cy="694.007" class="stage"></circle>
   <circle r="5" cx="138.462" cy="505.993" class="stage"></circle>
-  <rect width="79.2" height="21.6" x="723.051" y="559.813" opacity="0.2" fill="green" class="labelRect"></rect><text x="723.051" y="576.914" class="label">
-    <tspan dy="0" x="723.051">Bratislava</tspan>
+  <rect width="79.2" height="18" x="768.308" y="562.87" opacity="0.2" fill="green" class="labelRect"></rect><text x="768.308" y="578.171" class="label">
+    <tspan dy="0" x="768.308">Bratislava</tspan>
   </text>
-  <rect width="56.34" height="21.6" x="74.122" y="495.193" opacity="0.2" fill="green" class="labelRect"></rect><text x="74.122" y="512.295" class="label">
-    <tspan dy="0" x="74.122">Vienna</tspan>
+  <rect width="56.34" height="18" x="76.465" y="484.136" opacity="0.2" fill="green" class="labelRect"></rect><text x="76.465" y="499.438" class="label">
+    <tspan dy="0" x="76.465">Vienna</tspan>
   </text>
-  <rect width="64.08" height="21.6" x="1067.195" y="699.664" opacity="0.2" fill="green" class="labelRect"></rect><text x="1067.195" y="716.765" class="label">
-    <tspan dy="0" x="1067.195">Mierovo</tspan>
+  <rect width="64.08" height="18" x="1069.538" y="686.807" opacity="0.2" fill="green" class="labelRect"></rect><text x="1069.538" y="702.108" class="label">
+    <tspan dy="0" x="1069.538">Mierovo</tspan>
   </text>
 </svg>

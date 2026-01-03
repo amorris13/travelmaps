@@ -93,13 +93,13 @@
   <circle r="5" cx="547.035" cy="707.692" class="stage"></circle>
   <circle r="3.5" cx="356.923" cy="499.997" class="dayStop"></circle>
   <polygon points="267.10543415288157,288.33528118087276 259.60543415288157,301.32566223763934 274.60543415288157,301.32566223763934" class="elevationMarker"></polygon>
-  <rect width="43.2" height="21.6" x="305.723" y="489.197" opacity="0.2" fill="green" class="labelRect"></rect><text x="305.723" y="506.299" class="label">
-    <tspan dy="0" x="305.723">Prato</tspan>
+  <rect width="36.18" height="18" x="224.626" y="70.451" opacity="0.2" fill="green" class="labelRect"></rect><text x="224.626" y="85.752" class="label">
+    <tspan dy="0" x="224.626">Badi</tspan>
   </text>
-  <rect width="70.2" height="21.6" x="552.692" y="713.349" opacity="0.2" fill="green" class="labelRect"></rect><text x="552.692" y="730.451" class="label">
-    <tspan dy="0" x="552.692">Florence</tspan>
+  <rect width="43.2" height="18" x="310.894" y="504.626" opacity="0.2" fill="green" class="labelRect"></rect><text x="310.894" y="519.927" class="label">
+    <tspan dy="0" x="310.894">Prato</tspan>
   </text>
-  <rect width="36.18" height="21.6" x="248.373" y="62.708" opacity="0.2" fill="green" class="labelRect"></rect><text x="248.373" y="79.809" class="label">
-    <tspan dy="0" x="248.373">Badi</tspan>
+  <rect width="70.2" height="18" x="555.035" y="700.492" opacity="0.2" fill="green" class="labelRect"></rect><text x="555.035" y="715.794" class="label">
+    <tspan dy="0" x="555.035">Florence</tspan>
   </text>
 </svg>

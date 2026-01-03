@@ -96,16 +96,16 @@
   <circle r="3.5" cx="409.389" cy="374.192" class="dayStop"></circle>
   <circle r="3.5" cx="638.33" cy="695.091" class="dayStop"></circle>
   <polygon points="628.7172285895031,638.9210121252472 621.2172285895031,651.9113931820139 636.2172285895031,651.9113931820139" class="elevationMarker"></polygon>
-  <rect width="126.18" height="21.6" x="66.555" y="62.708" opacity="0.2" fill="green" class="labelRect"></rect><text x="66.555" y="79.809" class="label">
-    <tspan dy="0" x="66.555">Dilsen-Stokkem</tspan>
+  <rect width="92.52" height="18" x="542.982" y="699.72" opacity="0.2" fill="green" class="labelRect"></rect><text x="542.982" y="715.021" class="label">
+    <tspan dy="0" x="542.982">Lindt Outlet</tspan>
   </text>
-  <rect width="153.54" height="21.6" x="415.045" y="346.935" opacity="0.2" fill="green" class="labelRect"></rect><text x="415.045" y="364.037" class="label">
-    <tspan dy="0" x="415.045">Hoensbroek Castle</tspan>
-  </text>
-  <rect width="61.38" height="21.6" x="682.465" y="693.168" opacity="0.2" fill="green" class="labelRect"></rect><text x="682.465" y="710.269" class="label">
+  <rect width="61.38" height="18" x="682.465" y="696.768" opacity="0.2" fill="green" class="labelRect"></rect><text x="682.465" y="712.069" class="label">
     <tspan dy="0" x="682.465">Aachen</tspan>
   </text>
-  <rect width="92.52" height="21.6" x="537.81" y="684.291" opacity="0.2" fill="green" class="labelRect"></rect><text x="537.81" y="701.393" class="label">
-    <tspan dy="0" x="537.81">Lindt Outlet</tspan>
+  <rect width="126.18" height="18" x="66.555" y="68.108" opacity="0.2" fill="green" class="labelRect"></rect><text x="66.555" y="83.409" class="label">
+    <tspan dy="0" x="66.555">Dilsen-Stokkem</tspan>
+  </text>
+  <rect width="153.54" height="18" x="253.02" y="378.82" opacity="0.2" fill="green" class="labelRect"></rect><text x="253.02" y="394.122" class="label">
+    <tspan dy="0" x="253.02">Hoensbroek Castle</tspan>
   </text>
 </svg>
