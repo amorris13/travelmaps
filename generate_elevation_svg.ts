@@ -15,6 +15,8 @@ const KEY_ELEVATIONS_HEIGHT = 20;
 const STAGE_MARKERS_HEIGHT = 15;
 const PROMINENT_ELEVATION_LABELS_HEIGHT = 15;
 
+const ACCENT_COLOR = "#C61016";
+
 // We need to extend the Element prototype with the namespaces for svgdom
 const window = createSVGWindow();
 const document = window.document;
@@ -26,6 +28,34 @@ function toSnakeCase(str: string): string {
     .replace(/([a-z])([A-Z])/g, "$1_$2")
     .replace(/\s+/g, "_")
     .toLowerCase();
+}
+
+function parseToRgb(hexColor: string): { r: number; g: number; b: number } {
+  const r = parseInt(hexColor.slice(1, 3), 16);
+  const g = parseInt(hexColor.slice(3, 5), 16);
+  const b = parseInt(hexColor.slice(5, 7), 16);
+  return { r, g, b };
+}
+
+function rgbToHex({ r, g, b }: { r: number; g: number; b: number }): string {
+  return `#${r.toString(16).padStart(2, "0")}${g.toString(16).padStart(2, "0")}${b
+    .toString(16)
+    .padStart(2, "0")}`;
+}
+
+function mix(hexColor1: string, hexColor2: string, ratio: number) {
+  // Parse the hex color
+  const rgb1 = parseToRgb(hexColor1);
+  const rgb2 = parseToRgb(hexColor2);
+
+  const mix = (c1: number, c2: number) => Math.round(c1 * ratio + c2 * (1 - ratio));
+  const rgbMix = {
+    r: mix(rgb1.r, rgb2.r),
+    g: mix(rgb1.g, rgb2.g),
+    b: mix(rgb1.b, rgb2.b),
+  };
+
+  return rgbToHex(rgbMix);
 }
 
 function generateElevationSvg(
@@ -88,8 +118,8 @@ function generateElevationSvg(
 
   // Create a gradient fill
   const gradient = canvas.gradient("linear", function (add) {
-    add.stop({ offset: 0, color: "#ec9598", opacity: 1 });
-    add.stop({ offset: 1, color: "#ffe8e9", opacity: 1 });
+    add.stop({ offset: 0, color: mix(ACCENT_COLOR, "#ffffff", 0.5), opacity: 1 });
+    add.stop({ offset: 1, color: mix(ACCENT_COLOR, "#ffffff", 0.05), opacity: 1 });
   });
   gradient.from(0, 0).to(0, 1);
 
@@ -104,7 +134,7 @@ function generateElevationSvg(
   canvas
     .path(pathString)
     .fill("none")
-    .stroke({ color: "#C61016", width: 2, linecap: "round", linejoin: "round" });
+    .stroke({ color: ACCENT_COLOR, width: 2, linecap: "round", linejoin: "round" });
 
   // Add max elevation indicator
   const maxElevationIndex = clampedElevationData.indexOf(Math.max(...clampedElevationData));
@@ -126,7 +156,7 @@ function generateElevationSvg(
 
   canvas
     .polygon(trianglePoints)
-    .fill("#C61016")
+    .fill(ACCENT_COLOR)
     .stroke({ color: "white", width: 2, linejoin: "round" });
 
   svgY += plotHeight;
