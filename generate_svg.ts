@@ -54,6 +54,7 @@ interface Stage extends RawStage {
 
 interface Trip extends RawTrip {
   stages: Stage[];
+  hideStops?: boolean;
 }
 
 interface Regions {
@@ -431,6 +432,21 @@ function generateTripSvg(trip: Trip): TripSvgResult {
     if (stage.hideWaypoint) {
       continue;
     }
+    if (!trip.hideStops && stage.stops) {
+      for (const stop of stage.stops) {
+        if (stop.hideWaypoint) {
+          continue;
+        }
+        const point = toMercator(shiftLatLng(stop.latlng, stage.lngShift || 0)).transform(
+          transform
+        );
+        const marker = canvas.circle().radius(markerRadius).centerAt(point);
+        markerMask.add(marker.clone().fill("black"));
+        marker.addClass("stage");
+        marker.addClass("dayStop");
+        shapes.push(shape("circle", { cx: point.x, cy: point.y, r: markerRadius }));
+      }
+    }
     const point = toMercator(shiftLatLng(stage.endLocation.latlng, stage.lngShift || 0)).transform(
       transform
     );
@@ -450,14 +466,28 @@ function generateTripSvg(trip: Trip): TripSvgResult {
   // Add label for each stage
   const labelPoints: LabelPoint[] = trip.stages
     .filter((stage) => !stage.hideWaypoint && !stage.hideLabel)
-    .map((stage) => {
-      return {
+    .flatMap((stage) => {
+      const stageLabel = {
         name: stage.endLocation.name,
         point: toMercator(shiftLatLng(stage.endLocation.latlng, stage.lngShift || 0)).transform(
           transform
         ),
         partialAttendance: stage.partialAttendance,
       };
+      if (trip.hideStops) {
+        return [stageLabel];
+      }
+      const stopLabels = (stage.stops || [])
+        .filter((stop) => !stop.hideWaypoint)
+        .map((stop) => {
+        return {
+          name: stop.name,
+          point: toMercator(shiftLatLng(stop.latlng, stage.lngShift || 0)).transform(
+            transform
+          ),
+        };
+      });
+      return [stageLabel, ...stopLabels];
     });
 
   const bestLabelPlacement = calculateBestLabelPositions(

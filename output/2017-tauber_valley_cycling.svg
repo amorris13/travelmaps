@@ -94,7 +94,7 @@
   <circle r="5" cx="1061.538" cy="705.118" class="stage"></circle>
   <circle r="5" cx="536.774" cy="772.447" class="stage dayStop"></circle>
   <circle r="5" cx="290.7" cy="673.966" class="stage"></circle>
-  <circle r="5" cx="138.462" cy="427.553" class="stage dayStop"></circle>
+  <circle r="5" cx="138.462" cy="427.553" class="stage"></circle>
   <rect width="90.18" height="18" x="1016.448" y="680.918" opacity="0.2" fill="green" class="labelRect"></rect><text x="1016.448" y="696.219" class="label">
     <tspan dy="0" x="1016.448">Nuremberg</tspan>
   </text>
