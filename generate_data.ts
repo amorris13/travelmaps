@@ -273,6 +273,14 @@ async function updatePolylineGoogle(prevStage: Stage, stage: Stage): Promise<voi
   url.searchParams.set("mode", mode);
   url.searchParams.set("origin", origin);
   url.searchParams.set("destination", destination);
+
+  if (stage.stops && stage.stops.length > 0) {
+    const waypoints = stage.stops
+      .map(stop => `${stop.latlng.lat},${stop.latlng.lng}`)
+      .join('|');
+    url.searchParams.set('waypoints', waypoints);
+  }
+
   // API key presence is checked in main()
   url.searchParams.set("key", process.env.GOOGLE_MAPS_API_KEY!); // Use non-null assertion
 
