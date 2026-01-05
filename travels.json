@@ -1562,7 +1562,8 @@
             "latlng": {
               "lat": 50.0030906,
               "lng": 8.0152247
-            }
+            },
+            "hideWaypoint": true
           },
           {
             "name": "Rüdesheim am Rhein",

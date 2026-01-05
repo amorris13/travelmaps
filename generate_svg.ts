@@ -432,10 +432,7 @@ function generateTripSvg(trip: Trip): TripSvgResult {
     if (stage.hideWaypoint) {
       continue;
     }
-    if (trip.hideStops) {
-      continue;
-    }
-    if (stage.stops) {
+    if (!trip.hideStops && stage.stops) {
       for (const stop of stage.stops) {
         if (stop.hideWaypoint) {
           continue;
