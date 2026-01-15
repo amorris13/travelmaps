@@ -33,14 +33,13 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Generate London To Rome Stage Maps",
+      "name": "Generate Cycling Stage Maps",
       "skipFiles": ["<node_internals>/**"],
       "args": [
         "--filename=travels.json",
         "--staticmap=true",
-        "--year=2018",
         "--stageMaps=true",
-        "--specificMap=2018-london_to_rome"
+        "--specificMap=2025-illawarra_cycling"
       ],
       "program": "${workspaceFolder}/generate_svg.ts",
       "envFile": "${workspaceFolder}/.env"
@@ -50,7 +49,7 @@
       "request": "launch",
       "name": "Print Strava Activity IDs",
       "skipFiles": ["<node_internals>/**"],
-      "args": ["--from=2018-05-27", "--to=2018-07-02"],
+      "args": ["--from=2025-02-01", "--to=2025-02-03"],
       "program": "${workspaceFolder}/print_strava_ids.ts",
       "envFile": "${workspaceFolder}/.env"
     },

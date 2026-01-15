@@ -426,6 +426,8 @@ function generateTripSvg(trip: Trip): TripSvgResult {
     }
   }
 
+  const labelPoints: LabelPoint[] = [];
+
   // Add marker for each stage
   for (const stage of trip.stages) {
     if (stage.hideWaypoint) {
@@ -445,20 +447,38 @@ function generateTripSvg(trip: Trip): TripSvgResult {
     }
     // Create shape for intersection testing
     shapes.push(shape("circle", { cx: point.x, cy: point.y, r: markerRadius }));
-  }
 
-  // Add label for each stage
-  const labelPoints: LabelPoint[] = trip.stages
-    .filter((stage) => !stage.hideWaypoint && !stage.hideLabel)
-    .map((stage) => {
-      return {
+    if (!stage.hideWaypoint && !stage.hideLabel) {
+      labelPoints.push({
         name: stage.endLocation.name,
-        point: toMercator(shiftLatLng(stage.endLocation.latlng, stage.lngShift || 0)).transform(
-          transform
-        ),
+        point,
         partialAttendance: stage.partialAttendance,
-      };
-    });
+      });
+    }
+
+    // Add markers for stops in this stage
+    if (stage.stops && stage.stops.length > 0) {
+      for (const stop of stage.stops) {
+        if (stop.latlng) {
+          const point = toMercator(stop.latlng).transform(transform);
+          const marker = canvas
+            .circle()
+            .radius(markerRadius * 0.7)
+            .centerAt(point);
+          markerMask.add(marker.clone().fill("black"));
+          marker.addClass("dayStop");
+          // Create shape for intersection testing
+          shapes.push(shape("circle", { cx: point.x, cy: point.y, r: markerRadius * 0.7 }));
+          if (stop.name) {
+            labelPoints.push({
+              name: stop.name,
+              point,
+            });
+          }
+        }
+      }
+    }
+  }
 
   const bestLabelPlacement = calculateBestLabelPositions(
     labelPoints,
