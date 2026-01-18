@@ -39,7 +39,7 @@
         "--filename=travels.json",
         "--staticmap=true",
         "--stageMaps=true",
-        "--specificMap=2025-illawarra_cycling"
+        "--specificMap=2025-tauernradweg"
       ],
       "program": "${workspaceFolder}/generate_svg.ts",
       "envFile": "${workspaceFolder}/.env"
@@ -49,7 +49,7 @@
       "request": "launch",
       "name": "Print Strava Activity IDs",
       "skipFiles": ["<node_internals>/**"],
-      "args": ["--from=2025-02-01", "--to=2025-02-03"],
+      "args": ["--from=2025-05-30", "--to=2025-06-03"],
       "program": "${workspaceFolder}/print_strava_ids.ts",
       "envFile": "${workspaceFolder}/.env"
     },
