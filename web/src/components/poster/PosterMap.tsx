@@ -142,8 +142,39 @@ export function PosterMap({
   const offsetX = (width - sidePx * scale) / 2;
   const offsetY = 0;
 
+  const filterId = "mapTextWhiteOutline";
+
   return (
     <g transform={`translate(0, ${y})`}>
+      {/* SVG filter for white outline behind text labels */}
+      <defs>
+        <filter
+          id={filterId}
+          width="200%"
+          height="200%"
+          x="-50%"
+          y="-50%"
+          colorInterpolationFilters="sRGB"
+        >
+          <feMorphology
+            in="SourceAlpha"
+            operator="dilate"
+            radius="1"
+            result="dilated"
+          />
+          <feColorMatrix
+            in="dilated"
+            type="matrix"
+            values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0"
+            result="whiteOutline"
+          />
+          <feMerge>
+            <feMergeNode in="whiteOutline" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+
       {/* Map background image */}
       {mapImageUrl && (
         <image
@@ -200,6 +231,7 @@ export function PosterMap({
               fill={accentColor}
               fontFamily="Helvetica, sans-serif"
               fontSize={labelFontSize}
+              filter={`url(#${filterId})`}
             >
               {wp.label}
             </text>
