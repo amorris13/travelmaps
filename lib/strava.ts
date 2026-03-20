@@ -44,6 +44,16 @@ export interface StravaTokenResponse {
   };
 }
 
+// --- Helpers ---
+
+function normalizeActivityId(activityId: string | number): string {
+  const id = String(activityId);
+  if (!/^\d+$/.test(id)) {
+    throw new Error(`Invalid activity ID: ${id}`);
+  }
+  return id;
+}
+
 // --- API Helpers ---
 
 export async function fetchStravaActivities(
@@ -69,8 +79,9 @@ export async function fetchStravaActivity(
   accessToken: string,
   activityId: string | number
 ): Promise<StravaActivity> {
+  const id = normalizeActivityId(activityId);
   const response = await fetch(
-    `https://www.strava.com/api/v3/activities/${activityId}`,
+    `https://www.strava.com/api/v3/activities/${id}`,
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -87,8 +98,9 @@ export async function fetchStravaStreams(
   accessToken: string,
   activityId: string | number
 ): Promise<{ distance?: StravaStream; altitude?: StravaStream; time?: StravaStream }> {
+  const id = normalizeActivityId(activityId);
   const response = await fetch(
-    `https://www.strava.com/api/v3/activities/${activityId}/streams?keys=distance,altitude,time&key_by_type=true`,
+    `https://www.strava.com/api/v3/activities/${id}/streams?keys=distance,altitude,time&key_by_type=true`,
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -108,8 +120,8 @@ export async function exchangeStravaToken(
 ): Promise<StravaTokenResponse> {
   const response = await fetch("https://www.strava.com/oauth/token", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
       client_id: clientId,
       client_secret: clientSecret,
       code,
@@ -129,8 +141,8 @@ export async function refreshStravaToken(
 ): Promise<StravaTokenResponse> {
   const response = await fetch("https://www.strava.com/oauth/token", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
       client_id: clientId,
       client_secret: clientSecret,
       refresh_token: refreshToken,

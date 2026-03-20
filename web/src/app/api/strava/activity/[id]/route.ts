@@ -6,8 +6,8 @@ export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const token = await getStravaToken();
-  if (!token) {
+  const tokenResult = await getStravaToken();
+  if (!tokenResult) {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
   }
 
@@ -15,16 +15,29 @@ export async function GET(
 
   try {
     const [activity, streams] = await Promise.all([
-      fetchStravaActivity(token, id),
-      fetchStravaStreams(token, id),
+      fetchStravaActivity(tokenResult.accessToken, id),
+      fetchStravaStreams(tokenResult.accessToken, id),
     ]);
 
     const activityData = toStravaActivityData(activity, streams);
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       ...activityData,
       polyline: activity.map?.polyline || activity.map?.summary_polyline,
     });
+
+    // Persist refreshed token
+    if (tokenResult.refreshed && tokenResult.tokenCookieValue) {
+      response.cookies.set("strava_token", tokenResult.tokenCookieValue, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        path: "/",
+        maxAge: 60 * 60 * 24 * 30,
+      });
+    }
+
+    return response;
   } catch (err) {
     console.error("Failed to fetch activity:", err);
     return NextResponse.json(

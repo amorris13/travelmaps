@@ -12,7 +12,13 @@ interface TokenData {
   };
 }
 
-export async function getStravaToken(): Promise<string | null> {
+export interface StravaTokenResult {
+  accessToken: string;
+  refreshed: boolean;
+  tokenCookieValue?: string;
+}
+
+export async function getStravaToken(): Promise<StravaTokenResult | null> {
   const cookieStore = await cookies();
   const tokenCookie = cookieStore.get("strava_token");
   if (!tokenCookie) return null;
@@ -36,13 +42,38 @@ export async function getStravaToken(): Promise<string | null> {
         tokenData.refresh_token
       );
 
-      // We can't set cookies in a utility function called from API routes,
-      // but the caller can handle the refresh. For now, return the new token.
-      return refreshed.access_token;
+      const newPayload = JSON.stringify({
+        access_token: refreshed.access_token,
+        refresh_token: refreshed.refresh_token,
+        expires_at: refreshed.expires_at,
+        athlete: tokenData.athlete,
+      });
+
+      return {
+        accessToken: refreshed.access_token,
+        refreshed: true,
+        tokenCookieValue: Buffer.from(newPayload).toString("base64"),
+      };
     }
 
-    return tokenData.access_token;
+    return { accessToken: tokenData.access_token, refreshed: false };
   } catch {
     return null;
   }
+}
+
+/**
+ * Helper to set the refreshed token cookie on a NextResponse.
+ */
+export function setTokenCookie(
+  response: Response,
+  cookieValue: string
+): void {
+  const headers = new Headers(response.headers);
+  const secure = process.env.NODE_ENV === "production";
+  const maxAge = 60 * 60 * 24 * 30;
+  headers.append(
+    "Set-Cookie",
+    `strava_token=${cookieValue}; HttpOnly; Path=/; Max-Age=${maxAge}; SameSite=Lax${secure ? "; Secure" : ""}`
+  );
 }

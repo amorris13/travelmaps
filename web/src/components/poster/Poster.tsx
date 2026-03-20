@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useCallback, forwardRef } from "react";
 import type { PosterConfig } from "@lib/types";
 import { POSTER_WIDTH, POSTER_HEIGHT } from "@lib/constants";
 import { PosterTitle } from "./PosterTitle";
@@ -14,95 +14,108 @@ interface PosterProps {
   className?: string;
 }
 
-export function Poster({ config, className }: PosterProps) {
-  const svgRef = useRef<SVGSVGElement>(null);
-  const width = POSTER_WIDTH;
-  const height = POSTER_HEIGHT;
+export const Poster = forwardRef<SVGSVGElement, PosterProps>(
+  function Poster({ config, className }, forwardedRef) {
+    // Merge forwarded ref with internal callback
+    const svgRefCallback = useCallback(
+      (node: SVGSVGElement | null) => {
+        if (typeof forwardedRef === "function") {
+          forwardedRef(node);
+        } else if (forwardedRef) {
+          forwardedRef.current = node;
+        }
+      },
+      [forwardedRef]
+    );
 
-  // Layout computation
-  const titleHeight = height * 0.08;
-  const statsHeight = height * 0.06;
-  const padding = width * 0.02;
+    const width = POSTER_WIDTH;
+    const height = POSTER_HEIGHT;
 
-  // Map gets the largest area
-  const elevationHeight = config.showElevation ? height * 0.15 : 0;
-  const stageTableHeight =
-    config.showStageTable && config.stages.length > 1
-      ? 30 + config.stages.length * 22 + 20
-      : 0;
+    // Layout computation
+    const titleHeight = height * 0.08;
+    const statsHeight = height * 0.06;
+    const padding = width * 0.02;
 
-  const mapY = titleHeight + statsHeight + padding;
-  const mapHeight =
-    height -
-    titleHeight -
-    statsHeight -
-    elevationHeight -
-    stageTableHeight -
-    padding * 4;
+    // Map gets the largest area
+    const elevationHeight = config.showElevation ? height * 0.15 : 0;
+    const stageTableHeight =
+      config.showStageTable && config.stages.length > 1
+        ? 30 + config.stages.length * 22 + 20
+        : 0;
 
-  const elevationY = mapY + mapHeight + padding;
-  const stageTableY = elevationY + elevationHeight + padding;
+    const mapY = titleHeight + statsHeight + padding;
+    const mapHeight =
+      height -
+      titleHeight -
+      statsHeight -
+      elevationHeight -
+      stageTableHeight -
+      padding * 4;
 
-  return (
-    <svg
-      ref={svgRef}
-      viewBox={`0 0 ${width} ${height}`}
-      className={className}
-      xmlns="http://www.w3.org/2000/svg"
-      style={{ background: "white" }}
-    >
-      {/* Background */}
-      <rect width={width} height={height} fill="white" />
+    const elevationY = mapY + mapHeight + padding;
+    const stageTableY = elevationY + elevationHeight + padding;
 
-      {/* Title + Date */}
-      <PosterTitle
-        title={config.title}
-        dateRange={config.dateRange}
-        accentColor={config.accentColor}
-        width={width}
-      />
+    return (
+      <svg
+        ref={svgRefCallback}
+        viewBox={`0 0 ${width} ${height}`}
+        className={className}
+        xmlns="http://www.w3.org/2000/svg"
+        style={{ background: "white" }}
+      >
+        {/* Background */}
+        <rect width={width} height={height} fill="white" />
 
-      {/* Stats row */}
-      <PosterStats
-        stages={config.stages}
-        accentColor={config.accentColor}
-        y={titleHeight}
-        width={width}
-      />
-
-      {/* Map */}
-      <PosterMap
-        stages={config.stages}
-        additionalLocations={config.additionalLocations}
-        accentColor={config.accentColor}
-        mapStyle={config.mapStyle}
-        y={mapY}
-        width={width}
-        height={mapHeight}
-      />
-
-      {/* Elevation Profile */}
-      {config.showElevation && (
-        <PosterElevation
-          stages={config.stages}
+        {/* Title + Date */}
+        <PosterTitle
+          title={config.title}
+          dateRange={config.dateRange}
           accentColor={config.accentColor}
-          y={elevationY}
-          width={width}
-          height={elevationHeight}
-        />
-      )}
-
-      {/* Stage Table */}
-      {config.showStageTable && config.stages.length > 1 && (
-        <PosterStageTable
-          stages={config.stages}
-          accentColor={config.accentColor}
-          y={stageTableY}
           width={width}
         />
-      )}
-    </svg>
-  );
-}
+
+        {/* Stats row */}
+        <PosterStats
+          stages={config.stages}
+          accentColor={config.accentColor}
+          y={titleHeight}
+          width={width}
+        />
+
+        {/* Map */}
+        <PosterMap
+          stages={config.stages}
+          additionalLocations={config.additionalLocations}
+          accentColor={config.accentColor}
+          mapStyle={config.mapStyle}
+          y={mapY}
+          width={width}
+          height={mapHeight}
+        />
+
+        {/* Elevation Profile */}
+        {config.showElevation && (
+          <PosterElevation
+            stages={config.stages}
+            accentColor={config.accentColor}
+            y={elevationY}
+            width={width}
+            height={elevationHeight}
+          />
+        )}
+
+        {/* Stage Table */}
+        {config.showStageTable && config.stages.length > 1 && (
+          <PosterStageTable
+            stages={config.stages}
+            accentColor={config.accentColor}
+            y={stageTableY}
+            width={width}
+          />
+        )}
+      </svg>
+    );
+  }
+);
 
 export { type PosterProps };

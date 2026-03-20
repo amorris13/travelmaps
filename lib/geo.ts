@@ -194,7 +194,18 @@ export function pathFromPolyline(
       return arcPathBetweenPoints(transformed[0], transformed[1]);
     }
   } else {
-    const transformed = decodedPolyline.map((ll) =>
+    // Unwrap longitudes across the antimeridian
+    const unwrapped = decodedPolyline.map((ll) => ({ ...ll }));
+    for (let i = 1; i < unwrapped.length; i++) {
+      const diff = unwrapped[i].lng - unwrapped[i - 1].lng;
+      if (diff > 180) {
+        unwrapped[i].lng -= 360;
+      } else if (diff < -180) {
+        unwrapped[i].lng += 360;
+      }
+    }
+
+    const transformed = unwrapped.map((ll) =>
       roundPoint(
         applyTransform(toMercator(shiftLatLng(ll, lngShift)), transform),
         EXPORT_PRECISION
@@ -226,27 +237,24 @@ export function computeTripBounds(
     return { west: 0, east: 0, south: 0, north: 0 };
   }
 
-  let lngShift = 0;
-  const firstStage = trip.stages[0];
-  if (!firstStage.endLocation?.latlng) {
+  // Pre-filter to stages that have geocoded locations
+  const geocodedStages = trip.stages.filter((s) => s.endLocation?.latlng);
+  if (geocodedStages.length === 0) {
     return { west: 0, east: 0, south: 0, north: 0 };
   }
 
-  const lngs = [firstStage.endLocation.latlng.lng];
-  if (allowWrap) firstStage.lngShift = 0;
+  let lngShift = 0;
+  const lngs = [geocodedStages[0].endLocation.latlng!.lng];
+  if (allowWrap) geocodedStages[0].lngShift = 0;
 
-  for (let i = 1; i < trip.stages.length; i++) {
-    const currentStage = trip.stages[i];
-    const prevStage = trip.stages[i - 1];
-
-    if (!currentStage.endLocation?.latlng || !prevStage.endLocation?.latlng) {
-      continue;
-    }
+  for (let i = 1; i < geocodedStages.length; i++) {
+    const currentStage = geocodedStages[i];
+    const prevStage = geocodedStages[i - 1];
 
     if (allowWrap) {
       const lngDiff =
-        currentStage.endLocation.latlng.lng -
-        prevStage.endLocation.latlng.lng;
+        currentStage.endLocation.latlng!.lng -
+        prevStage.endLocation.latlng!.lng;
       if (lngDiff < -180) {
         lngShift += 360;
       } else if (lngDiff > 180) {
@@ -254,16 +262,10 @@ export function computeTripBounds(
       }
       currentStage.lngShift = lngShift;
     }
-    lngs.push(currentStage.endLocation.latlng.lng + lngShift);
+    lngs.push(currentStage.endLocation.latlng!.lng + lngShift);
   }
 
-  const lats = trip.stages
-    .filter((s) => s.endLocation?.latlng)
-    .map((s) => s.endLocation.latlng!.lat);
-
-  if (lats.length === 0) {
-    return { west: 0, east: 0, south: 0, north: 0 };
-  }
+  const lats = geocodedStages.map((s) => s.endLocation.latlng!.lat);
 
   return {
     west: Math.min(...lngs),

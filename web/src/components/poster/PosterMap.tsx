@@ -38,7 +38,20 @@ export function PosterMap({
     const polylines = stages.map((s) => s.polyline).filter(Boolean);
     if (polylines.length === 0) return null;
 
-    const bounds = computeBoundsFromPolylines(polylines);
+    let bounds = computeBoundsFromPolylines(polylines);
+
+    // Expand bounds to include additional locations
+    if (additionalLocations.length > 0) {
+      let { west, east, south, north } = bounds;
+      for (const loc of additionalLocations) {
+        west = Math.min(west, loc.lng);
+        east = Math.max(east, loc.lng);
+        south = Math.min(south, loc.lat);
+        north = Math.max(north, loc.lat);
+      }
+      bounds = { west, east, south, north };
+    }
+
     const sidePx = Math.min(width, height);
     const { transform, expandedBbox } = computeMapTransform(bounds, sidePx);
 

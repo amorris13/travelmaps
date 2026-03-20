@@ -18,6 +18,7 @@ export default function CreatePage() {
   );
   const [loadingDetails, setLoadingDetails] = useState(false);
   const posterRef = useRef<SVGSVGElement>(null);
+  const requestIdRef = useRef(0);
 
   const selectedIds = new Set(selectedActivities.map((a) => a.id));
 
@@ -30,6 +31,7 @@ export default function CreatePage() {
         return;
       }
 
+      const currentRequestId = ++requestIdRef.current;
       setLoadingDetails(true);
       try {
         // Fetch detailed data for each activity
@@ -83,6 +85,9 @@ export default function CreatePage() {
                 year: "numeric",
               })}`
             : `, ${earliest.getFullYear()}`);
+
+        // Discard stale responses
+        if (currentRequestId !== requestIdRef.current) return;
 
         setConfig({
           ...createDefaultPosterConfig(stageConfigs, title),
@@ -147,7 +152,7 @@ export default function CreatePage() {
           </div>
         ) : (
           <div className="poster-container w-full max-w-2xl shadow-2xl">
-            <Poster config={config} className="w-full h-full" />
+            <Poster ref={posterRef} config={config} className="w-full h-full" />
           </div>
         )}
       </main>

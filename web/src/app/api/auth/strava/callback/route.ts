@@ -4,6 +4,7 @@ import { exchangeStravaToken } from "@lib/strava";
 export async function GET(request: NextRequest) {
   const code = request.nextUrl.searchParams.get("code");
   const error = request.nextUrl.searchParams.get("error");
+  const state = request.nextUrl.searchParams.get("state");
 
   if (error) {
     return NextResponse.redirect(
@@ -14,6 +15,14 @@ export async function GET(request: NextRequest) {
   if (!code) {
     return NextResponse.redirect(
       new URL("/?error=no_code", request.url)
+    );
+  }
+
+  // Validate OAuth state parameter
+  const storedState = request.cookies.get("oauth_state")?.value;
+  if (!state || !storedState || state !== storedState) {
+    return NextResponse.redirect(
+      new URL("/?error=invalid_state", request.url)
     );
   }
 
@@ -39,6 +48,9 @@ export async function GET(request: NextRequest) {
     });
 
     const response = NextResponse.redirect(new URL("/create", request.url));
+
+    // Clear the OAuth state cookie
+    response.cookies.delete("oauth_state");
 
     response.cookies.set("strava_token", Buffer.from(tokenPayload).toString("base64"), {
       httpOnly: true,

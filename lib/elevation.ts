@@ -105,8 +105,8 @@ export function mixColors(
  * Returns all data needed to render the profile as SVG (either server-side or React).
  */
 export function computeElevationProfile(
-  elevationData: number[],
-  distanceData: number[],
+  elevationData_: number[],
+  distanceData_: number[],
   plotWidth: number,
   plotHeight: number,
   options?: ElevationProfileOptions,
@@ -122,6 +122,34 @@ export function computeElevationProfile(
     (options?.showKeyElevations ? KEY_ELEVATIONS_HEIGHT : 0) +
     padding;
 
+  // Guard against empty or misaligned data
+  if (elevationData_.length === 0 || distanceData_.length === 0) {
+    return {
+      profilePoints: [],
+      allPoints: [],
+      svgWidth,
+      svgHeight,
+      plotOffsetY: padding,
+      plotWidth,
+      plotHeight,
+      maxElevation: 0,
+      minElevation: 0,
+      maxElevationIndex: 0,
+      maxElevationPoint: { x: 0, y: 0 },
+      prominentLabels: [],
+      stageMarkerPositions: [],
+      keyElevations: { start: 0, peak: 0, end: 0 },
+      gradientStartColor: mixColors(accentColor, "#ffffff", 0.5),
+      gradientEndColor: mixColors(accentColor, "#ffffff", 0.05),
+      accentColor,
+    };
+  }
+
+  // Truncate to equal length if misaligned
+  const len = Math.min(elevationData_.length, distanceData_.length);
+  const elevationData = elevationData_.slice(0, len);
+  const distanceData = distanceData_.slice(0, len);
+
   let plotOffsetY = padding;
 
   const clamped = elevationData.map((e) => Math.max(0, e));
@@ -129,6 +157,27 @@ export function computeElevationProfile(
   const minElevation = 0;
   const elevationRange = maxElevation - minElevation;
   const maxDistance = Math.max(...distanceData);
+  if (maxDistance <= 0) {
+    return {
+      profilePoints: [],
+      allPoints: [],
+      svgWidth,
+      svgHeight,
+      plotOffsetY,
+      plotWidth,
+      plotHeight,
+      maxElevation,
+      minElevation,
+      maxElevationIndex: 0,
+      maxElevationPoint: { x: 0, y: 0 },
+      prominentLabels: [],
+      stageMarkerPositions: [],
+      keyElevations: { start: Math.round(clamped[0]), peak: Math.round(maxElevation), end: Math.round(clamped[clamped.length - 1]) },
+      gradientStartColor: mixColors(accentColor, "#ffffff", 0.5),
+      gradientEndColor: mixColors(accentColor, "#ffffff", 0.05),
+      accentColor,
+    };
+  }
 
   if (options?.labelProminentElevations) {
     plotOffsetY += PROMINENT_ELEVATION_LABELS_HEIGHT;
