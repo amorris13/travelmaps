@@ -1,0 +1,911 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`visual: elevation profile SVGs > generates elevation SVG with key elevations and PNG 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="810" height="245">
+  <defs>
+    <linearGradient x1="0" y1="0" x2="0" y2="1" id="SvgjsLinearGradientSTABLE_0">
+      <stop stop-opacity="1" stop-color="#e3888b" offset="0"></stop>
+      <stop stop-opacity="1" stop-color="#fcf3f3" offset="1"></stop>
+    </linearGradient>
+  </defs>
+  <path d="M5 186.66666666666669 L18.114754098360656 180.41666666666669 L31.229508196721312 170 L44.34426229508197 155.41666666666666 L70.57377049180327 117.91666666666667 L83.68852459016394 103.33333333333333 L96.80327868852459 86.66666666666667 L149.2622950819672 36.66666666666667 L162.37704918032787 32.083333333333336 L175.4918032786885 40.83333333333333 L188.60655737704917 57.5 L241.0655737704918 140.83333333333334 L254.18032786885246 159.58333333333334 L267.2950819672131 174.16666666666669 L280.40983606557376 184.58333333333331 L313.1967213114754 178.33333333333331 L345.983606557377 157.5 L378.77049180327873 128.33333333333334 L411.55737704918033 90.83333333333333 L444.344262295082 61.66666666666667 L477.1311475409836 36.66666666666667 L509.91803278688525 20 L542.7049180327868 28.333333333333325 L673.8524590163935 128.33333333333334 L706.639344262295 145 L772.2131147540983 170 L805 178.33333333333331 L 805 220 L 5 220 Z" fill="url(#SvgjsLinearGradientSTABLE_0)" stroke="none"></path>
+  <path d="M5 186.66666666666669 L18.114754098360656 180.41666666666669 L31.229508196721312 170 L44.34426229508197 155.41666666666666 L70.57377049180327 117.91666666666667 L83.68852459016394 103.33333333333333 L96.80327868852459 86.66666666666667 L149.2622950819672 36.66666666666667 L162.37704918032787 32.083333333333336 L175.4918032786885 40.83333333333333 L188.60655737704917 57.5 L241.0655737704918 140.83333333333334 L254.18032786885246 159.58333333333334 L267.2950819672131 174.16666666666669 L280.40983606557376 184.58333333333331 L313.1967213114754 178.33333333333331 L345.983606557377 157.5 L378.77049180327873 128.33333333333334 L411.55737704918033 90.83333333333333 L444.344262295082 61.66666666666667 L477.1311475409836 36.66666666666667 L509.91803278688525 20 L542.7049180327868 28.333333333333325 L673.8524590163935 128.33333333333334 L706.639344262295 145 L772.2131147540983 170 L805 178.33333333333331" fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#c61016"></path>
+  <polygon points="509.91803278688525,14.226497308103742 504.91803278688525,22.886751345948127 514.9180327868853,22.886751345948127" fill="#c61016" stroke-linejoin="round" stroke-width="2" stroke="white"></polygon>
+  <style>
+    .label {
+      font-family: Helvetica Neue, sans-serif;
+      font-size: 16px;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      dominant-baseline: alphabetical;
+    }
+  </style><text x="162.37704918032787" y="27.083333333333336" class="label" text-anchor="middle">
+    <tspan dy="0" x="162.37704918032787">451m</tspan>
+  </text><text x="509.91803278688525" y="15" class="label" text-anchor="middle">
+    <tspan dy="0" x="509.91803278688525">480m</tspan>
+  </text><text x="5" y="240" class="label" text-anchor="start">
+    <tspan dy="0" x="5">80m</tspan>
+  </text><text x="400" y="240" class="label" text-anchor="middle">
+    <tspan dy="0" x="400">⏶ 480m</tspan>
+  </text><text x="795" y="240" class="label" text-anchor="end">
+    <tspan dy="0" x="795">100m</tspan>
+  </text>
+</svg>"
+`;
+
+exports[`visual: elevation profile SVGs > generates multi-stage elevation SVG with stage markers and PNG 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="1210" height="240">
+  <defs>
+    <linearGradient x1="0" y1="0" x2="0" y2="1" id="SvgjsLinearGradientSTABLE_0">
+      <stop stop-opacity="1" stop-color="#e3888b" offset="0"></stop>
+      <stop stop-opacity="1" stop-color="#fcf3f3" offset="1"></stop>
+    </linearGradient>
+  </defs>
+  <path d="M5 186.66666666666669 L24.672131147540984 180.41666666666669 L44.34426229508197 170 L64.01639344262296 155.41666666666666 L103.36065573770492 117.91666666666667 L123.0327868852459 103.33333333333333 L142.70491803278688 86.66666666666667 L221.39344262295083 36.66666666666667 L241.0655737704918 32.083333333333336 L260.73770491803276 40.83333333333333 L280.40983606557376 57.5 L359.0983606557377 140.83333333333334 L378.77049180327873 159.58333333333334 L398.44262295081967 174.16666666666669 L418.11475409836066 184.58333333333331 L467.2950819672131 178.33333333333331 L516.4754098360655 157.5 L565.655737704918 128.33333333333334 L614.8360655737705 90.83333333333333 L664.016393442623 61.66666666666667 L713.1967213114754 36.66666666666667 L762.377049180328 20 L811.5573770491803 28.333333333333325 L1008.2786885245902 128.33333333333334 L1057.4590163934427 145 L1106.639344262295 157.5 L1155.8196721311474 170 L1205 178.33333333333331 L 1205 220 L 5 220 Z" fill="url(#SvgjsLinearGradientSTABLE_0)" stroke="none"></path>
+  <path d="M5 186.66666666666669 L24.672131147540984 180.41666666666669 L44.34426229508197 170 L64.01639344262296 155.41666666666666 L103.36065573770492 117.91666666666667 L123.0327868852459 103.33333333333333 L142.70491803278688 86.66666666666667 L221.39344262295083 36.66666666666667 L241.0655737704918 32.083333333333336 L260.73770491803276 40.83333333333333 L280.40983606557376 57.5 L359.0983606557377 140.83333333333334 L378.77049180327873 159.58333333333334 L398.44262295081967 174.16666666666669 L418.11475409836066 184.58333333333331 L467.2950819672131 178.33333333333331 L516.4754098360655 157.5 L565.655737704918 128.33333333333334 L614.8360655737705 90.83333333333333 L664.016393442623 61.66666666666667 L713.1967213114754 36.66666666666667 L762.377049180328 20 L811.5573770491803 28.333333333333325 L1008.2786885245902 128.33333333333334 L1057.4590163934427 145 L1106.639344262295 157.5 L1155.8196721311474 170 L1205 178.33333333333331" fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#c61016"></path>
+  <polygon points="762.377049180328,14.226497308103742 757.377049180328,22.886751345948127 767.377049180328,22.886751345948127" fill="#c61016" stroke-linejoin="round" stroke-width="2" stroke="white"></polygon>
+  <style>
+    .label {
+      font-family: Helvetica Neue, sans-serif;
+      font-size: 16px;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      dominant-baseline: alphabetical;
+    }
+  </style><text x="241.0655737704918" y="27.083333333333336" class="label" text-anchor="middle">
+    <tspan dy="0" x="241.0655737704918">451m</tspan>
+  </text><text x="762.377049180328" y="15" class="label" text-anchor="middle">
+    <tspan dy="0" x="762.377049180328">480m</tspan>
+  </text>
+  <line x1="5" y1="220" x2="5" y2="225" stroke-width="1" stroke="#808080"></line>
+  <line x1="5" y1="220" x2="5" y2="186.66666666666669" stroke-dasharray="2 4" stroke-width="1" stroke="#808080"></line><text x="211.55737704918033" y="235" class="label" text-anchor="middle">
+    <tspan dy="0" x="211.55737704918033">1</tspan>
+  </text>
+  <line x1="418.11475409836066" y1="220" x2="418.11475409836066" y2="225" stroke-width="1" stroke="#808080"></line>
+  <line x1="418.11475409836066" y1="220" x2="418.11475409836066" y2="184.58333333333331" stroke-dasharray="2 4" stroke-width="1" stroke="#808080"></line><text x="811.5573770491803" y="235" class="label" text-anchor="middle">
+    <tspan dy="0" x="811.5573770491803">2</tspan>
+  </text>
+</svg>"
+`;
+
+exports[`visual: elevation profile SVGs > generates single-stage elevation SVG and PNG 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="610" height="205">
+  <defs>
+    <linearGradient x1="0" y1="0" x2="0" y2="1" id="SvgjsLinearGradientSTABLE_0">
+      <stop stop-opacity="1" stop-color="#e3888b" offset="0"></stop>
+      <stop stop-opacity="1" stop-color="#fcf3f3" offset="1"></stop>
+    </linearGradient>
+  </defs>
+  <path d="M5 168.0709534368071 L33.57142857142857 162.0842572062084 L62.14285714285714 152.10643015521063 L90.71428571428571 138.13747228381374 L147.85714285714286 102.21729490022173 L176.42857142857142 88.24833702882484 L205 72.28381374722838 L319.2857142857143 24.39024390243903 L347.85714285714283 20 L376.42857142857144 28.381374722838128 L405 44.34589800443459 L519.2857142857142 124.16851441241685 L547.8571428571429 142.12860310421286 L576.4285714285714 156.09756097560975 L605 166.07538802660753 L 605 200 L 5 200 Z" fill="url(#SvgjsLinearGradientSTABLE_0)" stroke="none"></path>
+  <path d="M5 168.0709534368071 L33.57142857142857 162.0842572062084 L62.14285714285714 152.10643015521063 L90.71428571428571 138.13747228381374 L147.85714285714286 102.21729490022173 L176.42857142857142 88.24833702882484 L205 72.28381374722838 L319.2857142857143 24.39024390243903 L347.85714285714283 20 L376.42857142857144 28.381374722838128 L405 44.34589800443459 L519.2857142857142 124.16851441241685 L547.8571428571429 142.12860310421286 L576.4285714285714 156.09756097560975 L605 166.07538802660753" fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#c61016"></path>
+  <polygon points="347.85714285714283,14.226497308103742 342.85714285714283,22.886751345948127 352.85714285714283,22.886751345948127" fill="#c61016" stroke-linejoin="round" stroke-width="2" stroke="white"></polygon>
+  <style>
+    .label {
+      font-family: Helvetica Neue, sans-serif;
+      font-size: 16px;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      dominant-baseline: alphabetical;
+    }
+  </style><text x="347.85714285714283" y="15" class="label" text-anchor="middle">
+    <tspan dy="0" x="347.85714285714283">451m</tspan>
+  </text>
+</svg>"
+`;
+
+exports[`visual: region overview SVGs > generates Europe overview SVG and PNG 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 1199.7318099824117">
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .boat {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphologySTABLE_0" result="SvgjsFeMorphologySTABLE_0" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrixSTABLE_1" result="SvgjsFeColorMatrixSTABLE_1" in="SvgjsFeMorphologySTABLE_0" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMergeSTABLE_2" result="SvgjsFeMergeSTABLE_2" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNodeSTABLE_3" result="SvgjsFeMergeNodeSTABLE_3" in="SvgjsFeColorMatrixSTABLE_1"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNodeSTABLE_4" result="SvgjsFeMergeNodeSTABLE_4" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <rect width="10" height="10" x="325.69282013323465" y="487.72754986379323" class="home"></rect>
+  <path d="M0 0M330.69282013323465 492.72754986379323L324.893 494.262L325.758 493.922L313.476 492.268 " class="lineBackground"></path>
+  <path d="M0 0M330.69282013323465 492.72754986379323L324.893 494.262L325.758 493.922L313.476 492.268 " class="line"></path>
+  <path d="M0 0M385.7631384159882 584.6824787173591A67.576 67.576 0 0 1 394.83 587.515A74.666 74.666 0 0 1 766.24 409.034A53.917 53.917 0 0 1 729.263 298.294 " class="lineBackground"></path>
+  <path d="M0 0M385.7631384159882 584.6824787173591A67.576 67.576 0 0 1 394.83 587.515A74.666 74.666 0 0 1 766.24 409.034A53.917 53.917 0 0 1 729.263 298.294 " class="line"></path>
+  <rect width="48.059999999999995" height="18" x="378.69282013323465" y="485.52754986379324" opacity="0.2" fill="green" class="labelRect"></rect><text x="378.69282013323465" y="500.82911236379323" class="label">
+    <tspan dy="0" x="378.69282013323465">Home</tspan>
+  </text>
+  <rect width="109.25999999999999" height="18" x="194.11860843819397" y="483.4023800522954" opacity="0.2" fill="green" class="labelRect"></rect><text x="194.11860843819397" y="498.7039425522954" class="label">
+    <tspan dy="0" x="194.11860843819397">UK Road Trip</tspan>
+  </text>
+  <rect width="103.67999999999999" height="18" x="519.9481865284974" y="522.2370988497825" opacity="0.2" fill="green" class="labelRect"></rect><text x="519.9481865284974" y="537.5386613497825" class="label">
+    <tspan dy="0" x="519.9481865284974">Europe 2024</tspan>
+  </text>
+</svg>"
+`;
+
+exports[`visual: region overview SVGs > generates UK overview SVG and PNG 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 526.6524794845794 750">
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .boat {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphologySTABLE_0" result="SvgjsFeMorphologySTABLE_0" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrixSTABLE_1" result="SvgjsFeColorMatrixSTABLE_1" in="SvgjsFeMorphologySTABLE_0" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMergeSTABLE_2" result="SvgjsFeMergeSTABLE_2" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNodeSTABLE_3" result="SvgjsFeMergeNodeSTABLE_3" in="SvgjsFeColorMatrixSTABLE_1"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNodeSTABLE_4" result="SvgjsFeMergeNodeSTABLE_4" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <rect width="10" height="10" x="429.20302548172384" y="623.9209421660262" class="home"></rect>
+  <path d="M0 0M434.20302548172384 628.9209421660262L424.651 631.448L426.075 630.888L405.847 628.163 " class="lineBackground"></path>
+  <path d="M0 0M434.20302548172384 628.9209421660262L424.651 631.448L426.075 630.888L405.847 628.163 " class="line"></path>
+  <path d="M0 0M324.23140460935014 440.5596549350962L383.28 275.905L382.813 278.084 " class="lineBackground"></path>
+  <path d="M0 0M324.23140460935014 440.5596549350962L383.28 275.905L382.813 278.084 " class="line"></path>
+  <rect width="48.059999999999995" height="18" x="442.20302548172384" y="621.7209421660261" opacity="0.2" fill="green" class="labelRect"></rect><text x="442.20302548172384" y="637.0225046660262" class="label">
+    <tspan dy="0" x="442.20302548172384">Home</tspan>
+  </text>
+  <rect width="140.22" height="18" x="181.37997086636986" y="426.24292372531096" opacity="0.2" fill="green" class="labelRect"></rect><text x="181.37997086636986" y="441.54448622531095" class="label">
+    <tspan dy="0" x="181.37997086636986">Lake District Hike</tspan>
+  </text>
+  <rect width="109.25999999999999" height="18" x="279.95629753797334" y="609.2207702697426" opacity="0.2" fill="green" class="labelRect"></rect><text x="279.95629753797334" y="624.5223327697427" class="label">
+    <tspan dy="0" x="279.95629753797334">UK Road Trip</tspan>
+  </text>
+</svg>"
+`;
+
+exports[`visual: region overview SVGs > generates World overview SVG and PNG 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 638.7614858157846">
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .boat {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphologySTABLE_0" result="SvgjsFeMorphologySTABLE_0" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrixSTABLE_1" result="SvgjsFeColorMatrixSTABLE_1" in="SvgjsFeMorphologySTABLE_0" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMergeSTABLE_2" result="SvgjsFeMergeSTABLE_2" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNodeSTABLE_3" result="SvgjsFeMergeNodeSTABLE_3" in="SvgjsFeColorMatrixSTABLE_1"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNodeSTABLE_4" result="SvgjsFeMergeNodeSTABLE_4" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <rect width="10" height="10" x="594.574" y="181.2716819871368" class="home"></rect>
+  <path d="M0 0M599.574 186.2716819871368L598.703 186.502L598.833 186.451L596.99 186.203 " class="lineBackground"></path>
+  <path d="M0 0M599.574 186.2716819871368L598.703 186.502L598.833 186.451L596.99 186.203 " class="line"></path>
+  <path d="M0 0M607.8406666666667 200.07513852948873A10.145 10.145 0 0 1 609.202 200.5A11.207 11.207 0 0 1 664.954 173.708A8.093 8.093 0 0 1 659.404 157.085 " class="lineBackground"></path>
+  <path d="M0 0M607.8406666666667 200.07513852948873A10.145 10.145 0 0 1 609.202 200.5A11.207 11.207 0 0 1 664.954 173.708A8.093 8.093 0 0 1 659.404 157.085 " class="line"></path>
+  <path d="M0 0M935.006 340.93972271092343A23.655 23.655 0 0 1 929.951 323.46L931.32 322.437A3.614 3.614 0 0 1 937.14 319.536A4.319 4.319 0 0 1 940.462 319.592A16.867 16.867 0 0 1 952.781 315.52 " class="lineBackground"></path>
+  <path d="M0 0M935.006 340.93972271092343A23.655 23.655 0 0 1 929.951 323.46L931.32 322.437A3.614 3.614 0 0 1 937.14 319.536A4.319 4.319 0 0 1 940.462 319.592A16.867 16.867 0 0 1 952.781 315.52 " class="line"></path>
+  <path d="M0 0M589.551 169.10411487355714L594.933 154.097L594.89 154.296 " class="lineBackground"></path>
+  <path d="M0 0M589.551 169.10411487355714L594.933 154.097L594.89 154.296 " class="line"></path>
+  <path d="M0 0M1104.031 507.3517565989264A25.541 25.541 0 0 1 1087.435 526.69 " class="lineBackground"></path>
+  <path d="M0 0M1104.031 507.3517565989264A25.541 25.541 0 0 1 1087.435 526.69 " class="line"></path>
+  <rect width="64.25999999999999" height="18" x="941.3658333333333" y="321.02973621548637" opacity="0.2" fill="green" class="labelRect"></rect><text x="941.3658333333333" y="336.33129871548635" class="label">
+    <tspan dy="0" x="941.3658333333333">SE Asia</tspan>
+  </text>
+  <rect width="109.25999999999999" height="18" x="482.21383333333324" y="178.75267038543308" opacity="0.2" fill="green" class="labelRect"></rect><text x="482.21383333333324" y="194.05423288543307" class="label">
+    <tspan dy="0" x="482.21383333333324">UK Road Trip</tspan>
+  </text>
+  <rect width="103.67999999999999" height="18" x="627.9833333333333" y="192.2311931738114" opacity="0.2" fill="green" class="labelRect"></rect><text x="627.9833333333333" y="207.53275567381138" class="label">
+    <tspan dy="0" x="627.9833333333333">Europe 2024</tspan>
+  </text>
+  <rect width="109.25999999999999" height="18" x="984.3606666666667" y="499.26546689295816" opacity="0.2" fill="green" class="labelRect"></rect><text x="984.3606666666667" y="514.5670293929581" class="label">
+    <tspan dy="0" x="984.3606666666667">Australia Visit</tspan>
+  </text>
+  <rect width="140.22" height="18" x="446.2627395419204" y="150.2473320597212" opacity="0.2" fill="green" class="labelRect"></rect><text x="446.2627395419204" y="165.5488945597212" class="label">
+    <tspan dy="0" x="446.2627395419204">Lake District Hike</tspan>
+  </text>
+  <rect width="48.059999999999995" height="18" x="540.2002915010153" y="199.38539048612157" opacity="0.2" fill="green" class="labelRect"></rect><text x="540.2002915010153" y="214.68695298612155" class="label">
+    <tspan dy="0" x="540.2002915010153">Home</tspan>
+  </text>
+</svg>"
+`;
+
+exports[`visual: trip SVGs > generates Europe trip SVG and PNG 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 1200">
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .boat {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphologySTABLE_0" result="SvgjsFeMorphologySTABLE_0" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrixSTABLE_1" result="SvgjsFeColorMatrixSTABLE_1" in="SvgjsFeMorphologySTABLE_0" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMergeSTABLE_2" result="SvgjsFeMergeSTABLE_2" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNodeSTABLE_3" result="SvgjsFeMergeNodeSTABLE_3" in="SvgjsFeColorMatrixSTABLE_1"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNodeSTABLE_4" result="SvgjsFeMergeNodeSTABLE_4" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMaskSTABLE_5">
+      <rect width="1200" height="1200" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="138.46153846153862" cy="820.9762876127115" fill="black"></circle>
+      <circle r="5" cx="333.3711829971843" cy="398.1201994049343" fill="black"></circle>
+      <circle r="5" cx="982.6550096491183" cy="379.02371238728847" fill="black"></circle>
+      <circle r="5" cx="1061.5384615384614" cy="677.7169925477883" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M135.959 1006.309A232.432 232.432 0 0 1 169.648 830.718 " class="lineBackground"></path>
+  <path d="M135.959 1006.309A232.432 232.432 0 0 1 169.648 830.718 " class="line flying" mask="url(#SvgjsMaskSTABLE_5)"></path>
+  <path d="M1249.608 213.818A256.816 256.816 0 0 1 1447.136 216.821 " class="lineBackground"></path>
+  <path d="M1249.608 213.818A256.816 256.816 0 0 1 1447.136 216.821 " class="line flying" mask="url(#SvgjsMaskSTABLE_5)"></path>
+  <path d="M1375.607 -295.427A185.452 185.452 0 0 1 1319.954 -164.075 " class="lineBackground"></path>
+  <path d="M1375.607 -295.427A185.452 185.452 0 0 1 1319.954 -164.075 " class="line flying" mask="url(#SvgjsMaskSTABLE_5)"></path>
+  <circle r="5" cx="138.46153846153862" cy="820.9762876127115" class="stage"></circle>
+  <circle r="5" cx="333.3711829971843" cy="398.1201994049343" class="stage"></circle>
+  <circle r="5" cx="982.6550096491183" cy="379.02371238728847" class="stage"></circle>
+  <circle r="5" cx="1061.5384615384614" cy="677.7169925477883" class="stage"></circle>
+  <rect width="41.04" height="18" x="117.94153846153863" y="796.7762876127115" opacity="0.2" fill="green" class="labelRect"></rect><text x="117.94153846153863" y="812.0778501127115" class="label">
+    <tspan dy="0" x="117.94153846153863">Paris</tspan>
+  </text>
+  <rect width="46.08" height="18" x="988.3118638986107" y="386.48056663678085" opacity="0.2" fill="green" class="labelRect"></rect><text x="988.3118638986107" y="401.78212913678084" class="label">
+    <tspan dy="0" x="988.3118638986107">Berlin</tspan>
+  </text>
+  <rect width="58.32" height="18" x="995.2184615384614" y="670.5169925477883" opacity="0.2" fill="green" class="labelRect"></rect><text x="995.2184615384614" y="685.8185550477883" class="label">
+    <tspan dy="0" x="995.2184615384614">Prague</tspan>
+  </text>
+  <rect width="92.16" height="18" x="233.2111829971843" y="390.9201994049343" opacity="0.2" fill="green" class="labelRect"></rect><text x="233.2111829971843" y="406.2217619049343" class="label">
+    <tspan dy="0" x="233.2111829971843">Amsterdam</tspan>
+  </text>
+</svg>"
+`;
+
+exports[`visual: trip SVGs > generates SE Asia trip SVG and PNG 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 1200">
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .boat {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphologySTABLE_0" result="SvgjsFeMorphologySTABLE_0" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrixSTABLE_1" result="SvgjsFeColorMatrixSTABLE_1" in="SvgjsFeMorphologySTABLE_0" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMergeSTABLE_2" result="SvgjsFeMergeSTABLE_2" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNodeSTABLE_3" result="SvgjsFeMergeNodeSTABLE_3" in="SvgjsFeColorMatrixSTABLE_1"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNodeSTABLE_4" result="SvgjsFeMergeNodeSTABLE_4" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMaskSTABLE_5">
+      <rect width="1200" height="1200" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="369.0550109269243" cy="1061.5384615384614" fill="black"></circle>
+      <circle r="5" cx="185.49250880195905" cy="426.79076224117625" fill="black"></circle>
+      <circle r="5" cx="357.28958052366215" cy="237.17027410297624" fill="black"></circle>
+      <circle r="5" cx="446.5349697862657" cy="284.30141426344517" fill="black"></circle>
+      <circle r="5" cx="567.191153181031" cy="286.32236617035096" fill="black"></circle>
+      <circle r="5" cx="1014.5074911980428" cy="138.4615384615381" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M369.051 1061.535A858.984 858.984 0 0 1 185.493 426.786 " class="lineBackground"></path>
+  <path d="M369.051 1061.535A858.984 858.984 0 0 1 185.493 426.786 " class="line flying" mask="url(#SvgjsMaskSTABLE_5)"></path>
+  <path d="M185.491 426.782L187.114 426.483L196.901 419.275L215.688 410.247L216.343 409.638L215.253 405.991L216.305 404.084L227.018 394.791L235.189 389.661 " class="lineBackground"></path>
+  <path d="M185.491 426.782L187.114 426.483L196.901 419.275L215.688 410.247L216.343 409.638L215.253 405.991L216.305 404.084L227.018 394.791L235.189 389.661 " class="line driving" mask="url(#SvgjsMaskSTABLE_5)"></path>
+  <path d="M357.291 237.174A131.204 131.204 0 0 1 446.537 284.304 " class="lineBackground"></path>
+  <path d="M357.291 237.174A131.204 131.204 0 0 1 446.537 284.304 " class="line boat" mask="url(#SvgjsMaskSTABLE_5)"></path>
+  <path d="M446.537 284.304A156.876 156.876 0 0 1 567.194 286.324 " class="lineBackground"></path>
+  <path d="M446.537 284.304A156.876 156.876 0 0 1 567.194 286.324 " class="line boat" mask="url(#SvgjsMaskSTABLE_5)"></path>
+  <path d="M567.194 286.324A612.446 612.446 0 0 1 1014.503 138.467 " class="lineBackground"></path>
+  <path d="M567.194 286.324A612.446 612.446 0 0 1 1014.503 138.467 " class="line flying" mask="url(#SvgjsMaskSTABLE_5)"></path>
+  <circle r="5" cx="369.0550109269243" cy="1061.5384615384614" class="stage"></circle>
+  <circle r="5" cx="185.49250880195905" cy="426.79076224117625" class="stage"></circle>
+  <circle r="5" cx="357.28958052366215" cy="237.17027410297624" class="stage"></circle>
+  <circle r="5" cx="446.5349697862657" cy="284.30141426344517" class="stage"></circle>
+  <circle r="5" cx="567.191153181031" cy="286.32236617035096" class="stage"></circle>
+  <circle r="5" cx="1014.5074911980428" cy="138.4615384615381" class="stage"></circle>
+  <rect width="47.16" height="18" x="961.6906369485504" y="145.9183927110305" opacity="0.2" fill="green" class="labelRect"></rect><text x="961.6906369485504" y="161.21995521103048" class="label">
+    <tspan dy="0" x="961.6906369485504">Hanoi</tspan>
+  </text>
+  <rect width="114.66" height="18" x="234.62958052366216" y="229.97027410297625" opacity="0.2" fill="green" class="labelRect"></rect><text x="234.62958052366216" y="245.27183660297624" class="label">
+    <tspan dy="0" x="234.62958052366216">Chiang Khong</tspan>
+  </text>
+  <rect width="123.83999999999999" height="18" x="572.8480074305235" y="293.77922041984334" opacity="0.2" fill="green" class="labelRect"></rect><text x="572.8480074305235" y="309.08078291984333" class="label">
+    <tspan dy="0" x="572.8480074305235">Luang Prabang</tspan>
+  </text>
+  <rect width="91.25999999999999" height="18" x="88.57565455246669" y="404.9339079916839" opacity="0.2" fill="green" class="labelRect"></rect><text x="88.57565455246669" y="420.2354704916839" class="label">
+    <tspan dy="0" x="88.57565455246669">Chiang Mai</tspan>
+  </text>
+  <rect width="70.38" height="18" x="377.0550109269243" y="1054.3384615384614" opacity="0.2" fill="green" class="labelRect"></rect><text x="377.0550109269243" y="1069.6400240384614" class="label">
+    <tspan dy="0" x="377.0550109269243">Bangkok</tspan>
+  </text>
+  <rect width="71.46" height="18" x="410.8049697862657" y="294.1014142634452" opacity="0.2" fill="green" class="labelRect"></rect><text x="410.8049697862657" y="309.40297676344517" class="label">
+    <tspan dy="0" x="410.8049697862657">Pakbeng</tspan>
+  </text>
+</svg>"
+`;
+
+exports[`visual: trip SVGs > generates UK Road Trip SVG and PNG 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 1200">
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .boat {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphologySTABLE_0" result="SvgjsFeMorphologySTABLE_0" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrixSTABLE_1" result="SvgjsFeColorMatrixSTABLE_1" in="SvgjsFeMorphologySTABLE_0" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMergeSTABLE_2" result="SvgjsFeMergeSTABLE_2" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNodeSTABLE_3" result="SvgjsFeMergeNodeSTABLE_3" in="SvgjsFeColorMatrixSTABLE_1"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNodeSTABLE_4" result="SvgjsFeMergeNodeSTABLE_4" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMaskSTABLE_5">
+      <rect width="1200" height="1200" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="1061.5384615384598" cy="635.9097899751869" fill="black"></circle>
+      <circle r="5" cx="637.5782097663321" cy="488.05608402986036" fill="black"></circle>
+      <circle r="5" cx="224.34922908074554" cy="711.9439159701396" fill="black"></circle>
+      <circle r="5" cx="138.46153846154039" cy="667.7818278242012" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M1058.732 593.171L1023.784 612.22L1004.224 629.422L995.819 635.428L983.545 642.522L977.024 647.56L963.539 661.832 " class="lineBackground"></path>
+  <path d="M1058.732 593.171L1023.784 612.22L1004.224 629.422L995.819 635.428L983.545 642.522L977.024 647.56L963.539 661.832 " class="line driving" mask="url(#SvgjsMaskSTABLE_5)"></path>
+  <path d="M1038.751 620.979L1019.964 628.253L1012.606 632.19L999.545 642.486L991.335 650.422L978.15 656.086 " class="lineBackground"></path>
+  <path d="M1038.751 620.979L1019.964 628.253L1012.606 632.19L999.545 642.486L991.335 650.422L978.15 656.086 " class="line driving" mask="url(#SvgjsMaskSTABLE_5)"></path>
+  <path d="M783.902 639.713L775.404 633.528L770.623 628.138 " class="lineBackground"></path>
+  <path d="M783.902 639.713L775.404 633.528L770.623 628.138 " class="line driving" mask="url(#SvgjsMaskSTABLE_5)"></path>
+  <circle r="5" cx="1061.5384615384598" cy="635.9097899751869" class="stage"></circle>
+  <circle r="5" cx="637.5782097663321" cy="488.05608402986036" class="stage"></circle>
+  <circle r="5" cx="224.34922908074554" cy="711.9439159701396" class="stage"></circle>
+  <circle r="5" cx="138.46153846154039" cy="667.7818278242012" class="stage"></circle>
+  <rect width="50.04" height="18" x="82.76468421204802" y="645.9249735747087" opacity="0.2" fill="green" class="labelRect"></rect><text x="82.76468421204802" y="661.2265360747087" class="label">
+    <tspan dy="0" x="82.76468421204802">Bristol</tspan>
+  </text>
+  <rect width="60.48" height="18" x="1067.1953157879523" y="643.3666442246792" opacity="0.2" fill="green" class="labelRect"></rect><text x="1067.1953157879523" y="658.6682067246793" class="label">
+    <tspan dy="0" x="1067.1953157879523">London</tspan>
+  </text>
+  <rect width="54.18" height="18" x="610.488209766332" y="497.85608402986037" opacity="0.2" fill="green" class="labelRect"></rect><text x="610.488209766332" y="513.1576465298604" class="label">
+    <tspan dy="0" x="610.488209766332">Oxford</tspan>
+  </text>
+  <rect width="37.26" height="18" x="232.34922908074554" y="704.7439159701396" opacity="0.2" fill="green" class="labelRect"></rect><text x="232.34922908074554" y="720.0454784701396" class="label">
+    <tspan dy="0" x="232.34922908074554">Bath</tspan>
+  </text>
+</svg>"
+`;
+
+exports[`visual: trip SVGs > generates hiking trip with strava data SVG and PNG 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 1200">
+  <style>
+    .lineBackground {
+      fill: none;
+      stroke-width: 6;
+      stroke: #FFFFFF;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke: #C61016;
+      stroke-linejoin: round;
+      stroke-dasharray: 6 6;
+      stroke-linecap: round;
+    }
+  </style>
+  <style>
+    .flying {
+      stroke-dasharray: 2 8;
+    }
+  </style>
+  <style>
+    .ferry {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .boat {
+      stroke-dasharray: 2 12;
+    }
+  </style>
+  <style>
+    .stage {
+      r: 5;
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .home {
+      fill: #C61016;
+    }
+  </style>
+  <style>
+    .partialAttendance {
+      opacity: 0.5;
+    }
+  </style>
+  <style>
+    .dayStop {
+      r: 3.75;
+      fill: none;
+      stroke: #C61016;
+      stroke-width: 2.5;
+    }
+  </style>
+  <defs>
+    <filter id="whiteOutlineEffect" width="200%" height="200%" x="-50%" y="-50%" color-interpolation-filters="sRGB">
+      <feMorphology id="SvgjsFeMorphologySTABLE_0" result="SvgjsFeMorphologySTABLE_0" in="SourceAlpha" radius="1" operator="dilate"></feMorphology>
+      <feColorMatrix id="SvgjsFeColorMatrixSTABLE_1" result="SvgjsFeColorMatrixSTABLE_1" in="SvgjsFeMorphologySTABLE_0" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0" type="matrix"></feColorMatrix>
+      <feMerge id="SvgjsFeMergeSTABLE_2" result="SvgjsFeMergeSTABLE_2" in="SourceGraphic">
+        <feMergeNode id="SvgjsFeMergeNodeSTABLE_3" result="SvgjsFeMergeNodeSTABLE_3" in="SvgjsFeColorMatrixSTABLE_1"></feMergeNode>
+        <feMergeNode id="SvgjsFeMergeNodeSTABLE_4" result="SvgjsFeMergeNodeSTABLE_4" in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <mask id="SvgjsMaskSTABLE_5">
+      <rect width="1200" height="1200" x="0" y="0" fill="white"></rect>
+      <circle r="5" cx="1061.5384615384573" cy="269.68540157331154" fill="black"></circle>
+      <circle r="5" cx="844.0797562409753" cy="595.1413042650092" fill="black"></circle>
+      <circle r="5" cx="138.4615384615463" cy="930.3145984267467" fill="black"></circle>
+    </mask>
+  </defs>
+  <style>
+    .label {
+      font-family: Helvetica;
+      font-size: 18px;
+      fill: #C61016;
+      filter: url(#whiteOutlineEffect);
+    }
+  </style>
+  <style>
+    .labelRect {
+      display: none;
+    }
+  </style>
+  <style>
+    .elevationMarker {
+      fill: #C61016;
+    }
+  </style>
+  <path d="M11630.737 -28884.688L11568.386 -28797.069L11488.331 -28720.107L11418.41 -28609.83 " class="lineBackground"></path>
+  <path d="M11630.737 -28884.688L11568.386 -28797.069L11488.331 -28720.107L11418.41 -28609.83 " class="line walking" mask="url(#SvgjsMaskSTABLE_5)"></path>
+  <path d="M11548.308 -28505.724L11422.644 -28383.216L11336.43 -28227.68 " class="lineBackground"></path>
+  <path d="M11548.308 -28505.724L11422.644 -28383.216L11336.43 -28227.68 " class="line walking" mask="url(#SvgjsMaskSTABLE_5)"></path>
+  <circle r="5" cx="1061.5384615384573" cy="269.68540157331154" class="stage"></circle>
+  <circle r="5" cx="844.0797562409753" cy="595.1413042650092" class="stage"></circle>
+  <circle r="5" cx="138.4615384615463" cy="930.3145984267467" class="stage"></circle>
+  <rect width="66.06" height="18" x="989.821607288965" y="277.1422558228039" opacity="0.2" fill="green" class="labelRect"></rect><text x="989.821607288965" y="292.4438183228039" class="label">
+    <tspan dy="0" x="989.821607288965">Keswick</tspan>
+  </text>
+  <rect width="89.28" height="18" x="144.11839271103867" y="908.4577441772542" opacity="0.2" fill="green" class="labelRect"></rect><text x="144.11839271103867" y="923.7593066772542" class="label">
+    <tspan dy="0" x="144.11839271103867">Buttermere</tspan>
+  </text>
+  <rect width="131.22" height="18" x="852.0797562409753" y="587.9413042650092" opacity="0.2" fill="green" class="labelRect"></rect><text x="852.0797562409753" y="603.2428667650092" class="label">
+    <tspan dy="0" x="852.0797562409753">Catbells Summit</tspan>
+  </text>
+</svg>"
+`;
