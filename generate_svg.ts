@@ -1670,24 +1670,14 @@ async function fetchStaticMapMapbox(boundingBox: SVG.Box): Promise<Buffer> {
   const widthPx = Math.ceil(boundingBox.width * scale);
   const heightPx = Math.ceil(boundingBox.height * scale);
 
-  // Add slight padding at the bottom for Mapbox logo (adjust as needed)
-  const expandedHeightPx = heightPx + 20;
-  const expandBottom = new SVG.Matrix().scale(
-    1,
-    heightPx === 0 ? 1 : expandedHeightPx / heightPx, // Avoid division by zero
-    boundingBox.x,
-    boundingBox.y
-  );
-  const staticMapBoundingBox = boundingBox.transform(expandBottom);
-
   // Convert corners back to LatLng
   const tlLatLng = fromMercator({
-    x: staticMapBoundingBox.x,
-    y: staticMapBoundingBox.y,
+    x: boundingBox.x,
+    y: boundingBox.y,
   });
   const brLatLng = fromMercator({
-    x: staticMapBoundingBox.x2,
-    y: staticMapBoundingBox.y2,
+    x: boundingBox.x2,
+    y: boundingBox.y2,
   });
 
   // Ensure longitude is within Mapbox's expected range if needed (often handles wrapping)
@@ -1698,7 +1688,7 @@ async function fetchStaticMapMapbox(boundingBox: SVG.Box): Promise<Buffer> {
 
   // Construct URL - using bounds [west,south,east,north]
   const boundsString = `[${tlLatLng.lng},${brLatLng.lat},${brLatLng.lng},${tlLatLng.lat}]`;
-  const url = `https://api.mapbox.com/styles/v1/${style}/static/${boundsString}/${widthPx}x${expandedHeightPx}@2x?access_token=${accessToken}`;
+  const url = `https://api.mapbox.com/styles/v1/${style}/static/${boundsString}/${widthPx}x${heightPx}@2x?access_token=${accessToken}&attribution=false&logo=false`;
 
   console.log(`Fetching static map: ${url}`); // Log URL without token
 
