@@ -33,14 +33,20 @@ export const Poster = forwardRef<SVGSVGElement, PosterProps>(
 
     // Layout computation
     const titleHeight = height * 0.08;
-    const statsHeight = height * 0.06;
+    const statsHeight = height * 0.055;
     const padding = width * 0.02;
 
     // Map gets the largest area
-    const elevationHeight = config.showElevation ? height * 0.15 : 0;
-    const stageTableHeight =
+    const elevationHeight = config.showElevation ? height * 0.1 : 0;
+
+    // Multi-column table: rows = ceil(stages/3), each row 18px + 20px header
+    const stageTableRowCount =
       config.showStageTable && config.stages.length > 1
-        ? 30 + config.stages.length * 22 + 20
+        ? Math.ceil(config.stages.length / 3)
+        : 0;
+    const stageTableHeight =
+      stageTableRowCount > 0
+        ? 20 + stageTableRowCount * 18 + 16
         : 0;
 
     const mapY = titleHeight + statsHeight + padding;
