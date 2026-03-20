@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState, useEffect } from "react";
-import type { StageConfig, SimplePoint } from "@lib/types";
+import type { StageConfig, SimplePoint, LabelPoint } from "@lib/types";
 import {
   computeBoundsFromPolylines,
   computeMapTransform,
@@ -12,6 +12,9 @@ import {
   roundPoint,
 } from "@lib/geo";
 import { EXPORT_PRECISION, SIDE_PX } from "@lib/constants";
+import { calculateBestLabelPositions } from "@lib/labels";
+import { shape } from "svg-intersections";
+import type { Shape } from "svg-intersections";
 
 interface PosterMapProps {
   stages: StageConfig[];
@@ -98,7 +101,43 @@ export function PosterMap({
       waypoints.push({ point: pt, label: loc.name });
     }
 
-    return { paths, waypoints, expandedBbox, sidePx };
+    // Build shapes to avoid (route lines + waypoint markers)
+    const shapesToAvoid: Shape[] = [];
+
+    // Add route line shapes
+    for (const d of paths) {
+      if (d) {
+        shapesToAvoid.push(shape("path", { d }));
+      }
+    }
+
+    // Add waypoint marker shapes
+    const markerR = 5;
+    for (const wp of waypoints) {
+      shapesToAvoid.push(
+        shape("circle", { cx: wp.point.x, cy: wp.point.y, r: markerR })
+      );
+    }
+
+    // Build label points for the placement algorithm
+    const labelPoints: LabelPoint[] = waypoints
+      .filter((wp) => wp.label)
+      .map((wp) => ({
+        name: wp.label,
+        point: wp.point,
+      }));
+
+    // Run the full label placement algorithm
+    const labelPlacements = calculateBestLabelPositions(
+      labelPoints,
+      32,
+      14, // labelFontSizePx matching the render font size
+      shapesToAvoid,
+      sidePx,
+      sidePx
+    );
+
+    return { paths, waypoints, expandedBbox, sidePx, labelPlacements };
   }, [stages, additionalLocations, width, height]);
 
   // Fetch map tile
@@ -133,7 +172,7 @@ export function PosterMap({
     );
   }
 
-  const { paths, waypoints, sidePx } = mapData;
+  const { paths, waypoints, sidePx, labelPlacements } = mapData;
   const markerRadius = 5;
   const labelFontSize = 14;
 
@@ -185,25 +224,29 @@ export function PosterMap({
           />
         ))}
 
-        {/* Waypoint markers */}
+        {/* Waypoint markers (dots only) */}
         {waypoints.map((wp, i) => (
-          <g key={`wp-${i}`}>
-            <circle
-              cx={wp.point.x}
-              cy={wp.point.y}
-              r={markerRadius}
-              fill={accentColor}
-            />
-            <text
-              x={wp.point.x + markerRadius * 2}
-              y={wp.point.y + labelFontSize * 0.35}
-              fill={accentColor}
-              fontFamily="Helvetica, sans-serif"
-              fontSize={labelFontSize}
-            >
-              {wp.label}
-            </text>
-          </g>
+          <circle
+            key={`wp-${i}`}
+            cx={wp.point.x}
+            cy={wp.point.y}
+            r={markerRadius}
+            fill={accentColor}
+          />
+        ))}
+
+        {/* Labels placed by the collision-avoidance algorithm */}
+        {labelPlacements.result.map((lp, i) => (
+          <text
+            key={`label-${i}`}
+            x={lp.offsetPoint.x}
+            y={lp.offsetPoint.y + labelFontSize}
+            fill={accentColor}
+            fontFamily="Helvetica, sans-serif"
+            fontSize={labelFontSize}
+          >
+            {lp.label.name}
+          </text>
         ))}
       </g>
     </g>
