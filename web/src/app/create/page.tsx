@@ -135,8 +135,7 @@ export default function CreatePage() {
       </header>
 
       {/* Step 1: Activity Selection */}
-      {step === 1 && (
-        <main className="flex-1 overflow-y-auto flex flex-col items-center bg-gray-50 p-8">
+      <main className={`flex-1 overflow-y-auto flex flex-col items-center bg-gray-50 p-8 ${step !== 1 ? "hidden" : ""}`}>
           <div className="w-full max-w-lg">
             <div className="mb-6">
               <h1 className="text-2xl font-light text-gray-900">
@@ -167,7 +166,6 @@ export default function CreatePage() {
             </div>
           </div>
         </main>
-      )}
 
       {/* Step 2: Customization + Poster preview */}
       {step === 2 && (
@@ -201,10 +199,9 @@ export default function CreatePage() {
               </div>
             ) : (
               <div
-                className="shadow-2xl"
+                className="shadow-2xl h-full"
                 style={{
                   aspectRatio: `${POSTER_WIDTH} / ${POSTER_HEIGHT}`,
-                  maxHeight: "100%",
                   maxWidth: "100%",
                 }}
               >
