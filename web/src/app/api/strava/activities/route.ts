@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
   if (before) options.before = Math.floor(new Date(before).getTime() / 1000);
   if (after) options.after = Math.floor(new Date(after).getTime() / 1000);
 
-  const cacheKey = `activities:${page}:${perPage}:${before || ""}:${after || ""}`;
+  const cacheKey = `activities:${tokenResult.athleteId}:${page}:${perPage}:${before || ""}:${after || ""}`;
 
   try {
     let activities = cacheGet<StravaActivity[]>(cacheKey);

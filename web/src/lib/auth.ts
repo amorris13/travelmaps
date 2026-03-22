@@ -14,6 +14,7 @@ interface TokenData {
 
 export interface StravaTokenResult {
   accessToken: string;
+  athleteId?: number;
   refreshed: boolean;
   tokenCookieValue?: string;
 }
@@ -51,12 +52,13 @@ export async function getStravaToken(): Promise<StravaTokenResult | null> {
 
       return {
         accessToken: refreshed.access_token,
+        athleteId: tokenData.athlete?.id,
         refreshed: true,
         tokenCookieValue: Buffer.from(newPayload).toString("base64"),
       };
     }
 
-    return { accessToken: tokenData.access_token, refreshed: false };
+    return { accessToken: tokenData.access_token, athleteId: tokenData.athlete?.id, refreshed: false };
   } catch {
     return null;
   }

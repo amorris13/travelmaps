@@ -13,7 +13,7 @@ export async function GET(
   }
 
   const { id } = await params;
-  const cacheKey = `activity-detail:${id}`;
+  const cacheKey = `activity-detail:${tokenResult.athleteId}:${id}`;
 
   try {
     let result = cacheGet<Record<string, unknown>>(cacheKey);
