@@ -16,8 +16,14 @@ export async function GET(request: NextRequest) {
   const after = request.nextUrl.searchParams.get("after");
 
   const options: { before?: number; after?: number } = {};
-  if (before) options.before = Math.floor(new Date(before).getTime() / 1000);
-  if (after) options.after = Math.floor(new Date(after).getTime() / 1000);
+  if (before) {
+    const ts = new Date(before).getTime();
+    if (!isNaN(ts)) options.before = Math.floor(ts / 1000);
+  }
+  if (after) {
+    const ts = new Date(after).getTime();
+    if (!isNaN(ts)) options.after = Math.floor(ts / 1000);
+  }
 
   const cacheKey = `activities:${tokenResult.athleteId}:${page}:${perPage}:${before || ""}:${after || ""}`;
 
