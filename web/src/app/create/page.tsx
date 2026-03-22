@@ -4,12 +4,16 @@ import { useState, useRef, useCallback } from "react";
 import type { PosterConfig, StageConfig } from "@lib/types";
 import type { StravaActivity } from "@lib/strava";
 import { createDefaultPosterConfig } from "@/lib/poster-config";
+import { POSTER_WIDTH, POSTER_HEIGHT } from "@lib/constants";
 import { Poster } from "@/components/poster/Poster";
 import { ActivitySelector } from "@/components/ActivitySelector";
 import { CustomizationPanel } from "@/components/CustomizationPanel";
 import { ExportButton } from "@/components/ExportButton";
 
+type Step = 1 | 2;
+
 export default function CreatePage() {
+  const [step, setStep] = useState<Step>(1);
   const [selectedActivities, setSelectedActivities] = useState<
     StravaActivity[]
   >([]);
@@ -34,7 +38,6 @@ export default function CreatePage() {
       const currentRequestId = ++requestIdRef.current;
       setLoadingDetails(true);
       try {
-        // Fetch detailed data for each activity
         const stageConfigs: StageConfig[] = await Promise.all(
           activities.map(async (activity) => {
             const res = await fetch(`/api/strava/activity/${activity.id}`);
@@ -62,7 +65,6 @@ export default function CreatePage() {
           })
         );
 
-        // Derive title and date range from activities
         const title =
           activities.length === 1
             ? activities[0].name
@@ -86,7 +88,6 @@ export default function CreatePage() {
               })}`
             : `, ${earliest.getFullYear()}`);
 
-        // Discard stale responses
         if (currentRequestId !== requestIdRef.current) return;
 
         setConfig({
@@ -103,28 +104,85 @@ export default function CreatePage() {
   );
 
   return (
-    <div className="flex h-screen overflow-hidden">
-      {/* Left sidebar: Activity selection + Customization */}
-      <aside className="w-80 shrink-0 border-r border-gray-200 overflow-y-auto bg-white">
-        <div className="p-4 border-b border-gray-100">
-          <a href="/" className="text-lg font-light text-gray-900">
-            Travel<span className="text-accent font-normal">Maps</span>
-          </a>
+    <div className="flex flex-col h-screen overflow-hidden">
+      {/* Header */}
+      <header className="shrink-0 border-b border-gray-200 bg-white px-4 py-3 flex items-center justify-between">
+        <a href="/" className="text-lg font-light text-gray-900">
+          Travel<span className="text-accent font-normal">Maps</span>
+        </a>
+        <div className="flex items-center gap-3 text-sm">
+          <span
+            className={
+              step === 1
+                ? "text-accent font-medium"
+                : "text-gray-400"
+            }
+          >
+            1. Select Activities
+          </span>
+          <span className="text-gray-300">›</span>
+          <span
+            className={
+              step === 2
+                ? "text-accent font-medium"
+                : "text-gray-400"
+            }
+          >
+            2. Customize &amp; Export
+          </span>
         </div>
-        <div className="p-4 space-y-6">
-          <ActivitySelector
-            onSelect={handleActivitiesSelected}
-            selectedIds={selectedIds}
-          />
+        <div className="w-48" />
+      </header>
 
-          {config.stages.length > 0 && (
-            <>
-              <div className="border-t border-gray-100 pt-4">
-                <CustomizationPanel
-                  config={config}
-                  onChange={setConfig}
-                />
-              </div>
+      {/* Step 1: Activity Selection */}
+      {step === 1 && (
+        <main className="flex-1 overflow-y-auto flex flex-col items-center bg-gray-50 p-8">
+          <div className="w-full max-w-lg">
+            <div className="mb-6">
+              <h1 className="text-2xl font-light text-gray-900">
+                Select Activities
+              </h1>
+              <p className="text-sm text-gray-500 mt-1">
+                Choose one or more Strava activities for your poster
+              </p>
+            </div>
+            <ActivitySelector
+              onSelect={handleActivitiesSelected}
+              selectedIds={selectedIds}
+            />
+            <div className="mt-6 flex justify-end">
+              <button
+                onClick={() => setStep(2)}
+                disabled={selectedActivities.length === 0 || loadingDetails}
+                className="px-6 py-2 bg-accent text-white rounded-md text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-90 transition-opacity"
+              >
+                {loadingDetails
+                  ? "Loading activity data…"
+                  : selectedActivities.length === 0
+                  ? "Select activities to continue"
+                  : `Continue with ${selectedActivities.length} ${
+                      selectedActivities.length === 1 ? "activity" : "activities"
+                    } →`}
+              </button>
+            </div>
+          </div>
+        </main>
+      )}
+
+      {/* Step 2: Customization + Poster preview */}
+      {step === 2 && (
+        <div className="flex flex-1 min-h-0 overflow-hidden">
+          {/* Left sidebar: Customization */}
+          <aside className="w-80 shrink-0 border-r border-gray-200 overflow-y-auto bg-white">
+            <div className="p-4 space-y-6">
+              <button
+                onClick={() => setStep(1)}
+                className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 transition-colors"
+              >
+                ← Back to activities
+              </button>
+
+              <CustomizationPanel config={config} onChange={setConfig} />
 
               <div className="border-t border-gray-100 pt-4">
                 <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
@@ -132,30 +190,34 @@ export default function CreatePage() {
                 </label>
                 <ExportButton posterRef={posterRef} title={config.title} />
               </div>
-            </>
-          )}
-        </div>
-      </aside>
+            </div>
+          </aside>
 
-      {/* Main content: Poster preview */}
-      <main className="flex-1 overflow-y-auto flex items-center justify-center bg-gray-100 p-8">
-        {loadingDetails ? (
-          <div className="text-gray-400 text-sm">
-            Loading activity data...
-          </div>
-        ) : config.stages.length === 0 ? (
-          <div className="text-center text-gray-400">
-            <p className="text-lg font-light">Select activities to get started</p>
-            <p className="text-sm mt-2">
-              Choose one or more Strava activities from the sidebar
-            </p>
-          </div>
-        ) : (
-          <div className="poster-container w-full max-w-2xl shadow-2xl">
-            <Poster ref={posterRef} config={config} className="w-full h-full" />
-          </div>
-        )}
-      </main>
+          {/* Main content: Poster preview */}
+          <main className="flex-1 overflow-hidden flex items-center justify-center bg-gray-100 p-8">
+            {loadingDetails ? (
+              <div className="text-gray-400 text-sm">
+                Loading activity data…
+              </div>
+            ) : (
+              <div
+                className="shadow-2xl"
+                style={{
+                  aspectRatio: `${POSTER_WIDTH} / ${POSTER_HEIGHT}`,
+                  maxHeight: "100%",
+                  maxWidth: "100%",
+                }}
+              >
+                <Poster
+                  ref={posterRef}
+                  config={config}
+                  className="w-full h-full"
+                />
+              </div>
+            )}
+          </main>
+        </div>
+      )}
     </div>
   );
 }
