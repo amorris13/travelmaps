@@ -1,9 +1,9 @@
 import type { StageConfig } from "@lib/types";
 import {
-  formatDistance,
-  formatDuration,
-  formatSpeed,
-  formatElevation,
+  formatDistanceCompact,
+  formatDurationCompact,
+  formatSpeedCompact,
+  formatElevationCompact,
 } from "@/lib/poster-config";
 
 interface PosterStageTableProps {
@@ -19,109 +19,123 @@ export function PosterStageTable({
   y,
   width,
 }: PosterStageTableProps) {
-  const padding = width * 0.06;
+  const padding = width * 0.04;
   const tableWidth = width - padding * 2;
-  const rowHeight = 22;
-  const headerHeight = 24;
-  const fontSize = 12;
-  const headerFontSize = 10;
+  const rowHeight = 18;
+  const headerHeight = 20;
+  const fontSize = 10;
+  const headerFontSize = 8;
 
-  const columns = [
-    { label: "", width: tableWidth * 0.05, align: "middle" as const },
-    { label: "STAGE", width: tableWidth * 0.35, align: "start" as const },
-    { label: "DISTANCE", width: tableWidth * 0.18, align: "end" as const },
-    { label: "TIME", width: tableWidth * 0.16, align: "end" as const },
-    { label: "SPEED", width: tableWidth * 0.13, align: "end" as const },
-    { label: "ELEV.", width: tableWidth * 0.13, align: "end" as const },
-  ];
+  // Split stages into 3 column groups
+  const columnCount = 3;
+  const rowsPerColumn = Math.ceil(stages.length / columnCount);
+  const columnGroups: StageConfig[][] = [];
+  for (let c = 0; c < columnCount; c++) {
+    columnGroups.push(
+      stages.slice(c * rowsPerColumn, (c + 1) * rowsPerColumn)
+    );
+  }
+
+  const columnGroupWidth = tableWidth / columnCount;
+  const gap = 12; // gap between column groups
+
+  // Sub-columns within each group: #, STAGE, DIST, TIME, SPEED, GAIN
+  const subColWidths = (groupW: number) => {
+    const w = groupW - gap;
+    return [
+      { label: "", width: w * 0.06, align: "end" as const },
+      { label: "STAGE", width: w * 0.42, align: "start" as const },
+      { label: "DIST", width: w * 0.12, align: "end" as const },
+      { label: "TIME", width: w * 0.13, align: "end" as const },
+      { label: "SPEED", width: w * 0.13, align: "end" as const },
+      { label: "GAIN", width: w * 0.14, align: "end" as const },
+    ];
+  };
+
+  const cols = subColWidths(columnGroupWidth);
 
   return (
     <g transform={`translate(${padding}, ${y})`}>
-      {/* Header */}
-      <line x1={0} y1={0} x2={tableWidth} y2={0} stroke="#e0e0e0" strokeWidth={0.5} />
-      {(() => {
-        let xOffset = 0;
-        return columns.map((col) => {
-          const x =
-            col.align === "end"
-              ? xOffset + col.width
-              : col.align === "middle"
-                ? xOffset + col.width / 2
-                : xOffset;
-          xOffset += col.width;
-          return (
-            <text
-              key={col.label}
-              x={x}
-              y={headerHeight * 0.7}
-              textAnchor={col.align}
-              fill="#999999"
-              fontFamily="Helvetica Neue, Helvetica, sans-serif"
-              fontSize={headerFontSize}
-              fontWeight={300}
-              letterSpacing="0.12em"
-            >
-              {col.label}
-            </text>
-          );
-        });
-      })()}
-      <line
-        x1={0}
-        y1={headerHeight}
-        x2={tableWidth}
-        y2={headerHeight}
-        stroke="#e0e0e0"
-        strokeWidth={0.5}
-      />
-
-      {/* Rows */}
-      {stages.map((stage, i) => {
-        const rowY = headerHeight + rowHeight * i;
-        const values = [
-          `${i + 1}`,
-          stage.name || stage.endLabel,
-          formatDistance(stage.distance),
-          formatDuration(stage.movingTime),
-          formatSpeed(stage.averageSpeed),
-          formatElevation(stage.elevationGain),
-        ];
-
-        let xOffset = 0;
+      {columnGroups.map((group, groupIdx) => {
+        const groupX = groupIdx * columnGroupWidth;
         return (
-          <g key={i}>
-            {values.map((val, j) => {
-              const col = columns[j];
-              const x =
-                col.align === "end"
-                  ? xOffset + col.width
-                  : col.align === "middle"
-                    ? xOffset + col.width / 2
-                    : xOffset;
-              xOffset += col.width;
+          <g key={groupIdx} transform={`translate(${groupX}, 0)`}>
+            {/* Header row */}
+            {cols.map((col, ci) => {
+              let x = cols.slice(0, ci).reduce((sum, c) => sum + c.width, 0);
+              if (col.align === "end") x += col.width;
+              else if (col.align === "middle") x += col.width / 2;
               return (
                 <text
-                  key={j}
+                  key={`h-${ci}`}
                   x={x}
-                  y={rowY + rowHeight * 0.72}
+                  y={headerHeight * 0.7}
                   textAnchor={col.align}
-                  fill={j === 0 ? accentColor : "#333333"}
+                  fill="#999999"
                   fontFamily="Helvetica Neue, Helvetica, sans-serif"
-                  fontSize={fontSize}
-                  fontWeight={j === 0 ? 500 : 300}
+                  fontSize={headerFontSize}
+                  fontWeight={600}
+                  letterSpacing="0.08em"
                 >
-                  {val}
+                  {col.label}
                 </text>
               );
             })}
-            <line
-              x1={0}
-              y1={rowY + rowHeight}
-              x2={tableWidth}
-              y2={rowY + rowHeight}
-              stroke="#f0f0f0"
-              strokeWidth={0.5}
-            />
+
+            {/* Data rows */}
+            {group.map((stage, i) => {
+              const globalIdx =
+                groupIdx * rowsPerColumn + i;
+              const rowY = headerHeight + rowHeight * i;
+              // Build "Start → End" label from adjacent stages
+              const prevStage =
+                globalIdx > 0 ? stages[globalIdx - 1] : null;
+              const fromLabel =
+                globalIdx === 0
+                  ? stage.startLabel
+                  : prevStage?.endLabel || "";
+              const toLabel = stage.endLabel || "";
+              const stageName =
+                fromLabel && toLabel
+                  ? `${fromLabel} \u2192 ${toLabel}`
+                  : stage.name || stage.endLabel || `Stage ${globalIdx + 1}`;
+              const values = [
+                `${globalIdx + 1}`,
+                stageName,
+                formatDistanceCompact(stage.distance),
+                formatDurationCompact(stage.movingTime),
+                formatSpeedCompact(stage.averageSpeed),
+                formatElevationCompact(stage.elevationGain),
+              ];
+
+              return (
+                <g key={i}>
+                  {values.map((val, j) => {
+                    const col = cols[j];
+                    let x = cols
+                      .slice(0, j)
+                      .reduce((sum, c) => sum + c.width, 0);
+                    if (col.align === "end") x += col.width;
+                    else if (col.align === "middle") x += col.width / 2;
+
+                    return (
+                      <text
+                        key={j}
+                        x={x}
+                        y={rowY + rowHeight * 0.75}
+                        textAnchor={col.align}
+                        fill={j === 0 ? accentColor : "#333333"}
+                        fontFamily="Helvetica Neue, Helvetica, sans-serif"
+                        fontSize={fontSize}
+                        fontWeight={j === 0 ? 700 : 300}
+                      >
+                        {val}
+                      </text>
+                    );
+                  })}
+                </g>
+              );
+            })}
           </g>
         );
       })}
