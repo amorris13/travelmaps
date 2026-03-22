@@ -11,33 +11,33 @@ export function PosterTitle({
   accentColor,
   width,
 }: PosterTitleProps) {
-  const titleFontSize = Math.min(width * 0.06, 72);
-  const dateFontSize = titleFontSize * 0.35;
+  const titleFontSize = Math.min(width * 0.07, 84);
+  const dateFontSize = titleFontSize * 0.22;
 
   return (
     <g>
       <text
         x={width / 2}
-        y={titleFontSize * 1.2}
+        y={titleFontSize * 1.1}
         textAnchor="middle"
-        fill={accentColor}
-        fontFamily="Helvetica Neue, Helvetica, sans-serif"
+        fill="#1a1a1a"
+        fontFamily="Georgia, 'Times New Roman', serif"
         fontSize={titleFontSize}
-        fontWeight={300}
-        letterSpacing="0.05em"
+        fontWeight={700}
+        letterSpacing="0.18em"
       >
-        {title}
+        {title.toUpperCase()}
       </text>
       {dateRange && (
         <text
           x={width / 2}
-          y={titleFontSize * 1.2 + dateFontSize * 1.8}
+          y={titleFontSize * 1.1 + dateFontSize * 2.4}
           textAnchor="middle"
           fill="#666666"
           fontFamily="Helvetica Neue, Helvetica, sans-serif"
           fontSize={dateFontSize}
-          fontWeight={300}
-          letterSpacing="0.1em"
+          fontWeight={400}
+          letterSpacing="0.2em"
         >
           {dateRange.toUpperCase()}
         </text>

@@ -20,16 +20,16 @@ interface PosterStatsProps {
 export function PosterStats({ stages, accentColor, y, width }: PosterStatsProps) {
   const stats = [
     { label: "DISTANCE", value: formatDistance(totalDistance(stages)) },
-    { label: "DURATION", value: formatDuration(totalDuration(stages)) },
-    { label: "AVG SPEED", value: formatSpeed(averageSpeed(stages)) },
-    { label: "ELEVATION", value: formatElevation(totalElevation(stages)) },
+    { label: "SADDLE TIME", value: formatDuration(totalDuration(stages)) },
+    { label: "AVERAGE SPEED", value: formatSpeed(averageSpeed(stages)) },
+    { label: "ELEVATION GAIN", value: formatElevation(totalElevation(stages)) },
   ];
 
   const padding = width * 0.06;
   const availableWidth = width - padding * 2;
   const columnWidth = availableWidth / stats.length;
-  const valueFontSize = width * 0.025;
-  const labelFontSize = valueFontSize * 0.55;
+  const valueFontSize = width * 0.028;
+  const labelFontSize = valueFontSize * 0.38;
 
   return (
     <g transform={`translate(0, ${y})`}>
@@ -38,7 +38,7 @@ export function PosterStats({ stages, accentColor, y, width }: PosterStatsProps)
         y1={0}
         x2={width - padding}
         y2={0}
-        stroke="#e0e0e0"
+        stroke="#d0d0d0"
         strokeWidth={0.5}
       />
       {stats.map((stat, i) => {
@@ -47,24 +47,24 @@ export function PosterStats({ stages, accentColor, y, width }: PosterStatsProps)
           <g key={stat.label}>
             <text
               x={cx}
-              y={valueFontSize * 1.5}
+              y={valueFontSize * 1.6}
               textAnchor="middle"
               fill="#1a1a1a"
               fontFamily="Helvetica Neue, Helvetica, sans-serif"
               fontSize={valueFontSize}
-              fontWeight={300}
+              fontWeight={700}
             >
               {stat.value}
             </text>
             <text
               x={cx}
-              y={valueFontSize * 1.5 + labelFontSize * 1.8}
+              y={valueFontSize * 1.6 + labelFontSize * 2.2}
               textAnchor="middle"
               fill="#999999"
               fontFamily="Helvetica Neue, Helvetica, sans-serif"
               fontSize={labelFontSize}
-              fontWeight={300}
-              letterSpacing="0.15em"
+              fontWeight={400}
+              letterSpacing="0.18em"
             >
               {stat.label}
             </text>
@@ -73,10 +73,10 @@ export function PosterStats({ stages, accentColor, y, width }: PosterStatsProps)
       })}
       <line
         x1={padding}
-        y1={valueFontSize * 1.5 + labelFontSize * 3.2}
+        y1={valueFontSize * 1.6 + labelFontSize * 4.0}
         x2={width - padding}
-        y2={valueFontSize * 1.5 + labelFontSize * 3.2}
-        stroke="#e0e0e0"
+        y2={valueFontSize * 1.6 + labelFontSize * 4.0}
+        stroke="#d0d0d0"
         strokeWidth={0.5}
       />
     </g>
