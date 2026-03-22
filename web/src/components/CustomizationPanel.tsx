@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import type { PosterConfig, StageConfig } from "@lib/types";
 import { MAP_STYLES } from "@lib/constants";
 
@@ -12,6 +13,11 @@ export function CustomizationPanel({
   config,
   onChange,
 }: CustomizationPanelProps) {
+  const [newLabel, setNewLabel] = useState("");
+  const [newLocationQuery, setNewLocationQuery] = useState("");
+  const [geocoding, setGeocoding] = useState(false);
+  const [geocodeError, setGeocodeError] = useState("");
+
   function update(partial: Partial<PosterConfig>) {
     onChange({ ...config, ...partial });
   }
@@ -20,6 +26,47 @@ export function CustomizationPanel({
     const stages = [...config.stages];
     stages[index] = { ...stages[index], ...partial };
     update({ stages });
+  }
+
+  async function handleAddWaypoint() {
+    const label = newLabel.trim();
+    if (!label) return;
+
+    const query = newLocationQuery.trim() || label;
+    setGeocoding(true);
+    setGeocodeError("");
+
+    try {
+      const res = await fetch(
+        `/api/geocode/forward?query=${encodeURIComponent(query)}`
+      );
+      if (!res.ok) throw new Error("Geocoding request failed");
+      const data = await res.json();
+
+      if (!data.results || data.results.length === 0) {
+        setGeocodeError(`No location found for "${query}"`);
+        return;
+      }
+
+      const { lat, lng } = data.results[0];
+      update({
+        additionalLocations: [
+          ...config.additionalLocations,
+          { name: label, lat, lng },
+        ],
+      });
+      setNewLabel("");
+      setNewLocationQuery("");
+    } catch {
+      setGeocodeError("Geocoding failed. Please try again.");
+    } finally {
+      setGeocoding(false);
+    }
+  }
+
+  function removeWaypoint(index: number) {
+    const next = config.additionalLocations.filter((_, i) => i !== index);
+    update({ additionalLocations: next });
   }
 
   return (
@@ -149,7 +196,7 @@ export function CustomizationPanel({
                       updateStage(i, { endLabel: e.target.value })
                     }
                     placeholder="End"
-                    className="rounded border border-gray-200 px-2 py-1 text-xs focus:border-accent focus:outline-none"
+                    className={`rounded border border-gray-200 px-2 py-1 text-xs focus:border-accent focus:outline-none${i === 0 ? "" : " col-span-2"}`}
                   />
                 </div>
               </div>
@@ -157,6 +204,79 @@ export function CustomizationPanel({
           </div>
         </div>
       )}
+
+      {/* Additional Waypoints */}
+      <div>
+        <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
+          Additional Waypoints
+        </label>
+
+        {/* Existing waypoints */}
+        {config.additionalLocations.length > 0 && (
+          <ul className="mb-3 space-y-1">
+            {config.additionalLocations.map((loc, i) => (
+              <li
+                key={i}
+                className="flex items-center justify-between rounded border border-gray-200 px-2 py-1.5"
+              >
+                <div className="min-w-0">
+                  <span className="text-sm text-gray-800">{loc.name}</span>
+                  <span className="ml-2 text-xs text-gray-400">
+                    {loc.lat.toFixed(4)}, {loc.lng.toFixed(4)}
+                  </span>
+                </div>
+                <button
+                  onClick={() => removeWaypoint(i)}
+                  className="ml-2 shrink-0 text-gray-400 hover:text-red-500 transition-colors"
+                  aria-label="Remove waypoint"
+                >
+                  ×
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {/* Add waypoint form */}
+        <div className="space-y-1.5">
+          <input
+            type="text"
+            value={newLabel}
+            onChange={(e) => {
+              setNewLabel(e.target.value);
+              setGeocodeError("");
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleAddWaypoint();
+            }}
+            placeholder="Label (shown on map)"
+            className="w-full rounded border border-gray-200 px-2 py-1 text-sm focus:border-accent focus:outline-none"
+          />
+          <input
+            type="text"
+            value={newLocationQuery}
+            onChange={(e) => {
+              setNewLocationQuery(e.target.value);
+              setGeocodeError("");
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleAddWaypoint();
+            }}
+            placeholder="Location to search (optional)"
+            className="w-full rounded border border-gray-200 px-2 py-1 text-sm focus:border-accent focus:outline-none"
+          />
+          {geocodeError && (
+            <p className="text-xs text-red-500">{geocodeError}</p>
+          )}
+          <button
+            onClick={handleAddWaypoint}
+            disabled={!newLabel.trim() || geocoding}
+            className="w-full rounded border border-gray-300 px-3 py-1.5 text-sm text-gray-700 hover:border-accent hover:text-accent transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            {geocoding ? "Searching…" : "Add Waypoint"}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
