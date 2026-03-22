@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getStravaToken } from "@/lib/auth";
 import { fetchStravaActivities } from "@lib/strava";
+import { cacheGet, cacheSet } from "@/lib/strava-cache";
+import type { StravaActivity } from "@lib/strava";
 
 export async function GET(request: NextRequest) {
   const tokenResult = await getStravaToken();
@@ -10,9 +12,28 @@ export async function GET(request: NextRequest) {
 
   const page = parseInt(request.nextUrl.searchParams.get("page") || "1");
   const perPage = parseInt(request.nextUrl.searchParams.get("per_page") || "30");
+  const before = request.nextUrl.searchParams.get("before");
+  const after = request.nextUrl.searchParams.get("after");
+
+  const options: { before?: number; after?: number } = {};
+  if (before) {
+    const ts = new Date(before).getTime();
+    if (!isNaN(ts)) options.before = Math.floor(ts / 1000);
+  }
+  if (after) {
+    const ts = new Date(after).getTime();
+    if (!isNaN(ts)) options.after = Math.floor(ts / 1000);
+  }
+
+  const cacheKey = `activities:${tokenResult.athleteId}:${page}:${perPage}:${before || ""}:${after || ""}`;
 
   try {
-    const activities = await fetchStravaActivities(tokenResult.accessToken, page, perPage);
+    let activities = cacheGet<StravaActivity[]>(cacheKey);
+    if (!activities) {
+      activities = await fetchStravaActivities(tokenResult.accessToken, page, perPage, options);
+      cacheSet(cacheKey, activities);
+    }
+
     const response = NextResponse.json(activities);
 
     // Persist refreshed token

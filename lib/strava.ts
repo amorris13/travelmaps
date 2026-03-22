@@ -59,10 +59,18 @@ function normalizeActivityId(activityId: string | number): string {
 export async function fetchStravaActivities(
   accessToken: string,
   page = 1,
-  perPage = 30
+  perPage = 30,
+  options?: { before?: number; after?: number }
 ): Promise<StravaActivity[]> {
+  const params = new URLSearchParams({
+    page: String(page),
+    per_page: String(perPage),
+  });
+  if (options?.before) params.set("before", String(options.before));
+  if (options?.after) params.set("after", String(options.after));
+
   const response = await fetch(
-    `https://www.strava.com/api/v3/athlete/activities?page=${page}&per_page=${perPage}`,
+    `https://www.strava.com/api/v3/athlete/activities?${params}`,
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,
