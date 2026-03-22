@@ -43,12 +43,12 @@ export function PosterStageTable({
   const subColWidths = (groupW: number) => {
     const w = groupW - gap;
     return [
-      { label: "", width: w * 0.06, align: "end" as const },
-      { label: "STAGE", width: w * 0.42, align: "start" as const },
-      { label: "DIST", width: w * 0.12, align: "end" as const },
-      { label: "TIME", width: w * 0.13, align: "end" as const },
-      { label: "SPEED", width: w * 0.13, align: "end" as const },
-      { label: "GAIN", width: w * 0.14, align: "end" as const },
+      { label: "", width: w * 0.06, align: "end" as "start" | "middle" | "end" },
+      { label: "STAGE", width: w * 0.42, align: "start" as "start" | "middle" | "end" },
+      { label: "DIST", width: w * 0.12, align: "end" as "start" | "middle" | "end" },
+      { label: "TIME", width: w * 0.13, align: "end" as "start" | "middle" | "end" },
+      { label: "SPEED", width: w * 0.13, align: "end" as "start" | "middle" | "end" },
+      { label: "GAIN", width: w * 0.14, align: "end" as "start" | "middle" | "end" },
     ];
   };
 
