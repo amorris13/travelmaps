@@ -38,8 +38,15 @@ export default function CreatePage() {
       const currentRequestId = ++requestIdRef.current;
       setLoadingDetails(true);
       try {
+        // Sort activities chronologically before building stage configs
+        const sortedActivities = [...activities].sort((a, b) => {
+          if (!a.start_date_local) return 1;
+          if (!b.start_date_local) return -1;
+          return new Date(a.start_date_local).getTime() - new Date(b.start_date_local).getTime();
+        });
+
         const stageConfigs: StageConfig[] = await Promise.all(
-          activities.map(async (activity) => {
+          sortedActivities.map(async (activity) => {
             const res = await fetch(`/api/strava/activity/${activity.id}`);
             if (!res.ok) throw new Error("Failed to fetch activity details");
             const data = await res.json();
@@ -66,13 +73,13 @@ export default function CreatePage() {
         );
 
         const title =
-          activities.length === 1
-            ? activities[0].name
-            : `${activities.length}-Stage Journey`;
+          sortedActivities.length === 1
+            ? sortedActivities[0].name
+            : `${sortedActivities.length}-Stage Journey`;
 
-        const dates = activities.map(
-          (a) => new Date(a.start_date_local)
-        );
+        const dates = sortedActivities
+          .filter((a) => a.start_date_local)
+          .map((a) => new Date(a.start_date_local));
         const earliest = new Date(Math.min(...dates.map((d) => d.getTime())));
         const latest = new Date(Math.max(...dates.map((d) => d.getTime())));
         const dateRange =
