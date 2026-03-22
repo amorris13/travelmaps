@@ -26,23 +26,8 @@ export function computeMapTileParams(
   const widthPx = Math.ceil(boundingBox.width * scale);
   const heightPx = Math.ceil(boundingBox.height * scale);
 
-  // Add padding at bottom for Mapbox logo
-  const expandedHeightPx = heightPx + 20;
-  const expandFactor = heightPx === 0 ? 1 : expandedHeightPx / heightPx;
-
-  const expandedBbox: BBox = {
-    x: boundingBox.x,
-    y: boundingBox.y,
-    width: boundingBox.width,
-    height: boundingBox.height * expandFactor,
-    cx: boundingBox.cx,
-    cy: boundingBox.y + (boundingBox.height * expandFactor) / 2,
-    x2: boundingBox.x2,
-    y2: boundingBox.y + boundingBox.height * expandFactor,
-  };
-
-  const tl = fromMercator({ x: expandedBbox.x, y: expandedBbox.y });
-  const br = fromMercator({ x: expandedBbox.x2, y: expandedBbox.y2 });
+  const tl = fromMercator({ x: boundingBox.x, y: boundingBox.y });
+  const br = fromMercator({ x: boundingBox.x2, y: boundingBox.y2 });
 
   const boundsString = `[${tl.lng},${br.lat},${br.lng},${tl.lat}]`;
 
@@ -50,11 +35,11 @@ export function computeMapTileParams(
     style,
     boundsString,
     width: widthPx,
-    height: expandedHeightPx,
+    height: heightPx,
     accessToken,
   };
 }
 
 export function buildMapTileUrl(params: MapTileParams): string {
-  return `https://api.mapbox.com/styles/v1/${params.style}/static/${params.boundsString}/${params.width}x${params.height}@2x?access_token=${params.accessToken}`;
+  return `https://api.mapbox.com/styles/v1/${params.style}/static/${params.boundsString}/${params.width}x${params.height}@2x?access_token=${params.accessToken}&attribution=false&logo=false`;
 }
