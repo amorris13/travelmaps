@@ -18,17 +18,29 @@ export function ActivitySelector({
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
-  useEffect(() => {
-    fetchActivities(1);
-  }, []);
+  // Date range filter
+  const [afterDate, setAfterDate] = useState("");
+  const [beforeDate, setBeforeDate] = useState("");
 
-  async function fetchActivities(pageNum: number) {
+  // Direct ID input
+  const [activityIdInput, setActivityIdInput] = useState("");
+  const [idLoading, setIdLoading] = useState(false);
+
+  function buildUrl(pageNum: number) {
+    const params = new URLSearchParams({
+      page: String(pageNum),
+      per_page: "30",
+    });
+    if (afterDate) params.set("after", afterDate);
+    if (beforeDate) params.set("before", beforeDate);
+    return `/api/strava/activities?${params}`;
+  }
+
+  async function fetchActivities(pageNum: number, replace = false, urlOverride?: string) {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(
-        `/api/strava/activities?page=${pageNum}&per_page=30`
-      );
+      const response = await fetch(urlOverride || buildUrl(pageNum));
       if (!response.ok) {
         if (response.status === 401) {
           window.location.href = "/api/auth/strava";
@@ -37,7 +49,7 @@ export function ActivitySelector({
         throw new Error("Failed to fetch activities");
       }
       const data: StravaActivity[] = await response.json();
-      if (pageNum === 1) {
+      if (pageNum === 1 || replace) {
         setActivities(data);
       } else {
         setActivities((prev) => [...prev, ...data]);
@@ -48,6 +60,88 @@ export function ActivitySelector({
       setError(err instanceof Error ? err.message : "Unknown error");
     } finally {
       setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchActivities(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only fetch on mount
+  }, []);
+
+  function applyDateFilter() {
+    fetchActivities(1, true);
+  }
+
+  function clearDateFilter() {
+    setAfterDate("");
+    setBeforeDate("");
+    fetchActivities(1, true, `/api/strava/activities?page=1&per_page=30`);
+  }
+
+  async function addActivityById() {
+    const id = activityIdInput.trim();
+    if (!id || !/^\d+$/.test(id)) {
+      setError("Please enter a valid numeric activity ID");
+      return;
+    }
+
+    if (selectedIds.has(Number(id))) {
+      setError("Activity already selected");
+      return;
+    }
+
+    setIdLoading(true);
+    setError(null);
+    try {
+      const res = await fetch(`/api/strava/activity/${id}`);
+      if (!res.ok) {
+        if (res.status === 401) {
+          window.location.href = "/api/auth/strava";
+          return;
+        }
+        throw new Error(
+          res.status === 404
+            ? "Activity not found"
+            : "Failed to fetch activity"
+        );
+      }
+
+      // We need the summary info too. Create a minimal StravaActivity from the detail response.
+      const data = await res.json();
+      const syntheticActivity: StravaActivity = {
+        id: Number(id),
+        name: data.name,
+        distance: data.distance || 0,
+        moving_time: data.moving_time || 0,
+        elapsed_time: data.elapsed_time || 0,
+        total_elevation_gain: data.total_elevation_gain || 0,
+        average_speed: data.average_speed || 0,
+        max_speed: data.max_speed || 0,
+        start_date: "",
+        start_date_local: "",
+        type: "",
+        sport_type: "",
+      };
+
+      // Add to visible list and auto-select it.
+      // Use functional updater to avoid reading stale `activities` state.
+      let updatedActivities: StravaActivity[] = [];
+      setActivities((prev) => {
+        if (prev.some((a) => a.id === Number(id))) {
+          updatedActivities = prev;
+          return prev;
+        }
+        updatedActivities = [syntheticActivity, ...prev];
+        return updatedActivities;
+      });
+
+      const currentSelected = updatedActivities.filter((a) => selectedIds.has(a.id));
+      onSelect([...currentSelected, syntheticActivity]);
+      setActivityIdInput("");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unknown error");
+    } finally {
+      setIdLoading(false);
     }
   }
 
@@ -62,6 +156,7 @@ export function ActivitySelector({
   }
 
   function formatDate(dateStr: string) {
+    if (!dateStr) return "";
     return new Date(dateStr).toLocaleDateString("en-US", {
       year: "numeric",
       month: "short",
@@ -69,17 +164,79 @@ export function ActivitySelector({
     });
   }
 
-  if (error) {
-    return (
-      <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-600">
-        {error}
-      </div>
-    );
-  }
-
   return (
-    <div className="space-y-2">
+    <div className="space-y-3">
       <h3 className="text-sm font-medium text-gray-700">Select Activities</h3>
+
+      {/* Direct activity ID input */}
+      <div>
+        <label className="block text-xs text-gray-500 mb-1">
+          Add by Activity ID
+        </label>
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={activityIdInput}
+            onChange={(e) => setActivityIdInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && addActivityById()}
+            placeholder="e.g. 1234567890"
+            className="flex-1 rounded border border-gray-300 px-2 py-1.5 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+          />
+          <button
+            onClick={addActivityById}
+            disabled={idLoading}
+            className="rounded bg-accent px-3 py-1.5 text-sm text-white hover:opacity-90 disabled:opacity-50"
+          >
+            {idLoading ? "..." : "Add"}
+          </button>
+        </div>
+      </div>
+
+      {/* Date range filter */}
+      <div>
+        <label className="block text-xs text-gray-500 mb-1">
+          Filter by Date Range
+        </label>
+        <div className="flex gap-2 items-center">
+          <input
+            type="date"
+            value={afterDate}
+            onChange={(e) => setAfterDate(e.target.value)}
+            className="flex-1 rounded border border-gray-300 px-2 py-1.5 text-xs focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+          />
+          <span className="text-xs text-gray-400">to</span>
+          <input
+            type="date"
+            value={beforeDate}
+            onChange={(e) => setBeforeDate(e.target.value)}
+            className="flex-1 rounded border border-gray-300 px-2 py-1.5 text-xs focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+          />
+        </div>
+        <div className="flex gap-2 mt-1.5">
+          <button
+            onClick={applyDateFilter}
+            className="rounded bg-gray-100 px-2 py-1 text-xs text-gray-700 hover:bg-gray-200"
+          >
+            Apply
+          </button>
+          {(afterDate || beforeDate) && (
+            <button
+              onClick={clearDateFilter}
+              className="rounded px-2 py-1 text-xs text-gray-500 hover:text-gray-700"
+            >
+              Clear
+            </button>
+          )}
+        </div>
+      </div>
+
+      {error && (
+        <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-xs text-red-600">
+          {error}
+        </div>
+      )}
+
+      {/* Activity list */}
       <div className="max-h-96 overflow-y-auto rounded-lg border border-gray-200">
         {activities.map((activity) => {
           const isSelected = selectedIds.has(activity.id);
@@ -97,9 +254,11 @@ export function ActivitySelector({
                     {activity.name}
                   </p>
                   <p className="text-xs text-gray-500">
-                    {formatDate(activity.start_date_local)} &middot;{" "}
-                    {(activity.distance / 1000).toFixed(1)} km &middot;{" "}
-                    {activity.type}
+                    {activity.start_date_local
+                      ? formatDate(activity.start_date_local)
+                      : `ID: ${activity.id}`}{" "}
+                    &middot; {(activity.distance / 1000).toFixed(1)} km
+                    {activity.type ? ` \u00b7 ${activity.type}` : ""}
                   </p>
                 </div>
                 <div
@@ -130,6 +289,11 @@ export function ActivitySelector({
         {loading && (
           <div className="p-4 text-center text-sm text-gray-400">
             Loading activities...
+          </div>
+        )}
+        {!loading && activities.length === 0 && (
+          <div className="p-4 text-center text-sm text-gray-400">
+            No activities found
           </div>
         )}
       </div>
