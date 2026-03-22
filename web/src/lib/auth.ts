@@ -14,7 +14,7 @@ interface TokenData {
 
 export interface StravaTokenResult {
   accessToken: string;
-  athleteId?: number;
+  athleteId: number;
   refreshed: boolean;
   tokenCookieValue?: string;
 }
@@ -50,15 +50,20 @@ export async function getStravaToken(): Promise<StravaTokenResult | null> {
         athlete: tokenData.athlete,
       });
 
+      const athleteId = tokenData.athlete?.id;
+      if (!athleteId) return null;
+
       return {
         accessToken: refreshed.access_token,
-        athleteId: tokenData.athlete?.id,
+        athleteId,
         refreshed: true,
         tokenCookieValue: Buffer.from(newPayload).toString("base64"),
       };
     }
 
-    return { accessToken: tokenData.access_token, athleteId: tokenData.athlete?.id, refreshed: false };
+    const athleteId = tokenData.athlete?.id;
+    if (!athleteId) return null;
+    return { accessToken: tokenData.access_token, athleteId, refreshed: false };
   } catch {
     return null;
   }
