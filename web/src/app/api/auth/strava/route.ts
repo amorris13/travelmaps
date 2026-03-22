@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { randomBytes } from "crypto";
 
-export async function GET() {
+export async function GET(request: Request) {
   const clientId = process.env.STRAVA_CLIENT_ID;
   if (!clientId) {
     return NextResponse.json(
@@ -10,7 +10,11 @@ export async function GET() {
     );
   }
 
-  const redirectUri = `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/api/auth/strava/callback`;
+  const requestUrl = new URL(request.url);
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL ||
+    `${requestUrl.protocol}//${requestUrl.host}`;
+  const redirectUri = `${baseUrl}/api/auth/strava/callback`;
   const scope = "read,activity:read_all";
   const state = randomBytes(32).toString("hex");
 
