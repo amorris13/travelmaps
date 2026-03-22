@@ -65,6 +65,7 @@ export function ActivitySelector({
 
   useEffect(() => {
     fetchActivities(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only fetch on mount
   }, []);
 
   function applyDateFilter() {
@@ -122,14 +123,19 @@ export function ActivitySelector({
         sport_type: "",
       };
 
-      // Add to visible list and select it
+      // Add to visible list and auto-select it.
+      // Use functional updater to avoid reading stale `activities` state.
+      let updatedActivities: StravaActivity[] = [];
       setActivities((prev) => {
-        if (prev.some((a) => a.id === Number(id))) return prev;
-        return [syntheticActivity, ...prev];
+        if (prev.some((a) => a.id === Number(id))) {
+          updatedActivities = prev;
+          return prev;
+        }
+        updatedActivities = [syntheticActivity, ...prev];
+        return updatedActivities;
       });
 
-      // Select it
-      const currentSelected = activities.filter((a) => selectedIds.has(a.id));
+      const currentSelected = updatedActivities.filter((a) => selectedIds.has(a.id));
       onSelect([...currentSelected, syntheticActivity]);
       setActivityIdInput("");
     } catch (err) {
