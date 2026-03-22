@@ -129,7 +129,7 @@ function generateElevationSvg(
     ` L ${simplifiedPoints[simplifiedPoints.length - 1][0]} ${plotHeight + svgY} L ${
       simplifiedPoints[0][0]
     } ${plotHeight + svgY} Z`;
-  canvas.path(fillPathString).fill(gradient).stroke("none");
+  canvas.path(fillPathString).fill(gradient as unknown as string).stroke("none");
 
   canvas
     .path(pathString)

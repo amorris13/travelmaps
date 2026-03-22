@@ -26,7 +26,7 @@ import type {
   Stage as RawStage,
   Location as RawLocation,
   LatLng,
-} from "./trips.ts";
+} from "./trips.js";
 
 // --- Type Definitions ---
 
@@ -993,10 +993,10 @@ function addCanvasStyles(canvas: SVG.Svg): { markerRadius: number; labelFontSize
 
     const morphology = add.morphology("dilate", 1).in(add.$sourceAlpha);
     const matrix = add
-      .colorMatrix("matrix", [-1, 0, 0, 0, 1, 0, -1, 0, 0, 1, 0, 0, -1, 0, 1, 0, 0, 0, 1, 0])
+        .colorMatrix("matrix", [-1, 0, 0, 0, 1, 0, -1, 0, 0, 1, 0, 0, -1, 0, 1, 0, 0, 0, 1, 0] as any)
       .in(morphology);
 
-    add.merge([matrix, add.$source]);
+    add.merge([matrix, add.$source] as any);
   });
 
   const labelFontSizePx = 18;
@@ -1004,7 +1004,7 @@ function addCanvasStyles(canvas: SVG.Svg): { markerRadius: number; labelFontSize
     fontFamily: "Helvetica",
     fontSize: labelFontSizePx + "px",
     fill: color,
-    filter: "url(#whiteOutlineEffect)",
+    filter: "url(#whiteOutlineEffect)" as unknown as import("@svgdotjs/svg.js").Effect,
   });
   canvas.style().rule(".labelRect", {
     display: "none", // Set to 'block' or remove to debug label placement boxes
