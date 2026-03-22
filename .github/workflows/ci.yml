@@ -35,3 +35,7 @@ jobs:
       - name: Build web project
         working-directory: web
         run: npm run build
+
+      - name: Run web tests
+        working-directory: web
+        run: npm test
