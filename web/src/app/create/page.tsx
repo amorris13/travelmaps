@@ -103,7 +103,7 @@ export default function CreatePage() {
   );
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex h-screen overflow-hidden">
       {/* Left sidebar: Activity selection + Customization */}
       <aside className="w-80 shrink-0 border-r border-gray-200 overflow-y-auto bg-white">
         <div className="p-4 border-b border-gray-100">
@@ -138,7 +138,7 @@ export default function CreatePage() {
       </aside>
 
       {/* Main content: Poster preview */}
-      <main className="flex-1 flex items-center justify-center bg-gray-100 p-8">
+      <main className="flex-1 overflow-y-auto flex items-center justify-center bg-gray-100 p-8">
         {loadingDetails ? (
           <div className="text-gray-400 text-sm">
             Loading activity data...
