@@ -22,6 +22,7 @@ export default function CreatePage() {
   const [config, setConfig] = useState<PosterConfig>(
     createDefaultPosterConfig([])
   );
+  const [activeTab, setActiveTab] = useState<"content" | "styling">("content");
   const [loadingDetails, setLoadingDetails] = useState(false);
   const posterRef = useRef<SVGSVGElement>(null);
   const requestIdRef = useRef(0);
@@ -208,16 +209,40 @@ export default function CreatePage() {
       {step === 2 && (
         <div className="flex flex-col-reverse lg:flex-row flex-1 min-h-0 overflow-hidden">
           {/* Left sidebar: Customization */}
-          <aside className="w-full lg:w-80 shrink-0 border-t lg:border-t-0 lg:border-r border-gray-200 overflow-y-auto bg-white h-1/2 lg:h-full">
-            <div className="p-4 space-y-6">
+          <aside className="w-full lg:w-80 shrink-0 border-t lg:border-t-0 lg:border-r border-gray-200 flex flex-col bg-white h-1/2 lg:h-full">
+            {/* Header: Back & Tabs */}
+            <div className="shrink-0 border-b border-gray-200 flex items-center px-4">
               <button
                 onClick={() => setStep(1)}
-                className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 transition-colors"
+                className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 transition-colors py-2 mr-2"
+                title="Back to activities"
               >
-                ← Back to activities
+                ← <span className="hidden sm:inline">Back</span>
               </button>
 
-              <CustomizationPanel config={config} onChange={setConfig} />
+              <div className="flex flex-1">
+                {(["content", "styling"] as const).map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveTab(tab)}
+                    className={`px-3 py-2 text-sm font-medium border-b-2 transition-colors capitalize ${
+                      activeTab === tab
+                        ? "border-accent text-accent"
+                        : "border-transparent text-gray-400 hover:text-gray-600"
+                    }`}
+                  >
+                    {tab}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex-1 overflow-y-auto p-4 space-y-6">
+              <CustomizationPanel
+                config={config}
+                onChange={setConfig}
+                activeTab={activeTab}
+              />
 
               <div className="border-t border-gray-100 pt-4">
                 <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
