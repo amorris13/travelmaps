@@ -2,7 +2,6 @@
 dist/
 node_modules/
 output/*.png
-output/*.svg
 *.tsbuildinfo
 .vercel
 .env*.local

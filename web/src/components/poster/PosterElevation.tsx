@@ -145,7 +145,7 @@ export function PosterElevation({
             x={label.x}
             y={label.y}
             textAnchor={label.anchor}
-            fontFamily="Montserrat, sans-serif"
+            fontFamily="Helvetica Neue, sans-serif"
             fontSize={16}
             fontWeight={300}
             letterSpacing="0.05em"
@@ -179,7 +179,7 @@ export function PosterElevation({
               x={(marker.x + marker.xNext) / 2}
               y={stageBarY + 15}
               textAnchor="middle"
-              fontFamily="Montserrat, sans-serif"
+              fontFamily="Helvetica Neue, sans-serif"
               fontSize={16}
               fontWeight={300}
               letterSpacing="0.05em"
@@ -205,7 +205,7 @@ export function PosterElevation({
           x={padding}
           y={keyY}
           textAnchor="start"
-          fontFamily="Montserrat, sans-serif"
+          fontFamily="Helvetica Neue, sans-serif"
           fontSize={16}
           fontWeight={300}
           letterSpacing="0.05em"
@@ -217,7 +217,7 @@ export function PosterElevation({
           x={plotWidth / 2}
           y={keyY}
           textAnchor="middle"
-          fontFamily="Montserrat, sans-serif"
+          fontFamily="Helvetica Neue, sans-serif"
           fontSize={16}
           fontWeight={300}
           letterSpacing="0.05em"
@@ -229,7 +229,7 @@ export function PosterElevation({
           x={plotWidth - padding}
           y={keyY}
           textAnchor="end"
-          fontFamily="Montserrat, sans-serif"
+          fontFamily="Helvetica Neue, sans-serif"
           fontSize={16}
           fontWeight={300}
           letterSpacing="0.05em"
