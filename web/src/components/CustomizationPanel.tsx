@@ -17,6 +17,7 @@ export function CustomizationPanel({
   const [newLocationQuery, setNewLocationQuery] = useState("");
   const [geocoding, setGeocoding] = useState(false);
   const [geocodeError, setGeocodeError] = useState("");
+  const [activeTab, setActiveTab] = useState<"content" | "styling">("content");
 
   function update(partial: Partial<PosterConfig>) {
     onChange({ ...config, ...partial });
@@ -70,214 +71,244 @@ export function CustomizationPanel({
   }
 
   return (
-    <div className="space-y-1">
-      {/* General */}
-      <CollapsibleSection title="General" defaultOpen>
-        <div className="space-y-4">
-          <div>
-            <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">
-              Title
-            </label>
-            <input
-              type="text"
-              value={config.title}
-              onChange={(e) => update({ title: e.target.value })}
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
-            />
-          </div>
+    <div className="space-y-4">
+      {/* Tab Switcher */}
+      <div className="flex border-b border-gray-200 -mx-4 px-4">
+        {(["content", "styling"] as const).map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors capitalize ${
+              activeTab === tab
+                ? "border-accent text-accent"
+                : "border-transparent text-gray-500 hover:text-gray-700"
+            }`}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
 
-          <div>
-            <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">
-              Date Range
-            </label>
-            <input
-              type="text"
-              value={config.dateRange}
-              onChange={(e) => update({ dateRange: e.target.value })}
-              placeholder="e.g. July 2024"
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
-            />
-          </div>
-        </div>
-      </CollapsibleSection>
-
-      {/* Appearance */}
-      <CollapsibleSection title="Appearance" defaultOpen>
-        <div className="space-y-4">
-          <div>
-            <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">
-              Accent Color
-            </label>
-            <div className="flex items-center gap-2">
-              <input
-                type="color"
-                value={config.accentColor}
-                onChange={(e) => update({ accentColor: e.target.value })}
-                className="h-8 w-8 cursor-pointer rounded border border-gray-300"
-              />
-              <input
-                type="text"
-                value={config.accentColor}
-                onChange={(e) => update({ accentColor: e.target.value })}
-                className="w-24 rounded-md border border-gray-300 px-2 py-1 text-sm font-mono"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">
-              Map Style
-            </label>
-            <div className="grid grid-cols-2 gap-2">
-              {Object.entries(MAP_STYLES).map(([key, style]) => (
-                <button
-                  key={key}
-                  onClick={() => update({ mapStyle: key })}
-                  className={`rounded-md border px-3 py-2 text-sm transition-colors ${
-                    config.mapStyle === key
-                      ? "border-accent bg-red-50 text-accent"
-                      : "border-gray-200 text-gray-600 hover:border-gray-300"
-                  }`}
-                >
-                  {style.label}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </CollapsibleSection>
-
-      {/* Sections */}
-      <CollapsibleSection title="Sections" defaultOpen>
-        <div className="space-y-3">
-          <Toggle
-            label="Elevation Profile"
-            checked={config.showElevation}
-            onChange={(v) => update({ showElevation: v })}
-          />
-          {config.stages.length > 1 && (
-            <Toggle
-              label="Stage Table"
-              checked={config.showStageTable}
-              onChange={(v) => update({ showStageTable: v })}
-            />
-          )}
-        </div>
-      </CollapsibleSection>
-
-      {/* Stage Labels */}
-      {config.stages.length > 0 && (
-        <CollapsibleSection title="Stage Labels" defaultOpen>
-          <div className="space-y-3">
-            {config.stages.map((stage, i) => (
-              <div key={stage.activityId} className="space-y-1">
-                <p className="text-xs text-gray-400">Stage {i + 1}</p>
-                <input
-                  type="text"
-                  value={stage.name}
-                  onChange={(e) => updateStage(i, { name: e.target.value })}
-                  placeholder="Stage name"
-                  className="w-full rounded border border-gray-200 px-2 py-1 text-sm focus:border-accent focus:outline-none"
-                />
-                <div className="grid grid-cols-2 gap-1">
-                  {i === 0 && (
-                    <input
-                      type="text"
-                      value={stage.startLabel}
-                      onChange={(e) =>
-                        updateStage(i, { startLabel: e.target.value })
-                      }
-                      placeholder="Start"
-                      className="rounded border border-gray-200 px-2 py-1 text-xs focus:border-accent focus:outline-none"
-                    />
-                  )}
+      <div className="space-y-1">
+        {activeTab === "content" ? (
+          <>
+            {/* General */}
+            <CollapsibleSection title="General" defaultOpen>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">
+                    Title
+                  </label>
                   <input
                     type="text"
-                    value={stage.endLabel}
-                    onChange={(e) =>
-                      updateStage(i, { endLabel: e.target.value })
-                    }
-                    placeholder="End"
-                    className={`rounded border border-gray-200 px-2 py-1 text-xs focus:border-accent focus:outline-none${i === 0 ? "" : " col-span-2"}`}
+                    value={config.title}
+                    onChange={(e) => update({ title: e.target.value })}
+                    className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">
+                    Date Range
+                    <span className="ml-1 text-[10px] text-gray-400 font-normal lowercase tracking-normal">
+                      (Optional)
+                    </span>
+                  </label>
+                  <input
+                    type="text"
+                    value={config.dateRange}
+                    onChange={(e) => update({ dateRange: e.target.value })}
+                    placeholder="e.g. July 2024"
+                    className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
                   />
                 </div>
               </div>
-            ))}
-          </div>
-        </CollapsibleSection>
-      )}
+            </CollapsibleSection>
 
-      {/* Additional Waypoints */}
-      <div>
-        <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
-          Additional Waypoints
-        </label>
-
-        {/* Existing waypoints */}
-        {config.additionalLocations.length > 0 && (
-          <ul className="mb-3 space-y-1">
-            {config.additionalLocations.map((loc, i) => (
-              <li
-                key={i}
-                className="flex items-center justify-between rounded border border-gray-200 px-2 py-1.5"
-              >
-                <div className="min-w-0">
-                  <span className="text-sm text-gray-800">{loc.name}</span>
-                  <span className="ml-2 text-xs text-gray-400">
-                    {loc.lat.toFixed(4)}, {loc.lng.toFixed(4)}
-                  </span>
+            {/* Stage Labels */}
+            {config.stages.length > 0 && (
+              <CollapsibleSection title="Stage Labels" defaultOpen>
+                <div className="space-y-3">
+                  {config.stages.map((stage, i) => (
+                    <div key={stage.activityId} className="space-y-1">
+                      <p className="text-xs text-gray-400">Stage {i + 1}</p>
+                      <input
+                        type="text"
+                        value={stage.name}
+                        onChange={(e) =>
+                          updateStage(i, { name: e.target.value })
+                        }
+                        placeholder="Stage name"
+                        className="w-full rounded border border-gray-200 px-2 py-1 text-sm focus:border-accent focus:outline-none"
+                      />
+                      <div className="grid grid-cols-2 gap-1">
+                        {i === 0 && (
+                          <input
+                            type="text"
+                            value={stage.startLabel}
+                            onChange={(e) =>
+                              updateStage(i, { startLabel: e.target.value })
+                            }
+                            placeholder="Start"
+                            className="rounded border border-gray-200 px-2 py-1 text-xs focus:border-accent focus:outline-none"
+                          />
+                        )}
+                        <input
+                          type="text"
+                          value={stage.endLabel}
+                          onChange={(e) =>
+                            updateStage(i, { endLabel: e.target.value })
+                          }
+                          placeholder="End"
+                          className={`rounded border border-gray-200 px-2 py-1 text-xs focus:border-accent focus:outline-none${i === 0 ? "" : " col-span-2"}`}
+                        />
+                      </div>
+                    </div>
+                  ))}
                 </div>
-                <button
-                  onClick={() => removeWaypoint(i)}
-                  className="ml-2 shrink-0 text-gray-400 hover:text-red-500 transition-colors"
-                  aria-label="Remove waypoint"
-                >
-                  ×
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
+              </CollapsibleSection>
+            )}
 
-        {/* Add waypoint form */}
-        <div className="space-y-1.5">
-          <input
-            type="text"
-            value={newLabel}
-            onChange={(e) => {
-              setNewLabel(e.target.value);
-              setGeocodeError("");
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") handleAddWaypoint();
-            }}
-            placeholder="Label (shown on map)"
-            className="w-full rounded border border-gray-200 px-2 py-1 text-sm focus:border-accent focus:outline-none"
-          />
-          <input
-            type="text"
-            value={newLocationQuery}
-            onChange={(e) => {
-              setNewLocationQuery(e.target.value);
-              setGeocodeError("");
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") handleAddWaypoint();
-            }}
-            placeholder="Location to search (optional)"
-            className="w-full rounded border border-gray-200 px-2 py-1 text-sm focus:border-accent focus:outline-none"
-          />
-          {geocodeError && (
-            <p className="text-xs text-red-500">{geocodeError}</p>
-          )}
-          <button
-            onClick={handleAddWaypoint}
-            disabled={!newLabel.trim() || geocoding}
-            className="w-full rounded border border-gray-300 px-3 py-1.5 text-sm text-gray-700 hover:border-accent hover:text-accent transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-          >
-            {geocoding ? "Searching…" : "Add Waypoint"}
-          </button>
-        </div>
+            {/* Additional Waypoints */}
+            <CollapsibleSection title="Additional Waypoints" defaultOpen>
+              <div>
+                {/* Existing waypoints */}
+                {config.additionalLocations.length > 0 && (
+                  <ul className="mb-3 space-y-1">
+                    {config.additionalLocations.map((loc, i) => (
+                      <li
+                        key={i}
+                        className="flex items-center justify-between rounded border border-gray-200 px-2 py-1.5 bg-white"
+                      >
+                        <div className="min-w-0">
+                          <span className="text-sm text-gray-800 truncate block">
+                            {loc.name}
+                          </span>
+                          <span className="text-[10px] text-gray-400">
+                            {loc.lat.toFixed(4)}, {loc.lng.toFixed(4)}
+                          </span>
+                        </div>
+                        <button
+                          onClick={() => removeWaypoint(i)}
+                          className="ml-2 shrink-0 text-gray-400 hover:text-red-500 transition-colors"
+                          aria-label="Remove waypoint"
+                        >
+                          ×
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                {/* Add waypoint form */}
+                <div className="space-y-1.5">
+                  <input
+                    type="text"
+                    value={newLabel}
+                    onChange={(e) => {
+                      setNewLabel(e.target.value);
+                      setGeocodeError("");
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") handleAddWaypoint();
+                    }}
+                    placeholder="Label (shown on map)"
+                    className="w-full rounded border border-gray-200 px-2 py-1 text-sm focus:border-accent focus:outline-none"
+                  />
+                  <input
+                    type="text"
+                    value={newLocationQuery}
+                    onChange={(e) => {
+                      setNewLocationQuery(e.target.value);
+                      setGeocodeError("");
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") handleAddWaypoint();
+                    }}
+                    placeholder="Location search (optional)"
+                    className="w-full rounded border border-gray-200 px-2 py-1 text-sm focus:border-accent focus:outline-none"
+                  />
+                  {geocodeError && (
+                    <p className="text-xs text-red-500">{geocodeError}</p>
+                  )}
+                  <button
+                    onClick={handleAddWaypoint}
+                    disabled={!newLabel.trim() || geocoding}
+                    className="w-full rounded border border-gray-300 px-3 py-1.5 text-sm text-gray-700 hover:border-accent hover:text-accent transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                  >
+                    {geocoding ? "Searching…" : "Add Waypoint"}
+                  </button>
+                </div>
+              </div>
+            </CollapsibleSection>
+          </>
+        ) : (
+          <>
+            {/* Appearance */}
+            <CollapsibleSection title="Appearance" defaultOpen>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">
+                    Accent Color
+                  </label>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="color"
+                      value={config.accentColor}
+                      onChange={(e) => update({ accentColor: e.target.value })}
+                      className="h-8 w-8 cursor-pointer rounded border border-gray-300"
+                    />
+                    <input
+                      type="text"
+                      value={config.accentColor}
+                      onChange={(e) => update({ accentColor: e.target.value })}
+                      className="w-24 rounded-md border border-gray-300 px-2 py-1 text-sm font-mono"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">
+                    Map Style
+                  </label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {Object.entries(MAP_STYLES).map(([key, style]) => (
+                      <button
+                        key={key}
+                        onClick={() => update({ mapStyle: key })}
+                        className={`rounded-md border px-3 py-2 text-sm transition-colors ${
+                          config.mapStyle === key
+                            ? "border-accent bg-red-50 text-accent"
+                            : "border-gray-200 text-gray-600 hover:border-gray-300"
+                        }`}
+                      >
+                        {style.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </CollapsibleSection>
+
+            {/* Sections */}
+            <CollapsibleSection title="Sections" defaultOpen>
+              <div className="space-y-3">
+                <Toggle
+                  label="Elevation Profile"
+                  checked={config.showElevation}
+                  onChange={(v) => update({ showElevation: v })}
+                />
+                {config.stages.length > 1 && (
+                  <Toggle
+                    label="Stage Table"
+                    checked={config.showStageTable}
+                    onChange={(v) => update({ showStageTable: v })}
+                  />
+                )}
+              </div>
+            </CollapsibleSection>
+          </>
+        )}
       </div>
     </div>
   );
