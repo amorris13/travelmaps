@@ -81,8 +81,6 @@ export async function GET(request: NextRequest) {
   // Proceed with the token exchange using the same redirect_uri that was
   // used to initiate the OAuth flow.
   const canonicalUrl = process.env.NEXT_PUBLIC_BASE_URL;
-  const currentUrl = new URL(request.url);
-  const currentOrigin = `${currentUrl.protocol}//${currentUrl.host}`;
   const baseUrl = (canonicalUrl || currentOrigin).replace(/\/$/, "");
   const redirectUri = `${baseUrl}/api/auth/strava/callback`;
 
