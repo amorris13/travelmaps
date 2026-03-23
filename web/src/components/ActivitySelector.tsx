@@ -300,7 +300,7 @@ export function ActivitySelector({
       )}
 
       {/* Activity list */}
-      <div className="max-h-96 overflow-y-auto rounded-lg border border-gray-200">
+      <div className="rounded-lg border border-gray-200">
         {filteredActivities.map((activity) => {
           const isSelected = selectedIds.has(activity.id);
           return (
