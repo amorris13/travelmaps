@@ -2,6 +2,9 @@
 
 import { useState, useEffect } from "react";
 import type { StravaActivity } from "@lib/strava";
+import { DateRangePicker } from "./DateRangePicker";
+import { DateRange } from "react-day-picker";
+import { format } from "date-fns";
 
 interface ActivitySelectorProps {
   onSelect: (activities: StravaActivity[]) => void;
@@ -19,8 +22,7 @@ export function ActivitySelector({
   const [hasMore, setHasMore] = useState(true);
 
   // Date range filter
-  const [afterDate, setAfterDate] = useState("");
-  const [beforeDate, setBeforeDate] = useState("");
+  const [dateRange, setDateRange] = useState<DateRange | undefined>();
 
   // Direct ID input
   const [activityIdInput, setActivityIdInput] = useState("");
@@ -31,8 +33,12 @@ export function ActivitySelector({
       page: String(pageNum),
       per_page: "30",
     });
-    if (afterDate) params.set("after", afterDate);
-    if (beforeDate) params.set("before", beforeDate);
+    if (dateRange?.from) {
+      params.set("after", format(dateRange.from, "yyyy-MM-dd"));
+    }
+    if (dateRange?.to) {
+      params.set("before", format(dateRange.to, "yyyy-MM-dd"));
+    }
     return `/api/strava/activities?${params}`;
   }
 
@@ -73,8 +79,7 @@ export function ActivitySelector({
   }
 
   function clearDateFilter() {
-    setAfterDate("");
-    setBeforeDate("");
+    setDateRange(undefined);
     fetchActivities(1, true, `/api/strava/activities?page=1&per_page=30`);
   }
 
@@ -197,21 +202,11 @@ export function ActivitySelector({
         <label className="block text-xs text-gray-500 mb-1">
           Filter by Date Range
         </label>
-        <div className="flex gap-2 items-center">
-          <input
-            type="date"
-            value={afterDate}
-            onChange={(e) => setAfterDate(e.target.value)}
-            className="flex-1 rounded border border-gray-300 px-2 py-1.5 text-xs focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
-          />
-          <span className="text-xs text-gray-400">to</span>
-          <input
-            type="date"
-            value={beforeDate}
-            onChange={(e) => setBeforeDate(e.target.value)}
-            className="flex-1 rounded border border-gray-300 px-2 py-1.5 text-xs focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
-          />
-        </div>
+        <DateRangePicker
+          value={dateRange}
+          onChange={setDateRange}
+          className="w-full"
+        />
         <div className="flex gap-2 mt-1.5">
           <button
             onClick={applyDateFilter}
@@ -219,7 +214,7 @@ export function ActivitySelector({
           >
             Apply
           </button>
-          {(afterDate || beforeDate) && (
+          {dateRange && (
             <button
               onClick={clearDateFilter}
               className="rounded px-2 py-1 text-xs text-gray-500 hover:text-gray-700"
