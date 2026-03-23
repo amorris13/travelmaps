@@ -115,8 +115,9 @@ export async function GET(request: NextRequest) {
     return response;
   } catch (err) {
     console.error("Strava token exchange error:", err);
-    return NextResponse.redirect(
-      new URL("/?error=token_exchange", request.url)
-    );
+    const message = err instanceof Error ? err.message : String(err);
+    const url = new URL("/?error=token_exchange", request.url);
+    url.searchParams.set("detail", message);
+    return NextResponse.redirect(url.toString());
   }
 }
