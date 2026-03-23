@@ -97,6 +97,7 @@ export default function CreatePage() {
               distanceStream: data.distance_stream
                 ? data.distance_stream.split(",").map(Number)
                 : [],
+              activityType: data.sport_type || activity.sport_type || activity.type || "",
             };
           })
         );

@@ -11,6 +11,7 @@ interface PosterElevationProps {
   y: number;
   width: number;
   height: number;
+  units?: "metric" | "imperial";
 }
 
 export function PosterElevation({
@@ -19,6 +20,7 @@ export function PosterElevation({
   y,
   width,
   height,
+  units = "metric",
 }: PosterElevationProps) {
   const profileData = useMemo(() => {
     // Combine all stage elevation/distance data
@@ -139,21 +141,26 @@ export function PosterElevation({
         />
 
         {/* Prominent elevation labels */}
-        {prominentLabels.map((label, i) => (
-          <text
-            key={`prom-${i}`}
-            x={label.x}
-            y={label.y}
-            textAnchor={label.anchor}
-            fontFamily="Helvetica Neue, sans-serif"
-            fontSize={16}
-            fontWeight={300}
-            letterSpacing="0.05em"
-            dominantBaseline="alphabetic"
-          >
-            {label.elevation}m
-          </text>
-        ))}
+        {prominentLabels.map((label, i) => {
+          const displayElev =
+            units === "imperial" ? label.elevation * 3.28084 : label.elevation;
+          return (
+            <text
+              key={`prom-${i}`}
+              x={label.x}
+              y={label.y}
+              textAnchor={label.anchor}
+              fontFamily="Helvetica Neue, sans-serif"
+              fontSize={16}
+              fontWeight={300}
+              letterSpacing="0.05em"
+              dominantBaseline="alphabetic"
+            >
+              {Math.round(displayElev)}
+              {units === "imperial" ? "ft" : "m"}
+            </text>
+          );
+        })}
 
         {/* Stage markers */}
         {stageMarkerPositions.map((marker, i) => (
@@ -211,7 +218,12 @@ export function PosterElevation({
           letterSpacing="0.05em"
           dominantBaseline="alphabetic"
         >
-          {keyElevations.start}m
+          {Math.round(
+            units === "imperial"
+              ? keyElevations.start * 3.28084
+              : keyElevations.start
+          )}
+          {units === "imperial" ? "ft" : "m"}
         </text>
         <text
           x={plotWidth / 2}
@@ -223,7 +235,13 @@ export function PosterElevation({
           letterSpacing="0.05em"
           dominantBaseline="alphabetic"
         >
-          ⏶ {keyElevations.peak}m
+          ⏶{" "}
+          {Math.round(
+            units === "imperial"
+              ? keyElevations.peak * 3.28084
+              : keyElevations.peak
+          )}
+          {units === "imperial" ? "ft" : "m"}
         </text>
         <text
           x={plotWidth - padding}
@@ -235,7 +253,12 @@ export function PosterElevation({
           letterSpacing="0.05em"
           dominantBaseline="alphabetic"
         >
-          {keyElevations.end}m
+          {Math.round(
+            units === "imperial"
+              ? keyElevations.end * 3.28084
+              : keyElevations.end
+          )}
+          {units === "imperial" ? "ft" : "m"}
         </text>
       </svg>
     </g>

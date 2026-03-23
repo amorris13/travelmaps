@@ -270,6 +270,32 @@ export function CustomizationPanel({
                     ))}
                   </div>
                 </div>
+
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">
+                    Units
+                  </label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {[
+                      { id: "metric", label: "Metric" },
+                      { id: "imperial", label: "Imperial" },
+                    ].map((unit) => (
+                      <button
+                        key={unit.id}
+                        onClick={() =>
+                          update({ units: unit.id as "metric" | "imperial" })
+                        }
+                        className={`rounded-md border px-3 py-2 text-sm transition-colors ${
+                          config.units === unit.id
+                            ? "border-accent bg-red-50 text-accent"
+                            : "border-gray-200 text-gray-600 hover:border-gray-300"
+                        }`}
+                      >
+                        {unit.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
             </CollapsibleSection>
 
