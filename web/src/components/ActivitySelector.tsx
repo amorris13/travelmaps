@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import type { StravaActivity } from "@lib/strava";
 import { DateRangePicker } from "./DateRangePicker";
 import { DateRange } from "react-day-picker";
@@ -28,10 +28,41 @@ export function ActivitySelector({
   const [activityIdInput, setActivityIdInput] = useState("");
   const [idLoading, setIdLoading] = useState(false);
 
+  // Additional filters
+  const [nameFilter, setNameFilter] = useState("");
+  const [typeFilter, setTypeFilter] = useState("");
+  const [minDistance, setMinDistance] = useState("");
+  const [minDuration, setMinDuration] = useState("");
+
+  const activityTypes = useMemo(() => {
+    return Array.from(new Set(activities.map((a) => a.type))).sort();
+  }, [activities]);
+
+  const filteredActivities = useMemo(() => {
+    return activities.filter((activity) => {
+      if (
+        nameFilter &&
+        !activity.name.toLowerCase().includes(nameFilter.toLowerCase())
+      ) {
+        return false;
+      }
+      if (typeFilter && activity.type !== typeFilter) {
+        return false;
+      }
+      if (minDistance && activity.distance < Number(minDistance) * 1000) {
+        return false;
+      }
+      if (minDuration && activity.moving_time < Number(minDuration) * 60) {
+        return false;
+      }
+      return true;
+    });
+  }, [activities, nameFilter, typeFilter, minDistance, minDuration]);
+
   function buildUrl(pageNum: number) {
     const params = new URLSearchParams({
       page: String(pageNum),
-      per_page: "30",
+      per_page: "200",
     });
     if (dateRange?.from) {
       params.set("after", format(dateRange.from, "yyyy-MM-dd"));
@@ -60,7 +91,7 @@ export function ActivitySelector({
       } else {
         setActivities((prev) => [...prev, ...data]);
       }
-      setHasMore(data.length === 30);
+      setHasMore(data.length === 200);
       setPage(pageNum);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unknown error");
@@ -214,6 +245,54 @@ export function ActivitySelector({
         )}
       </div>
 
+      {/* More filters */}
+      <div className="space-y-2 pt-2 border-t border-gray-100">
+        <label className="block text-xs text-gray-500">More Filters</label>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <input
+              type="text"
+              value={nameFilter}
+              onChange={(e) => setNameFilter(e.target.value)}
+              placeholder="Filter by name..."
+              className="w-full rounded border border-gray-300 px-2 py-1.5 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+            />
+          </div>
+          <div>
+            <select
+              value={typeFilter}
+              onChange={(e) => setTypeFilter(e.target.value)}
+              className="w-full rounded border border-gray-300 px-2 py-1.5 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent bg-white"
+            >
+              <option value="">All Types</option>
+              {activityTypes.map((type) => (
+                <option key={type} value={type}>
+                  {type}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <input
+              type="number"
+              value={minDistance}
+              onChange={(e) => setMinDistance(e.target.value)}
+              placeholder="Min distance (km)"
+              className="w-full rounded border border-gray-300 px-2 py-1.5 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+            />
+          </div>
+          <div>
+            <input
+              type="number"
+              value={minDuration}
+              onChange={(e) => setMinDuration(e.target.value)}
+              placeholder="Min duration (min)"
+              className="w-full rounded border border-gray-300 px-2 py-1.5 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+            />
+          </div>
+        </div>
+      </div>
+
       {error && (
         <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-xs text-red-600">
           {error}
@@ -222,7 +301,7 @@ export function ActivitySelector({
 
       {/* Activity list */}
       <div className="max-h-96 overflow-y-auto rounded-lg border border-gray-200">
-        {activities.map((activity) => {
+        {filteredActivities.map((activity) => {
           const isSelected = selectedIds.has(activity.id);
           return (
             <button
