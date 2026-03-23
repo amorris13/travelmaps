@@ -70,17 +70,12 @@ export function ActivitySelector({
   }
 
   useEffect(() => {
-    fetchActivities(1);
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- only fetch on mount
-  }, []);
-
-  function applyDateFilter() {
     fetchActivities(1, true);
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- fetch on mount and when dateRange changes
+  }, [dateRange]);
 
   function clearDateFilter() {
     setDateRange(undefined);
-    fetchActivities(1, true, `/api/strava/activities?page=1&per_page=30`);
   }
 
   async function addActivityById() {
@@ -207,22 +202,16 @@ export function ActivitySelector({
           onChange={setDateRange}
           className="w-full"
         />
-        <div className="flex gap-2 mt-1.5">
-          <button
-            onClick={applyDateFilter}
-            className="rounded bg-gray-100 px-2 py-1 text-xs text-gray-700 hover:bg-gray-200"
-          >
-            Apply
-          </button>
-          {dateRange && (
+        {dateRange && (
+          <div className="flex gap-2 mt-1.5">
             <button
               onClick={clearDateFilter}
               className="rounded px-2 py-1 text-xs text-gray-500 hover:text-gray-700"
             >
               Clear
             </button>
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       {error && (
