@@ -11,7 +11,7 @@ interface ExportButtonProps {
 export function ExportButton({ posterRef, title }: ExportButtonProps) {
   const [exporting, setExporting] = useState(false);
 
-  async function handleExport(format: "svg" | "png" | "pdf") {
+  async function handleExport(format: "png" | "pdf") {
     if (!posterRef.current) return;
     setExporting(true);
     try {
@@ -26,13 +26,6 @@ export function ExportButton({ posterRef, title }: ExportButtonProps) {
 
   return (
     <div className="flex gap-2">
-      <button
-        onClick={() => handleExport("svg")}
-        disabled={exporting}
-        className="flex-1 rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 transition-colors"
-      >
-        SVG
-      </button>
       <button
         onClick={() => handleExport("png")}
         disabled={exporting}
