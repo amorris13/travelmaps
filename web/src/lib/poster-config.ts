@@ -10,7 +10,7 @@ export function createDefaultPosterConfig(
     title: title || "My Journey",
     dateRange: "",
     accentColor: ACCENT_COLOR,
-    fontFamily: "Helvetica Neue",
+    fontFamily: "Arimo",
     mapStyle: "muted",
     showElevation: true,
     showStageTable: stages.length > 1,

@@ -1,6 +1,6 @@
 export const ACCENT_COLOR = "#C61016";
-export const FONT_FAMILY = "Helvetica";
-export const FONT_FAMILY_LIGHT = "Helvetica Neue, sans-serif";
+export const FONT_FAMILY = "Arimo, Helvetica Neue, Helvetica, sans-serif";
+export const FONT_FAMILY_LIGHT = "Arimo, Helvetica Neue, sans-serif";
 export const LABEL_FONT_SIZE_PX = 18;
 export const MARKER_RADIUS = 5;
 export const SIDE_PX = 1200;

@@ -17,10 +17,9 @@ function makeResvg(svgString: string, width: number) {
     font: {
       fontFiles,
       loadSystemFonts: false,
-      // Map generic families to the Liberation fonts we bundle
-      sansSerifFamily: "Liberation Sans",
-      serifFamily: "Liberation Serif",
-      defaultFontFamily: "Liberation Sans",
+      // Map generic families to our bundled fonts (Montserrat + Arimo)
+      sansSerifFamily: "Arimo",
+      defaultFontFamily: "Arimo",
     },
   });
 }
