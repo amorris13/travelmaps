@@ -197,98 +197,90 @@ export function ActivitySelector({
 
   return (
     <div className="space-y-3">
-      <h3 className="text-sm font-medium text-gray-700">Select Activities</h3>
+      <div className="sticky top-0 bg-white sm:bg-gray-50 pt-1 pb-3 space-y-3 z-20">
+        <h3 className="text-sm font-medium text-gray-700">Select Activities</h3>
 
-      {/* Direct activity ID input */}
-      <div>
-        <label className="block text-xs text-gray-500 mb-1">
-          Add by Activity ID
-        </label>
-        <div className="flex gap-2">
-          <input
-            type="text"
-            value={activityIdInput}
-            onChange={(e) => setActivityIdInput(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && addActivityById()}
-            placeholder="e.g. 1234567890"
-            className="flex-1 rounded border border-gray-300 px-2 py-1.5 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
-          />
-          <button
-            onClick={addActivityById}
-            disabled={idLoading}
-            className="rounded bg-accent px-3 py-1.5 text-sm text-white hover:opacity-90 disabled:opacity-50"
-          >
-            {idLoading ? "..." : "Add"}
-          </button>
-        </div>
-      </div>
-
-      {/* Date range filter */}
-      <div>
-        <label className="block text-xs text-gray-500 mb-1">
-          Filter by Date Range
-        </label>
-        <DateRangePicker
-          value={dateRange}
-          onChange={setDateRange}
-          className="w-full"
-        />
-        {dateRange && (
-          <div className="flex gap-2 mt-1.5">
-            <button
-              onClick={clearDateFilter}
-              className="rounded px-2 py-1 text-xs text-gray-500 hover:text-gray-700"
-            >
-              Clear
-            </button>
-          </div>
-        )}
-      </div>
-
-      {/* More filters */}
-      <div className="space-y-2 pt-2 border-t border-gray-100">
-        <label className="block text-xs text-gray-500">More Filters</label>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div>
+        {/* Direct activity ID input */}
+        <div>
+          <label className="block text-xs text-gray-500 mb-1">
+            Add by Activity ID
+          </label>
+          <div className="flex gap-2">
             <input
               type="text"
-              value={nameFilter}
-              onChange={(e) => setNameFilter(e.target.value)}
-              placeholder="Filter by name..."
-              className="w-full rounded border border-gray-300 px-2 py-1.5 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+              value={activityIdInput}
+              onChange={(e) => setActivityIdInput(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && addActivityById()}
+              placeholder="e.g. 1234567890"
+              className="flex-1 rounded border border-gray-300 px-2 py-1.5 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
             />
-          </div>
-          <div>
-            <select
-              value={typeFilter}
-              onChange={(e) => setTypeFilter(e.target.value)}
-              className="w-full rounded border border-gray-300 px-2 py-1.5 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent bg-white"
+            <button
+              onClick={addActivityById}
+              disabled={idLoading}
+              className="rounded bg-accent px-3 py-1.5 text-sm text-white hover:opacity-90 disabled:opacity-50"
             >
-              <option value="">All Types</option>
-              {activityTypes.map((type) => (
-                <option key={type} value={type}>
-                  {type}
-                </option>
-              ))}
-            </select>
+              {idLoading ? "..." : "Add"}
+            </button>
           </div>
-          <div>
-            <input
-              type="number"
-              value={minDistance}
-              onChange={(e) => setMinDistance(e.target.value)}
-              placeholder="Min distance (km)"
-              className="w-full rounded border border-gray-300 px-2 py-1.5 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
-            />
-          </div>
-          <div>
-            <input
-              type="number"
-              value={minDuration}
-              onChange={(e) => setMinDuration(e.target.value)}
-              placeholder="Min duration (min)"
-              className="w-full rounded border border-gray-300 px-2 py-1.5 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
-            />
+        </div>
+
+        {/* Date range filter */}
+        <div>
+          <label className="block text-xs text-gray-500 mb-1">
+            Filter by Date Range
+          </label>
+          <DateRangePicker
+            value={dateRange}
+            onChange={setDateRange}
+            className="w-full"
+          />
+        </div>
+
+        {/* More filters */}
+        <div className="space-y-2 pt-2 border-t border-gray-100">
+          <label className="block text-xs text-gray-500">More Filters</label>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <input
+                type="text"
+                value={nameFilter}
+                onChange={(e) => setNameFilter(e.target.value)}
+                placeholder="Filter by name..."
+                className="w-full rounded border border-gray-300 px-2 py-1.5 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+              />
+            </div>
+            <div>
+              <select
+                value={typeFilter}
+                onChange={(e) => setTypeFilter(e.target.value)}
+                className="w-full rounded border border-gray-300 px-2 py-1.5 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent bg-white"
+              >
+                <option value="">All Types</option>
+                {activityTypes.map((type) => (
+                  <option key={type} value={type}>
+                    {type}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <input
+                type="number"
+                value={minDistance}
+                onChange={(e) => setMinDistance(e.target.value)}
+                placeholder="Min distance (km)"
+                className="w-full rounded border border-gray-300 px-2 py-1.5 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+              />
+            </div>
+            <div>
+              <input
+                type="number"
+                value={minDuration}
+                onChange={(e) => setMinDuration(e.target.value)}
+                placeholder="Min duration (min)"
+                className="w-full rounded border border-gray-300 px-2 py-1.5 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -300,7 +292,7 @@ export function ActivitySelector({
       )}
 
       {/* Activity list */}
-      <div className="max-h-96 overflow-y-auto rounded-lg border border-gray-200">
+      <div className="rounded-lg border border-gray-200">
         {filteredActivities.map((activity) => {
           const isSelected = selectedIds.has(activity.id);
           return (

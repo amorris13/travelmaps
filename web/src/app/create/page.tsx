@@ -141,7 +141,7 @@ export default function CreatePage() {
   );
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden">
+    <div className="flex flex-col h-screen h-[100dvh] overflow-hidden">
       {/* Header */}
       <header className="shrink-0 border-b border-gray-200 bg-white px-4 py-3 flex items-center justify-between">
         <a href="/" className="text-lg font-light text-gray-900">
@@ -177,8 +177,9 @@ export default function CreatePage() {
       </header>
 
       {/* Step 1: Activity Selection */}
-      <main className={`flex-1 overflow-y-auto flex flex-col items-center bg-gray-50 p-4 sm:p-8 ${step !== 1 ? "hidden" : ""}`}>
-          <div className="w-full max-w-lg">
+      <main className={`flex-1 flex flex-col min-h-0 bg-gray-50 h-full relative ${step !== 1 ? "hidden" : ""}`}>
+        <div className="flex-1 overflow-y-auto pb-24 sm:pb-0">
+          <div className="w-full max-w-lg mx-auto p-4 sm:p-8">
             <div className="mb-6">
               <h1 className="text-2xl font-light text-gray-900">
                 Select Activities
@@ -191,23 +192,27 @@ export default function CreatePage() {
               onSelect={handleActivitiesSelected}
               selectedIds={selectedIds}
             />
-            <div className="mt-6 flex justify-end">
-              <button
-                onClick={() => setStep(2)}
-                disabled={selectedActivities.length === 0 || loadingDetails}
-                className="px-6 py-2 bg-accent text-white rounded-md text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-90 transition-opacity"
-              >
-                {loadingDetails
-                  ? "Loading activity data…"
-                  : selectedActivities.length === 0
-                  ? "Select activities to continue"
-                  : `Continue with ${selectedActivities.length} ${
-                      selectedActivities.length === 1 ? "activity" : "activities"
-                    } →`}
-              </button>
-            </div>
           </div>
-        </main>
+        </div>
+
+        <div className="fixed bottom-0 left-0 right-0 sm:relative shrink-0 border-t border-gray-200 bg-white p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] z-30 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] sm:shadow-none">
+          <div className="max-w-lg mx-auto flex justify-end">
+            <button
+              onClick={() => setStep(2)}
+              disabled={selectedActivities.length === 0 || loadingDetails}
+              className="w-full sm:w-auto px-6 py-3 sm:py-2 bg-accent text-white rounded-md text-base sm:text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-90 transition-opacity shadow-sm"
+            >
+              {loadingDetails
+                ? "Loading activity data…"
+                : selectedActivities.length === 0
+                ? "Select activities to continue"
+                : `Continue with ${selectedActivities.length} ${
+                    selectedActivities.length === 1 ? "activity" : "activities"
+                  } →`}
+            </button>
+          </div>
+        </div>
+      </main>
 
       {/* Step 2: Customization + Poster preview */}
       {step === 2 && (
