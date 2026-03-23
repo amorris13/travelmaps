@@ -39,21 +39,22 @@ export async function GET(request: NextRequest) {
 
   // Verify the state signature and handle cross-domain redirect if necessary.
   // The state is in the format: random:base64Origin:signature
+  let targetOrigin: string | null = null;
   const stateParts = state.split(":");
   if (stateParts.length === 3) {
     const [random, base64Origin, signature] = stateParts;
-    const origin = Buffer.from(base64Origin, "base64").toString("utf-8");
+    targetOrigin = Buffer.from(base64Origin, "base64").toString("utf-8");
     const expectedSignature = createHmac("sha256", clientSecret)
-      .update(`${random}:${origin}`)
+      .update(`${random}:${targetOrigin}`)
       .digest("hex");
 
     if (signature === expectedSignature) {
       const currentUrl = new URL(request.url);
       const currentOrigin = `${currentUrl.protocol}//${currentUrl.host}`;
 
-      if (origin !== currentOrigin) {
+      if (targetOrigin !== currentOrigin) {
         // Redirect back to the correct deployment's callback URL
-        const redirectUrl = new URL(`${origin}/api/auth/strava/callback`);
+        const redirectUrl = new URL(`${targetOrigin}/api/auth/strava/callback`);
         redirectUrl.search = currentUrl.search;
         return NextResponse.redirect(redirectUrl.toString());
       }
@@ -71,7 +72,7 @@ export async function GET(request: NextRequest) {
   const canonicalUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const currentUrl = new URL(request.url);
   const currentOrigin = `${currentUrl.protocol}//${currentUrl.host}`;
-  const baseUrl = canonicalUrl || currentOrigin;
+  const baseUrl = canonicalUrl || targetOrigin || currentOrigin;
   const redirectUri = `${baseUrl}/api/auth/strava/callback`;
 
   try {
