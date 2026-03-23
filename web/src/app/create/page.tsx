@@ -153,7 +153,8 @@ export default function CreatePage() {
                 : "text-gray-400"
             }
           >
-            1. Select Activities
+            <span className="sm:hidden">1</span>
+            <span className="hidden sm:inline">1. Select Activities</span>
           </span>
           <span className="text-gray-300">›</span>
           <span
@@ -163,14 +164,15 @@ export default function CreatePage() {
                 : "text-gray-400"
             }
           >
-            2. Customize &amp; Export
+            <span className="sm:hidden">2</span>
+            <span className="hidden sm:inline">2. Customize &amp; Export</span>
           </span>
         </div>
-        <div className="w-48" />
+        <div className="hidden md:block md:w-48" />
       </header>
 
       {/* Step 1: Activity Selection */}
-      <main className={`flex-1 overflow-y-auto flex flex-col items-center bg-gray-50 p-8 ${step !== 1 ? "hidden" : ""}`}>
+      <main className={`flex-1 overflow-y-auto flex flex-col items-center bg-gray-50 p-4 sm:p-8 ${step !== 1 ? "hidden" : ""}`}>
           <div className="w-full max-w-lg">
             <div className="mb-6">
               <h1 className="text-2xl font-light text-gray-900">
@@ -204,9 +206,9 @@ export default function CreatePage() {
 
       {/* Step 2: Customization + Poster preview */}
       {step === 2 && (
-        <div className="flex flex-1 min-h-0 overflow-hidden">
+        <div className="flex flex-col-reverse lg:flex-row flex-1 min-h-0 overflow-hidden">
           {/* Left sidebar: Customization */}
-          <aside className="w-80 shrink-0 border-r border-gray-200 overflow-y-auto bg-white">
+          <aside className="w-full lg:w-80 shrink-0 border-t lg:border-t-0 lg:border-r border-gray-200 overflow-y-auto bg-white h-1/2 lg:h-full">
             <div className="p-4 space-y-6">
               <button
                 onClick={() => setStep(1)}
