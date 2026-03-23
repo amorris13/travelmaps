@@ -138,7 +138,7 @@ export function PosterMap({
       return;
     }
 
-    const timeoutId = setTimeout(() => {
+    const runAlgorithm = () => {
       const placements = calculateBestLabelPositions(
         baseMapData.labelPoints,
         32,
@@ -148,8 +148,16 @@ export function PosterMap({
         baseMapData.sidePx
       );
       setLabelPlacements(placements);
-    }, 500);
+    };
 
+    // If we don't have placements yet, run immediately to avoid a flash of missing labels
+    // and to speed up tests. Otherwise, debounce to avoid excessive calculations during config changes.
+    if (!labelPlacements) {
+      runAlgorithm();
+      return;
+    }
+
+    const timeoutId = setTimeout(runAlgorithm, 500);
     return () => clearTimeout(timeoutId);
   }, [baseMapData]);
 
@@ -289,6 +297,7 @@ export function PosterMap({
             fontFamily="Helvetica Neue, sans-serif"
             fontSize={labelFontSize}
             filter={`url(#${filterId})`}
+            className="label"
           >
             {lp.label.name}
           </text>

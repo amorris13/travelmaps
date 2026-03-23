@@ -26,15 +26,15 @@ describe("Poster Visual Regression", () => {
     // Mock fetch for map tiles and geocoding
     global.fetch = vi.fn().mockImplementation((url: string) => {
       if (url.includes("/api/map-tile")) {
-        // Return a 1x1 transparent PNG buffer
-        const transparentPng = Buffer.from(
-          "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==",
+        // Return a 1x1 light green PNG buffer
+        const lightGreenPng = Buffer.from(
+          "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mO89f9/PQAIDwNc69y97wAAAABJRU5ErkJggg==",
           "base64"
         );
         return Promise.resolve({
           ok: true,
-          blob: () => Promise.resolve(new Blob([transparentPng], { type: "image/png" })),
-          arrayBuffer: () => Promise.resolve(transparentPng.buffer),
+          blob: () => Promise.resolve(new Blob([lightGreenPng], { type: "image/png" })),
+          arrayBuffer: () => Promise.resolve(lightGreenPng.buffer),
         } as any);
       }
       return Promise.resolve({
@@ -52,18 +52,17 @@ describe("Poster Visual Regression", () => {
     it(`renders "${name}" correctly`, async () => {
       const { container } = render(<Poster config={config} />);
 
-      // Wait for the 500ms debounce in PosterMap to complete
-      // Since we are NOT using fake timers here (as it might interfere with other things),
-      // we use waitFor with a long timeout.
+      // Wait for the labels to be placed (now immediate on first render)
       await waitFor(() => {
         const svg = container.querySelector("svg");
         expect(svg).toBeTruthy();
-        // The PosterMap component updates labelPlacements after 500ms
-        // We can't easily check for labelPlacements directly, but we can wait.
-      }, { timeout: 2000 });
-
-      // Actually wait for real time if necessary, or just wait for the element to be stable
-      await new Promise(resolve => setTimeout(resolve, 600));
+        // Check for presence of labels if we expect them
+        const hasLabels = config.stages.some(s => s.startLabel || s.endLabel) || config.additionalLocations.length > 0;
+        if (hasLabels) {
+          const labels = svg!.querySelectorAll(".label");
+          expect(labels.length).toBeGreaterThan(0);
+        }
+      }, { timeout: 1000 });
 
       const svgElement = container.querySelector("svg")!;
       const svgString = svgElement.outerHTML;
