@@ -3,7 +3,9 @@ import {
   formatDistanceCompact,
   formatDurationCompact,
   formatSpeedCompact,
+  formatPaceCompact,
   formatElevationCompact,
+  usePace,
 } from "@/lib/poster-config";
 
 interface PosterStageTableProps {
@@ -12,6 +14,8 @@ interface PosterStageTableProps {
   y: number;
   width: number;
   columnCount?: number;
+  units?: "metric" | "imperial";
+  showSeconds?: boolean;
 }
 
 export function PosterStageTable({
@@ -20,6 +24,8 @@ export function PosterStageTable({
   y,
   width,
   columnCount = 3,
+  units = "metric",
+  showSeconds = false,
 }: PosterStageTableProps) {
   const padding = width * 0.04;
   const tableWidth = width - padding * 2;
@@ -40,16 +46,47 @@ export function PosterStageTable({
   const columnGroupWidth = tableWidth / columnCount;
   const gap = 12; // gap between column groups
 
-  // Sub-columns within each group: #, STAGE, DIST, TIME, SPEED, GAIN
+  const allPace =
+    stages.length > 0 && stages.every((s) => usePace(s.activityType));
+  const hasMixed =
+    stages.length > 0 &&
+    !allPace &&
+    stages.some((s) => usePace(s.activityType));
+
+  // Sub-columns within each group: #, STAGE, DIST, TIME, SPD/PACE, GAIN
   const subColWidths = (groupW: number) => {
     const w = groupW - gap;
+    let speedLabel = "SPEED";
+    if (allPace) speedLabel = "PACE";
+    else if (hasMixed) speedLabel = "SPD/PACE";
+
     return [
       { label: "", width: w * 0.06, align: "end" as "start" | "middle" | "end" },
-      { label: "STAGE", width: w * 0.42, align: "start" as "start" | "middle" | "end" },
-      { label: "DIST", width: w * 0.12, align: "end" as "start" | "middle" | "end" },
-      { label: "TIME", width: w * 0.13, align: "end" as "start" | "middle" | "end" },
-      { label: "SPEED", width: w * 0.13, align: "end" as "start" | "middle" | "end" },
-      { label: "GAIN", width: w * 0.14, align: "end" as "start" | "middle" | "end" },
+      {
+        label: "STAGE",
+        width: w * 0.42,
+        align: "start" as "start" | "middle" | "end",
+      },
+      {
+        label: "DIST",
+        width: w * 0.12,
+        align: "end" as "start" | "middle" | "end",
+      },
+      {
+        label: "TIME",
+        width: w * 0.13,
+        align: "end" as "start" | "middle" | "end",
+      },
+      {
+        label: speedLabel,
+        width: w * 0.13,
+        align: "end" as "start" | "middle" | "end",
+      },
+      {
+        label: "GAIN",
+        width: w * 0.14,
+        align: "end" as "start" | "middle" | "end",
+      },
     ];
   };
 
@@ -99,13 +136,16 @@ export function PosterStageTable({
                 fromLabel && toLabel
                   ? `${fromLabel} \u2192 ${toLabel}`
                   : stage.name || stage.endLabel || `Stage ${globalIdx + 1}`;
+              const isStagePace = usePace(stage.activityType);
               const values = [
                 `${globalIdx + 1}`,
                 stageName,
-                formatDistanceCompact(stage.distance),
-                formatDurationCompact(stage.movingTime),
-                formatSpeedCompact(stage.averageSpeed),
-                formatElevationCompact(stage.elevationGain),
+                formatDistanceCompact(stage.distance, units),
+                formatDurationCompact(stage.movingTime, showSeconds),
+                isStagePace
+                  ? formatPaceCompact(stage.averageSpeed, units)
+                  : formatSpeedCompact(stage.averageSpeed, units),
+                formatElevationCompact(stage.elevationGain, units),
               ];
 
               return (
