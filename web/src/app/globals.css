@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "@fontsource/montserrat/latin-400.css";
+@import "@fontsource/montserrat/latin-700.css";
+
 :root {
   --accent: #C61016;
   --background: #fafafa;
@@ -11,7 +14,7 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 /* Poster preview scaling */

@@ -273,7 +273,7 @@ export function PosterMap({
             x={lp.offsetPoint.x}
             y={lp.offsetPoint.y + labelFontSize}
             fill={accentColor}
-            fontFamily="Helvetica, sans-serif"
+            fontFamily="Montserrat, sans-serif"
             fontSize={labelFontSize}
             filter={`url(#${filterId})`}
           >

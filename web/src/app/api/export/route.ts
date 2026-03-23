@@ -4,12 +4,16 @@ import { NextRequest, NextResponse } from "next/server";
 import { Resvg } from "@resvg/resvg-js";
 import { PDFDocument } from "pdf-lib";
 
-// Load bundled fonts so Vercel (which has no system fonts) can render text.
-const fontsDir = path.join(process.cwd(), "fonts");
-const fontFiles = fs
-  .readdirSync(fontsDir)
-  .filter((f) => f.endsWith(".ttf") || f.endsWith(".otf"))
-  .map((f) => path.join(fontsDir, f));
+// Resolve Montserrat woff2 files from @fontsource/montserrat so the same
+// font is used in both the browser and the server-side SVG renderer.
+const fontsourceDir = path.join(
+  process.cwd(),
+  "node_modules/@fontsource/montserrat/files"
+);
+const fontFiles = [
+  "montserrat-latin-400-normal.woff2",
+  "montserrat-latin-700-normal.woff2",
+].map((f) => path.join(fontsourceDir, f));
 
 function makeResvg(svgString: string, width: number) {
   return new Resvg(svgString, {
@@ -17,10 +21,8 @@ function makeResvg(svgString: string, width: number) {
     font: {
       fontFiles,
       loadSystemFonts: false,
-      // Map generic families to the Liberation fonts we bundle
-      sansSerifFamily: "Liberation Sans",
-      serifFamily: "Liberation Serif",
-      defaultFontFamily: "Liberation Sans",
+      sansSerifFamily: "Montserrat",
+      defaultFontFamily: "Montserrat",
     },
   });
 }

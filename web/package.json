@@ -9,6 +9,7 @@
     "test": "echo 'No web tests'"
   },
   "dependencies": {
+    "@fontsource/montserrat": "^5.2.8",
     "@mapbox/polyline": "^1.2.1",
     "@resvg/resvg-js": "^2.6.2",
     "date-fns": "^4.1.0",

@@ -71,7 +71,7 @@ export function PosterStageTable({
                   y={headerHeight * 0.7}
                   textAnchor={col.align}
                   fill="#999999"
-                  fontFamily="Helvetica Neue, Helvetica, sans-serif"
+                  fontFamily="Montserrat, sans-serif"
                   fontSize={headerFontSize}
                   fontWeight={600}
                   letterSpacing="0.08em"
@@ -123,7 +123,7 @@ export function PosterStageTable({
                         y={rowY + rowHeight * 0.75}
                         textAnchor={col.align}
                         fill={j === 0 ? accentColor : "#333333"}
-                        fontFamily="Helvetica Neue, Helvetica, sans-serif"
+                        fontFamily="Montserrat, sans-serif"
                         fontSize={fontSize}
                         fontWeight={j === 0 ? 700 : 300}
                       >
