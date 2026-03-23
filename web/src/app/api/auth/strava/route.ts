@@ -18,7 +18,7 @@ export async function GET(request: Request) {
   // Use the canonical URL for the redirect_uri if we're not on it.
   // This allows preview deployments and localhost to use the production
   // callback, which can then redirect back to the correct origin.
-  const baseUrl = canonicalUrl || currentOrigin;
+  const baseUrl = (canonicalUrl || currentOrigin).replace(/\/$/, "");
   const redirectUri = `${baseUrl}/api/auth/strava/callback`;
 
   const scope = "read,activity:read_all";
