@@ -1,10 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createHmac } from "crypto";
 import { exchangeStravaToken } from "@lib/strava";
 
 export async function GET(request: NextRequest) {
   const code = request.nextUrl.searchParams.get("code");
   const error = request.nextUrl.searchParams.get("error");
   const state = request.nextUrl.searchParams.get("state");
+
+  const clientId = process.env.STRAVA_CLIENT_ID;
+  const clientSecret = process.env.STRAVA_CLIENT_SECRET;
+
+  if (!clientId || !clientSecret) {
+    return NextResponse.json(
+      { error: "Strava credentials not configured" },
+      { status: 500 }
+    );
+  }
 
   if (error) {
     return NextResponse.redirect(
@@ -26,18 +37,50 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const clientId = process.env.STRAVA_CLIENT_ID;
-  const clientSecret = process.env.STRAVA_CLIENT_SECRET;
+  // Verify the state signature and handle cross-domain redirect if necessary.
+  // The state is in the format: random:base64Origin:signature
+  const stateParts = state.split(":");
+  if (stateParts.length === 3) {
+    const [random, base64Origin, signature] = stateParts;
+    const origin = Buffer.from(base64Origin, "base64").toString("utf-8");
+    const expectedSignature = createHmac("sha256", clientSecret)
+      .update(`${random}:${origin}`)
+      .digest("hex");
 
-  if (!clientId || !clientSecret) {
-    return NextResponse.json(
-      { error: "Strava credentials not configured" },
-      { status: 500 }
-    );
+    if (signature === expectedSignature) {
+      const currentUrl = new URL(request.url);
+      const currentOrigin = `${currentUrl.protocol}//${currentUrl.host}`;
+
+      if (origin !== currentOrigin) {
+        // Redirect back to the correct deployment's callback URL
+        const redirectUrl = new URL(`${origin}/api/auth/strava/callback`);
+        redirectUrl.search = currentUrl.search;
+        return NextResponse.redirect(redirectUrl.toString());
+      }
+    } else {
+      console.error("Invalid state signature");
+      return NextResponse.redirect(
+        new URL("/?error=invalid_state", request.url)
+      );
+    }
   }
 
+  // We are on the correct origin (the one that initiated the request).
+  // Proceed with the token exchange using the same redirect_uri that was
+  // used to initiate the OAuth flow.
+  const canonicalUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const currentUrl = new URL(request.url);
+  const currentOrigin = `${currentUrl.protocol}//${currentUrl.host}`;
+  const baseUrl = canonicalUrl || currentOrigin;
+  const redirectUri = `${baseUrl}/api/auth/strava/callback`;
+
   try {
-    const tokenData = await exchangeStravaToken(clientId, clientSecret, code);
+    const tokenData = await exchangeStravaToken(
+      clientId,
+      clientSecret,
+      code,
+      redirectUri
+    );
 
     // Encode token data as base64 JSON in an HTTP-only cookie
     const tokenPayload = JSON.stringify({
