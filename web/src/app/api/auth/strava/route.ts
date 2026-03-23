@@ -1,22 +1,33 @@
 import { NextResponse } from "next/server";
-import { randomBytes } from "crypto";
+import { randomBytes, createHmac } from "crypto";
 
 export async function GET(request: Request) {
   const clientId = process.env.STRAVA_CLIENT_ID;
-  if (!clientId) {
+  const clientSecret = process.env.STRAVA_CLIENT_SECRET;
+  if (!clientId || !clientSecret) {
     return NextResponse.json(
-      { error: "STRAVA_CLIENT_ID not configured" },
+      { error: "Strava credentials not configured" },
       { status: 500 }
     );
   }
 
   const requestUrl = new URL(request.url);
-  const baseUrl =
-    process.env.NEXT_PUBLIC_BASE_URL ||
-    `${requestUrl.protocol}//${requestUrl.host}`;
+  const currentOrigin = `${requestUrl.protocol}//${requestUrl.host}`;
+  const canonicalUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
+  // Use the canonical URL for the redirect_uri if we're not on it.
+  // This allows preview deployments and localhost to use the production
+  // callback, which can then redirect back to the correct origin.
+  const baseUrl = (canonicalUrl || currentOrigin).replace(/\/$/, "");
   const redirectUri = `${baseUrl}/api/auth/strava/callback`;
+
   const scope = "read,activity:read_all";
-  const state = randomBytes(32).toString("hex");
+  const random = randomBytes(16).toString("hex");
+  // Sign the current origin so we can safely redirect back to it in the callback
+  const signature = createHmac("sha256", clientSecret)
+    .update(`${random}:${currentOrigin}`)
+    .digest("hex");
+  const state = `${random}:${Buffer.from(currentOrigin).toString("base64")}:${signature}`;
 
   const authUrl = new URL("https://www.strava.com/oauth/authorize");
   authUrl.searchParams.set("client_id", clientId);

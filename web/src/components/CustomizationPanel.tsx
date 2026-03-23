@@ -70,102 +70,104 @@ export function CustomizationPanel({
   }
 
   return (
-    <div className="space-y-6">
-      {/* Title */}
-      <div>
-        <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">
-          Title
-        </label>
-        <input
-          type="text"
-          value={config.title}
-          onChange={(e) => update({ title: e.target.value })}
-          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
-        />
-      </div>
+    <div className="space-y-1">
+      {/* General */}
+      <CollapsibleSection title="General" defaultOpen>
+        <div className="space-y-4">
+          <div>
+            <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">
+              Title
+            </label>
+            <input
+              type="text"
+              value={config.title}
+              onChange={(e) => update({ title: e.target.value })}
+              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+            />
+          </div>
 
-      {/* Date Range */}
-      <div>
-        <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">
-          Date Range
-        </label>
-        <input
-          type="text"
-          value={config.dateRange}
-          onChange={(e) => update({ dateRange: e.target.value })}
-          placeholder="e.g. July 2024"
-          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
-        />
-      </div>
-
-      {/* Accent Color */}
-      <div>
-        <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">
-          Accent Color
-        </label>
-        <div className="flex items-center gap-2">
-          <input
-            type="color"
-            value={config.accentColor}
-            onChange={(e) => update({ accentColor: e.target.value })}
-            className="h-8 w-8 cursor-pointer rounded border border-gray-300"
-          />
-          <input
-            type="text"
-            value={config.accentColor}
-            onChange={(e) => update({ accentColor: e.target.value })}
-            className="w-24 rounded-md border border-gray-300 px-2 py-1 text-sm font-mono"
-          />
+          <div>
+            <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">
+              Date Range
+            </label>
+            <input
+              type="text"
+              value={config.dateRange}
+              onChange={(e) => update({ dateRange: e.target.value })}
+              placeholder="e.g. July 2024"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+            />
+          </div>
         </div>
-      </div>
+      </CollapsibleSection>
 
-      {/* Map Style */}
-      <div>
-        <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">
-          Map Style
-        </label>
-        <div className="grid grid-cols-2 gap-2">
-          {Object.entries(MAP_STYLES).map(([key, style]) => (
-            <button
-              key={key}
-              onClick={() => update({ mapStyle: key })}
-              className={`rounded-md border px-3 py-2 text-sm transition-colors ${
-                config.mapStyle === key
-                  ? "border-accent bg-red-50 text-accent"
-                  : "border-gray-200 text-gray-600 hover:border-gray-300"
-              }`}
-            >
-              {style.label}
-            </button>
-          ))}
+      {/* Appearance */}
+      <CollapsibleSection title="Appearance" defaultOpen>
+        <div className="space-y-4">
+          <div>
+            <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">
+              Accent Color
+            </label>
+            <div className="flex items-center gap-2">
+              <input
+                type="color"
+                value={config.accentColor}
+                onChange={(e) => update({ accentColor: e.target.value })}
+                className="h-8 w-8 cursor-pointer rounded border border-gray-300"
+              />
+              <input
+                type="text"
+                value={config.accentColor}
+                onChange={(e) => update({ accentColor: e.target.value })}
+                className="w-24 rounded-md border border-gray-300 px-2 py-1 text-sm font-mono"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">
+              Map Style
+            </label>
+            <div className="grid grid-cols-2 gap-2">
+              {Object.entries(MAP_STYLES).map(([key, style]) => (
+                <button
+                  key={key}
+                  onClick={() => update({ mapStyle: key })}
+                  className={`rounded-md border px-3 py-2 text-sm transition-colors ${
+                    config.mapStyle === key
+                      ? "border-accent bg-red-50 text-accent"
+                      : "border-gray-200 text-gray-600 hover:border-gray-300"
+                  }`}
+                >
+                  {style.label}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
+      </CollapsibleSection>
 
-      {/* Toggles */}
-      <div className="space-y-3">
-        <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider">
-          Sections
-        </label>
-        <Toggle
-          label="Elevation Profile"
-          checked={config.showElevation}
-          onChange={(v) => update({ showElevation: v })}
-        />
-        {config.stages.length > 1 && (
+      {/* Sections */}
+      <CollapsibleSection title="Sections" defaultOpen>
+        <div className="space-y-3">
           <Toggle
-            label="Stage Table"
-            checked={config.showStageTable}
-            onChange={(v) => update({ showStageTable: v })}
+            label="Elevation Profile"
+            checked={config.showElevation}
+            onChange={(v) => update({ showElevation: v })}
           />
-        )}
-      </div>
+          {config.stages.length > 1 && (
+            <Toggle
+              label="Stage Table"
+              checked={config.showStageTable}
+              onChange={(v) => update({ showStageTable: v })}
+            />
+          )}
+        </div>
+      </CollapsibleSection>
 
       {/* Stage Labels */}
       {config.stages.length > 0 && (
-        <div>
-          <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
-            Stage Labels
-          </label>
+        <CollapsibleSection title="Stage Labels" defaultOpen>
           <div className="space-y-3">
             {config.stages.map((stage, i) => (
               <div key={stage.activityId} className="space-y-1">
@@ -202,7 +204,7 @@ export function CustomizationPanel({
               </div>
             ))}
           </div>
-        </div>
+        </CollapsibleSection>
       )}
 
       {/* Additional Waypoints */}
@@ -277,6 +279,41 @@ export function CustomizationPanel({
           </button>
         </div>
       </div>
+    </div>
+  );
+}
+
+function CollapsibleSection({
+  title,
+  defaultOpen = true,
+  children,
+}: {
+  title: string;
+  defaultOpen?: boolean;
+  children: React.ReactNode;
+}) {
+  const [open, setOpen] = useState(defaultOpen);
+
+  return (
+    <div className="border border-gray-100 rounded-md overflow-hidden">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between px-3 py-2 bg-gray-50 hover:bg-gray-100 transition-colors text-left"
+      >
+        <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+          {title}
+        </span>
+        <svg
+          className={`w-3.5 h-3.5 text-gray-400 transition-transform ${open ? "rotate-180" : ""}`}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2.5}
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      {open && <div className="p-3">{children}</div>}
     </div>
   );
 }
