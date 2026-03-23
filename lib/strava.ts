@@ -124,20 +124,29 @@ export async function fetchStravaStreams(
 export async function exchangeStravaToken(
   clientId: string,
   clientSecret: string,
-  code: string
+  code: string,
+  redirectUri?: string
 ): Promise<StravaTokenResponse> {
+  const params = new URLSearchParams({
+    client_id: clientId,
+    client_secret: clientSecret,
+    code,
+    grant_type: "authorization_code",
+  });
+  if (redirectUri) {
+    params.set("redirect_uri", redirectUri);
+  }
+
   const response = await fetch("https://www.strava.com/oauth/token", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({
-      client_id: clientId,
-      client_secret: clientSecret,
-      code,
-      grant_type: "authorization_code",
-    }),
+    body: params,
   });
   if (!response.ok) {
-    throw new Error(`Strava token exchange failed: ${response.status}`);
+    const errorBody = await response.text();
+    throw new Error(
+      `Strava token exchange failed: ${response.status} ${errorBody}`
+    );
   }
   return response.json() as Promise<StravaTokenResponse>;
 }
