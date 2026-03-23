@@ -45,6 +45,7 @@ export default function CreatePage() {
           return new Date(a.start_date_local).getTime() - new Date(b.start_date_local).getTime();
         });
 
+        // Fetch detailed data for each activity
         const stageConfigs: StageConfig[] = await Promise.all(
           sortedActivities.map(async (activity) => {
             const res = await fetch(`/api/strava/activity/${activity.id}`);

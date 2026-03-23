@@ -17,7 +17,12 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@lib/*": ["../lib/*"]
+      "@lib/*": ["../lib/*"],
+      "simplify-js": ["./node_modules/simplify-js"],
+      "string-pixel-width": ["./node_modules/@types/string-pixel-width"],
+      "@mapbox/polyline": ["./node_modules/@types/mapbox__polyline"],
+      "seedrandom": ["./node_modules/@types/seedrandom"],
+      "svg-intersections": ["./node_modules/@types/svg-intersections"]
     },
     "typeRoots": ["./node_modules/@types"]
   },
