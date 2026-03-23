@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { exportPoster } from "@/lib/export";
 
 interface ExportButtonProps {
@@ -8,12 +8,27 @@ interface ExportButtonProps {
   title: string;
 }
 
+type Format = "svg" | "png" | "pdf";
+
 export function ExportButton({ posterRef, title }: ExportButtonProps) {
   const [exporting, setExporting] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  async function handleExport(format: "png" | "pdf") {
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  async function handleExport(format: Format) {
     if (!posterRef.current) return;
     setExporting(true);
+    setIsOpen(false);
     try {
       const filename = title.toLowerCase().replace(/\s+/g, "-") || "poster";
       await exportPoster(posterRef.current, format, filename);
@@ -25,21 +40,57 @@ export function ExportButton({ posterRef, title }: ExportButtonProps) {
   }
 
   return (
-    <div className="flex gap-2">
+    <div className="relative inline-flex w-full" ref={dropdownRef}>
       <button
-        onClick={() => handleExport("png")}
-        disabled={exporting}
-        className="flex-1 rounded-md bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-red-700 disabled:opacity-50 transition-colors"
-      >
-        {exporting ? "Exporting..." : "PNG"}
-      </button>
-      <button
+        type="button"
         onClick={() => handleExport("pdf")}
         disabled={exporting}
-        className="flex-1 rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 transition-colors"
+        className="flex-1 bg-accent text-white px-4 py-2.5 rounded-l-md text-sm font-medium hover:opacity-90 disabled:opacity-50 transition-all flex items-center justify-center gap-2"
       >
-        PDF
+        {exporting ? (
+          <>
+            <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Exporting...
+          </>
+        ) : (
+          "Export PDF"
+        )}
       </button>
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        disabled={exporting}
+        className="px-2 bg-accent text-white border-l border-white/20 rounded-r-md hover:opacity-90 disabled:opacity-50 transition-all"
+      >
+        <svg
+          className={`w-4 h-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      {isOpen && (
+        <div className="absolute bottom-full mb-2 w-full bg-white border border-gray-200 rounded-md shadow-lg overflow-hidden z-50">
+          <button
+            onClick={() => handleExport("png")}
+            className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors border-b border-gray-100"
+          >
+            Export PNG
+          </button>
+          <button
+            onClick={() => handleExport("svg")}
+            className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+          >
+            Export SVG
+          </button>
+        </div>
+      )}
     </div>
   );
 }

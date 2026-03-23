@@ -221,6 +221,25 @@ export default function CreatePage() {
           <aside className="w-full lg:w-80 shrink-0 border-t lg:border-t-0 lg:border-r border-gray-200 flex flex-col bg-white h-1/2 lg:h-full">
             {/* Header: Tabs */}
             <div className="shrink-0 border-b border-gray-200 flex items-center px-4">
+              <button
+                onClick={() => setStep(1)}
+                className="p-1 -ml-1 text-gray-400 hover:text-gray-600 transition-colors mr-2"
+                title="Back to activities"
+              >
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                  />
+                </svg>
+              </button>
               <div className="flex flex-1">
                 {(["content", "styling"] as const).map((tab) => (
                   <button
@@ -244,18 +263,18 @@ export default function CreatePage() {
                 onChange={setConfig}
                 activeTab={activeTab}
               />
-
-              <div className="border-t border-gray-100 pt-4">
-                <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
-                  Export
-                </label>
-                <ExportButton posterRef={posterRef} title={config.title} />
-              </div>
             </div>
-          </aside>
 
-          {/* Main content: Poster preview */}
-          <main className="flex-1 overflow-hidden flex flex-col bg-gray-100 relative">
+            <div className="shrink-0 p-4 border-t border-gray-100 bg-gray-50/50">
+              <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-3">
+                Export
+              </label>
+              <ExportButton posterRef={posterRef} title={config.title} />
+            </div>
+            </aside>
+
+            {/* Main content: Poster preview */}
+            <main className="flex-1 overflow-hidden flex flex-col bg-gray-100 relative">
             {loadingDetails ? (
               <div className="flex-1 flex items-center justify-center text-gray-400 text-sm">
                 Loading activity data…
