@@ -137,7 +137,8 @@ export async function exchangeStravaToken(
     }),
   });
   if (!response.ok) {
-    throw new Error(`Strava token exchange failed: ${response.status}`);
+    const body = await response.text().catch(() => "(unreadable)");
+    throw new Error(`Strava token exchange failed: ${response.status} ${body}`);
   }
   return response.json() as Promise<StravaTokenResponse>;
 }
