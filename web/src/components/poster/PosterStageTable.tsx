@@ -64,7 +64,6 @@ export function PosterStageTable({
             {cols.map((col, ci) => {
               let x = cols.slice(0, ci).reduce((sum, c) => sum + c.width, 0);
               if (col.align === "end") x += col.width;
-              else if (col.align === "middle") x += col.width / 2;
               return (
                 <text
                   key={`h-${ci}`}
@@ -116,7 +115,6 @@ export function PosterStageTable({
                       .slice(0, j)
                       .reduce((sum, c) => sum + c.width, 0);
                     if (col.align === "end") x += col.width;
-                    else if (col.align === "middle") x += col.width / 2;
 
                     return (
                       <text

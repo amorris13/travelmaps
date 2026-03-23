@@ -5,4 +5,4 @@ export type {
   StravaActivityData,
   Stage,
   Trip,
-} from "./lib/types";
+} from "./lib/types.js";

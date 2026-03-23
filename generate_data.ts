@@ -4,7 +4,7 @@ import fs from "node:fs/promises";
 import polyline from "@mapbox/polyline";
 import { URL } from "node:url"; // Import URL constructor
 import dotenv from "dotenv";
-import type { LatLng, Trip, Stage, Location, StravaActivityData } from "./trips.ts";
+import type { LatLng, Trip, Stage, Location, StravaActivityData } from "./trips.js";
 
 // Load environment variables from .env file
 dotenv.config();
