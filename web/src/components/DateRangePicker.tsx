@@ -74,7 +74,9 @@ export function DateRangePicker({
             onSelect={(range) => {
               onChange(range);
             }}
+            numberOfMonths={2}
             classNames={{
+              months: "flex flex-col sm:flex-row gap-4",
               selected: "bg-accent text-white rounded-md",
               range_start: "rounded-l-md",
               range_end: "rounded-r-md",
