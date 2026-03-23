@@ -12,7 +12,7 @@ import {
   roundPoint,
 } from "@lib/geo";
 import { EXPORT_PRECISION, SIDE_PX } from "@lib/constants";
-import { calculateBestLabelPositions } from "@lib/labels";
+import { calculateBestLabelPositions, type LabelPlacementResult } from "@lib/labels";
 import { shape } from "svg-intersections";
 import type { Shape } from "svg-intersections";
 
@@ -36,8 +36,9 @@ export function PosterMap({
   height,
 }: PosterMapProps) {
   const [mapImageUrl, setMapImageUrl] = useState<string | null>(null);
+  const [labelPlacements, setLabelPlacements] = useState<LabelPlacementResult | null>(null);
 
-  const mapData = useMemo(() => {
+  const baseMapData = useMemo(() => {
     const polylines = stages.map((s) => s.polyline).filter(Boolean);
     if (polylines.length === 0) return null;
 
@@ -127,35 +128,47 @@ export function PosterMap({
         point: wp.point,
       }));
 
-    // Run the full label placement algorithm
-    const labelPlacements = calculateBestLabelPositions(
-      labelPoints,
-      32,
-      14, // labelFontSizePx matching the render font size
-      shapesToAvoid,
-      sidePx,
-      sidePx
-    );
-
-    return { paths, waypoints, expandedBbox, sidePx, labelPlacements };
+    return { paths, waypoints, expandedBbox, sidePx, shapesToAvoid, labelPoints };
   }, [stages, additionalLocations, width, height]);
+
+  // Debounce label placement algorithm
+  useEffect(() => {
+    if (!baseMapData) {
+      setLabelPlacements(null);
+      return;
+    }
+
+    const timeoutId = setTimeout(() => {
+      const placements = calculateBestLabelPositions(
+        baseMapData.labelPoints,
+        32,
+        14, // labelFontSizePx matching the render font size
+        baseMapData.shapesToAvoid,
+        baseMapData.sidePx,
+        baseMapData.sidePx
+      );
+      setLabelPlacements(placements);
+    }, 500);
+
+    return () => clearTimeout(timeoutId);
+  }, [baseMapData]);
 
   // Fetch map tile
   useEffect(() => {
-    if (!mapData) return;
-    const { expandedBbox } = mapData;
+    if (!baseMapData) return;
+    const { expandedBbox } = baseMapData;
     const params = new URLSearchParams({
       x: expandedBbox.x.toString(),
       y: expandedBbox.y.toString(),
       w: expandedBbox.width.toString(),
       h: expandedBbox.height.toString(),
-      side: mapData.sidePx.toString(),
+      side: baseMapData.sidePx.toString(),
       ...(mapStyle ? { style: mapStyle } : {}),
     });
     setMapImageUrl(`/api/map-tile?${params}`);
-  }, [mapData, mapStyle]);
+  }, [baseMapData, mapStyle]);
 
-  if (!mapData) {
+  if (!baseMapData) {
     return (
       <g transform={`translate(0, ${y})`}>
         <rect width={width} height={height} fill="#f0f0f0" />
@@ -172,7 +185,7 @@ export function PosterMap({
     );
   }
 
-  const { paths, waypoints, sidePx, labelPlacements } = mapData;
+  const { paths, waypoints, sidePx } = baseMapData;
   const markerRadius = 5;
   const labelFontSize = 14;
 
@@ -267,7 +280,7 @@ export function PosterMap({
         ))}
 
         {/* Labels placed by the collision-avoidance algorithm */}
-        {labelPlacements.result.map((lp, i) => (
+        {labelPlacements?.result.map((lp, i) => (
           <text
             key={`label-${i}`}
             x={lp.offsetPoint.x}
