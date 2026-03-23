@@ -29,15 +29,24 @@
     "typescript": "^5.8.3"
   },
   "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/dotenv": "^6.1.1",
     "@types/google.maps": "^3.58.1",
     "@types/mapbox__polyline": "^1.0.5",
     "@types/node": "^22.15.2",
+    "@types/pngjs": "^6.0.5",
     "@types/pretty": "^2.0.3",
     "@types/seedrandom": "^3.0.8",
     "@types/string-pixel-width": "^1.10.3",
     "@types/svg-intersections": "^0.4.4",
     "@types/svgdom": "^0.1.2",
+    "@vitejs/plugin-react": "^6.0.1",
+    "jsdom": "^29.0.1",
+    "pixelmatch": "^7.1.0",
+    "pngjs": "^7.0.0",
     "tsx": "^4.20.5",
     "vitest": "^4.1.0"
   }
