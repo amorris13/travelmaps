@@ -29,48 +29,58 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  // Validate OAuth state parameter
-  const storedState = request.cookies.get("oauth_state")?.value;
-  if (!state || !storedState || state !== storedState) {
+  // 1. Verify the state signature and handle cross-domain redirect if necessary.
+  // This allows preview deployments to use the canonical domain for the OAuth callback
+  // and then bounce back to the correct origin.
+  if (!state) {
+    return NextResponse.redirect(
+      new URL("/?error=no_state", request.url)
+    );
+  }
+
+  const stateParts = state.split(":");
+  if (stateParts.length !== 3) {
     return NextResponse.redirect(
       new URL("/?error=invalid_state", request.url)
     );
   }
 
-  // Verify the state signature and handle cross-domain redirect if necessary.
-  // The state is in the format: random:base64Origin:signature
-  const stateParts = state.split(":");
-  if (stateParts.length === 3) {
-    const [random, base64Origin, signature] = stateParts;
-    const origin = Buffer.from(base64Origin, "base64").toString("utf-8");
-    const expectedSignature = createHmac("sha256", clientSecret)
-      .update(`${random}:${origin}`)
-      .digest("hex");
+  const [random, base64Origin, signature] = stateParts;
+  const origin = Buffer.from(base64Origin, "base64").toString("utf-8");
+  const expectedSignature = createHmac("sha256", clientSecret)
+    .update(`${random}:${origin}`)
+    .digest("hex");
 
-    if (signature === expectedSignature) {
-      const currentUrl = new URL(request.url);
-      const currentOrigin = `${currentUrl.protocol}//${currentUrl.host}`;
+  if (signature !== expectedSignature) {
+    console.error("Invalid state signature");
+    return NextResponse.redirect(
+      new URL("/?error=invalid_state", request.url)
+    );
+  }
 
-      if (origin !== currentOrigin) {
-        // Redirect back to the correct deployment's callback URL
-        const redirectUrl = new URL(`${origin}/api/auth/strava/callback`);
-        redirectUrl.search = currentUrl.search;
-        return NextResponse.redirect(redirectUrl.toString());
-      }
-    } else {
-      console.error("Invalid state signature");
-      return NextResponse.redirect(
-        new URL("/?error=invalid_state", request.url)
-      );
-    }
+  const currentUrl = new URL(request.url);
+  const currentOrigin = `${currentUrl.protocol}//${currentUrl.host}`;
+
+  if (origin !== currentOrigin) {
+    // We are on the canonical domain (or another domain). Redirect back to the
+    // original origin that initiated the request.
+    const redirectUrl = new URL(`${origin}/api/auth/strava/callback`);
+    redirectUrl.search = currentUrl.search;
+    return NextResponse.redirect(redirectUrl.toString());
+  }
+
+  // 2. Now that we are on the correct origin, validate the state against the cookie.
+  const storedState = request.cookies.get("oauth_state")?.value;
+  if (state !== storedState) {
+    return NextResponse.redirect(
+      new URL("/?error=invalid_state", request.url)
+    );
   }
 
   // We are on the correct origin (the one that initiated the request).
   // Proceed with the token exchange using the same redirect_uri that was
   // used to initiate the OAuth flow.
   const canonicalUrl = process.env.NEXT_PUBLIC_BASE_URL;
-  const currentUrl = new URL(request.url);
-  const currentOrigin = `${currentUrl.protocol}//${currentUrl.host}`;
   const baseUrl = (canonicalUrl || currentOrigin).replace(/\/$/, "");
   const redirectUri = `${baseUrl}/api/auth/strava/callback`;
 
