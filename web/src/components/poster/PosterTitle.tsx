@@ -34,7 +34,7 @@ export function PosterTitle({
           y={titleFontSize * 1.1 + dateFontSize * 2.4}
           textAnchor="middle"
           fill={accentColor}
-          fontFamily="Helvetica, sans-serif"
+          fontFamily="Arimo, Helvetica Neue, sans-serif"
           fontSize={dateFontSize}
           fontWeight={400}
           letterSpacing="0.2em"

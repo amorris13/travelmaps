@@ -11,7 +11,7 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: var(--font-arimo), "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /* Poster preview scaling */

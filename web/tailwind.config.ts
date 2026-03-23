@@ -12,7 +12,7 @@ const config: Config = {
         accent: "#C61016",
       },
       fontFamily: {
-        sans: ["Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
+        sans: ["var(--font-arimo)", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
         montserrat: ["var(--font-montserrat)", "sans-serif"],
       },
     },

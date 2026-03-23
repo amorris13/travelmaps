@@ -124,7 +124,7 @@ export function PosterStageTable({
                         y={rowY + rowHeight * 0.75}
                         textAnchor={col.align}
                         fill={j === 0 ? "black" : "#333333"}
-                        fontFamily="Helvetica, sans-serif"
+                        fontFamily="Arimo, Helvetica Neue, sans-serif"
                         fontSize={fontSize}
                         fontWeight={j === 0 ? 700 : 300}
                       >

@@ -145,7 +145,7 @@ export function PosterElevation({
             x={label.x}
             y={label.y}
             textAnchor={label.anchor}
-            fontFamily="Helvetica Neue, sans-serif"
+            fontFamily="Arimo, Helvetica Neue, sans-serif"
             fontSize={16}
             fontWeight={300}
             letterSpacing="0.05em"
@@ -179,7 +179,7 @@ export function PosterElevation({
               x={(marker.x + marker.xNext) / 2}
               y={stageBarY + 15}
               textAnchor="middle"
-              fontFamily="Helvetica Neue, sans-serif"
+              fontFamily="Arimo, Helvetica Neue, sans-serif"
               fontSize={16}
               fontWeight={300}
               letterSpacing="0.05em"
