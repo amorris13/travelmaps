@@ -50,7 +50,7 @@ export function PosterStats({ stages, accentColor, y, width }: PosterStatsProps)
               y={valueFontSize * 1.6}
               textAnchor="middle"
               fill="#1a1a1a"
-              fontFamily="Helvetica Neue, Helvetica, sans-serif"
+              fontFamily="Montserrat, sans-serif"
               fontSize={valueFontSize}
               fontWeight={700}
             >
@@ -61,7 +61,7 @@ export function PosterStats({ stages, accentColor, y, width }: PosterStatsProps)
               y={valueFontSize * 1.6 + labelFontSize * 2.2}
               textAnchor="middle"
               fill="#999999"
-              fontFamily="Helvetica Neue, Helvetica, sans-serif"
+              fontFamily="Montserrat, sans-serif"
               fontSize={labelFontSize}
               fontWeight={400}
               letterSpacing="0.18em"

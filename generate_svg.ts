@@ -1001,7 +1001,7 @@ function addCanvasStyles(canvas: SVG.Svg): { markerRadius: number; labelFontSize
 
   const labelFontSizePx = 18;
   canvas.style().rule(".label", {
-    fontFamily: "Helvetica",
+    fontFamily: "Montserrat, Helvetica, sans-serif",
     fontSize: labelFontSizePx + "px",
     fill: color,
     filter: "url(#whiteOutlineEffect)" as unknown as import("@svgdotjs/svg.js").Effect,

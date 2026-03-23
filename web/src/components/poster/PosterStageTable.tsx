@@ -11,6 +11,7 @@ interface PosterStageTableProps {
   accentColor: string;
   y: number;
   width: number;
+  columnCount?: number;
 }
 
 export function PosterStageTable({
@@ -18,6 +19,7 @@ export function PosterStageTable({
   accentColor,
   y,
   width,
+  columnCount = 3,
 }: PosterStageTableProps) {
   const padding = width * 0.04;
   const tableWidth = width - padding * 2;
@@ -26,8 +28,7 @@ export function PosterStageTable({
   const fontSize = 10;
   const headerFontSize = 8;
 
-  // Split stages into 3 column groups
-  const columnCount = 3;
+  // Split stages into column groups
   const rowsPerColumn = Math.ceil(stages.length / columnCount);
   const columnGroups: StageConfig[][] = [];
   for (let c = 0; c < columnCount; c++) {
@@ -70,8 +71,8 @@ export function PosterStageTable({
                   x={x}
                   y={headerHeight * 0.7}
                   textAnchor={col.align}
-                  fill="#999999"
-                  fontFamily="Helvetica Neue, Helvetica, sans-serif"
+                  fill={accentColor}
+                  fontFamily="Montserrat, sans-serif"
                   fontSize={headerFontSize}
                   fontWeight={600}
                   letterSpacing="0.08em"
@@ -122,8 +123,8 @@ export function PosterStageTable({
                         x={x}
                         y={rowY + rowHeight * 0.75}
                         textAnchor={col.align}
-                        fill={j === 0 ? accentColor : "#333333"}
-                        fontFamily="Helvetica Neue, Helvetica, sans-serif"
+                        fill={j === 0 ? "black" : "#333333"}
+                        fontFamily="Helvetica, sans-serif"
                         fontSize={fontSize}
                         fontWeight={j === 0 ? 700 : 300}
                       >

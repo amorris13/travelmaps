@@ -162,7 +162,7 @@ function generateElevationSvg(
   svgY += plotHeight;
 
   canvas.style().rule(".label", {
-    fontFamily: "Helvetica Neue, sans-serif",
+    fontFamily: "Montserrat, Helvetica, sans-serif",
     fontSize: "16px",
     fontWeight: 300,
     "letter-spacing": "0.05em",
