@@ -32,22 +32,41 @@ export const Poster = forwardRef<SVGSVGElement, PosterProps>(
     const height = POSTER_HEIGHT;
 
     // Layout computation
-    const titleHeight = height * 0.08;
+    const titleHeight = height * 0.1;
     const statsHeight = height * 0.055;
-    const padding = width * 0.02;
+    const padding = width * 0.05;
 
-    // Map gets the largest area
-    const elevationHeight = config.showElevation ? height * 0.1 : 0;
+    const showElevation =
+      config.showElevation &&
+      config.stages.some((s) => s.elevationStream.length > 0);
+    const showStageTable = config.showStageTable && config.stages.length > 1;
 
-    // Multi-column table: rows = ceil(stages/3), each row 18px + 20px header
-    const stageTableRowCount =
-      config.showStageTable && config.stages.length > 1
-        ? Math.ceil(config.stages.length / 3)
-        : 0;
-    const stageTableHeight =
-      stageTableRowCount > 0
-        ? 20 + stageTableRowCount * 18 + 16
-        : 0;
+    // Side-by-side logic: if fewer than 9 stages and both are shown
+    const useSideBySide = showElevation && showStageTable && config.stages.length < 9;
+
+    let elevationHeight = showElevation ? height * 0.1 : 0;
+    let elevationWidth = width;
+
+    let stageTableHeight = 0;
+    let stageTableWidth = width;
+    let stageTableColumnCount = 3;
+
+    if (useSideBySide) {
+      elevationWidth = width * 0.5 - padding / 2;
+      stageTableWidth = width * 0.5 - padding / 2;
+      stageTableColumnCount = 1;
+
+      const rows = config.stages.length;
+      stageTableHeight = 20 + rows * 18 + 16;
+      // Balance heights if side-by-side
+      elevationHeight = Math.max(elevationHeight, stageTableHeight);
+      stageTableHeight = elevationHeight;
+    } else {
+      if (showStageTable) {
+        const stageTableRowCount = Math.ceil(config.stages.length / 3);
+        stageTableHeight = 20 + stageTableRowCount * 18 + 16;
+      }
+    }
 
     const mapY = titleHeight + statsHeight + padding;
     const mapHeight =
@@ -55,11 +74,12 @@ export const Poster = forwardRef<SVGSVGElement, PosterProps>(
       titleHeight -
       statsHeight -
       elevationHeight -
-      stageTableHeight -
+      (useSideBySide ? 0 : stageTableHeight) -
       padding * 4;
 
     const elevationY = mapY + mapHeight + padding;
-    const stageTableY = elevationY + elevationHeight + padding;
+    const stageTableY = useSideBySide ? elevationY : elevationY + elevationHeight + padding;
+    const stageTableX = useSideBySide ? width * 0.5 + padding / 2 : 0;
 
     return (
       <svg
@@ -100,24 +120,29 @@ export const Poster = forwardRef<SVGSVGElement, PosterProps>(
         />
 
         {/* Elevation Profile */}
-        {config.showElevation && (
-          <PosterElevation
-            stages={config.stages}
-            accentColor={config.accentColor}
-            y={elevationY}
-            width={width}
-            height={elevationHeight}
-          />
+        {showElevation && (
+          <g transform={`translate(${useSideBySide ? 0 : 0}, 0)`}>
+            <PosterElevation
+              stages={config.stages}
+              accentColor={config.accentColor}
+              y={elevationY}
+              width={elevationWidth}
+              height={elevationHeight}
+            />
+          </g>
         )}
 
         {/* Stage Table */}
-        {config.showStageTable && config.stages.length > 1 && (
-          <PosterStageTable
-            stages={config.stages}
-            accentColor={config.accentColor}
-            y={stageTableY}
-            width={width}
-          />
+        {showStageTable && (
+          <g transform={`translate(${stageTableX}, 0)`}>
+            <PosterStageTable
+              stages={config.stages}
+              accentColor={config.accentColor}
+              y={stageTableY}
+              width={stageTableWidth}
+              columnCount={stageTableColumnCount}
+            />
+          </g>
         )}
       </svg>
     );

@@ -13,6 +13,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
+        montserrat: ["var(--font-montserrat)", "sans-serif"],
       },
     },
   },

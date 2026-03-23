@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+});
 
 export const metadata: Metadata = {
   title: "TravelMaps - Create Beautiful Travel Posters",
@@ -14,7 +20,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen antialiased">{children}</body>
+      <body className={`${montserrat.variable} min-h-screen antialiased`}>
+        {children}
+      </body>
     </html>
   );
 }
