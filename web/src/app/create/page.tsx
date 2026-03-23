@@ -4,6 +4,7 @@ import { useState, useRef, useCallback } from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import type { PosterConfig, StageConfig } from "@lib/types";
 import type { StravaActivity } from "@lib/strava";
+import { decodePolyline } from "@lib/geo";
 import { createDefaultPosterConfig } from "@/lib/poster-config";
 import { POSTER_WIDTH, POSTER_HEIGHT } from "@lib/constants";
 import { Poster } from "@/components/poster/Poster";
@@ -48,17 +49,42 @@ export default function CreatePage() {
 
         // Fetch detailed data for each activity
         const stageConfigs: StageConfig[] = await Promise.all(
-          sortedActivities.map(async (activity) => {
+          sortedActivities.map(async (activity, index) => {
+            const isFirst = index === 0;
             const res = await fetch(`/api/strava/activity/${activity.id}`);
             if (!res.ok) throw new Error("Failed to fetch activity details");
             const data = await res.json();
 
+            const polyline: string = data.polyline || "";
+            let startLabel = "";
+            let endLabel = "";
+
+            if (polyline) {
+              const decoded = decodePolyline(polyline);
+              if (decoded.length > 0) {
+                const startPt = decoded[0];
+                const endPt = decoded[decoded.length - 1];
+                const [startRes, endRes] = await Promise.all([
+                  isFirst
+                    ? fetch(
+                        `/api/geocode/reverse?lat=${startPt.lat}&lng=${startPt.lng}`
+                      ).then((r) => (r.ok ? r.json() : null))
+                    : Promise.resolve(null),
+                  fetch(
+                    `/api/geocode/reverse?lat=${endPt.lat}&lng=${endPt.lng}`
+                  ).then((r) => (r.ok ? r.json() : null)),
+                ]);
+                startLabel = startRes?.name ?? "";
+                endLabel = endRes?.name ?? "";
+              }
+            }
+
             return {
               activityId: String(activity.id),
               name: activity.name,
-              startLabel: "",
-              endLabel: "",
-              polyline: data.polyline || "",
+              startLabel,
+              endLabel,
+              polyline,
               distance: data.distance || activity.distance,
               movingTime: data.moving_time || activity.moving_time,
               elevationGain:
