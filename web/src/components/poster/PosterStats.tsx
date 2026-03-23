@@ -10,6 +10,7 @@ import {
   totalElevation,
   averageSpeed,
   usePace,
+  isCycling,
 } from "@/lib/poster-config";
 
 interface PosterStatsProps {
@@ -18,6 +19,7 @@ interface PosterStatsProps {
   y: number;
   width: number;
   units?: "metric" | "imperial";
+  showSeconds?: boolean;
 }
 
 export function PosterStats({
@@ -26,14 +28,20 @@ export function PosterStats({
   y,
   width,
   units = "metric",
+  showSeconds = false,
 }: PosterStatsProps) {
   const isPace =
     stages.length > 0 && stages.every((s) => usePace(s.activityType));
+  const allCycling =
+    stages.length > 0 && stages.every((s) => isCycling(s.activityType));
   const avgSpeed = averageSpeed(stages);
 
   const stats = [
     { label: "DISTANCE", value: formatDistance(totalDistance(stages), units) },
-    { label: "SADDLE TIME", value: formatDuration(totalDuration(stages)) },
+    {
+      label: allCycling ? "SADDLE TIME" : "TIME",
+      value: formatDuration(totalDuration(stages), showSeconds),
+    },
     {
       label: isPace ? "AVERAGE PACE" : "AVERAGE SPEED",
       value: isPace ? formatPace(avgSpeed, units) : formatSpeed(avgSpeed, units),

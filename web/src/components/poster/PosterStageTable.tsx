@@ -15,6 +15,7 @@ interface PosterStageTableProps {
   width: number;
   columnCount?: number;
   units?: "metric" | "imperial";
+  showSeconds?: boolean;
 }
 
 export function PosterStageTable({
@@ -24,6 +25,7 @@ export function PosterStageTable({
   width,
   columnCount = 3,
   units = "metric",
+  showSeconds = false,
 }: PosterStageTableProps) {
   const padding = width * 0.04;
   const tableWidth = width - padding * 2;
@@ -139,7 +141,7 @@ export function PosterStageTable({
                 `${globalIdx + 1}`,
                 stageName,
                 formatDistanceCompact(stage.distance, units),
-                formatDurationCompact(stage.movingTime),
+                formatDurationCompact(stage.movingTime, showSeconds),
                 isStagePace
                   ? formatPaceCompact(stage.averageSpeed, units)
                   : formatSpeedCompact(stage.averageSpeed, units),

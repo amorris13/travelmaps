@@ -16,6 +16,7 @@ export function createDefaultPosterConfig(
     stages,
     additionalLocations: [],
     units: "metric",
+    showSeconds: false,
   };
 }
 
@@ -28,11 +29,20 @@ export function usePace(activityType: string): boolean {
   return t.includes("run") || t.includes("walk") || t.includes("hike");
 }
 
-export function formatDistance(meters: number, units: "metric" | "imperial" = "metric"): string {
+export function isCycling(activityType: string): boolean {
+  const t = activityType.toLowerCase();
+  return t.includes("ride") || t.includes("cycling") || t.includes("bike");
+}
+
+export function formatDistance(
+  meters: number,
+  units: "metric" | "imperial" = "metric"
+): string {
   if (units === "imperial") {
     const miles = meters * 0.000621371;
     if (miles >= 0.1) {
-      const val = miles.toFixed(1);
+      const decimals = miles < 10 ? 2 : 1;
+      const val = miles.toFixed(decimals);
       const [whole, dec] = val.split(".");
       return `${addCommas(whole)}.${dec}mi`;
     }
@@ -41,18 +51,34 @@ export function formatDistance(meters: number, units: "metric" | "imperial" = "m
   }
 
   if (meters >= 1000) {
-    const km = (meters / 1000).toFixed(1);
-    const [whole, dec] = km.split(".");
+    const km = meters / 1000;
+    const decimals = km < 10 ? 2 : 1;
+    const val = km.toFixed(decimals);
+    const [whole, dec] = val.split(".");
     return `${addCommas(whole)}.${dec}km`;
   }
   return `${Math.round(meters)}m`;
 }
 
-export function formatDuration(seconds: number): string {
+export function formatDuration(
+  seconds: number,
+  showSeconds: boolean = false
+): string {
   const hours = Math.floor(seconds / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);
+  const secs = Math.round(seconds % 60);
+
+  const includeSeconds = showSeconds || (hours === 0 && minutes < 60);
+
   if (hours > 0) {
-    return `${hours}h ${minutes.toString().padStart(2, "0")}m`;
+    let res = `${hours}h ${minutes.toString().padStart(2, "0")}m`;
+    if (includeSeconds) {
+      res += ` ${secs.toString().padStart(2, "0")}s`;
+    }
+    return res;
+  }
+  if (includeSeconds) {
+    return `${minutes}m ${secs.toString().padStart(2, "0")}s`;
   }
   return `${minutes}m`;
 }
@@ -93,23 +119,36 @@ export function formatElevation(meters: number, units: "metric" | "imperial" = "
 }
 
 // Compact formats for stage table (no units)
-export function formatDistanceCompact(meters: number, units: "metric" | "imperial" = "metric"): string {
+export function formatDistanceCompact(
+  meters: number,
+  units: "metric" | "imperial" = "metric"
+): string {
   if (units === "imperial") {
-    return (meters * 0.000621371).toFixed(1);
+    const miles = meters * 0.000621371;
+    return miles.toFixed(miles < 10 ? 2 : 1);
   }
   if (meters >= 1000) {
-    return (meters / 1000).toFixed(1);
+    const km = meters / 1000;
+    return km.toFixed(km < 10 ? 2 : 1);
   }
   return Math.round(meters).toString();
 }
 
-export function formatDurationCompact(seconds: number): string {
+export function formatDurationCompact(
+  seconds: number,
+  showSeconds: boolean = false
+): string {
   const hours = Math.floor(seconds / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);
+  const secs = Math.round(seconds % 60);
+
+  const includeSeconds = showSeconds || (hours === 0 && minutes < 60);
+
   if (hours > 0) {
-    return `${hours}:${minutes.toString().padStart(2, "0")}`;
+    const base = `${hours}:${minutes.toString().padStart(2, "0")}`;
+    return includeSeconds ? `${base}:${secs.toString().padStart(2, "0")}` : base;
   }
-  return `0:${minutes.toString().padStart(2, "0")}`;
+  return `${minutes}:${secs.toString().padStart(2, "0")}`;
 }
 
 export function formatSpeedCompact(

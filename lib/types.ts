@@ -65,6 +65,7 @@ export interface PosterConfig {
   stages: StageConfig[];
   additionalLocations: { name: string; lat: number; lng: number }[];
   units: "metric" | "imperial";
+  showSeconds?: boolean;
 }
 
 export interface StageConfig {

@@ -107,6 +107,7 @@ export const Poster = forwardRef<SVGSVGElement, PosterProps>(
           y={titleHeight}
           width={width}
           units={config.units}
+          showSeconds={config.showSeconds}
         />
 
         {/* Map */}
@@ -144,6 +145,7 @@ export const Poster = forwardRef<SVGSVGElement, PosterProps>(
               width={stageTableWidth}
               columnCount={stageTableColumnCount}
               units={config.units}
+              showSeconds={config.showSeconds}
             />
           </g>
         )}

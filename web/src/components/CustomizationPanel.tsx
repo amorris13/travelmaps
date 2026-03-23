@@ -296,6 +296,14 @@ export function CustomizationPanel({
                     ))}
                   </div>
                 </div>
+
+                <div className="pt-2">
+                  <Toggle
+                    label="Show Seconds (Time)"
+                    checked={config.showSeconds || false}
+                    onChange={(v) => update({ showSeconds: v })}
+                  />
+                </div>
               </div>
             </CollapsibleSection>
 
