@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { Resvg } from "@resvg/resvg-js";
+import { PDFDocument } from "pdf-lib";
 
 export async function POST(request: NextRequest) {
   try {
@@ -9,8 +11,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "SVG string required" }, { status: 400 });
     }
 
-    // For now, return the SVG as-is (PNG/PDF rendering will be added
-    // when we install @resvg/resvg-js and pdf-lib)
     if (format === "svg") {
       return new NextResponse(svgString, {
         headers: {
@@ -20,11 +20,46 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // TODO: Add PNG export via @resvg/resvg-js
-    // TODO: Add PDF export via pdf-lib
+    if (format === "png") {
+      const resvg = new Resvg(svgString, {
+        fitTo: { mode: "width", value: width ?? 1200 },
+      });
+      const pngData = resvg.render();
+      const pngBuffer = pngData.asPng();
+
+      return new NextResponse(pngBuffer.buffer as ArrayBuffer, {
+        headers: {
+          "Content-Type": "image/png",
+          "Content-Disposition": 'attachment; filename="poster.png"',
+        },
+      });
+    }
+
+    if (format === "pdf") {
+      const resvg = new Resvg(svgString, {
+        fitTo: { mode: "width", value: width ?? 1200 },
+      });
+      const pngData = resvg.render();
+      const pngBuffer = pngData.asPng();
+
+      const pdfDoc = await PDFDocument.create();
+      const pngImage = await pdfDoc.embedPng(pngBuffer);
+      const page = pdfDoc.addPage([pngImage.width, pngImage.height]);
+      page.drawImage(pngImage, { x: 0, y: 0, width: pngImage.width, height: pngImage.height });
+
+      const pdfBytes = await pdfDoc.save();
+
+      return new NextResponse(pdfBytes.buffer as ArrayBuffer, {
+        headers: {
+          "Content-Type": "application/pdf",
+          "Content-Disposition": 'attachment; filename="poster.pdf"',
+        },
+      });
+    }
+
     return NextResponse.json(
-      { error: `Export format "${format}" not yet implemented. Use "svg" for now.` },
-      { status: 501 }
+      { error: `Unsupported export format: "${format}"` },
+      { status: 400 }
     );
   } catch (err) {
     console.error("Export error:", err);
