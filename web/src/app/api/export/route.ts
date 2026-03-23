@@ -1,11 +1,34 @@
+import path from "path";
+import fs from "fs";
 import { NextRequest, NextResponse } from "next/server";
 import { Resvg } from "@resvg/resvg-js";
 import { PDFDocument } from "pdf-lib";
 
+// Load bundled fonts so Vercel (which has no system fonts) can render text.
+const fontsDir = path.join(process.cwd(), "fonts");
+const fontFiles = fs
+  .readdirSync(fontsDir)
+  .filter((f) => f.endsWith(".ttf") || f.endsWith(".otf"))
+  .map((f) => path.join(fontsDir, f));
+
+function makeResvg(svgString: string, width: number) {
+  return new Resvg(svgString, {
+    fitTo: { mode: "width", value: width },
+    font: {
+      fontFiles,
+      loadSystemFonts: false,
+      // Map generic families to the Liberation fonts we bundle
+      sansSerifFamily: "Liberation Sans",
+      serifFamily: "Liberation Serif",
+      defaultFontFamily: "Liberation Sans",
+    },
+  });
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { svgString, format, width, height } = body;
+    const { svgString, format, width } = body;
 
     if (!svgString) {
       return NextResponse.json({ error: "SVG string required" }, { status: 400 });
@@ -21,11 +44,8 @@ export async function POST(request: NextRequest) {
     }
 
     if (format === "png") {
-      const resvg = new Resvg(svgString, {
-        fitTo: { mode: "width", value: width ?? 1200 },
-      });
-      const pngData = resvg.render();
-      const pngBuffer = pngData.asPng();
+      const resvg = makeResvg(svgString, width ?? 1200);
+      const pngBuffer = resvg.render().asPng();
 
       return new NextResponse(pngBuffer.buffer as ArrayBuffer, {
         headers: {
@@ -36,16 +56,18 @@ export async function POST(request: NextRequest) {
     }
 
     if (format === "pdf") {
-      const resvg = new Resvg(svgString, {
-        fitTo: { mode: "width", value: width ?? 1200 },
-      });
-      const pngData = resvg.render();
-      const pngBuffer = pngData.asPng();
+      const resvg = makeResvg(svgString, width ?? 1200);
+      const pngBuffer = resvg.render().asPng();
 
       const pdfDoc = await PDFDocument.create();
       const pngImage = await pdfDoc.embedPng(pngBuffer);
       const page = pdfDoc.addPage([pngImage.width, pngImage.height]);
-      page.drawImage(pngImage, { x: 0, y: 0, width: pngImage.width, height: pngImage.height });
+      page.drawImage(pngImage, {
+        x: 0,
+        y: 0,
+        width: pngImage.width,
+        height: pngImage.height,
+      });
 
       const pdfBytes = await pdfDoc.save();
 
