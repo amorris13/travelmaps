@@ -307,7 +307,7 @@ export function ActivitySelector({
             <button
               key={activity.id}
               onClick={() => toggleActivity(activity)}
-              className={`w-full px-4 py-3 text-left border-b border-gray-100 last:border-0 transition-colors hover:bg-gray-50 ${
+              className={`w-full px-4 py-3 text-left border-b border-gray-100 last:border-0 ${
                 isSelected ? "bg-red-50 border-l-2 border-l-accent" : ""
               }`}
             >
