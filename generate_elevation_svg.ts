@@ -293,7 +293,7 @@ function generateElevationSvg(
     // Peak elevation
     const actualMaxElevation = Math.max(...clampedElevationData);
     canvas
-      .text(`⏶ ${Math.round(actualMaxElevation)}m`)
+      .text(`▲ ${Math.round(actualMaxElevation)}m`)
       .amove(plotWidth / 2, svgY)
       .addClass("label")
       .font({ anchor: "middle" });

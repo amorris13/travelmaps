@@ -223,7 +223,7 @@ export function PosterElevation({
           letterSpacing="0.05em"
           dominantBaseline="alphabetic"
         >
-          ⏶ {keyElevations.peak}m
+          ▲ {keyElevations.peak}m
         </text>
         <text
           x={plotWidth - padding}
