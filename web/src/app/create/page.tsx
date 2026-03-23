@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useCallback } from "react";
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import type { PosterConfig, StageConfig } from "@lib/types";
 import type { StravaActivity } from "@lib/strava";
 import { createDefaultPosterConfig } from "@/lib/poster-config";
@@ -200,25 +201,74 @@ export default function CreatePage() {
           </aside>
 
           {/* Main content: Poster preview */}
-          <main className="flex-1 overflow-hidden flex items-center justify-center bg-gray-100 p-8">
+          <main className="flex-1 overflow-hidden flex flex-col bg-gray-100 relative">
             {loadingDetails ? (
-              <div className="text-gray-400 text-sm">
+              <div className="flex-1 flex items-center justify-center text-gray-400 text-sm">
                 Loading activity data…
               </div>
             ) : (
-              <div
-                className="shadow-2xl h-full"
-                style={{
-                  aspectRatio: `${POSTER_WIDTH} / ${POSTER_HEIGHT}`,
-                  maxWidth: "100%",
-                }}
+              <TransformWrapper
+                initialScale={1}
+                minScale={0.1}
+                maxScale={8}
+                centerOnInit
+                limitToBounds={false}
               >
-                <Poster
-                  ref={posterRef}
-                  config={config}
-                  className="w-full h-full"
-                />
-              </div>
+                {({ zoomIn, zoomOut, resetTransform }) => (
+                  <>
+                    <div className="absolute bottom-6 right-6 z-10 flex flex-col gap-2">
+                      <button
+                        onClick={() => zoomIn()}
+                        className="w-10 h-10 bg-white shadow-md border border-gray-200 rounded-md flex items-center justify-center text-gray-600 hover:text-accent transition-colors"
+                        title="Zoom In"
+                      >
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                        </svg>
+                      </button>
+                      <button
+                        onClick={() => zoomOut()}
+                        className="w-10 h-10 bg-white shadow-md border border-gray-200 rounded-md flex items-center justify-center text-gray-600 hover:text-accent transition-colors"
+                        title="Zoom Out"
+                      >
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M20 12H4" />
+                        </svg>
+                      </button>
+                      <button
+                        onClick={() => resetTransform()}
+                        className="w-10 h-10 bg-white shadow-md border border-gray-200 rounded-md flex items-center justify-center text-gray-600 hover:text-accent transition-colors"
+                        title="Reset View"
+                      >
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                      </button>
+                    </div>
+
+                    <TransformComponent
+                      wrapperClass="!w-full !h-full cursor-grab active:cursor-grabbing"
+                      contentClass="!w-full !h-full flex items-center justify-center p-8"
+                    >
+                      <div
+                        className="shadow-2xl"
+                        style={{
+                          width: "auto",
+                          height: "90%",
+                          aspectRatio: `${POSTER_WIDTH} / ${POSTER_HEIGHT}`,
+                          maxWidth: "100%",
+                        }}
+                      >
+                        <Poster
+                          ref={posterRef}
+                          config={config}
+                          className="w-full h-full"
+                        />
+                      </div>
+                    </TransformComponent>
+                  </>
+                )}
+              </TransformWrapper>
             )}
           </main>
         </div>
