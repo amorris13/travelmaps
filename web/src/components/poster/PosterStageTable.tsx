@@ -69,43 +69,61 @@ export function PosterStageTable({
   const maxGain = Math.max(...stages.map((s) => s.elevationGain));
 
   // Sub-columns within each group: #, STAGE, DIST, TIME, SPD/PACE, GAIN
+  // We use fixed width percentages but ensure the 8px offset is integrated.
+  const subColOffset = 8;
   const subColWidths = (w: number) => {
     let speedLabel = "SPEED";
     if (allPace) speedLabel = "PACE";
     else if (hasMixed) speedLabel = "SPD/PACE";
 
+    // Adjust STAGE width to account for the offset
+    const wReduced = w - subColOffset;
+
     return [
-      { label: "", width: w * 0.05, align: "end" as const },
+      { label: "", width: wReduced * 0.05, align: "end" as const },
       {
         label: "STAGE",
-        width: w * 0.43,
+        width: wReduced * 0.43,
         align: "start" as const,
-        offset: 8, // Margin after the stage number
+        offset: subColOffset, // Margin after the stage number
       },
       {
         label: "DIST",
-        width: w * 0.12,
+        width: wReduced * 0.12,
         align: "end" as const,
       },
       {
         label: "TIME",
-        width: w * 0.13,
+        width: wReduced * 0.13,
         align: "end" as const,
       },
       {
         label: speedLabel,
-        width: w * 0.13,
+        width: wReduced * 0.13,
         align: "end" as const,
       },
       {
         label: "GAIN",
-        width: w * 0.14,
+        width: wReduced * 0.14,
         align: "end" as const,
       },
     ];
   };
 
   const cols = subColWidths(groupW);
+
+  // Helper to get cumulative X for a column
+  const getColX = (index: number) => {
+    let x = 0;
+    for (let i = 0; i < index; i++) {
+      x += cols[i].width;
+      if ("offset" in cols[i] && cols[i].offset) x += cols[i].offset!;
+    }
+    const col = cols[index];
+    if (col.align === "end") x += col.width;
+    if ("offset" in col && col.offset) x += col.offset;
+    return x;
+  };
 
   return (
     <g transform={`translate(${effectiveX}, ${y})`}>
@@ -115,10 +133,7 @@ export function PosterStageTable({
           <g key={groupIdx} transform={`translate(${groupX}, 0)`}>
             {/* Header row */}
             {cols.map((col, ci) => {
-              let x = cols.slice(0, ci).reduce((sum, c) => sum + c.width, 0);
-              if (col.align === "end") x += col.width;
-              if ("offset" in col && col.offset) x += col.offset;
-
+              const x = getColX(ci);
               return (
                 <text
                   key={`h-${ci}`}
@@ -160,7 +175,6 @@ export function PosterStageTable({
                   : prevStage?.endLabel || "";
               const toLabel = stage.endLabel || "";
 
-              // Use stage.name if it's set and NOT a default "Stage X" if we want to support fallback
               const stageName = stage.name || (fromLabel && toLabel ? `${fromLabel} \u2192 ${toLabel}` : stage.endLabel || `Stage ${globalIdx + 1}`);
 
               const isStagePace = usePace(stage.activityType);
@@ -181,12 +195,8 @@ export function PosterStageTable({
               return (
                 <g key={i}>
                   {values.map((item, j) => {
+                    const x = getColX(j);
                     const col = cols[j];
-                    let x = cols
-                      .slice(0, j)
-                      .reduce((sum, c) => sum + c.width, 0);
-                    if (col.align === "end") x += col.width;
-                    if ("offset" in col && col.offset) x += col.offset;
 
                     return (
                       <text

@@ -82,7 +82,7 @@ export default function CreatePage() {
 
             return {
               activityId: String(activity.id),
-              name: activity.name || `Stage ${index + 1}`,
+              name: activity.name || "",
               startLabel,
               endLabel,
               polyline,

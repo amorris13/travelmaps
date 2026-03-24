@@ -104,10 +104,17 @@ export const Poster = forwardRef<SVGSVGElement, PosterProps>(
 
       // The map content is actually bounded by the expandedBbox * scale
       // But PosterMap renders the image across sidePx * scale.
-      // We want to align with the visible map content.
+      // However, PosterMap also has an internal padding when calculating transform.
+      // In computeMapTransform(bounds, sidePx, padding = 1.3),
+      // the expandedBbox is 1.3x larger than the actual content.
+      // The actual content width is sidePx / 1.3 * scale.
+      const contentScale = 1 / 1.3;
+      const actualContentWidth = (sidePx * contentScale) * scale;
+      const actualContentX = offsetX + (sidePx * scale - actualContentWidth) / 2;
+
       return {
-        contentX: offsetX,
-        contentWidth: sidePx * scale,
+        contentX: actualContentX,
+        contentWidth: actualContentWidth,
       };
     }, [config.stages, config.additionalLocations, width, mapHeight, padding]);
 
