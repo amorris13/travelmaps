@@ -98,9 +98,13 @@ export const Poster = forwardRef<SVGSVGElement, PosterProps>(
       const sidePx = Math.min(width, mapHeight);
       const { expandedBbox } = computeMapTransform(bounds, sidePx);
 
+      // Calculate scale and offset exactly as PosterMap does
       const scale = Math.min(width / sidePx, mapHeight / sidePx);
       const offsetX = (width - sidePx * scale) / 2;
 
+      // The map content is actually bounded by the expandedBbox * scale
+      // But PosterMap renders the image across sidePx * scale.
+      // We want to align with the visible map content.
       return {
         contentX: offsetX,
         contentWidth: sidePx * scale,

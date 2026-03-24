@@ -75,31 +75,32 @@ export function PosterStageTable({
     else if (hasMixed) speedLabel = "SPD/PACE";
 
     return [
-      { label: "", width: w * 0.08, align: "end" as "start" | "middle" | "end" },
+      { label: "", width: w * 0.05, align: "end" as const },
       {
         label: "STAGE",
-        width: w * 0.40,
-        align: "start" as "start" | "middle" | "end",
+        width: w * 0.43,
+        align: "start" as const,
+        offset: 8, // Margin after the stage number
       },
       {
         label: "DIST",
         width: w * 0.12,
-        align: "end" as "start" | "middle" | "end",
+        align: "end" as const,
       },
       {
         label: "TIME",
         width: w * 0.13,
-        align: "end" as "start" | "middle" | "end",
+        align: "end" as const,
       },
       {
         label: speedLabel,
         width: w * 0.13,
-        align: "end" as "start" | "middle" | "end",
+        align: "end" as const,
       },
       {
         label: "GAIN",
         width: w * 0.14,
-        align: "end" as "start" | "middle" | "end",
+        align: "end" as const,
       },
     ];
   };
@@ -116,6 +117,8 @@ export function PosterStageTable({
             {cols.map((col, ci) => {
               let x = cols.slice(0, ci).reduce((sum, c) => sum + c.width, 0);
               if (col.align === "end") x += col.width;
+              if ("offset" in col && col.offset) x += col.offset;
+
               return (
                 <text
                   key={`h-${ci}`}
@@ -158,7 +161,6 @@ export function PosterStageTable({
               const toLabel = stage.endLabel || "";
 
               // Use stage.name if it's set and NOT a default "Stage X" if we want to support fallback
-              // Requirement: "Stage column should use Stage number (and only fall back to A -> B if Stage Name is not specified)"
               const stageName = stage.name || (fromLabel && toLabel ? `${fromLabel} \u2192 ${toLabel}` : stage.endLabel || `Stage ${globalIdx + 1}`);
 
               const isStagePace = usePace(stage.activityType);
@@ -184,6 +186,7 @@ export function PosterStageTable({
                       .slice(0, j)
                       .reduce((sum, c) => sum + c.width, 0);
                     if (col.align === "end") x += col.width;
+                    if ("offset" in col && col.offset) x += col.offset;
 
                     return (
                       <text
