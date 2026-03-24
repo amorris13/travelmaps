@@ -1,8 +1,9 @@
 "use client";
 
-import { useCallback, forwardRef } from "react";
+import { useCallback, forwardRef, useMemo } from "react";
 import type { PosterConfig } from "@lib/types";
 import { POSTER_WIDTH, POSTER_HEIGHT } from "@lib/constants";
+import { computeBoundsFromPolylines, computeMapTransform } from "@lib/geo";
 import { PosterTitle } from "./PosterTitle";
 import { PosterStats } from "./PosterStats";
 import { PosterMap } from "./PosterMap";
@@ -77,6 +78,35 @@ export const Poster = forwardRef<SVGSVGElement, PosterProps>(
       (useSideBySide ? 0 : stageTableHeight) -
       padding * 4;
 
+    // Compute map content alignment for other sections
+    const { contentX, contentWidth } = useMemo(() => {
+      const polylines = config.stages.map((s) => s.polyline).filter(Boolean);
+      if (polylines.length === 0) return { contentX: padding, contentWidth: width - padding * 2 };
+
+      let bounds = computeBoundsFromPolylines(polylines);
+      if (config.additionalLocations.length > 0) {
+        let { west, east, south, north } = bounds;
+        for (const loc of config.additionalLocations) {
+          west = Math.min(west, loc.lng);
+          east = Math.max(east, loc.lng);
+          south = Math.min(south, loc.lat);
+          north = Math.max(north, loc.lat);
+        }
+        bounds = { west, east, south, north };
+      }
+
+      const sidePx = Math.min(width, mapHeight);
+      const { expandedBbox } = computeMapTransform(bounds, sidePx);
+
+      const scale = Math.min(width / sidePx, mapHeight / sidePx);
+      const offsetX = (width - sidePx * scale) / 2;
+
+      return {
+        contentX: offsetX,
+        contentWidth: sidePx * scale,
+      };
+    }, [config.stages, config.additionalLocations, width, mapHeight, padding]);
+
     const elevationY = mapY + mapHeight + padding;
     const stageTableY = useSideBySide ? elevationY : elevationY + elevationHeight + padding;
     const stageTableX = useSideBySide ? width * 0.5 + padding / 2 : 0;
@@ -128,9 +158,10 @@ export const Poster = forwardRef<SVGSVGElement, PosterProps>(
               stages={config.stages}
               accentColor={config.accentColor}
               y={elevationY}
-              width={elevationWidth}
+              width={useSideBySide ? elevationWidth : width}
               height={elevationHeight}
               units={config.units}
+              {...(!useSideBySide ? { contentX, contentWidth } : {})}
             />
           </g>
         )}
@@ -146,6 +177,7 @@ export const Poster = forwardRef<SVGSVGElement, PosterProps>(
               columnCount={stageTableColumnCount}
               units={config.units}
               showSeconds={config.showSeconds}
+              {...(!useSideBySide ? { contentX, contentWidth } : {})}
             />
           </g>
         )}

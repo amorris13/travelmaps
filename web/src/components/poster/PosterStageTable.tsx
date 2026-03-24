@@ -16,6 +16,8 @@ interface PosterStageTableProps {
   columnCount?: number;
   units?: "metric" | "imperial";
   showSeconds?: boolean;
+  contentX?: number;
+  contentWidth?: number;
 }
 
 export function PosterStageTable({
@@ -26,9 +28,15 @@ export function PosterStageTable({
   columnCount = 3,
   units = "metric",
   showSeconds = false,
+  contentX,
+  contentWidth,
 }: PosterStageTableProps) {
-  const padding = width * 0.04;
-  const tableWidth = width - padding * 2;
+  // If contentX/contentWidth are provided, we use them for the effective table area
+  // and we do NOT add extra internal padding, so it aligns perfectly with the map edges.
+  const tablePadding = contentWidth !== undefined ? 0 : width * 0.04;
+  const effectiveX = contentX !== undefined ? contentX : tablePadding;
+  const effectiveWidth = contentWidth !== undefined ? contentWidth : (width - tablePadding * 2);
+
   const rowHeight = 18;
   const headerHeight = 20;
   const fontSize = 10;
@@ -43,8 +51,9 @@ export function PosterStageTable({
     );
   }
 
-  const columnGroupWidth = tableWidth / columnCount;
   const gap = 12; // gap between column groups
+  const totalGapWidth = (columnCount - 1) * gap;
+  const groupW = (effectiveWidth - totalGapWidth) / columnCount;
 
   const allPace =
     stages.length > 0 && stages.every((s) => usePace(s.activityType));
@@ -53,18 +62,23 @@ export function PosterStageTable({
     !allPace &&
     stages.some((s) => usePace(s.activityType));
 
+  // Find "best efforts" for bolding
+  const maxDist = Math.max(...stages.map((s) => s.distance));
+  const maxTime = Math.max(...stages.map((s) => s.movingTime));
+  const maxSpeed = Math.max(...stages.map((s) => s.averageSpeed));
+  const maxGain = Math.max(...stages.map((s) => s.elevationGain));
+
   // Sub-columns within each group: #, STAGE, DIST, TIME, SPD/PACE, GAIN
-  const subColWidths = (groupW: number) => {
-    const w = groupW - gap;
+  const subColWidths = (w: number) => {
     let speedLabel = "SPEED";
     if (allPace) speedLabel = "PACE";
     else if (hasMixed) speedLabel = "SPD/PACE";
 
     return [
-      { label: "", width: w * 0.06, align: "end" as "start" | "middle" | "end" },
+      { label: "", width: w * 0.08, align: "end" as "start" | "middle" | "end" },
       {
         label: "STAGE",
-        width: w * 0.42,
+        width: w * 0.40,
         align: "start" as "start" | "middle" | "end",
       },
       {
@@ -90,12 +104,12 @@ export function PosterStageTable({
     ];
   };
 
-  const cols = subColWidths(columnGroupWidth);
+  const cols = subColWidths(groupW);
 
   return (
-    <g transform={`translate(${padding}, ${y})`}>
+    <g transform={`translate(${effectiveX}, ${y})`}>
       {columnGroups.map((group, groupIdx) => {
-        const groupX = groupIdx * columnGroupWidth;
+        const groupX = groupIdx * (groupW + gap);
         return (
           <g key={groupIdx} transform={`translate(${groupX}, 0)`}>
             {/* Header row */}
@@ -119,6 +133,16 @@ export function PosterStageTable({
               );
             })}
 
+            {/* Header grid line */}
+            <line
+              x1={0}
+              y1={headerHeight}
+              x2={groupW}
+              y2={headerHeight}
+              stroke={accentColor}
+              strokeWidth={1.5}
+            />
+
             {/* Data rows */}
             {group.map((stage, i) => {
               const globalIdx =
@@ -132,25 +156,29 @@ export function PosterStageTable({
                   ? stage.startLabel
                   : prevStage?.endLabel || "";
               const toLabel = stage.endLabel || "";
-              const stageName =
-                fromLabel && toLabel
-                  ? `${fromLabel} \u2192 ${toLabel}`
-                  : stage.name || stage.endLabel || `Stage ${globalIdx + 1}`;
+
+              // Use stage.name if it's set and NOT a default "Stage X" if we want to support fallback
+              // Requirement: "Stage column should use Stage number (and only fall back to A -> B if Stage Name is not specified)"
+              const stageName = stage.name || (fromLabel && toLabel ? `${fromLabel} \u2192 ${toLabel}` : stage.endLabel || `Stage ${globalIdx + 1}`);
+
               const isStagePace = usePace(stage.activityType);
               const values = [
-                `${globalIdx + 1}`,
-                stageName,
-                formatDistanceCompact(stage.distance, units),
-                formatDurationCompact(stage.movingTime, showSeconds),
-                isStagePace
-                  ? formatPaceCompact(stage.averageSpeed, units)
-                  : formatSpeedCompact(stage.averageSpeed, units),
-                formatElevationCompact(stage.elevationGain, units),
+                { val: `${globalIdx + 1}`, bold: false },
+                { val: stageName, bold: false },
+                { val: formatDistanceCompact(stage.distance, units), bold: stage.distance === maxDist && stages.length > 1 },
+                { val: formatDurationCompact(stage.movingTime, showSeconds), bold: stage.movingTime === maxTime && stages.length > 1 },
+                {
+                  val: isStagePace
+                    ? formatPaceCompact(stage.averageSpeed, units)
+                    : formatSpeedCompact(stage.averageSpeed, units),
+                  bold: stage.averageSpeed === maxSpeed && stages.length > 1
+                },
+                { val: formatElevationCompact(stage.elevationGain, units), bold: stage.elevationGain === maxGain && stages.length > 1 },
               ];
 
               return (
                 <g key={i}>
-                  {values.map((val, j) => {
+                  {values.map((item, j) => {
                     const col = cols[j];
                     let x = cols
                       .slice(0, j)
@@ -166,12 +194,21 @@ export function PosterStageTable({
                         fill={j === 0 ? "black" : "#333333"}
                         fontFamily="Helvetica, sans-serif"
                         fontSize={fontSize}
-                        fontWeight={j === 0 ? 700 : 300}
+                        fontWeight={j === 0 || item.bold ? 700 : 300}
                       >
-                        {val}
+                        {item.val}
                       </text>
                     );
                   })}
+                  {/* Row grid line */}
+                  <line
+                    x1={0}
+                    y1={rowY + rowHeight}
+                    x2={groupW}
+                    y2={rowY + rowHeight}
+                    stroke="#eee"
+                    strokeWidth={1}
+                  />
                 </g>
               );
             })}
