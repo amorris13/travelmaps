@@ -35,7 +35,7 @@ export async function exportPoster(
  * Replace all <image> href attributes that are relative URLs with base64 data URIs
  * so that the server-side SVG renderer (resvg) can render them without HTTP access.
  */
-async function inlineImages(svgString: string): Promise<string> {
+export async function inlineImages(svgString: string): Promise<string> {
   const parser = new DOMParser();
   const doc = parser.parseFromString(svgString, "image/svg+xml");
   const images = Array.from(doc.querySelectorAll("image"));

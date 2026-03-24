@@ -3,10 +3,11 @@ import { render, waitFor, act } from "@testing-library/react";
 import React from "react";
 import fs from "fs";
 import path from "path";
-import { Resvg } from "@resvg/resvg-js";
 import { Poster } from "../Poster";
 import { testConfigs } from "./test-configs";
 import { comparePngs } from "./visual-regression.utils";
+import { renderSvgToPng } from "../../../app/api/export/route";
+import { inlineImages } from "../../../lib/export";
 
 // Directory for storing golden images (snapshots)
 const SNAPSHOTS_DIR = path.resolve(__dirname, "__snapshots__");
@@ -14,21 +15,14 @@ if (!fs.existsSync(SNAPSHOTS_DIR)) {
   fs.mkdirSync(SNAPSHOTS_DIR, { recursive: true });
 }
 
-// Load fonts from the project's fonts directory for consistent rendering
-const FONTS_DIR = path.resolve(__dirname, "../../../../fonts");
-const fontFiles = fs
-  .readdirSync(FONTS_DIR)
-  .filter((f) => f.endsWith(".ttf") || f.endsWith(".otf"))
-  .map((f) => path.join(FONTS_DIR, f));
-
 describe("Poster Visual Regression", () => {
   beforeAll(() => {
     // Mock fetch for map tiles and geocoding
     global.fetch = vi.fn().mockImplementation((url: string) => {
       if (url.includes("/api/map-tile")) {
-        // Return a 1x1 light green PNG buffer
+        // Return a 10x10 solid light green PNG buffer
         const lightGreenPng = Buffer.from(
-          "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mO89f9/PQAIDwNc69y97wAAAABJRU5ErkJggg==",
+          "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVQYlWNk+M/wn4EYwMjIisv9AAL9CBVf3KviAAAAAElFTkSuQmCC",
           "base64"
         );
         return Promise.resolve({
@@ -67,19 +61,10 @@ describe("Poster Visual Regression", () => {
       const svgElement = container.querySelector("svg")!;
       const svgString = svgElement.outerHTML;
 
-      // Render SVG to PNG using resvg-js (same as the app's export API)
-      const resvg = new Resvg(svgString, {
-        fitTo: { mode: "width", value: 1200 },
-        font: {
-          fontFiles,
-          loadSystemFonts: false,
-          sansSerifFamily: "Liberation Sans",
-          serifFamily: "Liberation Serif",
-          defaultFontFamily: "Liberation Sans",
-        },
-      });
-
-      const pngBuffer = resvg.render().asPng();
+      // Inline images (like the mock map tile) then render to PNG
+      // using the exact same logic as the production export API.
+      const inlinedSvg = await inlineImages(svgString);
+      const pngBuffer = renderSvgToPng(inlinedSvg, 1200);
       const snapshotPath = path.join(SNAPSHOTS_DIR, `${name}.png`);
 
       if (!fs.existsSync(snapshotPath)) {

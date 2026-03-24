@@ -1,18 +1,32 @@
 import path from "path";
 import fs from "fs";
-import { NextRequest, NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import { Resvg } from "@resvg/resvg-js";
 import { PDFDocument } from "pdf-lib";
 
 // Load bundled fonts so Vercel (which has no system fonts) can render text.
-const fontsDir = path.join(process.cwd(), "fonts");
-const fontFiles = fs
-  .readdirSync(fontsDir)
-  .filter((f) => f.endsWith(".ttf") || f.endsWith(".otf"))
-  .map((f) => path.join(fontsDir, f));
+function getFontFiles() {
+  // Use web/fonts if it exists (for local tests from root), otherwise try fonts (for Vercel)
+  let fontsDir = path.join(process.cwd(), "fonts");
+  if (!fs.existsSync(fontsDir)) {
+    fontsDir = path.join(process.cwd(), "web/fonts");
+  }
 
-function makeResvg(svgString: string, width: number) {
-  return new Resvg(svgString, {
+  if (!fs.existsSync(fontsDir)) {
+    return [];
+  }
+
+  return fs
+    .readdirSync(fontsDir)
+    .filter((f) => f.endsWith(".ttf") || f.endsWith(".otf"))
+    .map((f) => path.join(fontsDir, f));
+}
+
+const fontFiles = getFontFiles();
+
+export function renderSvgToPng(svgString: string, width: number): Buffer {
+  const resvg = new Resvg(svgString, {
     fitTo: { mode: "width", value: width },
     font: {
       fontFiles,
@@ -23,12 +37,14 @@ function makeResvg(svgString: string, width: number) {
       defaultFontFamily: "Liberation Sans",
     },
   });
+  return resvg.render().asPng();
 }
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { svgString, format, width } = body;
+    const { svgString, format, width: widthParam } = body;
+    const width = widthParam ?? 1200;
 
     if (!svgString) {
       return NextResponse.json({ error: "SVG string required" }, { status: 400 });
@@ -44,8 +60,7 @@ export async function POST(request: NextRequest) {
     }
 
     if (format === "png") {
-      const resvg = makeResvg(svgString, width ?? 1200);
-      const pngBuffer = resvg.render().asPng();
+      const pngBuffer = renderSvgToPng(svgString, width);
 
       return new NextResponse(pngBuffer.buffer as ArrayBuffer, {
         headers: {
@@ -56,8 +71,7 @@ export async function POST(request: NextRequest) {
     }
 
     if (format === "pdf") {
-      const resvg = makeResvg(svgString, width ?? 1200);
-      const pngBuffer = resvg.render().asPng();
+      const pngBuffer = renderSvgToPng(svgString, width);
 
       const pdfDoc = await PDFDocument.create();
       const pngImage = await pdfDoc.embedPng(pngBuffer);
