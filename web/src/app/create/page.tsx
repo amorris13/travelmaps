@@ -82,6 +82,7 @@ export default function CreatePage() {
 
             return {
               activityId: String(activity.id),
+              activityType: activity.sport_type || activity.type || "",
               name: activity.name,
               startLabel,
               endLabel,

@@ -68,6 +68,7 @@ export interface PosterConfig {
 
 export interface StageConfig {
   activityId: string;
+  activityType: string;
   name: string;
   startLabel: string;
   endLabel: string;

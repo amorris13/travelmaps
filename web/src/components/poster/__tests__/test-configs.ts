@@ -13,6 +13,7 @@ export const testConfigs: Record<string, PosterConfig> = {
     stages: [
       {
         activityId: "1",
+        activityType: "Ride",
         name: "Morning Ride",
         startLabel: "San Francisco",
         endLabel: "Sausalito",
@@ -38,6 +39,7 @@ export const testConfigs: Record<string, PosterConfig> = {
     stages: [
       {
         activityId: "s1",
+        activityType: "Ride",
         name: "Stage 1",
         startLabel: "Geneva",
         endLabel: "Chamonix",
@@ -51,6 +53,7 @@ export const testConfigs: Record<string, PosterConfig> = {
       },
       {
         activityId: "s2",
+        activityType: "Ride",
         name: "Stage 2",
         startLabel: "Chamonix",
         endLabel: "Martigny",
@@ -78,6 +81,7 @@ export const testConfigs: Record<string, PosterConfig> = {
     stages: [
       {
         activityId: "m1",
+        activityType: "Walk",
         name: "Walk",
         startLabel: "",
         endLabel: "Home",
