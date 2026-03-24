@@ -1,44 +1,6 @@
-import path from "path";
-import fs from "fs";
-import type { NextRequest } from "next/server";
-import { NextResponse } from "next/server";
-import { Resvg } from "@resvg/resvg-js";
+import { NextRequest, NextResponse } from "next/server";
 import { PDFDocument } from "pdf-lib";
-
-// Load bundled fonts so Vercel (which has no system fonts) can render text.
-function getFontFiles() {
-  // Use web/fonts if it exists (for local tests from root), otherwise try fonts (for Vercel)
-  let fontsDir = path.join(process.cwd(), "fonts");
-  if (!fs.existsSync(fontsDir)) {
-    fontsDir = path.join(process.cwd(), "web/fonts");
-  }
-
-  if (!fs.existsSync(fontsDir)) {
-    return [];
-  }
-
-  return fs
-    .readdirSync(fontsDir)
-    .filter((f) => f.endsWith(".ttf") || f.endsWith(".otf"))
-    .map((f) => path.join(fontsDir, f));
-}
-
-const fontFiles = getFontFiles();
-
-export function renderSvgToPng(svgString: string, width: number): Buffer {
-  const resvg = new Resvg(svgString, {
-    fitTo: { mode: "width", value: width },
-    font: {
-      fontFiles,
-      loadSystemFonts: false,
-      // Map generic families to the Liberation fonts we bundle
-      sansSerifFamily: "Liberation Sans",
-      serifFamily: "Liberation Serif",
-      defaultFontFamily: "Liberation Sans",
-    },
-  });
-  return resvg.render().asPng();
-}
+import { renderSvgToPng } from "@/lib/render-server";
 
 export async function POST(request: NextRequest) {
   try {
