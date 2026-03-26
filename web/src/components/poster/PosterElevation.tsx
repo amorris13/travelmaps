@@ -12,6 +12,8 @@ interface PosterElevationProps {
   width: number;
   height: number;
   units?: "metric" | "imperial";
+  contentX?: number;
+  contentWidth?: number;
 }
 
 export function PosterElevation({
@@ -21,6 +23,8 @@ export function PosterElevation({
   width,
   height,
   units = "metric",
+  contentX,
+  contentWidth,
 }: PosterElevationProps) {
   const profileData = useMemo(() => {
     // Combine all stage elevation/distance data
@@ -55,8 +59,10 @@ export function PosterElevation({
 
     if (combinedElevation.length === 0) return null;
 
+    // Use contentWidth for plotting if provided, otherwise fall back to width
+    const effectiveWidth = contentWidth !== undefined ? contentWidth : width;
     const padding = ELEVATION_PADDING;
-    const plotWidth = width - padding * 2;
+    const plotWidth = effectiveWidth - padding * 2;
     const plotHeight = height - padding * 2 - 30; // Leave room for labels
 
     return computeElevationProfile(
@@ -71,7 +77,7 @@ export function PosterElevation({
       },
       accentColor
     );
-  }, [stages, accentColor, width, height]);
+  }, [stages, accentColor, width, contentWidth, height]);
 
   if (!profileData) {
     return null;
@@ -81,6 +87,7 @@ export function PosterElevation({
 
   const gradientId = "elevation-gradient";
   const padding = ELEVATION_PADDING;
+  const effectiveX = contentX !== undefined ? contentX : 0;
 
   // Build profile path
   const pathD = profilePoints
@@ -102,11 +109,11 @@ export function PosterElevation({
   const keyY = stageBarY + (stageMarkerPositions.length > 0 ? 15 : 0) + 20;
 
   return (
-    <g transform={`translate(0, ${y})`}>
+    <g transform={`translate(${effectiveX}, ${y})`}>
       <svg
         x={0}
         y={0}
-        width={width}
+        width={contentWidth !== undefined ? contentWidth : width}
         height={height}
         viewBox={`0 0 ${svgWidth} ${svgHeight}`}
         preserveAspectRatio="xMidYMid meet"
