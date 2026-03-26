@@ -26,7 +26,19 @@ export function CustomizationPanel({
 
   function updateStage(index: number, partial: Partial<StageConfig>) {
     const stages = [...config.stages];
-    stages[index] = { ...stages[index], ...partial };
+    const updatedStage = { ...stages[index], ...partial };
+    stages[index] = updatedStage;
+
+    // If this stage's endLabel changed, and the next stage is continuous, propagate the label
+    if (partial.endLabel !== undefined && index < stages.length - 1) {
+      if (stages[index + 1].isContinuousWithPrev) {
+        stages[index + 1] = {
+          ...stages[index + 1],
+          startLabel: partial.endLabel,
+        };
+      }
+    }
+
     update({ stages });
   }
 
@@ -125,17 +137,16 @@ export function CustomizationPanel({
                         className="w-full rounded border border-gray-200 px-2 py-1 text-sm focus:border-accent focus:outline-none"
                       />
                       <div className="grid grid-cols-2 gap-1">
-                        {i === 0 && (
-                          <input
-                            type="text"
-                            value={stage.startLabel}
-                            onChange={(e) =>
-                              updateStage(i, { startLabel: e.target.value })
-                            }
-                            placeholder="Start"
-                            className="rounded border border-gray-200 px-2 py-1 text-xs focus:border-accent focus:outline-none"
-                          />
-                        )}
+                        <input
+                          type="text"
+                          value={stage.startLabel}
+                          onChange={(e) =>
+                            updateStage(i, { startLabel: e.target.value })
+                          }
+                          disabled={stage.isContinuousWithPrev}
+                          placeholder="Start"
+                          className="rounded border border-gray-200 px-2 py-1 text-xs focus:border-accent focus:outline-none disabled:bg-gray-50 disabled:text-gray-400"
+                        />
                         <input
                           type="text"
                           value={stage.endLabel}
@@ -143,7 +154,7 @@ export function CustomizationPanel({
                             updateStage(i, { endLabel: e.target.value })
                           }
                           placeholder="End"
-                          className={`rounded border border-gray-200 px-2 py-1 text-xs focus:border-accent focus:outline-none${i === 0 ? "" : " col-span-2"}`}
+                          className="rounded border border-gray-200 px-2 py-1 text-xs focus:border-accent focus:outline-none"
                         />
                       </div>
                     </div>

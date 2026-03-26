@@ -27,37 +27,39 @@ export function PosterElevation({
   contentWidth,
 }: PosterElevationProps) {
   const profileData = useMemo(() => {
-    // Combine all stage elevation/distance data
-    let combinedElevation: number[] = [];
-    let combinedDistance: number[] = [];
-    const stageMarkers: { distance: number; label: string }[] = [];
-    let cumulativeDistance = 0;
+    // Prepare segments with continuity info
+    const segments = stages.map((stage, i) => ({
+      elevationStream: stage.elevationStream,
+      distanceStream: stage.distanceStream,
+      isContinuousWithNext: stages[i + 1]?.isContinuousWithPrev,
+    }));
 
-    for (const [i, stage] of stages.entries()) {
-      if (stage.elevationStream.length === 0 || stage.distanceStream.length === 0) {
-        continue;
+    // Find stage marker distances after gaps are added
+    const rawTotalDistance = stages.reduce((acc, s) => {
+      if (s.distanceStream.length > 0) {
+        return acc + s.distanceStream[s.distanceStream.length - 1];
       }
+      return acc;
+    }, 0);
+    const gapSize = rawTotalDistance * 0.01;
 
-      combinedElevation = combinedElevation.concat(stage.elevationStream);
-      combinedDistance = combinedDistance.concat(
-        stage.distanceStream.map((d) => d + cumulativeDistance)
-      );
+    // Recalculate markers correctly to match computeElevationProfile's internal cumulativeDistance
+    const correctStageMarkers: { distance: number; label: string }[] = [];
+    let currentCumulative = 0;
+    for (let i = 0; i < stages.length; i++) {
+      const stage = stages[i];
+      if (stage.elevationStream.length === 0 || stage.distanceStream.length === 0) continue;
 
-      if (stages.length > 1) {
-        stageMarkers.push({
-          distance: cumulativeDistance,
-          label: `${i + 1}`,
-        });
+      correctStageMarkers.push({
+        distance: currentCumulative,
+        label: `${i + 1}`,
+      });
+
+      currentCumulative += stage.distanceStream[stage.distanceStream.length - 1];
+      if (stages[i + 1] && !stages[i + 1].isContinuousWithPrev) {
+        currentCumulative += gapSize;
       }
-
-      const lastDist =
-        stage.distanceStream.length > 0
-          ? stage.distanceStream[stage.distanceStream.length - 1]
-          : 0;
-      cumulativeDistance += lastDist;
     }
-
-    if (combinedElevation.length === 0) return null;
 
     // Use contentWidth for plotting if provided, otherwise fall back to width
     const effectiveWidth = contentWidth !== undefined ? contentWidth : width;
@@ -66,12 +68,11 @@ export function PosterElevation({
     const plotHeight = height - padding * 2 - 30; // Leave room for labels
 
     return computeElevationProfile(
-      combinedElevation,
-      combinedDistance,
+      segments,
       plotWidth,
       plotHeight,
       {
-        stageMarkers: stageMarkers.length > 0 ? stageMarkers : undefined,
+        stageMarkers: correctStageMarkers.length > 0 ? correctStageMarkers : undefined,
         labelProminentElevations: { minProminence: 250 },
         showKeyElevations: true,
       },
@@ -83,21 +84,11 @@ export function PosterElevation({
     return null;
   }
 
-  const { profilePoints, svgWidth, svgHeight, maxElevationPoint, prominentLabels, stageMarkerPositions, keyElevations, gradientStartColor, gradientEndColor, plotOffsetY, plotWidth, plotHeight } = profileData;
+  const { profileSegments, svgWidth, svgHeight, maxElevationPoint, prominentLabels, stageMarkerPositions, keyElevations, gradientStartColor, gradientEndColor, plotOffsetY, plotWidth, plotHeight } = profileData;
 
   const gradientId = "elevation-gradient";
   const padding = ELEVATION_PADDING;
   const effectiveX = contentX !== undefined ? contentX : 0;
-
-  // Build profile path
-  const pathD = profilePoints
-    .map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`)
-    .join(" ");
-
-  // Fill path (close to bottom)
-  const firstPt = profilePoints[0];
-  const lastPt = profilePoints[profilePoints.length - 1];
-  const fillD = `${pathD} L ${lastPt.x} ${plotOffsetY + plotHeight} L ${firstPt.x} ${plotOffsetY + plotHeight} Z`;
 
   // Triangle marker for max elevation
   const triSize = 10;
@@ -125,18 +116,30 @@ export function PosterElevation({
           </linearGradient>
         </defs>
 
-        {/* Fill */}
-        <path d={fillD} fill={`url(#${gradientId})`} stroke="none" />
+        {/* Fill and Profile lines for each segment */}
+        {profileSegments.map((points, i) => {
+          if (points.length === 0) return null;
+          const pathD = points
+            .map((p, j) => `${j === 0 ? "M" : "L"} ${p.x} ${p.y}`)
+            .join(" ");
+          const firstPt = points[0];
+          const lastPt = points[points.length - 1];
+          const fillD = `${pathD} L ${lastPt.x} ${plotOffsetY + plotHeight} L ${firstPt.x} ${plotOffsetY + plotHeight} Z`;
 
-        {/* Profile line */}
-        <path
-          d={pathD}
-          fill="none"
-          stroke={accentColor}
-          strokeWidth={2}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+          return (
+            <g key={`segment-${i}`}>
+              <path d={fillD} fill={`url(#${gradientId})`} stroke="none" />
+              <path
+                d={pathD}
+                fill="none"
+                stroke={accentColor}
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </g>
+          );
+        })}
 
         {/* Max elevation triangle */}
         <polygon

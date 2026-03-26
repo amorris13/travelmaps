@@ -167,12 +167,7 @@ export function PosterStageTable({
                 groupIdx * rowsPerColumn + i;
               const rowY = headerHeight + rowHeight * i;
               // Build "Start → End" label from adjacent stages
-              const prevStage =
-                globalIdx > 0 ? stages[globalIdx - 1] : null;
-              const fromLabel =
-                globalIdx === 0
-                  ? stage.startLabel
-                  : prevStage?.endLabel || "";
+              const fromLabel = stage.startLabel || "";
               const toLabel = stage.endLabel || "";
 
               const stageName = stage.name || (fromLabel && toLabel ? `${fromLabel} \u2192 ${toLabel}` : stage.endLabel || `Stage ${globalIdx + 1}`);

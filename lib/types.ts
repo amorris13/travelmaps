@@ -81,6 +81,11 @@ export interface StageConfig {
   elevationStream: number[];
   distanceStream: number[];
   activityType: string;
+  startLat?: number;
+  startLng?: number;
+  endLat?: number;
+  endLng?: number;
+  isContinuousWithPrev?: boolean;
 }
 
 // Bounds types
