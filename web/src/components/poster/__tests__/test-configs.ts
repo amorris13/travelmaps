@@ -18,6 +18,8 @@ export const testConfigs: Record<string, PosterConfig> = {
     mapStyle: "muted",
     showElevation: true,
     showStageTable: false,
+    units: "metric",
+    showSeconds: false,
     stages: [
       {
         activityId: "1",
@@ -44,6 +46,8 @@ export const testConfigs: Record<string, PosterConfig> = {
     mapStyle: "muted",
     showElevation: true,
     showStageTable: true,
+    units: "metric",
+    showSeconds: false,
     stages: [
       {
         activityId: "s1",
@@ -100,6 +104,8 @@ export const testConfigs: Record<string, PosterConfig> = {
     mapStyle: "muted",
     showElevation: false,
     showStageTable: false,
+    units: "metric",
+    showSeconds: false,
     stages: [
       {
         activityId: "m1",
