@@ -384,6 +384,11 @@ export function round(n: number, precision: number): number {
   return Math.round(n * factor) / factor;
 }
 
+export function isContinuous(latlng1: LatLng, latlng2: LatLng): boolean {
+  const toleranceMeters = 2000;
+  return latLngDistance(latlng1, latlng2) < toleranceMeters;
+}
+
 export function toSnakeCase(str: string): string {
   return str
     .replace(/([a-z])([A-Z])/g, "$1_$2")

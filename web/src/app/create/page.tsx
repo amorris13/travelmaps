@@ -4,7 +4,7 @@ import { useState, useRef, useCallback } from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import type { PosterConfig, StageConfig } from "@lib/types";
 import type { StravaActivity } from "@lib/strava";
-import { decodePolyline } from "@lib/geo";
+import { decodePolyline, isContinuous } from "@lib/geo";
 import { createDefaultPosterConfig } from "@/lib/poster-config";
 import { POSTER_WIDTH, POSTER_HEIGHT } from "@lib/constants";
 import { Poster } from "@/components/poster/Poster";
@@ -48,59 +48,85 @@ export default function CreatePage() {
           return new Date(a.start_date_local).getTime() - new Date(b.start_date_local).getTime();
         });
 
-        // Fetch detailed data for each activity
-        const stageConfigs: StageConfig[] = await Promise.all(
-          sortedActivities.map(async (activity, index) => {
-            const isFirst = index === 0;
-            const res = await fetch(`/api/strava/activity/${activity.id}`);
-            if (!res.ok) throw new Error("Failed to fetch activity details");
-            const data = await res.json();
+        // Fetch detailed data for each activity sequentially to handle continuity
+        const stageConfigs: StageConfig[] = [];
+        for (let index = 0; index < sortedActivities.length; index++) {
+          const activity = sortedActivities[index];
+          const isFirst = index === 0;
+          const res = await fetch(`/api/strava/activity/${activity.id}`);
+          if (!res.ok) throw new Error("Failed to fetch activity details");
+          const data = await res.json();
 
-            const polyline: string = data.polyline || "";
-            let startLabel = "";
-            let endLabel = "";
+          const polyline: string = data.polyline || "";
+          let startLabel = "";
+          let endLabel = "";
+          let startLat: number | undefined;
+          let startLng: number | undefined;
+          let endLat: number | undefined;
+          let endLng: number | undefined;
+          let isContinuousWithPrev = false;
 
-            if (polyline) {
-              const decoded = decodePolyline(polyline);
-              if (decoded.length > 0) {
-                const startPt = decoded[0];
-                const endPt = decoded[decoded.length - 1];
-                const [startRes, endRes] = await Promise.all([
-                  isFirst
-                    ? fetch(
-                        `/api/geocode/reverse?lat=${startPt.lat}&lng=${startPt.lng}`
-                      ).then((r) => (r.ok ? r.json() : null))
-                    : Promise.resolve(null),
-                  fetch(
-                    `/api/geocode/reverse?lat=${endPt.lat}&lng=${endPt.lng}`
-                  ).then((r) => (r.ok ? r.json() : null)),
-                ]);
-                startLabel = startRes?.name ?? "";
-                endLabel = endRes?.name ?? "";
+          if (polyline) {
+            const decoded = decodePolyline(polyline);
+            if (decoded.length > 0) {
+              const startPt = decoded[0];
+              const endPt = decoded[decoded.length - 1];
+              startLat = startPt.lat;
+              startLng = startPt.lng;
+              endLat = endPt.lat;
+              endLng = endPt.lng;
+
+              const prevStage = isFirst ? null : stageConfigs[index - 1];
+              if (prevStage && prevStage.endLat !== undefined && prevStage.endLng !== undefined) {
+                isContinuousWithPrev = isContinuous(
+                  { lat: prevStage.endLat, lng: prevStage.endLng },
+                  { lat: startLat, lng: startLng }
+                );
               }
-            }
 
-            return {
-              activityId: String(activity.id),
-              name: activity.name || "",
-              startLabel,
-              endLabel,
-              polyline,
-              distance: data.distance || activity.distance,
-              movingTime: data.moving_time || activity.moving_time,
-              elevationGain:
-                data.total_elevation_gain || activity.total_elevation_gain,
-              averageSpeed: data.average_speed || activity.average_speed,
-              elevationStream: data.elevation_stream
-                ? data.elevation_stream.split(",").map(Number)
-                : [],
-              distanceStream: data.distance_stream
-                ? data.distance_stream.split(",").map(Number)
-                : [],
-              activityType: data.sport_type || activity.sport_type || activity.type || "",
-            };
-          })
-        );
+              const [startRes, endRes] = await Promise.all([
+                (isFirst || !isContinuousWithPrev)
+                  ? fetch(
+                      `/api/geocode/reverse?lat=${startPt.lat}&lng=${startPt.lng}`
+                    ).then((r) => (r.ok ? r.json() : null))
+                  : Promise.resolve(null),
+                fetch(
+                  `/api/geocode/reverse?lat=${endPt.lat}&lng=${endPt.lng}`
+                ).then((r) => (r.ok ? r.json() : null)),
+              ]);
+
+              startLabel = isContinuousWithPrev && prevStage
+                ? prevStage.endLabel
+                : (startRes?.name ?? "");
+              endLabel = endRes?.name ?? "";
+            }
+          }
+
+          stageConfigs.push({
+            activityId: String(activity.id),
+            name: activity.name || "",
+            startLabel,
+            endLabel,
+            polyline,
+            distance: data.distance || activity.distance,
+            movingTime: data.moving_time || activity.moving_time,
+            elevationGain:
+              data.total_elevation_gain || activity.total_elevation_gain,
+            averageSpeed: data.average_speed || activity.average_speed,
+            elevationStream: data.elevation_stream
+              ? data.elevation_stream.split(",").map(Number)
+              : [],
+            distanceStream: data.distance_stream
+              ? data.distance_stream.split(",").map(Number)
+              : [],
+            activityType: data.sport_type || activity.sport_type || activity.type || "",
+            startLat,
+            startLng,
+            endLat,
+            endLng,
+            isContinuousWithPrev,
+          });
+        }
 
         const title =
           sortedActivities.length === 1
