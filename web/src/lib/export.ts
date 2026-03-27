@@ -3,11 +3,19 @@
  */
 export async function exportPoster(
   svgElement: SVGSVGElement,
-  format: "png" | "pdf",
+  format: "svg" | "png" | "pdf",
   filename = "poster"
 ) {
   const serializer = new XMLSerializer();
   const svgString = serializer.serializeToString(svgElement);
+
+  if (format === "svg") {
+    downloadBlob(
+      new Blob([svgString], { type: "image/svg+xml" }),
+      `${filename}.svg`
+    );
+    return;
+  }
 
   // Inline external images then send to server
   const inlinedSvg = await inlineImages(svgString);

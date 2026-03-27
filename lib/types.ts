@@ -64,6 +64,8 @@ export interface PosterConfig {
   showStageTable: boolean;
   stages: StageConfig[];
   additionalLocations: { name: string; lat: number; lng: number }[];
+  units: "metric" | "imperial";
+  showSeconds?: boolean;
 }
 
 export interface StageConfig {
@@ -79,6 +81,12 @@ export interface StageConfig {
   averageSpeed: number;
   elevationStream: number[];
   distanceStream: number[];
+  activityType: string;
+  startLat?: number;
+  startLng?: number;
+  endLat?: number;
+  endLng?: number;
+  isContinuousWithPrev?: boolean;
 }
 
 // Bounds types

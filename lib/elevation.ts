@@ -17,9 +17,15 @@ export interface ElevationProfileOptions {
   showKeyElevations?: boolean;
 }
 
+export interface ElevationProfileSegment {
+  elevationStream: number[];
+  distanceStream: number[];
+  isContinuousWithNext?: boolean;
+}
+
 export interface ElevationProfileData {
-  /** Simplified elevation profile points (x, y in SVG coordinates) */
-  profilePoints: SimplePoint[];
+  /** Simplified elevation profile points, split into segments (x, y in SVG coordinates) */
+  profileSegments: SimplePoint[][];
   /** Full computed points (before simplification) */
   allPoints: SimplePoint[];
   /** SVG dimensions */
@@ -105,8 +111,7 @@ export function mixColors(
  * Returns all data needed to render the profile as SVG (either server-side or React).
  */
 export function computeElevationProfile(
-  elevationData_: number[],
-  distanceData_: number[],
+  segments: ElevationProfileSegment[],
   plotWidth: number,
   plotHeight: number,
   options?: ElevationProfileOptions,
@@ -122,10 +127,40 @@ export function computeElevationProfile(
     (options?.showKeyElevations ? KEY_ELEVATIONS_HEIGHT : 0) +
     padding;
 
+  // Combine and handle gaps
+  const combinedElevation: number[] = [];
+  const combinedDistance: number[] = [];
+  let cumulativeDistance = 0;
+
+  // First calculate raw total distance to compute gap size
+  let rawTotalDistance = 0;
+  for (const s of segments) {
+    if (s.distanceStream.length > 0) {
+      rawTotalDistance += s.distanceStream[s.distanceStream.length - 1];
+    }
+  }
+  const gapSize = rawTotalDistance * 0.01; // 1% gap
+
+  for (const s of segments) {
+    const len = Math.min(s.elevationStream.length, s.distanceStream.length);
+    if (len === 0) continue;
+
+    for (let i = 0; i < len; i++) {
+      combinedElevation.push(s.elevationStream[i]);
+      combinedDistance.push(s.distanceStream[i] + cumulativeDistance);
+    }
+
+    const lastDist = s.distanceStream[len - 1];
+    cumulativeDistance += lastDist;
+    if (s.isContinuousWithNext === false) {
+      cumulativeDistance += gapSize;
+    }
+  }
+
   // Guard against empty or misaligned data
-  if (elevationData_.length === 0 || distanceData_.length === 0) {
+  if (combinedElevation.length === 0 || combinedDistance.length === 0) {
     return {
-      profilePoints: [],
+      profileSegments: [],
       allPoints: [],
       svgWidth,
       svgHeight,
@@ -145,21 +180,17 @@ export function computeElevationProfile(
     };
   }
 
-  // Truncate to equal length if misaligned
-  const len = Math.min(elevationData_.length, distanceData_.length);
-  const elevationData = elevationData_.slice(0, len);
-  const distanceData = distanceData_.slice(0, len);
-
   let plotOffsetY = padding;
 
-  const clamped = elevationData.map((e) => Math.max(0, e));
+  const clamped = combinedElevation.map((e) => Math.max(0, e));
   const maxElevation = Math.max(Math.max(...clamped), 200);
   const minElevation = 0;
   const elevationRange = maxElevation - minElevation;
-  const maxDistance = Math.max(...distanceData);
+  const maxDistance = combinedDistance[combinedDistance.length - 1];
+
   if (maxDistance <= 0) {
     return {
-      profilePoints: [],
+      profileSegments: [],
       allPoints: [],
       svgWidth,
       svgHeight,
@@ -184,11 +215,22 @@ export function computeElevationProfile(
   }
 
   const allPoints = clamped.map((elevation, index) => ({
-    x: (distanceData[index] / maxDistance) * plotWidth + padding,
+    x: (combinedDistance[index] / maxDistance) * plotWidth + padding,
     y: ((1 - (elevation - minElevation) / elevationRange) * plotHeight) + plotOffsetY,
   }));
 
-  const profilePoints = simplify(allPoints, 0.1, true);
+  // Re-split into segments for path rendering
+  const profileSegments: SimplePoint[][] = [];
+  let currentOffset = 0;
+  for (const s of segments) {
+    const len = Math.min(s.elevationStream.length, s.distanceStream.length);
+    if (len === 0) continue;
+    const segmentPoints = allPoints.slice(currentOffset, currentOffset + len);
+    if (segmentPoints.length > 0) {
+      profileSegments.push(simplify(segmentPoints, 0.1, true));
+    }
+    currentOffset += len;
+  }
 
   const maxElevationIndex = clamped.indexOf(Math.max(...clamped));
   const maxElevationPoint = allPoints[maxElevationIndex];
@@ -261,7 +303,7 @@ export function computeElevationProfile(
         ((options.stageMarkers[i + 1]?.distance || maxDistance) / maxDistance) *
           plotWidth +
         padding;
-      const elevIdx = distanceData.findIndex((v) => v >= marker.distance);
+      const elevIdx = combinedDistance.findIndex((v) => v >= marker.distance);
       const elevationY = allPoints[elevIdx >= 0 ? elevIdx : 0].y;
       stageMarkerPositions.push({
         x,
@@ -273,7 +315,7 @@ export function computeElevationProfile(
   }
 
   return {
-    profilePoints,
+    profileSegments,
     allPoints,
     svgWidth,
     svgHeight,

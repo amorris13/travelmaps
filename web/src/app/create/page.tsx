@@ -4,7 +4,7 @@ import { useState, useRef, useCallback } from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import type { PosterConfig, StageConfig } from "@lib/types";
 import type { StravaActivity } from "@lib/strava";
-import { decodePolyline } from "@lib/geo";
+import { decodePolyline, isContinuous } from "@lib/geo";
 import { createDefaultPosterConfig } from "@/lib/poster-config";
 import { POSTER_WIDTH, POSTER_HEIGHT } from "@lib/constants";
 import { Poster } from "@/components/poster/Poster";
@@ -48,59 +48,85 @@ export default function CreatePage() {
           return new Date(a.start_date_local).getTime() - new Date(b.start_date_local).getTime();
         });
 
-        // Fetch detailed data for each activity
-        const stageConfigs: StageConfig[] = await Promise.all(
-          sortedActivities.map(async (activity, index) => {
-            const isFirst = index === 0;
-            const res = await fetch(`/api/strava/activity/${activity.id}`);
-            if (!res.ok) throw new Error("Failed to fetch activity details");
-            const data = await res.json();
+        // Fetch detailed data for each activity sequentially to handle continuity
+        const stageConfigs: StageConfig[] = [];
+        for (let index = 0; index < sortedActivities.length; index++) {
+          const activity = sortedActivities[index];
+          const isFirst = index === 0;
+          const res = await fetch(`/api/strava/activity/${activity.id}`);
+          if (!res.ok) throw new Error("Failed to fetch activity details");
+          const data = await res.json();
 
-            const polyline: string = data.polyline || "";
-            let startLabel = "";
-            let endLabel = "";
+          const polyline: string = data.polyline || "";
+          let startLabel = "";
+          let endLabel = "";
+          let startLat: number | undefined;
+          let startLng: number | undefined;
+          let endLat: number | undefined;
+          let endLng: number | undefined;
+          let isContinuousWithPrev = false;
 
-            if (polyline) {
-              const decoded = decodePolyline(polyline);
-              if (decoded.length > 0) {
-                const startPt = decoded[0];
-                const endPt = decoded[decoded.length - 1];
-                const [startRes, endRes] = await Promise.all([
-                  isFirst
-                    ? fetch(
-                        `/api/geocode/reverse?lat=${startPt.lat}&lng=${startPt.lng}`
-                      ).then((r) => (r.ok ? r.json() : null))
-                    : Promise.resolve(null),
-                  fetch(
-                    `/api/geocode/reverse?lat=${endPt.lat}&lng=${endPt.lng}`
-                  ).then((r) => (r.ok ? r.json() : null)),
-                ]);
-                startLabel = startRes?.name ?? "";
-                endLabel = endRes?.name ?? "";
+          if (polyline) {
+            const decoded = decodePolyline(polyline);
+            if (decoded.length > 0) {
+              const startPt = decoded[0];
+              const endPt = decoded[decoded.length - 1];
+              startLat = startPt.lat;
+              startLng = startPt.lng;
+              endLat = endPt.lat;
+              endLng = endPt.lng;
+
+              const prevStage = isFirst ? null : stageConfigs[index - 1];
+              if (prevStage && prevStage.endLat !== undefined && prevStage.endLng !== undefined) {
+                isContinuousWithPrev = isContinuous(
+                  { lat: prevStage.endLat, lng: prevStage.endLng },
+                  { lat: startLat, lng: startLng }
+                );
               }
-            }
 
-            return {
-              activityId: String(activity.id),
-              activityType: activity.sport_type || activity.type || "",
-              name: activity.name,
-              startLabel,
-              endLabel,
-              polyline,
-              distance: data.distance || activity.distance,
-              movingTime: data.moving_time || activity.moving_time,
-              elevationGain:
-                data.total_elevation_gain || activity.total_elevation_gain,
-              averageSpeed: data.average_speed || activity.average_speed,
-              elevationStream: data.elevation_stream
-                ? data.elevation_stream.split(",").map(Number)
-                : [],
-              distanceStream: data.distance_stream
-                ? data.distance_stream.split(",").map(Number)
-                : [],
-            };
-          })
-        );
+              const [startRes, endRes] = await Promise.all([
+                (isFirst || !isContinuousWithPrev)
+                  ? fetch(
+                      `/api/geocode/reverse?lat=${startPt.lat}&lng=${startPt.lng}`
+                    ).then((r) => (r.ok ? r.json() : null))
+                  : Promise.resolve(null),
+                fetch(
+                  `/api/geocode/reverse?lat=${endPt.lat}&lng=${endPt.lng}`
+                ).then((r) => (r.ok ? r.json() : null)),
+              ]);
+
+              startLabel = isContinuousWithPrev && prevStage
+                ? prevStage.endLabel
+                : (startRes?.name ?? "");
+              endLabel = endRes?.name ?? "";
+            }
+          }
+
+          stageConfigs.push({
+            activityId: String(activity.id),
+            name: activity.name || "",
+            startLabel,
+            endLabel,
+            polyline,
+            distance: data.distance || activity.distance,
+            movingTime: data.moving_time || activity.moving_time,
+            elevationGain:
+              data.total_elevation_gain || activity.total_elevation_gain,
+            averageSpeed: data.average_speed || activity.average_speed,
+            elevationStream: data.elevation_stream
+              ? data.elevation_stream.split(",").map(Number)
+              : [],
+            distanceStream: data.distance_stream
+              ? data.distance_stream.split(",").map(Number)
+              : [],
+            activityType: data.sport_type || activity.sport_type || activity.type || "",
+            startLat,
+            startLng,
+            endLat,
+            endLng,
+            isContinuousWithPrev,
+          });
+        }
 
         const title =
           sortedActivities.length === 1
@@ -141,7 +167,7 @@ export default function CreatePage() {
   );
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden">
+    <div className="flex flex-col h-screen h-[100dvh] overflow-hidden">
       {/* Header */}
       <header className="shrink-0 border-b border-gray-200 bg-white px-4 py-3 flex items-center justify-between">
         <a href="/" className="text-lg font-light text-gray-900">
@@ -177,8 +203,9 @@ export default function CreatePage() {
       </header>
 
       {/* Step 1: Activity Selection */}
-      <main className={`flex-1 overflow-y-auto flex flex-col items-center bg-gray-50 p-4 sm:p-8 ${step !== 1 ? "hidden" : ""}`}>
-          <div className="w-full max-w-lg">
+      <main className={`flex-1 flex flex-col min-h-0 bg-gray-50 h-full relative ${step !== 1 ? "hidden" : ""}`}>
+        <div className="flex-1 overflow-y-auto pb-24 sm:pb-0">
+          <div className="w-full max-w-lg mx-auto p-4 sm:p-8">
             <div className="mb-6">
               <h1 className="text-2xl font-light text-gray-900">
                 Select Activities
@@ -191,23 +218,27 @@ export default function CreatePage() {
               onSelect={handleActivitiesSelected}
               selectedIds={selectedIds}
             />
-            <div className="mt-6 flex justify-end">
-              <button
-                onClick={() => setStep(2)}
-                disabled={selectedActivities.length === 0 || loadingDetails}
-                className="px-6 py-2 bg-accent text-white rounded-md text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-90 transition-opacity"
-              >
-                {loadingDetails
-                  ? "Loading activity data…"
-                  : selectedActivities.length === 0
-                  ? "Select activities to continue"
-                  : `Continue with ${selectedActivities.length} ${
-                      selectedActivities.length === 1 ? "activity" : "activities"
-                    } →`}
-              </button>
-            </div>
           </div>
-        </main>
+        </div>
+
+        <div className="fixed bottom-0 left-0 right-0 sm:relative shrink-0 border-t border-gray-200 bg-white p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] z-30 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] sm:shadow-none">
+          <div className="max-w-lg mx-auto flex justify-end">
+            <button
+              onClick={() => setStep(2)}
+              disabled={selectedActivities.length === 0 || loadingDetails}
+              className="w-full sm:w-auto px-6 py-3 sm:py-2 bg-accent text-white rounded-md text-base sm:text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-90 transition-opacity shadow-sm"
+            >
+              {loadingDetails
+                ? "Loading activity data…"
+                : selectedActivities.length === 0
+                ? "Select activities to continue"
+                : `Continue with ${selectedActivities.length} ${
+                    selectedActivities.length === 1 ? "activity" : "activities"
+                  } →`}
+            </button>
+          </div>
+        </div>
+      </main>
 
       {/* Step 2: Customization + Poster preview */}
       {step === 2 && (
@@ -216,6 +247,25 @@ export default function CreatePage() {
           <aside className="w-full lg:w-80 shrink-0 border-t lg:border-t-0 lg:border-r border-gray-200 flex flex-col bg-white h-1/2 lg:h-full">
             {/* Header: Tabs */}
             <div className="shrink-0 border-b border-gray-200 flex items-center px-4">
+              <button
+                onClick={() => setStep(1)}
+                className="p-1 -ml-1 text-gray-400 hover:text-gray-600 transition-colors mr-2"
+                title="Back to activities"
+              >
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                  />
+                </svg>
+              </button>
               <div className="flex flex-1">
                 {(["content", "styling"] as const).map((tab) => (
                   <button
@@ -239,18 +289,18 @@ export default function CreatePage() {
                 onChange={setConfig}
                 activeTab={activeTab}
               />
-
-              <div className="border-t border-gray-100 pt-4">
-                <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
-                  Export
-                </label>
-                <ExportButton posterRef={posterRef} title={config.title} />
-              </div>
             </div>
-          </aside>
 
-          {/* Main content: Poster preview */}
-          <main className="flex-1 overflow-hidden flex flex-col bg-gray-100 relative">
+            <div className="shrink-0 p-4 border-t border-gray-100 bg-gray-50/50">
+              <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-3">
+                Export
+              </label>
+              <ExportButton posterRef={posterRef} title={config.title} />
+            </div>
+            </aside>
+
+            {/* Main content: Poster preview */}
+            <main className="flex-1 overflow-hidden flex flex-col bg-gray-100 relative">
             {loadingDetails ? (
               <div className="flex-1 flex items-center justify-center text-gray-400 text-sm">
                 Loading activity data…

@@ -39,24 +39,23 @@ describe("color helpers", () => {
 describe("computeElevationProfile", () => {
   const sampleElevation = [100, 200, 350, 300, 150, 100];
   const sampleDistance = [0, 1000, 2000, 3000, 4000, 5000];
+  const sampleSegments = [{ elevationStream: sampleElevation, distanceStream: sampleDistance }];
 
   it("should compute basic profile data", () => {
     const result = computeElevationProfile(
-      sampleElevation,
-      sampleDistance,
+      sampleSegments,
       600,
       200
     );
     expect(result.svgWidth).toBeGreaterThan(0);
     expect(result.svgHeight).toBeGreaterThan(0);
-    expect(result.profilePoints.length).toBeGreaterThan(0);
+    expect(result.profileSegments[0].length).toBeGreaterThan(0);
     expect(result.maxElevation).toBe(350);
   });
 
   it("should identify correct max elevation index", () => {
     const result = computeElevationProfile(
-      sampleElevation,
-      sampleDistance,
+      sampleSegments,
       600,
       200
     );
@@ -65,8 +64,7 @@ describe("computeElevationProfile", () => {
 
   it("should compute key elevations", () => {
     const result = computeElevationProfile(
-      sampleElevation,
-      sampleDistance,
+      sampleSegments,
       600,
       200,
       { showKeyElevations: true }
@@ -78,8 +76,7 @@ describe("computeElevationProfile", () => {
 
   it("should handle stage markers", () => {
     const result = computeElevationProfile(
-      sampleElevation,
-      sampleDistance,
+      sampleSegments,
       600,
       200,
       {
@@ -97,7 +94,7 @@ describe("computeElevationProfile", () => {
     // Create data with a clear prominent peak
     const elevation = [0, 50, 100, 500, 100, 50, 0];
     const distance = [0, 100, 200, 300, 400, 500, 600];
-    const result = computeElevationProfile(elevation, distance, 600, 200, {
+    const result = computeElevationProfile([{ elevationStream: elevation, distanceStream: distance }], 600, 200, {
       labelProminentElevations: { minProminence: 100 },
     });
     expect(result.prominentLabels.length).toBeGreaterThan(0);
@@ -108,16 +105,29 @@ describe("computeElevationProfile", () => {
   it("should clamp negative elevations to 0", () => {
     const elevation = [-50, 100, 200];
     const distance = [0, 100, 200];
-    const result = computeElevationProfile(elevation, distance, 600, 200);
+    const result = computeElevationProfile([{ elevationStream: elevation, distanceStream: distance }], 600, 200);
     // Max elevation should still be 200 (clamped input)
     expect(result.keyElevations.start).toBe(0); // -50 clamped to 0
     expect(result.keyElevations.peak).toBe(200);
   });
 
+  it("should handle gaps between non-continuous segments", () => {
+    const segments = [
+      { elevationStream: [100, 150], distanceStream: [0, 1000], isContinuousWithNext: false },
+      { elevationStream: [200, 250], distanceStream: [0, 1000] },
+    ];
+    const result = computeElevationProfile(segments, 600, 200);
+    expect(result.profileSegments).toHaveLength(2);
+    // Gap should be 1% of 2000 (total distance) = 20
+    // Segment 1 ends at 1000
+    // Segment 2 starts at 1000 + 20 = 1020
+    // Total maxDistance = 1020 + 1000 = 2020
+    expect(result.allPoints[2].x).toBeGreaterThan(result.allPoints[1].x);
+  });
+
   it("should generate gradient colors from accent", () => {
     const result = computeElevationProfile(
-      sampleElevation,
-      sampleDistance,
+      sampleSegments,
       600,
       200,
       undefined,
