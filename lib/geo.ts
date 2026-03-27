@@ -384,14 +384,9 @@ export function round(n: number, precision: number): number {
   return Math.round(n * factor) / factor;
 }
 
-export function isContinuous(
-  lat1: number,
-  lng1: number,
-  lat2: number,
-  lng2: number
-): boolean {
-  const toleranceMeters = 200;
-  return latLngDistance({ lat: lat1, lng: lng1 }, { lat: lat2, lng: lng2 }) < toleranceMeters;
+export function isContinuous(latlng1: LatLng, latlng2: LatLng): boolean {
+  const toleranceMeters = 2000;
+  return latLngDistance(latlng1, latlng2) < toleranceMeters;
 }
 
 export function toSnakeCase(str: string): string {

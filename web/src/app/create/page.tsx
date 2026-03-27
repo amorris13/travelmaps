@@ -79,10 +79,8 @@ export default function CreatePage() {
               const prevStage = isFirst ? null : stageConfigs[index - 1];
               if (prevStage && prevStage.endLat !== undefined && prevStage.endLng !== undefined) {
                 isContinuousWithPrev = isContinuous(
-                  prevStage.endLat,
-                  prevStage.endLng,
-                  startLat,
-                  startLng
+                  { lat: prevStage.endLat, lng: prevStage.endLng },
+                  { lat: startLat, lng: startLng }
                 );
               }
 
