@@ -1,0 +1,23 @@
+
+> travelmaps-web@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.8s
+ ○ Compiling /create ...
+ ✓ Compiled /create in 11s (2450 modules)
+ HEAD /create 200 in 11653ms
+ ✓ Compiled in 939ms (1229 modules)
+ GET /create 200 in 67ms
+ ○ Compiling /api/strava/activities ...
+ ✓ Compiled /api/strava/activities in 1015ms (1249 modules)
+ GET /api/strava/activities?page=1&per_page=200 401 in 1168ms
+ GET /api/strava/activities?page=1&per_page=200 401 in 21ms
+ ✓ Compiled /api/auth/strava in 237ms (1251 modules)
+ GET /api/auth/strava 500 in 271ms
+ ✓ Compiled in 446ms (1215 modules)
+ ✓ Compiled in 304ms (1229 modules)
+ ✓ Compiled in 234ms (1229 modules)

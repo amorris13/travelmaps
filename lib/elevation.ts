@@ -1,5 +1,5 @@
 import simplify from "simplify-js";
-import type { SimplePoint } from "./types";
+import type { SimplePoint, StageConfig } from "./types";
 import {
   ELEVATION_PADDING,
   KEY_ELEVATIONS_HEIGHT,
@@ -15,6 +15,7 @@ export interface ElevationProfileOptions {
     minProminence?: number;
   };
   showKeyElevations?: boolean;
+  units?: "metric" | "imperial";
 }
 
 export interface ElevationProfileSegment {
@@ -52,6 +53,7 @@ export interface ElevationProfileData {
   /** Prominent elevation labels */
   prominentLabels: {
     elevation: number;
+    label: string;
     x: number;
     y: number;
     anchor: "start" | "middle" | "end";
@@ -68,12 +70,17 @@ export interface ElevationProfileData {
     start: number;
     peak: number;
     end: number;
+    startLabel: string;
+    peakLabel: string;
+    endLabel: string;
   };
   /** Gradient colors */
   gradientStartColor: string;
   gradientEndColor: string;
   /** Accent color */
   accentColor: string;
+  /** Units used */
+  units: "metric" | "imperial";
 }
 
 export function parseToRgb(hexColor: string): {
@@ -113,6 +120,80 @@ export function mixColors(
     g: mix(rgb1.g, rgb2.g),
     b: mix(rgb1.b, rgb2.b),
   });
+}
+
+/**
+ * Parses a stream from Strava (either a comma-separated string or an array of numbers).
+ */
+export function parseStream(stream: string | number[] | undefined): number[] {
+  if (!stream) return [];
+  if (typeof stream === "string") {
+    return stream.split(",").map(Number);
+  }
+  return stream;
+}
+
+/**
+ * Higher-level helper to compute elevation profile data from StageConfig objects.
+ * Handles segment preparation, continuity, and stage markers.
+ */
+export function computeElevationProfileFromStages(
+  stages: StageConfig[],
+  width: number,
+  height: number,
+  options: ElevationProfileOptions = {},
+  accentColor: string = ACCENT_COLOR
+): ElevationProfileData | null {
+  // Prepare segments with continuity info
+  const segments = stages.map((stage, i) => ({
+    elevationStream: stage.elevationStream,
+    distanceStream: stage.distanceStream,
+    isContinuousWithNext: stages[i + 1]?.isContinuousWithPrev,
+  }));
+
+  // Find stage marker distances after gaps are added
+  const rawTotalDistance = stages.reduce((acc, s) => {
+    if (s.distanceStream.length > 0) {
+      return acc + s.distanceStream[s.distanceStream.length - 1];
+    }
+    return acc;
+  }, 0);
+  const gapSize = rawTotalDistance * 0.01;
+
+  // Recalculate markers correctly to match computeElevationProfile's internal cumulativeDistance
+  const correctStageMarkers: { distance: number; label: string }[] = [];
+  let currentCumulative = 0;
+  for (let i = 0; i < stages.length; i++) {
+    const stage = stages[i];
+    if (stage.elevationStream.length === 0 || stage.distanceStream.length === 0)
+      continue;
+
+    correctStageMarkers.push({
+      distance: currentCumulative,
+      label: `${i + 1}`,
+    });
+
+    currentCumulative += stage.distanceStream[stage.distanceStream.length - 1];
+    if (stages[i + 1] && !stages[i + 1].isContinuousWithPrev) {
+      currentCumulative += gapSize;
+    }
+  }
+
+  const padding = ELEVATION_PADDING;
+  const plotWidth = width - padding * 2;
+  const plotHeight = height - padding * 2 - 30; // Leave room for labels
+
+  return computeElevationProfile(
+    segments,
+    plotWidth,
+    plotHeight,
+    {
+      ...options,
+      stageMarkers:
+        correctStageMarkers.length > 0 ? correctStageMarkers : undefined,
+    },
+    accentColor
+  );
 }
 
 /**
@@ -168,6 +249,9 @@ export function computeElevationProfile(
 
   const gradientStartColor = mixColors(accentColor, "#ffffff", 0.5);
   const gradientEndColor = mixColors(accentColor, "#ffffff", 0.05);
+  const units = options?.units ?? "metric";
+  const mToFt = 3.28084;
+  const unitLabel = units === "imperial" ? "ft" : "m";
 
   // Guard against empty or misaligned data
   if (combinedElevation.length === 0 || combinedDistance.length === 0) {
@@ -188,10 +272,18 @@ export function computeElevationProfile(
       gridlines: [],
       prominentLabels: [],
       stageMarkerPositions: [],
-      keyElevations: { start: 0, peak: 0, end: 0 },
+      keyElevations: {
+        start: 0,
+        peak: 0,
+        end: 0,
+        startLabel: "",
+        peakLabel: "",
+        endLabel: "",
+      },
       gradientStartColor,
       gradientEndColor,
       accentColor,
+      units,
     };
   }
 
@@ -204,6 +296,9 @@ export function computeElevationProfile(
   const maxDistance = combinedDistance[combinedDistance.length - 1];
 
   if (maxDistance <= 0) {
+    const start = Math.round(clamped[0]);
+    const peak = Math.round(maxElevation);
+    const end = Math.round(clamped[clamped.length - 1]);
     return {
       profileSegments: [],
       segmentPaths: [],
@@ -221,10 +316,18 @@ export function computeElevationProfile(
       gridlines: [],
       prominentLabels: [],
       stageMarkerPositions: [],
-      keyElevations: { start: Math.round(clamped[0]), peak: Math.round(maxElevation), end: Math.round(clamped[clamped.length - 1]) },
+      keyElevations: {
+        start,
+        peak,
+        end,
+        startLabel: `${units === "imperial" ? Math.round(start * mToFt) : start}${unitLabel}`,
+        peakLabel: `${units === "imperial" ? Math.round(peak * mToFt) : peak}${unitLabel}`,
+        endLabel: `${units === "imperial" ? Math.round(end * mToFt) : end}${unitLabel}`,
+      },
       gradientStartColor,
       gradientEndColor,
       accentColor,
+      units,
     };
   }
 
@@ -328,8 +431,11 @@ export function computeElevationProfile(
           x = svgWidth;
           anchor = "end";
         }
+        const val = Math.round(elevation);
+        const displayVal = units === "imperial" ? Math.round(val * mToFt) : val;
         prominentLabels.push({
-          elevation: Math.round(elevation),
+          elevation: val,
+          label: `${displayVal}${unitLabel}`,
           x,
           y: allPoints[i].y - 5,
           anchor,
@@ -358,6 +464,10 @@ export function computeElevationProfile(
     }
   }
 
+  const start = Math.round(clamped[0]);
+  const peak = Math.round(Math.max(...clamped));
+  const end = Math.round(clamped[clamped.length - 1]);
+
   return {
     profileSegments,
     segmentPaths,
@@ -376,12 +486,129 @@ export function computeElevationProfile(
     prominentLabels,
     stageMarkerPositions,
     keyElevations: {
-      start: Math.round(clamped[0]),
-      peak: Math.round(Math.max(...clamped)),
-      end: Math.round(clamped[clamped.length - 1]),
+      start,
+      peak,
+      end,
+      startLabel: `${units === "imperial" ? Math.round(start * mToFt) : start}${unitLabel}`,
+      peakLabel: `${units === "imperial" ? Math.round(peak * mToFt) : peak}${unitLabel}`,
+      endLabel: `${units === "imperial" ? Math.round(end * mToFt) : end}${unitLabel}`,
     },
     gradientStartColor,
     gradientEndColor,
     accentColor,
+    units,
   };
+}
+
+/**
+ * Renders the elevation profile data as an SVG string.
+ * This can be used in both the web app (via dangerouslySetInnerHTML) and CLI.
+ */
+export function renderElevationProfileAsSvg(
+  data: ElevationProfileData,
+  options: {
+    width: number;
+    height: number;
+    gradientId?: string;
+    includeSvgTag?: boolean;
+    viewBox?: string;
+    x?: number;
+    y?: number;
+  }
+): string {
+  const {
+    segmentPaths,
+    maxElevationTrianglePoints,
+    gridlines,
+    prominentLabels,
+    stageMarkerPositions,
+    keyElevations,
+    gradientStartColor,
+    gradientEndColor,
+    plotWidth,
+    plotHeight,
+    plotOffsetY,
+    accentColor,
+    svgWidth,
+    svgHeight,
+  } = data;
+
+  const gradientId = options.gradientId || "elevation-gradient";
+  const padding = ELEVATION_PADDING;
+
+  let svg = "";
+
+  if (options.includeSvgTag) {
+    const viewBox = options.viewBox || `0 0 ${svgWidth} ${svgHeight}`;
+    const x = options.x !== undefined ? ` x="${options.x}"` : "";
+    const y = options.y !== undefined ? ` y="${options.y}"` : "";
+    svg += `<svg width="${options.width}" height="${options.height}"${x}${y} viewBox="${viewBox}" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">`;
+  }
+
+  svg += `
+    <defs>
+      <linearGradient id="${gradientId}" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="${gradientStartColor}" />
+        <stop offset="100%" stop-color="${gradientEndColor}" />
+      </linearGradient>
+    </defs>
+
+    <!-- Gridlines -->
+    ${gridlines
+      .map(
+        (gy) => `
+      <line x1="${padding}" y1="${gy}" x2="${plotWidth + padding}" y2="${gy}" stroke="#e0e0e0" stroke-width="1" />
+    `
+      )
+      .join("")}
+
+    <!-- Fill and Profile lines for each segment -->
+    ${segmentPaths
+      .map(
+        (segment) => `
+      <path d="${segment.fillD}" fill="url(#${gradientId})" stroke="none" />
+      <path d="${segment.pathD}" fill="none" stroke="${accentColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    `
+      )
+      .join("")}
+
+    <!-- Max elevation triangle -->
+    <polygon points="${maxElevationTrianglePoints}" fill="${accentColor}" stroke="white" stroke-width="2" stroke-linejoin="round" />
+
+    <!-- Prominent elevation labels -->
+    ${prominentLabels
+      .map(
+        (label) => `
+      <text x="${label.x}" y="${label.y}" text-anchor="${label.anchor}" font-family="Helvetica Neue, sans-serif" font-size="16" font-weight="300" letter-spacing="0.05em" dominant-baseline="alphabetic">${label.label}</text>
+    `
+      )
+      .join("")}
+
+    <!-- Stage markers -->
+    ${stageMarkerPositions
+      .map(
+        (marker) => `
+      <line x1="${marker.x}" y1="${plotOffsetY + plotHeight}" x2="${marker.x}" y2="${plotOffsetY + plotHeight + 5}" stroke="#808080" stroke-width="1" />
+      <line x1="${marker.x}" y1="${plotOffsetY + plotHeight}" x2="${marker.x}" y2="${marker.elevationY}" stroke="#808080" stroke-width="1" stroke-dasharray="2 4" />
+      <text x="${(marker.x + marker.xNext) / 2}" y="${plotOffsetY + plotHeight + 15}" text-anchor="middle" font-family="Helvetica Neue, sans-serif" font-size="16" font-weight="300" letter-spacing="0.05em" dominant-baseline="alphabetic">${marker.label}</text>
+    `
+      )
+      .join("")}
+    ${
+      stageMarkerPositions.length > 0
+        ? `<line x1="${plotWidth + padding}" y1="${plotOffsetY + plotHeight}" x2="${plotWidth + padding}" y2="${plotOffsetY + plotHeight + 5}" stroke="#808080" stroke-width="1" />`
+        : ""
+    }
+
+    <!-- Key elevations -->
+    <text x="${padding}" y="${plotOffsetY + plotHeight + (stageMarkerPositions.length > 0 ? 15 : 0) + 20}" text-anchor="start" font-family="Helvetica Neue, sans-serif" font-size="16" font-weight="300" letter-spacing="0.05em" dominant-baseline="alphabetic">${keyElevations.startLabel}</text>
+    <text x="${plotWidth / 2}" y="${plotOffsetY + plotHeight + (stageMarkerPositions.length > 0 ? 15 : 0) + 20}" text-anchor="middle" font-family="Helvetica Neue, sans-serif" font-size="16" font-weight="300" letter-spacing="0.05em" dominant-baseline="alphabetic">⏶ ${keyElevations.peakLabel}</text>
+    <text x="${plotWidth - padding}" y="${plotOffsetY + plotHeight + (stageMarkerPositions.length > 0 ? 15 : 0) + 20}" text-anchor="end" font-family="Helvetica Neue, sans-serif" font-size="16" font-weight="300" letter-spacing="0.05em" dominant-baseline="alphabetic">${keyElevations.endLabel}</text>
+  `;
+
+  if (options.includeSvgTag) {
+    svg += "</svg>";
+  }
+
+  return svg;
 }
