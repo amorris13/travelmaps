@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import type { PosterConfig, StageConfig } from "@lib/types";
+import type { PosterConfig, StageConfig, LatLng } from "@lib/types";
 import { MAP_STYLES } from "@lib/constants";
+import { computeBoundsFromPoints } from "@lib/geo";
 
 interface CustomizationPanelProps {
   config: PosterConfig;
@@ -51,8 +52,30 @@ export function CustomizationPanel({
     setGeocodeError("");
 
     try {
+      // Compute center for geocoding bias
+      const points: LatLng[] = [];
+      for (const s of config.stages) {
+        if (s.startLat !== undefined && s.startLng !== undefined) {
+          points.push({ lat: s.startLat, lng: s.startLng });
+        }
+        if (s.endLat !== undefined && s.endLng !== undefined) {
+          points.push({ lat: s.endLat, lng: s.endLng });
+        }
+      }
+      for (const loc of config.additionalLocations) {
+        points.push({ lat: loc.lat, lng: loc.lng });
+      }
+
+      let proximityParam = "";
+      if (points.length > 0) {
+        const bounds = computeBoundsFromPoints(points);
+        const centerLat = (bounds.north + bounds.south) / 2;
+        const centerLng = (bounds.east + bounds.west) / 2;
+        proximityParam = `&proximity=${centerLng},${centerLat}`;
+      }
+
       const res = await fetch(
-        `/api/geocode/forward?query=${encodeURIComponent(query)}`
+        `/api/geocode/forward?query=${encodeURIComponent(query)}${proximityParam}`
       );
       if (!res.ok) throw new Error("Geocoding request failed");
       const data = await res.json();

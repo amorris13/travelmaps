@@ -297,21 +297,25 @@ export function computeStageBounds(stage: Stage): RegionBounds {
   };
 }
 
+export function computeBoundsFromPoints(points: LatLng[]): RegionBounds {
+  if (points.length === 0) {
+    return { west: 0, east: 0, south: 0, north: 0 };
+  }
+  return {
+    west: Math.min(...points.map((p) => p.lng)),
+    east: Math.max(...points.map((p) => p.lng)),
+    south: Math.min(...points.map((p) => p.lat)),
+    north: Math.max(...points.map((p) => p.lat)),
+  };
+}
+
 /** Compute bounds from an array of encoded polylines */
 export function computeBoundsFromPolylines(polylines: string[]): RegionBounds {
   const allPoints: LatLng[] = [];
   for (const encoded of polylines) {
     allPoints.push(...decodePolyline(encoded));
   }
-  if (allPoints.length === 0) {
-    return { west: 0, east: 0, south: 0, north: 0 };
-  }
-  return {
-    west: Math.min(...allPoints.map((p) => p.lng)),
-    east: Math.max(...allPoints.map((p) => p.lng)),
-    south: Math.min(...allPoints.map((p) => p.lat)),
-    north: Math.max(...allPoints.map((p) => p.lat)),
-  };
+  return computeBoundsFromPoints(allPoints);
 }
 
 // --- Distance ---

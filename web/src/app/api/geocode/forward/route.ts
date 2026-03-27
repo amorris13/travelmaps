@@ -10,12 +10,16 @@ export async function GET(request: NextRequest) {
   }
 
   const query = request.nextUrl.searchParams.get("query");
+  const proximity = request.nextUrl.searchParams.get("proximity");
   if (!query) {
     return NextResponse.json({ error: "query is required" }, { status: 400 });
   }
 
   try {
-    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?access_token=${accessToken}`;
+    let url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?access_token=${accessToken}`;
+    if (proximity) {
+      url += `&proximity=${encodeURIComponent(proximity)}`;
+    }
     const response = await fetch(url);
     if (!response.ok) {
       return NextResponse.json(
