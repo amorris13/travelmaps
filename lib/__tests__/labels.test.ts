@@ -48,7 +48,7 @@ describe("calculateBestLabelPositions", () => {
     const result1 = calculateBestLabelPositions(labels, 32, 18, [], 1200, 1200);
     const result2 = calculateBestLabelPositions(labels, 32, 18, [], 1200, 1200);
 
-    // Same seed "veloprint" should produce same result
+    // Same seed "travelmaps" should produce same result
     expect(result1.result.length).toBe(result2.result.length);
     for (let i = 0; i < result1.result.length; i++) {
       expect(result1.result[i].offsetPoint.x).toBe(

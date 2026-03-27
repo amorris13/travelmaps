@@ -1,6 +1,6 @@
 # Print Service Integration Research
 
-Investigation for [GitHub Issue #39](https://github.com/amorris13/veloprint/issues/39): how to integrate a printing service so users can order physical prints of their Veloprint posters.
+Investigation for [GitHub Issue #39](https://github.com/amorris13/travelmaps/issues/39): how to integrate a printing service so users can order physical prints of their Veloprint posters.
 
 ---
 
