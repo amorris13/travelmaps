@@ -8,7 +8,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "TravelMaps - Create Beautiful Travel Posters",
+  title: "Veloprint - Create Beautiful Travel Posters",
   description:
     "Generate print-quality travel and cycling posters from your Strava activities.",
 };

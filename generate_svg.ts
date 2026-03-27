@@ -1295,7 +1295,7 @@ function calculateBestLabelPositions(
     labelOffsetOptions.set(label, filteredOptions);
   }
 
-  const rng = seedrandom("travelmaps"); // Consistent randomness
+  const rng = seedrandom("veloprint"); // Consistent randomness
   const numAttempts = 50;
   let bestLabelPlacement: LabelPlacementResult | null = null;
 

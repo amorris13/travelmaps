@@ -15,7 +15,7 @@ export default function Home() {
       {/* Hero */}
       <section className="flex flex-col items-center justify-center px-6 py-24 text-center">
         <h1 className="text-5xl font-light tracking-tight text-gray-900 sm:text-6xl">
-          Travel<span className="text-accent font-normal">Maps</span>
+          Velo<span className="text-accent font-normal">print</span>
         </h1>
         <p className="mt-6 max-w-xl text-lg leading-8 text-gray-600 font-light">
           Create beautiful, print-quality travel posters from your Strava
@@ -106,7 +106,7 @@ export default function Home() {
       </section>
 
       <footer className="w-full border-t border-gray-100 py-8 text-center text-xs text-gray-400">
-        TravelMaps
+        Veloprint
       </footer>
     </main>
   );
