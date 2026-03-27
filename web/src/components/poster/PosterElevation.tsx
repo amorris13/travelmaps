@@ -84,17 +84,11 @@ export function PosterElevation({
     return null;
   }
 
-  const { profileSegments, svgWidth, svgHeight, maxElevationPoint, prominentLabels, stageMarkerPositions, keyElevations, gradientStartColor, gradientEndColor, plotOffsetY, plotWidth, plotHeight } = profileData;
+  const { segmentPaths, svgWidth, svgHeight, maxElevationTrianglePoints, prominentLabels, stageMarkerPositions, keyElevations, gradientStartColor, gradientEndColor, plotOffsetY, plotWidth, plotHeight } = profileData;
 
   const gradientId = "elevation-gradient";
   const padding = ELEVATION_PADDING;
   const effectiveX = contentX !== undefined ? contentX : 0;
-
-  // Triangle marker for max elevation
-  const triSize = 10;
-  const cx = maxElevationPoint.x;
-  const cy = maxElevationPoint.y;
-  const triPoints = `${cx},${cy - triSize * (Math.sqrt(3) / 3)} ${cx - triSize / 2},${cy + triSize * (Math.sqrt(3) / 6)} ${cx + triSize / 2},${cy + triSize * (Math.sqrt(3) / 6)}`;
 
   const stageBarY = plotOffsetY + plotHeight;
   const keyY = stageBarY + (stageMarkerPositions.length > 0 ? 15 : 0) + 20;
@@ -116,21 +110,26 @@ export function PosterElevation({
           </linearGradient>
         </defs>
 
-        {/* Fill and Profile lines for each segment */}
-        {profileSegments.map((points, i) => {
-          if (points.length === 0) return null;
-          const pathD = points
-            .map((p, j) => `${j === 0 ? "M" : "L"} ${p.x} ${p.y}`)
-            .join(" ");
-          const firstPt = points[0];
-          const lastPt = points[points.length - 1];
-          const fillD = `${pathD} L ${lastPt.x} ${plotOffsetY + plotHeight} L ${firstPt.x} ${plotOffsetY + plotHeight} Z`;
+        {/* Gridlines */}
+        {profileData.gridlines.map((gy, i) => (
+          <line
+            key={`grid-${i}`}
+            x1={padding}
+            y1={gy}
+            x2={plotWidth + padding}
+            y2={gy}
+            stroke="#e0e0e0"
+            strokeWidth={1}
+          />
+        ))}
 
+        {/* Fill and Profile lines for each segment */}
+        {segmentPaths.map((segment, i) => {
           return (
             <g key={`segment-${i}`}>
-              <path d={fillD} fill={`url(#${gradientId})`} stroke="none" />
+              <path d={segment.fillD} fill={`url(#${gradientId})`} stroke="none" />
               <path
-                d={pathD}
+                d={segment.pathD}
                 fill="none"
                 stroke={accentColor}
                 strokeWidth={2}
@@ -143,7 +142,7 @@ export function PosterElevation({
 
         {/* Max elevation triangle */}
         <polygon
-          points={triPoints}
+          points={maxElevationTrianglePoints}
           fill={accentColor}
           stroke="white"
           strokeWidth={2}

@@ -26,6 +26,11 @@ export interface ElevationProfileSegment {
 export interface ElevationProfileData {
   /** Simplified elevation profile points, split into segments (x, y in SVG coordinates) */
   profileSegments: SimplePoint[][];
+  /** Pre-computed SVG path strings for each segment */
+  segmentPaths: {
+    pathD: string;
+    fillD: string;
+  }[];
   /** Full computed points (before simplification) */
   allPoints: SimplePoint[];
   /** SVG dimensions */
@@ -40,6 +45,10 @@ export interface ElevationProfileData {
   minElevation: number;
   maxElevationIndex: number;
   maxElevationPoint: SimplePoint;
+  /** Points for the max elevation triangle marker */
+  maxElevationTrianglePoints: string;
+  /** Horizontal gridline Y positions */
+  gridlines: number[];
   /** Prominent elevation labels */
   prominentLabels: {
     elevation: number;
@@ -157,10 +166,14 @@ export function computeElevationProfile(
     }
   }
 
+  const gradientStartColor = mixColors(accentColor, "#ffffff", 0.5);
+  const gradientEndColor = mixColors(accentColor, "#ffffff", 0.05);
+
   // Guard against empty or misaligned data
   if (combinedElevation.length === 0 || combinedDistance.length === 0) {
     return {
       profileSegments: [],
+      segmentPaths: [],
       allPoints: [],
       svgWidth,
       svgHeight,
@@ -171,11 +184,13 @@ export function computeElevationProfile(
       minElevation: 0,
       maxElevationIndex: 0,
       maxElevationPoint: { x: 0, y: 0 },
+      maxElevationTrianglePoints: "",
+      gridlines: [],
       prominentLabels: [],
       stageMarkerPositions: [],
       keyElevations: { start: 0, peak: 0, end: 0 },
-      gradientStartColor: mixColors(accentColor, "#ffffff", 0.5),
-      gradientEndColor: mixColors(accentColor, "#ffffff", 0.05),
+      gradientStartColor,
+      gradientEndColor,
       accentColor,
     };
   }
@@ -191,6 +206,7 @@ export function computeElevationProfile(
   if (maxDistance <= 0) {
     return {
       profileSegments: [],
+      segmentPaths: [],
       allPoints: [],
       svgWidth,
       svgHeight,
@@ -201,11 +217,13 @@ export function computeElevationProfile(
       minElevation,
       maxElevationIndex: 0,
       maxElevationPoint: { x: 0, y: 0 },
+      maxElevationTrianglePoints: "",
+      gridlines: [],
       prominentLabels: [],
       stageMarkerPositions: [],
       keyElevations: { start: Math.round(clamped[0]), peak: Math.round(maxElevation), end: Math.round(clamped[clamped.length - 1]) },
-      gradientStartColor: mixColors(accentColor, "#ffffff", 0.5),
-      gradientEndColor: mixColors(accentColor, "#ffffff", 0.05),
+      gradientStartColor,
+      gradientEndColor,
       accentColor,
     };
   }
@@ -232,8 +250,34 @@ export function computeElevationProfile(
     currentOffset += len;
   }
 
+  const segmentPaths = profileSegments.map((points) => {
+    if (points.length === 0) return { pathD: "", fillD: "" };
+    const pathD = points
+      .map((p, j) => `${j === 0 ? "M" : "L"} ${p.x} ${p.y}`)
+      .join(" ");
+    const firstPt = points[0];
+    const lastPt = points[points.length - 1];
+    const fillD = `${pathD} L ${lastPt.x} ${plotOffsetY + plotHeight} L ${firstPt.x} ${plotOffsetY + plotHeight} Z`;
+    return { pathD, fillD };
+  });
+
   const maxElevationIndex = clamped.indexOf(Math.max(...clamped));
   const maxElevationPoint = allPoints[maxElevationIndex];
+
+  // Triangle marker for max elevation
+  const triSize = 10;
+  const cx = maxElevationPoint.x;
+  const cy = maxElevationPoint.y;
+  const maxElevationTrianglePoints = `${cx},${cy - triSize * (Math.sqrt(3) / 3)} ${cx - triSize / 2},${cy + triSize * (Math.sqrt(3) / 6)} ${cx + triSize / 2},${cy + triSize * (Math.sqrt(3) / 6)}`;
+
+  // Gridlines
+  const gridlines: number[] = [];
+  if (options?.horizontalGridlines) {
+    const numHorizontalGridlines = 4;
+    for (let i = 0; i < numHorizontalGridlines; i++) {
+      gridlines.push(plotOffsetY + (i / (numHorizontalGridlines - 1)) * plotHeight);
+    }
+  }
 
   // Compute prominent elevation labels
   const prominentLabels: ElevationProfileData["prominentLabels"] = [];
@@ -316,6 +360,7 @@ export function computeElevationProfile(
 
   return {
     profileSegments,
+    segmentPaths,
     allPoints,
     svgWidth,
     svgHeight,
@@ -326,6 +371,8 @@ export function computeElevationProfile(
     minElevation,
     maxElevationIndex,
     maxElevationPoint,
+    maxElevationTrianglePoints,
+    gridlines,
     prominentLabels,
     stageMarkerPositions,
     keyElevations: {
@@ -333,8 +380,8 @@ export function computeElevationProfile(
       peak: Math.round(Math.max(...clamped)),
       end: Math.round(clamped[clamped.length - 1]),
     },
-    gradientStartColor: mixColors(accentColor, "#ffffff", 0.5),
-    gradientEndColor: mixColors(accentColor, "#ffffff", 0.05),
+    gradientStartColor,
+    gradientEndColor,
     accentColor,
   };
 }
