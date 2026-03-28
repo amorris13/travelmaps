@@ -2,3 +2,7 @@
 node_modules
 .env.local
 tsconfig.tsbuildinfo
+
+# Visual regression test artifacts
+src/components/poster/__tests__/__snapshots__/*_diff.png
+src/components/poster/__tests__/__snapshots__/*_actual.png
