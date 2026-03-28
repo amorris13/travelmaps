@@ -13,7 +13,7 @@ export const POSTER_HEIGHT = Math.round(1200 * POSTER_ASPECT_RATIO);
 
 // Elevation chart constants
 export const ELEVATION_PADDING = 5;
-export const KEY_ELEVATIONS_HEIGHT = 0;
+export const KEY_ELEVATIONS_HEIGHT = 20;
 export const STAGE_MARKERS_HEIGHT = 15;
 export const PROMINENT_ELEVATION_LABELS_HEIGHT = 40;
 

@@ -81,6 +81,8 @@ export interface ElevationProfileData {
   accentColor: string;
   /** Units used */
   units: "metric" | "imperial";
+  /** Whether to show start/high/end labels */
+  showKeyElevations?: boolean;
 }
 
 export function parseToRgb(hexColor: string): {
@@ -289,6 +291,7 @@ export function computeElevationProfile(
       gradientEndColor,
       accentColor,
       units,
+      showKeyElevations: options?.showKeyElevations,
     };
   }
 
@@ -502,6 +505,7 @@ export function computeElevationProfile(
     gradientEndColor,
     accentColor,
     units,
+    showKeyElevations: options?.showKeyElevations,
   };
 }
 
@@ -549,6 +553,8 @@ export function renderElevationProfileAsSvg(
     const y = options.y !== undefined ? ` y="${options.y}"` : "";
     svg += `<svg width="${options.width}" height="${options.height}"${x}${y} viewBox="${viewBox}" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">`;
   }
+
+  const showKeyElevations = data.showKeyElevations !== false;
 
   svg += `
     <defs>
@@ -605,6 +611,16 @@ export function renderElevationProfileAsSvg(
         : ""
     }
 
+    ${
+      showKeyElevations
+        ? `
+      <!-- Key elevations -->
+      <text x="${padding}" y="${plotOffsetY + plotHeight + (stageMarkerPositions.length > 0 ? 15 : 0) + 20}" text-anchor="start" font-family="Helvetica Neue, sans-serif" font-size="16" font-weight="300" letter-spacing="0.05em" dominant-baseline="alphabetic">${keyElevations.startLabel}</text>
+      <text x="${plotWidth / 2}" y="${plotOffsetY + plotHeight + (stageMarkerPositions.length > 0 ? 15 : 0) + 20}" text-anchor="middle" font-family="Helvetica Neue, sans-serif" font-size="16" font-weight="300" letter-spacing="0.05em" dominant-baseline="alphabetic">⏶ ${keyElevations.peakLabel}</text>
+      <text x="${plotWidth - padding}" y="${plotOffsetY + plotHeight + (stageMarkerPositions.length > 0 ? 15 : 0) + 20}" text-anchor="end" font-family="Helvetica Neue, sans-serif" font-size="16" font-weight="300" letter-spacing="0.05em" dominant-baseline="alphabetic">${keyElevations.endLabel}</text>
+    `
+        : ""
+    }
   `;
 
   if (options.includeSvgTag) {
