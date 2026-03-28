@@ -15,6 +15,10 @@ const nextConfig = {
       "@lib": path.resolve(__dirname, "../lib"),
     };
 
+    config.resolve.extensionAlias = {
+      ".js": [".ts", ".js"],
+    };
+
     // Allow webpack to resolve node_modules from the web/ directory
     // when processing files in ../lib/
     config.resolve.modules = [
