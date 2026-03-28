@@ -122,6 +122,17 @@ export const Poster = forwardRef<SVGSVGElement, PosterProps>(
     const stageTableY = useSideBySide ? elevationY : elevationY + elevationHeight + padding;
     const stageTableX = useSideBySide ? width * 0.5 + padding / 2 : 0;
 
+    const elevationContentX = useSideBySide
+      ? contentX < elevationWidth - 100
+        ? contentX
+        : 0
+      : contentX;
+    const elevationContentWidth = useSideBySide
+      ? contentX < elevationWidth - 100
+        ? Math.min(contentWidth, elevationWidth - elevationContentX)
+        : elevationWidth
+      : contentWidth;
+
     return (
       <svg
         ref={svgRefCallback}
@@ -164,17 +175,16 @@ export const Poster = forwardRef<SVGSVGElement, PosterProps>(
 
         {/* Elevation Profile */}
         {showElevation && (
-          <g transform={`translate(${useSideBySide ? 0 : 0}, 0)`}>
-            <PosterElevation
-              stages={config.stages}
-              accentColor={config.accentColor}
-              y={elevationY}
-              width={useSideBySide ? elevationWidth : width}
-              height={elevationHeight}
-              units={config.units}
-              {...(!useSideBySide ? { contentX, contentWidth } : {})}
-            />
-          </g>
+          <PosterElevation
+            stages={config.stages}
+            accentColor={config.accentColor}
+            y={elevationY}
+            width={useSideBySide ? elevationWidth : width}
+            height={elevationHeight}
+            units={config.units}
+            contentX={elevationContentX}
+            contentWidth={elevationContentWidth}
+          />
         )}
 
         {/* Stage Table */}
