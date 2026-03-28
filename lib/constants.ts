@@ -15,7 +15,7 @@ export const POSTER_HEIGHT = Math.round(1200 * POSTER_ASPECT_RATIO);
 export const ELEVATION_PADDING = 5;
 export const KEY_ELEVATIONS_HEIGHT = 20;
 export const STAGE_MARKERS_HEIGHT = 15;
-export const PROMINENT_ELEVATION_LABELS_HEIGHT = 15;
+export const PROMINENT_ELEVATION_LABELS_HEIGHT = 40;
 
 // Map styles
 export const MAP_STYLES: Record<string, { id: string; label: string }> = {
