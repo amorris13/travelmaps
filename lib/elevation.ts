@@ -1,12 +1,12 @@
 import simplify from "simplify-js";
-import type { SimplePoint, StageConfig } from "./types";
+import type { SimplePoint, StageConfig } from "./types.js";
 import {
   ELEVATION_PADDING,
   KEY_ELEVATIONS_HEIGHT,
   STAGE_MARKERS_HEIGHT,
   PROMINENT_ELEVATION_LABELS_HEIGHT,
   ACCENT_COLOR,
-} from "./constants";
+} from "./constants.js";
 
 export interface ElevationProfileOptions {
   stageMarkers?: { distance: number; label: string }[];
