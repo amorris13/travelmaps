@@ -75,6 +75,9 @@ export function DateRangePicker({
               onChange(range);
             }}
             numberOfMonths={2}
+            captionLayout="dropdown"
+            startMonth={new Date(1940, 0)}
+            endMonth={new Date(new Date().getFullYear() + 10, 11)}
             classNames={{
               months: "flex flex-col sm:flex-row gap-4",
               selected: "bg-accent text-white rounded-md",
@@ -84,8 +87,12 @@ export function DateRangePicker({
               today: "font-bold text-accent underline",
               outside: "text-gray-300 opacity-50",
               disabled: "text-gray-300 opacity-50",
-              chevron: "fill-gray-400",
-              month_caption: "flex justify-center text-sm font-medium pt-1 px-10 mb-2 capitalize",
+              chevron: "fill-gray-400 h-4 w-4",
+              month_caption: "flex justify-center text-sm font-medium pt-1 px-10 mb-2 capitalize relative",
+              caption_label: "hidden",
+              dropdowns: "flex items-center gap-1 mx-1",
+              dropdown: "p-1 bg-transparent hover:bg-gray-100 rounded cursor-pointer text-sm font-medium focus:outline-none",
+              dropdown_root: "relative flex items-center",
               month: "space-y-4",
               month_grid: "w-full border-collapse",
               weekdays: "flex",
