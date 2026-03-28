@@ -1,6 +1,6 @@
-# Travel Maps
+# Veloprint
 
-A comprehensive tool for generating beautiful SVG travel maps with support for multiple travel modes, regions, and Strava activity data integration.
+A comprehensive tool for generating beautiful SVG Veloprint posters with support for multiple travel modes, regions, and Strava activity data integration.
 
 ## Features
 

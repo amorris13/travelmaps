@@ -1,12 +1,12 @@
 # Print Service Integration Research
 
-Investigation for [GitHub Issue #39](https://github.com/amorris13/travelmaps/issues/39): how to integrate a printing service so users can order physical prints of their TravelMaps posters.
+Investigation for [GitHub Issue #39](https://github.com/amorris13/travelmaps/issues/39): how to integrate a printing service so users can order physical prints of their Veloprint posters.
 
 ---
 
 ## Summary
 
-TravelMaps already produces print-quality SVG output. The gaps are:
+Veloprint already produces print-quality SVG output. The gaps are:
 1. A print-on-demand (POD) service with a developer API to receive the image and ship to the customer
 2. A payment flow to collect money from the user and pay the printer wholesale, keeping a margin
 
@@ -28,7 +28,7 @@ TravelMaps already produces print-quality SVG output. The gaps are:
 ### Gelato (Recommended)
 
 **Why Gelato:**
-- Accepts **SVG and PDF natively** — TravelMaps exports SVG, so no format conversion needed
+- Accepts **SVG and PDF natively** — Veloprint exports SVG, so no format conversion needed
 - **200+ countries** shipping; 95% of orders produced in the same country as delivery (faster, cheaper)
 - **140+ print partners** across 32 countries with local production: US, UK, Germany, France, Netherlands, Australia, Canada, Japan, India, Brazil, and more
 - **No minimum order** — suitable for on-demand single prints
@@ -281,7 +281,7 @@ export async function POST(req: Request) {
     line_items: [{
       price_data: {
         currency: 'usd',
-        product_data: { name: 'TravelMaps Print — Custom Poster' },
+        product_data: { name: 'Veloprint Print — Custom Poster' },
         unit_amount: retailCents,
       },
       quantity: 1,

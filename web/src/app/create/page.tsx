@@ -171,7 +171,7 @@ export default function CreatePage() {
       {/* Header */}
       <header className="shrink-0 border-b border-gray-200 bg-white px-4 py-3 flex items-center justify-between">
         <a href="/" className="text-lg font-light text-gray-900">
-          Travel<span className="text-accent font-normal">Maps</span>
+          Velo<span className="text-accent font-normal">print</span>
         </a>
         <div className="flex items-center gap-3 text-sm">
           <button
