@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import type { PosterConfig, StageConfig, LatLng } from "@lib/types";
 import { MAP_STYLES } from "@lib/constants";
 import { computeBoundsFromPoints } from "@lib/geo";
@@ -117,10 +117,10 @@ export function CustomizationPanel({
                   <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">
                     Title
                   </label>
-                  <input
+                  <DebouncedInput
                     type="text"
                     value={config.title}
-                    onChange={(e) => update({ title: e.target.value })}
+                    onChange={(val) => update({ title: val })}
                     className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
                   />
                 </div>
@@ -132,10 +132,10 @@ export function CustomizationPanel({
                       (Optional)
                     </span>
                   </label>
-                  <input
+                  <DebouncedInput
                     type="text"
                     value={config.dateRange}
-                    onChange={(e) => update({ dateRange: e.target.value })}
+                    onChange={(val) => update({ dateRange: val })}
                     placeholder="e.g. July 2024"
                     className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
                   />
@@ -150,31 +150,31 @@ export function CustomizationPanel({
                   {config.stages.map((stage, i) => (
                     <div key={stage.activityId} className="space-y-1">
                       <p className="text-xs text-gray-400">Stage {i + 1}</p>
-                      <input
+                      <DebouncedInput
                         type="text"
                         value={stage.name}
-                        onChange={(e) =>
-                          updateStage(i, { name: e.target.value })
+                        onChange={(val) =>
+                          updateStage(i, { name: val })
                         }
                         placeholder="Stage name"
                         className="w-full rounded border border-gray-200 px-2 py-1 text-sm focus:border-accent focus:outline-none"
                       />
                       <div className="grid grid-cols-2 gap-1">
-                        <input
+                        <DebouncedInput
                           type="text"
                           value={stage.startLabel}
-                          onChange={(e) =>
-                            updateStage(i, { startLabel: e.target.value })
+                          onChange={(val) =>
+                            updateStage(i, { startLabel: val })
                           }
                           disabled={stage.isContinuousWithPrev}
                           placeholder="Start"
                           className="rounded border border-gray-200 px-2 py-1 text-xs focus:border-accent focus:outline-none disabled:bg-gray-50 disabled:text-gray-400"
                         />
-                        <input
+                        <DebouncedInput
                           type="text"
                           value={stage.endLabel}
-                          onChange={(e) =>
-                            updateStage(i, { endLabel: e.target.value })
+                          onChange={(val) =>
+                            updateStage(i, { endLabel: val })
                           }
                           placeholder="End"
                           className="rounded border border-gray-200 px-2 py-1 text-xs focus:border-accent focus:outline-none"
@@ -275,10 +275,10 @@ export function CustomizationPanel({
                       onChange={(e) => update({ accentColor: e.target.value })}
                       className="h-8 w-8 cursor-pointer rounded border border-gray-300"
                     />
-                    <input
+                    <DebouncedInput
                       type="text"
                       value={config.accentColor}
-                      onChange={(e) => update({ accentColor: e.target.value })}
+                      onChange={(val) => update({ accentColor: val })}
                       className="w-24 rounded-md border border-gray-300 px-2 py-1 text-sm font-mono"
                     />
                   </div>
@@ -361,6 +361,48 @@ export function CustomizationPanel({
           </>
       )}
     </div>
+  );
+}
+
+function DebouncedInput({
+  value,
+  onChange,
+  delay = 300,
+  ...props
+}: {
+  value: string;
+  onChange: (value: string) => void;
+  delay?: number;
+} & React.InputHTMLAttributes<HTMLInputElement>) {
+  const [localValue, setLocalValue] = useState(value);
+  const timerRef = useRef<NodeJS.Timeout>();
+
+  useEffect(() => {
+    setLocalValue(value);
+  }, [value]);
+
+  const handleChange = (newValue: string) => {
+    setLocalValue(newValue);
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      onChange(newValue);
+    }, delay);
+  };
+
+  const handleBlur = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    if (localValue !== value) {
+      onChange(localValue);
+    }
+  };
+
+  return (
+    <input
+      {...props}
+      value={localValue}
+      onChange={(e) => handleChange(e.target.value)}
+      onBlur={handleBlur}
+    />
   );
 }
 

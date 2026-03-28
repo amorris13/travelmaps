@@ -65,10 +65,18 @@ export function latlngToMercatorBbox(bounds: RegionBounds | TripBounds): BBox {
 
 // --- Polyline ---
 
+const polylineCache = new Map<string, LatLng[]>();
+
 export function decodePolyline(encodedPolyline: string): LatLng[] {
-  return polyline
+  const cached = polylineCache.get(encodedPolyline);
+  if (cached) return cached;
+
+  const decoded = polyline
     .decode(encodedPolyline)
     .map((point) => ({ lng: point[1], lat: point[0] }));
+
+  polylineCache.set(encodedPolyline, decoded);
+  return decoded;
 }
 
 export function shiftLatLng(latlng: LatLng, lngShift: number): LatLng {

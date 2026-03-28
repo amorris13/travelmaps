@@ -38,7 +38,7 @@ export function PosterMap({
   const [mapImageUrl, setMapImageUrl] = useState<string | null>(null);
   const [labelPlacements, setLabelPlacements] = useState<LabelPlacementResult | null>(null);
 
-  const baseMapData = useMemo(() => {
+  const mapTransformData = useMemo(() => {
     const polylines = stages.map((s) => s.polyline).filter(Boolean);
     if (polylines.length === 0) return null;
 
@@ -66,6 +66,20 @@ export function PosterMap({
         return pathFromPolyline(decoded, transform);
       })
       .filter(Boolean);
+
+    return { paths, expandedBbox, sidePx, transform };
+  }, [
+    // Use stable identifiers for polylines and coordinates to avoid unnecessary re-computes
+    // when labels change.
+    stages.map((s) => s.polyline).join("|"),
+    additionalLocations.map((l) => `${l.lat},${l.lng}`).join("|"),
+    width,
+    height,
+  ]);
+
+  const mapMetadata = useMemo(() => {
+    if (!mapTransformData) return null;
+    const { transform, paths, sidePx } = mapTransformData;
 
     // Compute waypoint positions
     const waypoints: { point: SimplePoint; label: string }[] = [];
@@ -128,24 +142,24 @@ export function PosterMap({
         point: wp.point,
       }));
 
-    return { paths, waypoints, expandedBbox, sidePx, shapesToAvoid, labelPoints };
-  }, [stages, additionalLocations, width, height]);
+    return { waypoints, shapesToAvoid, labelPoints, sidePx };
+  }, [mapTransformData, stages, additionalLocations]);
 
   // Debounce label placement algorithm
   useEffect(() => {
-    if (!baseMapData) {
+    if (!mapMetadata) {
       setLabelPlacements(null);
       return;
     }
 
     const runAlgorithm = () => {
       const placements = calculateBestLabelPositions(
-        baseMapData.labelPoints,
+        mapMetadata.labelPoints,
         32,
         14, // labelFontSizePx matching the render font size
-        baseMapData.shapesToAvoid,
-        baseMapData.sidePx,
-        baseMapData.sidePx
+        mapMetadata.shapesToAvoid,
+        mapMetadata.sidePx,
+        mapMetadata.sidePx
       );
       setLabelPlacements(placements);
     };
@@ -159,24 +173,24 @@ export function PosterMap({
 
     const timeoutId = setTimeout(runAlgorithm, 500);
     return () => clearTimeout(timeoutId);
-  }, [baseMapData]);
+  }, [mapMetadata]);
 
   // Fetch map tile
   useEffect(() => {
-    if (!baseMapData) return;
-    const { expandedBbox } = baseMapData;
+    if (!mapTransformData) return;
+    const { expandedBbox, sidePx } = mapTransformData;
     const params = new URLSearchParams({
       x: expandedBbox.x.toString(),
       y: expandedBbox.y.toString(),
       w: expandedBbox.width.toString(),
       h: expandedBbox.height.toString(),
-      side: baseMapData.sidePx.toString(),
+      side: sidePx.toString(),
       ...(mapStyle ? { style: mapStyle } : {}),
     });
     setMapImageUrl(`/api/map-tile?${params}`);
-  }, [baseMapData, mapStyle]);
+  }, [mapTransformData, mapStyle]);
 
-  if (!baseMapData) {
+  if (!mapTransformData || !mapMetadata) {
     return (
       <g transform={`translate(0, ${y})`}>
         <rect width={width} height={height} fill="#f0f0f0" />
@@ -193,7 +207,8 @@ export function PosterMap({
     );
   }
 
-  const { paths, waypoints, sidePx } = baseMapData;
+  const { paths, sidePx } = mapTransformData;
+  const { waypoints } = mapMetadata;
   const markerRadius = 5;
   const labelFontSize = 14;
 
