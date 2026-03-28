@@ -1,5 +1,5 @@
 {
-  "name": "veloprint",
+  "name": "travelmaps",
   "type": "module",
   "scripts": {
     "print-strava-ids": "tsx print_strava_ids.ts",
