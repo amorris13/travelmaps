@@ -8,6 +8,14 @@ const extractedData = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'extrac
 
 const [s1, s2, s3, s4] = extractedData;
 
+// Real polylines from travels.json to ensure connected stages and valid locations.
+// p1: Bangkok -> Chiang Mai
+const p1 = "ax}rAagldRayu]|dgH";
+// p2: Chiang Mai -> Chiang Khong
+const p2 = "irtqBaad{QlAe`@`@_LsOcCsKs@~JQ[i^qJv@wOw`@gWqm@yv@ynA_|C_lE{uA}lCw|AylEgl@w_Bai@ix@ahAw|Co`@iy@cBeb@iOuJyCga@zG_N{[_l@^_Qwg@mhAa^afAkLwi@_Xwn@w\\y`@w[fJgZdEsOaEmh@pJa_Ah`@i[eUaXnCiM}ImXuXsTyd@mVoj@uQwMen@ys@qh@ip@}Mec@}RmM}Tae@m_@{OefAglAiS{l@wj@qz@ukAuaAiOis@oi@kw@mXc[}EoVeSgEsLaa@wN_`@uW}l@uJen@_v@opAgQuL\\qSa\\}Hu]ocAuE}VwWul@yKckA}]mqAm_@cJ{ToUyE}PgP_I{Rod@eZw\\sGi\\pGuR{]wq@gR{i@cTmNqp@oAib@mQybC}n@a|@d@gZpD_YuIqVuYot@qd@gaAmIqvAlDgpBlR}gBjG}nApCqtIsEyhCxX}~Bv]cnB~Foh@Y_}BlNqtBwF}aAK{^~L{s@bM}UjKcHfTol@dQce@bU{lCh~@}l@Vix@_MmaAsRmb@ySubAq\\mf@mXew@wDc|BXcl@nAmk@eSicA{gAijBmMsW}^k]oW_v@hRy]_Y}c@sn@iUkm@_e@eXsz@qcAqn@{OeJ{IjEe_@zEsMkc@cVaG}J_K|CmK`EqQdNqJmF_D{`@}_@}K`F_OoE}Q}]c[{D{Suc@bAeNiTcK]_[kRqA{WmQsW}Zuj@w|@cgAsC{d@qSen@qJa^a]gr@qWec@gGuj@jSeb@qGylAeJcN`Fch@MwpCsEq}AhEiQ_VwOuu@w\\iu@}Na`B{k@c~BcaAsiA_^ss@}g@k_@_jAs|@ovAa_AynB}AqpAaT_dAmd@aa@iHiOfk@mm@d_@ikAnk@}kAgRyq@uYsi@gl@yQpF_q@tQqq@x[ulArb@k~AhXkdAtJ{dA_AgbCuBi_A{V}b@ew@m_@cx@i{@gXi_@oFyh@aC{lCc\\my@_v@e_@{Y}NiKcYqEaXaDs}@uSss@wLqtA|@sbAhGqxAf^uu@tMgdAuKmkAud@_fF}TalCm@{jDxP{nEvE}xAkYsD_bBeNse@qHk]c]oj@w^q\\{I_a@aP}n@xC}tAeTkqA{b@gmAor@ggAeaA_dAcu@q\\ck@ydB{fBqpAwx@aa@iDws@_g@}]{Vqe@qHo}@oJgfA}H}a@}Buh@m[aj@kZki@uh@_`A{t@g}@kEef@ng@cdA~e@_wAfMa`EhNor@tMk_AaEih@g@gc@nBmZkGsqAge@k\\n@uUvLaRdPwNoDwL~@_TfIHjB";
+// p3: Chiang Khong -> Pakbeng (connected to p2)
+const p3 = "e}tzBygycRplfAe_oC";
+
 export const testConfigs: Record<string, PosterConfig> = {
   single_stage: {
     title: "Tauernradweg: Day 4",
