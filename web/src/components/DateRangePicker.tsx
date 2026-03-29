@@ -106,8 +106,8 @@ export function DateRangePicker({
                 day: "h-9 w-9 text-center text-sm p-0 relative focus-within:relative focus-within:z-20 cursor-pointer hover:bg-gray-100 rounded-md flex items-center justify-center",
                 day_button: "h-full w-full",
                 nav: "flex items-center",
-                button_previous: "absolute left-2 top-2 h-7 w-7 bg-transparent p-0 hover:bg-gray-100 rounded-md disabled:opacity-20 disabled:cursor-not-allowed z-20 pointer-events-auto",
-                button_next: "absolute right-2 top-2 h-7 w-7 bg-transparent p-0 hover:bg-gray-100 rounded-md disabled:opacity-20 disabled:cursor-not-allowed z-20 pointer-events-auto",
+                button_previous: "absolute left-2 top-1 h-7 w-7 bg-transparent p-0 hover:bg-gray-100 rounded-md disabled:opacity-20 disabled:cursor-not-allowed z-20 pointer-events-auto",
+                button_next: "absolute right-2 top-1 h-7 w-7 bg-transparent p-0 hover:bg-gray-100 rounded-md disabled:opacity-20 disabled:cursor-not-allowed z-20 pointer-events-auto",
               }}
             />
           </div>
