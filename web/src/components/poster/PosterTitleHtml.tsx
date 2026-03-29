@@ -1,4 +1,5 @@
 import type { PosterConfig } from "@lib/types";
+import React from "react";
 
 interface PosterTitleHtmlProps {
   title: string;
@@ -22,6 +23,7 @@ export function PosterTitleHtml({
     >
       <div
         style={{
+          display: "flex",
           fontFamily: "Montserrat",
           fontSize: "84px",
           fontWeight: 700,
@@ -33,11 +35,12 @@ export function PosterTitleHtml({
       >
         {title}
       </div>
-      {dateRange && (
+      {dateRange ? (
         <div
           style={{
+            display: "flex",
             fontFamily: "Helvetica",
-            fontSize: "18.5px", // 84 * 0.22
+            fontSize: "18.5px",
             fontWeight: 400,
             letterSpacing: "0.2em",
             color: accentColor,
@@ -47,7 +50,7 @@ export function PosterTitleHtml({
         >
           {dateRange}
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

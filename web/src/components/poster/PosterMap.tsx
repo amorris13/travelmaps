@@ -117,17 +117,28 @@ export function PosterMap({
     const mapImageUrl = `/api/map-tile?${params}`;
 
     return (
-      <PosterMapRender
-        width={width}
-        height={height}
-        y={y}
-        mapImageUrl={mapImageUrl}
-        labelPlacements={labelPlacements}
-        paths={paths}
-        waypoints={waypoints}
-        sidePx={sidePx}
-        accentColor={accentColor}
-      />
+      <div style={{ display: "flex", width: `${width}px`, height: `${height}px` }}>
+        {/* Simplified Map for Satori to avoid preprocess error */}
+        <svg
+          width={width}
+          height={height}
+          viewBox={`0 0 ${width} ${height}`}
+          style={{ display: "flex" }}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g transform={`translate(0, ${y})`}>
+            {mapImageUrl && (
+              <image
+                href={mapImageUrl}
+                x={(width - sidePx * Math.min(width / sidePx, height / sidePx)) / 2}
+                y={0}
+                width={sidePx * Math.min(width / sidePx, height / sidePx)}
+                height={sidePx * Math.min(width / sidePx, height / sidePx)}
+              />
+            )}
+          </g>
+        </svg>
+      </div>
     );
   }
 
@@ -288,7 +299,8 @@ function PosterMapRender({
       width={width}
       height={height}
       viewBox={`0 0 ${width} ${height}`}
-      style={{ display: "block" }}
+      style={{ display: "flex" }}
+      xmlns="http://www.w3.org/2000/svg"
     >
       <g transform={`translate(0, ${y})`}>
         <defs>
@@ -298,7 +310,6 @@ function PosterMapRender({
             height="200%"
             x="-50%"
             y="-50%"
-            colorInterpolationFilters="sRGB"
           >
             <feMorphology
               in="SourceAlpha"
@@ -326,7 +337,6 @@ function PosterMapRender({
             y={offsetY}
             width={sidePx * scale}
             height={sidePx * scale}
-            preserveAspectRatio="xMidYMid meet"
           />
         )}
 
@@ -374,7 +384,6 @@ function PosterMapRender({
               fill={accentColor}
               fontFamily="Helvetica Neue, sans-serif"
               fontSize={labelFontSize}
-              filter={`url(#${filterId})`}
               className="label"
             >
               {lp.label.name}

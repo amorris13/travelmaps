@@ -12,6 +12,7 @@ import {
   usePace,
   isCycling,
 } from "@/lib/poster-config";
+import React from "react";
 
 interface PosterStatsHtmlProps {
   stages: StageConfig[];
@@ -48,8 +49,8 @@ export function PosterStatsHtml({
     },
   ];
 
-  const valueFontSize = 33.6; // 1200 * 0.028
-  const labelFontSize = 12.8; // 33.6 * 0.38
+  const valueFontSize = 33.6;
+  const labelFontSize = 12.8;
 
   return (
     <div
@@ -62,14 +63,16 @@ export function PosterStatsHtml({
     >
       <div
         style={{
-          width: "88%", // matches (1 - 0.06*2)
-          height: "0.5px",
+          display: "flex",
+          width: "88%",
+          height: "1px",
           backgroundColor: "#d0d0d0",
         }}
       />
       <div
         style={{
           display: "flex",
+          flexDirection: "row",
           justifyContent: "space-between",
           width: "88%",
           padding: "24px 0",
@@ -87,6 +90,7 @@ export function PosterStatsHtml({
           >
             <div
               style={{
+                display: "flex",
                 fontFamily: "Montserrat",
                 fontSize: `${valueFontSize}px`,
                 fontWeight: 700,
@@ -97,6 +101,7 @@ export function PosterStatsHtml({
             </div>
             <div
               style={{
+                display: "flex",
                 fontFamily: "Montserrat",
                 fontSize: `${labelFontSize}px`,
                 fontWeight: 400,
@@ -112,8 +117,9 @@ export function PosterStatsHtml({
       </div>
       <div
         style={{
+          display: "flex",
           width: "88%",
-          height: "0.5px",
+          height: "1px",
           backgroundColor: "#d0d0d0",
         }}
       />

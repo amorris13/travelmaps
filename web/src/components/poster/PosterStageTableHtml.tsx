@@ -96,8 +96,9 @@ export function PosterStageTableHtml({
               <div
                 key={ci}
                 style={{
+                  display: "flex",
                   width: col.width,
-                  textAlign: col.align,
+                  justifyContent: col.align === "right" ? "flex-end" : "flex-start",
                   marginLeft: col.marginLeft || 0,
                   fontSize: `${headerFontSize}px`,
                   fontFamily: "Montserrat",
@@ -164,8 +165,9 @@ export function PosterStageTableHtml({
                   <div
                     key={j}
                     style={{
+                      display: "flex",
                       width: columns[j].width,
-                      textAlign: columns[j].align,
+                      justifyContent: columns[j].align === "right" ? "flex-end" : "flex-start",
                       marginLeft: columns[j].marginLeft || 0,
                       fontSize: `${fontSize}px`,
                       fontFamily: "Helvetica",

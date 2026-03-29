@@ -58,7 +58,7 @@ export function PosterHtml({ config, className }: PosterHtmlProps) {
     const sidePx = Math.min(width, mapHeight);
     const { expandedBbox } = computeMapTransform(bounds, sidePx);
 
-    const scale = Math.min(width / sidePx, mapHeight / sidePx);
+    const scale = Math.min(width / sidePx, height / sidePx);
     const offsetX = (width - sidePx * scale) / 2;
 
     const contentScale = 1 / 1.3;
@@ -85,6 +85,8 @@ export function PosterHtml({ config, className }: PosterHtmlProps) {
       : elevationWidth
     : contentWidth;
 
+  const isServer = typeof window === "undefined";
+
   return (
     <div
       className={className}
@@ -104,7 +106,7 @@ export function PosterHtml({ config, className }: PosterHtmlProps) {
         accentColor={config.accentColor}
       />
 
-      <div style={{ marginTop: `${padding}px` }}>
+      <div style={{ display: "flex", width: "100%", marginTop: `${padding}px` }}>
         <PosterStatsHtml
           stages={config.stages}
           accentColor={config.accentColor}
@@ -125,16 +127,17 @@ export function PosterHtml({ config, className }: PosterHtmlProps) {
           boxSizing: "border-box",
         }}
       >
-        <PosterMap
-          stages={config.stages}
-          additionalLocations={config.additionalLocations}
-          accentColor={config.accentColor}
-          mapStyle={config.mapStyle}
-          y={0}
-          width={width - padding * 2}
-          height={1000} // This will be calculated by the flex container in the real preview
-          // But for Satori we should probably give it a more fixed height or flex-grow.
-        />
+        {!isServer && (
+          <PosterMap
+            stages={config.stages}
+            additionalLocations={config.additionalLocations}
+            accentColor={config.accentColor}
+            mapStyle={config.mapStyle}
+            y={0}
+            width={width - padding * 2}
+            height={1000}
+          />
+        )}
       </div>
 
       <div
@@ -145,6 +148,7 @@ export function PosterHtml({ config, className }: PosterHtmlProps) {
           padding: `0 ${useSideBySide ? padding : 0}px`,
           marginTop: `${padding}px`,
           alignItems: useSideBySide ? "flex-start" : "center",
+          width: "100%",
         }}
       >
         {showElevation && (
@@ -155,16 +159,18 @@ export function PosterHtml({ config, className }: PosterHtmlProps) {
               justifyContent: useSideBySide ? "flex-start" : "center",
             }}
           >
-             <PosterElevation
-                stages={config.stages}
-                accentColor={config.accentColor}
-                y={0}
-                width={useSideBySide ? elevationWidth : width}
-                height={height * 0.1}
-                units={config.units}
-                contentX={elevationContentX}
-                contentWidth={elevationContentWidth}
-              />
+             {!isServer && (
+               <PosterElevation
+                  stages={config.stages}
+                  accentColor={config.accentColor}
+                  y={0}
+                  width={useSideBySide ? elevationWidth : width}
+                  height={height * 0.1}
+                  units={config.units}
+                  contentX={elevationContentX}
+                  contentWidth={elevationContentWidth}
+                />
+             )}
           </div>
         )}
 
@@ -175,6 +181,7 @@ export function PosterHtml({ config, className }: PosterHtmlProps) {
               padding: useSideBySide ? 0 : `0 ${contentX}px`,
               boxSizing: "border-box",
               display: "flex",
+              justifyContent: "center",
             }}
           >
             <PosterStageTableHtml

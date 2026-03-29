@@ -111,32 +111,34 @@ function PosterElevationServerRender({
         </defs>
 
         {/* Grid lines */}
-        {gridlines.map((gy: number, i: number) => (
-          <line key={i} x1={padding} y1={gy} x2={plotWidth + padding} y2={gy} stroke="#e0e0e0" strokeWidth={1} />
+        {(gridlines || []).map((gy: number, i: number) => (
+          <line key={`grid-${i}`} x1={padding} y1={gy} x2={plotWidth + padding} y2={gy} stroke="#e0e0e0" strokeWidth={1} />
         ))}
 
         {/* Segments */}
-        {segmentPaths.map((seg: any, i: number) => (
-          <React.Fragment key={i}>
+        {(segmentPaths || []).map((seg: any, i: number) => (
+          <g key={`seg-group-${i}`}>
             <path d={seg.fillD} fill="url(#elevation-gradient-server)" stroke="none" />
             <path d={seg.pathD} fill="none" stroke={accentColor} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-          </React.Fragment>
+          </g>
         ))}
 
         {/* Max elevation triangle */}
-        <polygon points={maxElevationTrianglePoints} fill={accentColor} stroke="white" strokeWidth={2} strokeLinejoin="round" />
+        {maxElevationTrianglePoints && (
+          <polygon points={maxElevationTrianglePoints} fill={accentColor} stroke="white" strokeWidth={2} strokeLinejoin="round" />
+        )}
 
         {/* Prominent labels */}
-        {prominentLabels.map((label: any, i: number) => (
-          <text key={i} x={label.x} y={label.y} textAnchor={label.anchor} fontSize={16} fill="#1a1a1a" fontFamily="Montserrat">{label.label}</text>
+        {(prominentLabels || []).map((label: any, i: number) => (
+          <text key={`prominent-${i}`} x={label.x} y={label.y} textAnchor={label.anchor} fontSize={16} fill="#1a1a1a" fontFamily="Montserrat">{label.label}</text>
         ))}
 
         {/* Stage markers */}
-        {stageMarkerPositions.map((marker: any, i: number) => (
-          <React.Fragment key={i}>
+        {(stageMarkerPositions || []).map((marker: any, i: number) => (
+          <g key={`marker-group-${i}`}>
              <line x1={marker.x} y1={plotOffsetY + plotHeight} x2={marker.x} y2={plotOffsetY + plotHeight + 5} stroke="#808080" strokeWidth={1} />
              <text x={(marker.x + marker.xNext) / 2} y={plotOffsetY + plotHeight + 15} textAnchor="middle" fontSize={16} fill="#999" fontFamily="Montserrat">{marker.label}</text>
-          </React.Fragment>
+          </g>
         ))}
       </g>
     </svg>
