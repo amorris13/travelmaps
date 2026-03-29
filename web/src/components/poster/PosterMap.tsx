@@ -71,6 +71,7 @@ export function PosterMap({
   }, [
     // Use stable identifiers for polylines and coordinates to avoid unnecessary re-computes
     // when labels change.
+    stages.length,
     stages.map((s) => s.polyline).join("|"),
     additionalLocations.map((l) => `${l.lat},${l.lng}`).join("|"),
     width,

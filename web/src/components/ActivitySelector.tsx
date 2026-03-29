@@ -8,13 +8,14 @@ import { format } from "date-fns";
 
 interface ActivitySelectorProps {
   onSelect: (activities: StravaActivity[]) => void;
-  selectedIds: Set<number>;
+  selectedActivities: StravaActivity[];
 }
 
 export function ActivitySelector({
   onSelect,
-  selectedIds,
+  selectedActivities,
 }: ActivitySelectorProps) {
+  const selectedIds = useMemo(() => new Set(selectedActivities.map(a => a.id)), [selectedActivities]);
   const [activities, setActivities] = useState<StravaActivity[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -155,19 +156,14 @@ export function ActivitySelector({
       };
 
       // Add to visible list and auto-select it.
-      // Use functional updater to avoid reading stale `activities` state.
-      let updatedActivities: StravaActivity[] = [];
       setActivities((prev) => {
         if (prev.some((a) => a.id === Number(id))) {
-          updatedActivities = prev;
           return prev;
         }
-        updatedActivities = [syntheticActivity, ...prev];
-        return updatedActivities;
+        return [syntheticActivity, ...prev];
       });
 
-      const currentSelected = updatedActivities.filter((a) => selectedIds.has(a.id));
-      onSelect([...currentSelected, syntheticActivity]);
+      onSelect([...selectedActivities, syntheticActivity]);
       setActivityIdInput("");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unknown error");
@@ -177,13 +173,11 @@ export function ActivitySelector({
   }
 
   function toggleActivity(activity: StravaActivity) {
-    const newSelected = new Set(selectedIds);
-    if (newSelected.has(activity.id)) {
-      newSelected.delete(activity.id);
+    if (selectedIds.has(activity.id)) {
+      onSelect(selectedActivities.filter((a) => a.id !== activity.id));
     } else {
-      newSelected.add(activity.id);
+      onSelect([...selectedActivities, activity]);
     }
-    onSelect(activities.filter((a) => newSelected.has(a.id)));
   }
 
   function formatDate(dateStr: string) {

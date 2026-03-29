@@ -121,6 +121,7 @@ export const Poster = forwardRef<SVGSVGElement, PosterProps>(
     }, [
       // Only recalculate map alignment when geometric data or map size changes.
       // Changes to labels or other metadata should not trigger this.
+      config.stages.length,
       config.stages.map((s) => s.polyline).join("|"),
       config.additionalLocations.map((l) => `${l.lat},${l.lng}`).join("|"),
       width,
