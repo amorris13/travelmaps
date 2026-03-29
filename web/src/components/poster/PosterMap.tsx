@@ -74,8 +74,8 @@ export function PosterMap({
       const decoded = decodePolyline(stage.polyline);
       if (decoded.length === 0) continue;
 
-      // Start point (first stage only)
-      if (stage === stages[0] && stage.startLabel) {
+      // Start point (first stage or if discontinuous with previous)
+      if ((stage === stages[0] || stage.isContinuousWithPrev === false) && stage.startLabel) {
         const startMerc = toMercator(decoded[0]);
         const startPt = roundPoint(
           applyTransform(startMerc, transform),

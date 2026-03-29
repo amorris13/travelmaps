@@ -81,6 +81,8 @@ export interface ElevationProfileData {
   accentColor: string;
   /** Units used */
   units: "metric" | "imperial";
+  /** Whether to show start/high/end labels */
+  showKeyElevations?: boolean;
 }
 
 export function parseToRgb(hexColor: string): {
@@ -161,27 +163,38 @@ export function computeElevationProfileFromStages(
   const gapSize = rawTotalDistance * 0.01;
 
   // Recalculate markers correctly to match computeElevationProfile's internal cumulativeDistance
+  // Only show markers if there are multiple stages.
   const correctStageMarkers: { distance: number; label: string }[] = [];
-  let currentCumulative = 0;
-  for (let i = 0; i < stages.length; i++) {
-    const stage = stages[i];
-    if (stage.elevationStream.length === 0 || stage.distanceStream.length === 0)
-      continue;
+  if (stages.length > 1) {
+    let currentCumulative = 0;
+    for (let i = 0; i < stages.length; i++) {
+      const stage = stages[i];
+      if (
+        stage.elevationStream.length === 0 ||
+        stage.distanceStream.length === 0
+      )
+        continue;
 
-    correctStageMarkers.push({
-      distance: currentCumulative,
-      label: `${i + 1}`,
-    });
+      correctStageMarkers.push({
+        distance: currentCumulative,
+        label: `${i + 1}`,
+      });
 
-    currentCumulative += stage.distanceStream[stage.distanceStream.length - 1];
-    if (stages[i + 1] && !stages[i + 1].isContinuousWithPrev) {
-      currentCumulative += gapSize;
+      currentCumulative += stage.distanceStream[stage.distanceStream.length - 1];
+      if (stages[i + 1] && !stages[i + 1].isContinuousWithPrev) {
+        currentCumulative += gapSize;
+      }
     }
   }
 
   const padding = ELEVATION_PADDING;
   const plotWidth = width - padding * 2;
-  const plotHeight = height - padding * 2 - 30; // Leave room for labels
+  const plotHeight =
+    height -
+    padding * 2 -
+    ((options.labelProminentElevations ? PROMINENT_ELEVATION_LABELS_HEIGHT : 0) +
+      (correctStageMarkers.length > 0 ? STAGE_MARKERS_HEIGHT : 0) +
+      (options.showKeyElevations ? KEY_ELEVATIONS_HEIGHT : 0));
 
   return computeElevationProfile(
     segments,
@@ -284,6 +297,7 @@ export function computeElevationProfile(
       gradientEndColor,
       accentColor,
       units,
+      showKeyElevations: options?.showKeyElevations,
     };
   }
 
@@ -437,7 +451,7 @@ export function computeElevationProfile(
           elevation: val,
           label: `${displayVal}${unitLabel}`,
           x,
-          y: allPoints[i].y - 5,
+          y: allPoints[i].y - 15,
           anchor,
         });
       }
@@ -497,6 +511,7 @@ export function computeElevationProfile(
     gradientEndColor,
     accentColor,
     units,
+    showKeyElevations: options?.showKeyElevations,
   };
 }
 
@@ -544,6 +559,8 @@ export function renderElevationProfileAsSvg(
     const y = options.y !== undefined ? ` y="${options.y}"` : "";
     svg += `<svg width="${options.width}" height="${options.height}"${x}${y} viewBox="${viewBox}" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">`;
   }
+
+  const showKeyElevations = data.showKeyElevations !== false;
 
   svg += `
     <defs>
@@ -600,10 +617,16 @@ export function renderElevationProfileAsSvg(
         : ""
     }
 
-    <!-- Key elevations -->
-    <text x="${padding}" y="${plotOffsetY + plotHeight + (stageMarkerPositions.length > 0 ? 15 : 0) + 20}" text-anchor="start" font-family="Helvetica Neue, sans-serif" font-size="16" font-weight="300" letter-spacing="0.05em" dominant-baseline="alphabetic">${keyElevations.startLabel}</text>
-    <text x="${plotWidth / 2}" y="${plotOffsetY + plotHeight + (stageMarkerPositions.length > 0 ? 15 : 0) + 20}" text-anchor="middle" font-family="Helvetica Neue, sans-serif" font-size="16" font-weight="300" letter-spacing="0.05em" dominant-baseline="alphabetic">⏶ ${keyElevations.peakLabel}</text>
-    <text x="${plotWidth - padding}" y="${plotOffsetY + plotHeight + (stageMarkerPositions.length > 0 ? 15 : 0) + 20}" text-anchor="end" font-family="Helvetica Neue, sans-serif" font-size="16" font-weight="300" letter-spacing="0.05em" dominant-baseline="alphabetic">${keyElevations.endLabel}</text>
+    ${
+      showKeyElevations
+        ? `
+      <!-- Key elevations -->
+      <text x="${padding}" y="${plotOffsetY + plotHeight + (stageMarkerPositions.length > 0 ? 15 : 0) + 20}" text-anchor="start" font-family="Helvetica Neue, sans-serif" font-size="16" font-weight="300" letter-spacing="0.05em" dominant-baseline="alphabetic">${keyElevations.startLabel}</text>
+      <text x="${plotWidth / 2}" y="${plotOffsetY + plotHeight + (stageMarkerPositions.length > 0 ? 15 : 0) + 20}" text-anchor="middle" font-family="Helvetica Neue, sans-serif" font-size="16" font-weight="300" letter-spacing="0.05em" dominant-baseline="alphabetic">⏶ ${keyElevations.peakLabel}</text>
+      <text x="${plotWidth - padding}" y="${plotOffsetY + plotHeight + (stageMarkerPositions.length > 0 ? 15 : 0) + 20}" text-anchor="end" font-family="Helvetica Neue, sans-serif" font-size="16" font-weight="300" letter-spacing="0.05em" dominant-baseline="alphabetic">${keyElevations.endLabel}</text>
+    `
+        : ""
+    }
   `;
 
   if (options.includeSvgTag) {

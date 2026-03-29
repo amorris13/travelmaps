@@ -38,7 +38,7 @@ export function PosterElevation({
       height,
       {
         labelProminentElevations: { minProminence: 250 },
-        showKeyElevations: true,
+        showKeyElevations: false,
         units,
       },
       accentColor

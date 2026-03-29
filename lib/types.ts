@@ -40,6 +40,7 @@ export interface Stage {
   // Added during bounds computation
   startLocation?: Location & { latlng: LatLng };
   lngShift?: number;
+  isContinuousWithPrev?: boolean;
 }
 
 export interface Trip {
