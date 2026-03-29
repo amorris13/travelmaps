@@ -7,7 +7,7 @@ import type { StravaActivity } from "@lib/strava";
 import { decodePolyline, isContinuous } from "@lib/geo";
 import { createDefaultPosterConfig } from "@/lib/poster-config";
 import { POSTER_WIDTH, POSTER_HEIGHT } from "@lib/constants";
-import { Poster } from "@/components/poster/Poster";
+import { PosterHtml as Poster } from "@/components/poster/PosterHtml";
 import { ActivitySelector } from "@/components/ActivitySelector";
 import { CustomizationPanel } from "@/components/CustomizationPanel";
 import { ExportButton } from "@/components/ExportButton";
@@ -295,7 +295,7 @@ export default function CreatePage() {
               <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-3">
                 Export
               </label>
-              <ExportButton posterRef={posterRef} title={config.title} />
+              <ExportButton config={config} />
             </div>
             </aside>
 

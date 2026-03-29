@@ -1,16 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PDFDocument } from "pdf-lib";
-import { renderSvgToPng } from "@/lib/render-server";
+import { renderSvgToPng, renderPosterToSvg } from "@/lib/render-server";
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { svgString, format, width: widthParam } = body;
+    const { config, format, width: widthParam } = body;
     const width = widthParam ?? 1200;
 
-    if (!svgString) {
-      return NextResponse.json({ error: "SVG string required" }, { status: 400 });
+    if (!config) {
+      return NextResponse.json({ error: "Poster config required" }, { status: 400 });
     }
+
+    const svgString = await renderPosterToSvg(config);
 
     if (format === "svg") {
       return new NextResponse(svgString, {

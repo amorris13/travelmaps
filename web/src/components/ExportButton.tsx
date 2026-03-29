@@ -2,15 +2,15 @@
 
 import { useState, useRef, useEffect } from "react";
 import { exportPoster } from "@/lib/export";
+import type { PosterConfig } from "@lib/types";
 
 interface ExportButtonProps {
-  posterRef: React.RefObject<SVGSVGElement | null>;
-  title: string;
+  config: PosterConfig;
 }
 
 type Format = "svg" | "png" | "pdf";
 
-export function ExportButton({ posterRef, title }: ExportButtonProps) {
+export function ExportButton({ config }: ExportButtonProps) {
   const [exporting, setExporting] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -26,12 +26,11 @@ export function ExportButton({ posterRef, title }: ExportButtonProps) {
   }, []);
 
   async function handleExport(format: Format) {
-    if (!posterRef.current) return;
     setExporting(true);
     setIsOpen(false);
     try {
-      const filename = title.toLowerCase().replace(/\s+/g, "-") || "poster";
-      await exportPoster(posterRef.current, format, filename);
+      const filename = config.title.toLowerCase().replace(/\s+/g, "-") || "poster";
+      await exportPoster(config, format, filename);
     } catch (err) {
       console.error("Export failed:", err);
     } finally {

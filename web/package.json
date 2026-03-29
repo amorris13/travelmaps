@@ -18,6 +18,7 @@
     "react-day-picker": "^9.14.0",
     "react-dom": "^18.3.0",
     "react-zoom-pan-pinch": "^3.7.0",
+    "satori": "^0.26.0",
     "seedrandom": "^3.0.5",
     "simplify-js": "^1.2.4",
     "string-pixel-width": "^1.11.0",
