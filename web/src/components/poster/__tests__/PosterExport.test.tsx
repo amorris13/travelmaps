@@ -3,11 +3,10 @@ import { render, waitFor } from "@testing-library/react";
 import React from "react";
 import fs from "fs";
 import path from "path";
-import { Poster } from "../Poster";
+import { PosterHtml as Poster } from "../PosterHtml";
 import { testConfigs } from "./test-configs";
 import { comparePngs } from "./visual-regression.utils";
-import { renderSvgToPng } from "../../../lib/render-server";
-import { inlineImages } from "../../../lib/export";
+import { renderSvgToPng, renderPosterToSvg } from "../../../lib/render-server";
 
 // Directory for storing golden images (snapshots)
 const SNAPSHOTS_DIR = path.resolve(__dirname, "__snapshots__");
@@ -54,35 +53,9 @@ describe("Poster Visual Regression", () => {
 
   Object.entries(testConfigs).forEach(([name, config]) => {
     it(`renders "${name}" correctly`, async () => {
-      const { container } = render(<Poster config={config} />);
-
-      // Wait for the labels to be placed and the map image to be requested
-      await waitFor(() => {
-        const svg = container.querySelector("svg");
-        expect(svg).toBeTruthy();
-
-        // 1. Check for presence of map image
-        const mapImage = svg!.querySelector("image");
-        if (config.stages.length > 0) {
-          expect(mapImage).toBeTruthy();
-          expect(mapImage?.getAttribute("href")).toContain("/api/map-tile");
-        }
-
-        // 2. Check for presence of labels if we expect them
-        const hasLabels = config.stages.some(s => s.startLabel || s.endLabel) || config.additionalLocations.length > 0;
-        if (hasLabels) {
-          const labels = svg!.querySelectorAll(".label");
-          expect(labels.length).toBeGreaterThan(0);
-        }
-      }, { timeout: 2000 });
-
-      const svgElement = container.querySelector("svg")!;
-      const svgString = svgElement.outerHTML;
-
-      // Inline images (like the mock map tile) then render to PNG
-      // using the exact same logic as the production export API.
-      const inlinedSvg = await inlineImages(svgString);
-      const pngBuffer = renderSvgToPng(inlinedSvg, 1200);
+      // Use the production Satori-based pipeline to generate the SVG
+      const svgString = await renderPosterToSvg(config);
+      const pngBuffer = renderSvgToPng(svgString, 1200);
       const snapshotPath = path.join(SNAPSHOTS_DIR, `${name}.png`);
 
       if (!fs.existsSync(snapshotPath)) {

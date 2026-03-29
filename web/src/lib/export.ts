@@ -1,33 +1,19 @@
+import { PosterConfig } from "@lib/types";
+
 /**
- * Serialize a poster SVG element to string and trigger download.
+ * Send the poster configuration to the server for high-quality export.
  */
 export async function exportPoster(
-  svgElement: SVGSVGElement,
+  config: PosterConfig,
   format: "svg" | "png" | "pdf",
   filename = "poster"
 ) {
-  const serializer = new XMLSerializer();
-  const svgString = serializer.serializeToString(svgElement);
-
-  if (format === "svg") {
-    downloadBlob(
-      new Blob([svgString], { type: "image/svg+xml" }),
-      `${filename}.svg`
-    );
-    return;
-  }
-
-  // Inline external images then send to server
-  const inlinedSvg = await inlineImages(svgString);
-
   const response = await fetch("/api/export", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      svgString: inlinedSvg,
+      config,
       format,
-      width: svgElement.viewBox.baseVal.width,
-      height: svgElement.viewBox.baseVal.height,
     }),
   });
 
@@ -37,45 +23,6 @@ export async function exportPoster(
 
   const blob = await response.blob();
   downloadBlob(blob, `${filename}.${format}`);
-}
-
-/**
- * Replace all <image> href attributes that are relative URLs with base64 data URIs
- * so that the server-side SVG renderer (resvg) can render them without HTTP access.
- */
-export async function inlineImages(svgString: string): Promise<string> {
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(svgString, "image/svg+xml");
-  const images = Array.from(doc.querySelectorAll("image"));
-
-  await Promise.all(
-    images.map(async (img) => {
-      const href =
-        img.getAttribute("href") || img.getAttribute("xlink:href");
-      if (!href || href.startsWith("data:")) return;
-
-      const response = await fetch(href);
-      const blob = await response.blob();
-      const dataUrl = await blobToDataUrl(blob);
-
-      if (img.hasAttribute("href")) {
-        img.setAttribute("href", dataUrl);
-      } else {
-        img.setAttribute("xlink:href", dataUrl);
-      }
-    })
-  );
-
-  return new XMLSerializer().serializeToString(doc.documentElement);
-}
-
-function blobToDataUrl(blob: Blob): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = reject;
-    reader.readAsDataURL(blob);
-  });
 }
 
 function downloadBlob(blob: Blob, filename: string) {
