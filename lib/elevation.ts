@@ -163,21 +163,27 @@ export function computeElevationProfileFromStages(
   const gapSize = rawTotalDistance * 0.01;
 
   // Recalculate markers correctly to match computeElevationProfile's internal cumulativeDistance
+  // Only show markers if there are multiple stages.
   const correctStageMarkers: { distance: number; label: string }[] = [];
-  let currentCumulative = 0;
-  for (let i = 0; i < stages.length; i++) {
-    const stage = stages[i];
-    if (stage.elevationStream.length === 0 || stage.distanceStream.length === 0)
-      continue;
+  if (stages.length > 1) {
+    let currentCumulative = 0;
+    for (let i = 0; i < stages.length; i++) {
+      const stage = stages[i];
+      if (
+        stage.elevationStream.length === 0 ||
+        stage.distanceStream.length === 0
+      )
+        continue;
 
-    correctStageMarkers.push({
-      distance: currentCumulative,
-      label: `${i + 1}`,
-    });
+      correctStageMarkers.push({
+        distance: currentCumulative,
+        label: `${i + 1}`,
+      });
 
-    currentCumulative += stage.distanceStream[stage.distanceStream.length - 1];
-    if (stages[i + 1] && !stages[i + 1].isContinuousWithPrev) {
-      currentCumulative += gapSize;
+      currentCumulative += stage.distanceStream[stage.distanceStream.length - 1];
+      if (stages[i + 1] && !stages[i + 1].isContinuousWithPrev) {
+        currentCumulative += gapSize;
+      }
     }
   }
 
