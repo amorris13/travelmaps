@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { format } from "date-fns";
+import { format, subMonths } from "date-fns";
 import { DateRange, DayPicker } from "react-day-picker";
 
 interface DateRangePickerProps {
@@ -75,13 +75,13 @@ export function DateRangePicker({
               onSelect={(range) => {
                 onChange(range);
               }}
-              defaultMonth={value?.from}
+              defaultMonth={value?.from || subMonths(new Date(), 1)}
               numberOfMonths={2}
-              pagedNavigation={true}
+              pagedNavigation={false}
               showOutsideDays={false}
               captionLayout="dropdown"
               startMonth={new Date(1940, 0)}
-              endMonth={new Date(new Date().getFullYear() + 10, 11)}
+              endMonth={new Date()}
               classNames={{
                 months: "flex flex-col sm:flex-row gap-4",
                 selected: "bg-accent text-white rounded-md",
@@ -106,8 +106,8 @@ export function DateRangePicker({
                 day: "h-9 w-9 text-center text-sm p-0 relative focus-within:relative focus-within:z-20 cursor-pointer hover:bg-gray-100 rounded-md flex items-center justify-center",
                 day_button: "h-full w-full",
                 nav: "flex items-center",
-                button_previous: "absolute left-2 top-3 h-7 w-7 bg-transparent p-0 hover:bg-gray-100 rounded-md disabled:opacity-20 disabled:cursor-not-allowed z-20 pointer-events-auto",
-                button_next: "absolute right-2 top-3 h-7 w-7 bg-transparent p-0 hover:bg-gray-100 rounded-md disabled:opacity-20 disabled:cursor-not-allowed z-20 pointer-events-auto",
+                button_previous: "absolute left-2 top-2 h-7 w-7 bg-transparent p-0 hover:bg-gray-100 rounded-md disabled:opacity-20 disabled:cursor-not-allowed z-20 pointer-events-auto",
+                button_next: "absolute right-2 top-2 h-7 w-7 bg-transparent p-0 hover:bg-gray-100 rounded-md disabled:opacity-20 disabled:cursor-not-allowed z-20 pointer-events-auto",
               }}
             />
           </div>
