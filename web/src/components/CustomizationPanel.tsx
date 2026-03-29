@@ -373,7 +373,7 @@ function DebouncedInput({
   value: string;
   onChange: (value: string) => void;
   delay?: number;
-} & React.InputHTMLAttributes<HTMLInputElement>) {
+} & Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange" | "value">) {
   const [localValue, setLocalValue] = useState(value);
   const timerRef = useRef<NodeJS.Timeout>();
 

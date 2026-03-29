@@ -23,3 +23,4 @@ https://nextjs.org/telemetry
  GET /api/strava/activities?page=1&per_page=200 401 in 43ms
  ✓ Compiled /api/auth/strava in 412ms (1277 modules)
  GET /api/auth/strava 500 in 456ms
+ ✓ Compiled in 3.4s (1229 modules)
