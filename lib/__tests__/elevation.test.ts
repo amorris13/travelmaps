@@ -1,10 +1,12 @@
 import { describe, it, expect } from "vitest";
 import {
   computeElevationProfile,
+  computeElevationProfileFromStages,
   mixColors,
   parseToRgb,
   rgbToHex,
 } from "../elevation";
+import type { StageConfig } from "../types";
 
 describe("color helpers", () => {
   it("parseToRgb should parse hex colors", () => {
@@ -136,5 +138,38 @@ describe("computeElevationProfile", () => {
     expect(result.gradientStartColor).toBeTruthy();
     expect(result.gradientEndColor).toBeTruthy();
     expect(result.accentColor).toBe("#C61016");
+  });
+});
+
+describe("computeElevationProfileFromStages", () => {
+  const sampleStage: StageConfig = {
+    activityId: "1",
+    name: "Stage 1",
+    startLabel: "A",
+    endLabel: "B",
+    polyline: "",
+    distance: 5000,
+    movingTime: 3600,
+    elevationGain: 100,
+    averageSpeed: 5,
+    elevationStream: [100, 200, 100],
+    distanceStream: [0, 2500, 5000],
+    activityType: "Ride",
+  };
+
+  it("should NOT show stage markers for a single stage", () => {
+    const result = computeElevationProfileFromStages([sampleStage], 600, 200);
+    expect(result?.stageMarkerPositions).toHaveLength(0);
+  });
+
+  it("should show stage markers for multiple stages", () => {
+    const result = computeElevationProfileFromStages(
+      [sampleStage, { ...sampleStage, activityId: "2", name: "Stage 2" }],
+      600,
+      200
+    );
+    expect(result?.stageMarkerPositions).toHaveLength(2);
+    expect(result?.stageMarkerPositions[0].label).toBe("1");
+    expect(result?.stageMarkerPositions[1].label).toBe("2");
   });
 });
