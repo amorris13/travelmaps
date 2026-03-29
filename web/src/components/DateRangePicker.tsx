@@ -75,7 +75,7 @@ export function DateRangePicker({
               onSelect={(range) => {
                 onChange(range);
               }}
-              defaultMonth={value?.from || subMonths(new Date(), 1)}
+              defaultMonth={subMonths(value?.from || new Date(), 1)}
               numberOfMonths={2}
               pagedNavigation={false}
               showOutsideDays={false}
