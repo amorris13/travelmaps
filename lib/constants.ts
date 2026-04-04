@@ -16,6 +16,9 @@ export const ELEVATION_PADDING = 5;
 export const KEY_ELEVATIONS_HEIGHT = 20;
 export const STAGE_MARKERS_HEIGHT = 15;
 export const PROMINENT_ELEVATION_LABELS_HEIGHT = 40;
+export const PROMINENT_LABEL_FONT_SIZE = 16;
+export const PROMINENT_LABEL_LETTER_SPACING_BUFFER = 1.05;
+export const PROMINENT_LABEL_PADDING = 4;
 
 // Map styles
 export const MAP_STYLES: Record<string, { id: string; label: string }> = {

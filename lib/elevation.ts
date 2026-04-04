@@ -1,10 +1,14 @@
 import simplify from "simplify-js";
+import pixelWidth from "string-pixel-width";
 import type { SimplePoint, StageConfig } from "./types.js";
 import {
   ELEVATION_PADDING,
   KEY_ELEVATIONS_HEIGHT,
   STAGE_MARKERS_HEIGHT,
   PROMINENT_ELEVATION_LABELS_HEIGHT,
+  PROMINENT_LABEL_FONT_SIZE,
+  PROMINENT_LABEL_LETTER_SPACING_BUFFER,
+  PROMINENT_LABEL_PADDING,
   ACCENT_COLOR,
 } from "./constants.js";
 
@@ -397,9 +401,12 @@ export function computeElevationProfile(
   }
 
   // Compute prominent elevation labels
-  const prominentLabels: ElevationProfileData["prominentLabels"] = [];
+  let prominentLabels: ElevationProfileData["prominentLabels"] = [];
   if (options?.labelProminentElevations) {
     const minProminence = options.labelProminentElevations.minProminence ?? 30;
+    const candidates: (ElevationProfileData["prominentLabels"][0] & {
+      prominence: number;
+    })[] = [];
 
     for (let i = 0; i < clamped.length; i++) {
       const elevation = clamped[i];
@@ -447,15 +454,63 @@ export function computeElevationProfile(
         }
         const val = Math.round(elevation);
         const displayVal = units === "imperial" ? Math.round(val * mToFt) : val;
-        prominentLabels.push({
+        candidates.push({
           elevation: val,
           label: `${displayVal}${unitLabel}`,
           x,
           y: allPoints[i].y - 15,
           anchor,
+          prominence,
         });
       }
     }
+
+    // Sort by prominence descending
+    candidates.sort((a, b) => {
+      if (a.prominence === Infinity && b.prominence === Infinity) return 0;
+      if (a.prominence === Infinity) return -1;
+      if (b.prominence === Infinity) return 1;
+      return b.prominence - a.prominence;
+    });
+
+    const accepted: (ElevationProfileData["prominentLabels"][0] & {
+      bounds: { left: number; right: number; top: number; bottom: number };
+    })[] = [];
+
+    for (const cand of candidates) {
+      // Estimate width: Helvetica, size 16, 0.05em letter-spacing buffer, 4px padding
+      const textWidth =
+        pixelWidth(cand.label, {
+          font: "helvetica",
+          size: PROMINENT_LABEL_FONT_SIZE,
+        }) *
+          PROMINENT_LABEL_LETTER_SPACING_BUFFER +
+        PROMINENT_LABEL_PADDING;
+      const textHeight = PROMINENT_LABEL_FONT_SIZE;
+      let left = cand.x;
+      if (cand.anchor === "middle") left -= textWidth / 2;
+      else if (cand.anchor === "end") left -= textWidth;
+      const right = left + textWidth;
+      const top = cand.y - textHeight;
+      const bottom = cand.y;
+
+      const overlaps = accepted.some((acc) => {
+        return (
+          left < acc.bounds.right &&
+          right > acc.bounds.left &&
+          top < acc.bounds.bottom &&
+          bottom > acc.bounds.top
+        );
+      });
+
+      if (!overlaps) {
+        accepted.push({
+          ...cand,
+          bounds: { left, right, top, bottom },
+        });
+      }
+    }
+    prominentLabels = accepted.map(({ bounds, ...label }) => label);
   }
 
   // Compute stage marker positions
@@ -596,7 +651,7 @@ export function renderElevationProfileAsSvg(
     ${prominentLabels
       .map(
         (label) => `
-      <text x="${label.x}" y="${label.y}" text-anchor="${label.anchor}" font-family="Helvetica Neue, sans-serif" font-size="16" font-weight="300" letter-spacing="0.05em" dominant-baseline="alphabetic">${label.label}</text>
+      <text x="${label.x}" y="${label.y}" text-anchor="${label.anchor}" font-family="Helvetica Neue, sans-serif" font-size="${PROMINENT_LABEL_FONT_SIZE}" font-weight="300" letter-spacing="0.05em" dominant-baseline="alphabetic">${label.label}</text>
     `
       )
       .join("")}
