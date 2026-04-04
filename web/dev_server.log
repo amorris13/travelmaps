@@ -1,0 +1,15 @@
+
+> veloprint-web@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+
+ ✓ Starting...
+ ✓ Ready in 1888ms
+ ○ Compiling /create ...
+ ✓ Compiled /create in 9.6s (2478 modules)
+ GET /create 200 in 10766ms
+ ✓ Compiled in 1139ms (1229 modules)
+ ○ Compiling /api/strava/activities ...
+ ✓ Compiled /api/strava/activities in 6.9s (1275 modules)

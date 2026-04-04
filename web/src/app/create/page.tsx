@@ -24,7 +24,6 @@ export default function CreatePage() {
   );
   const [activeTab, setActiveTab] = useState<"content" | "styling">("content");
   const [loadingDetails, setLoadingDetails] = useState(false);
-  const posterRef = useRef<SVGSVGElement>(null);
   const requestIdRef = useRef(0);
 
   const selectedIds = new Set(selectedActivities.map((a) => a.id));
@@ -359,7 +358,6 @@ export default function CreatePage() {
                         }}
                       >
                         <Poster
-                          ref={posterRef}
                           config={config}
                           className="w-full h-full"
                         />
