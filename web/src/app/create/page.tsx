@@ -216,7 +216,7 @@ export default function CreatePage() {
             </div>
             <ActivitySelector
               onSelect={handleActivitiesSelected}
-              selectedIds={selectedIds}
+              selectedActivities={selectedActivities}
             />
           </div>
         </div>
