@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { PosterConfig, StageConfig, LatLng } from "@lib/types";
-import { MAP_STYLES } from "@lib/constants";
+import { MAP_STYLES, ACCENT_COLOR_PRESETS } from "@lib/constants";
 import { computeBoundsFromPoints } from "@lib/geo";
 
 interface CustomizationPanelProps {
@@ -268,7 +268,7 @@ export function CustomizationPanel({
                   <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">
                     Accent Color
                   </label>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 mb-3">
                     <input
                       type="color"
                       value={config.accentColor}
@@ -281,6 +281,26 @@ export function CustomizationPanel({
                       onChange={(e) => update({ accentColor: e.target.value })}
                       className="w-24 rounded-md border border-gray-300 px-2 py-1 text-sm font-mono"
                     />
+                  </div>
+                  <div className="grid grid-cols-4 gap-2">
+                    {ACCENT_COLOR_PRESETS.map((preset) => (
+                      <button
+                        key={preset.value}
+                        onClick={() => update({ accentColor: preset.value })}
+                        className={`group relative h-8 rounded-md border transition-all ${
+                          config.accentColor.toLowerCase() === preset.value.toLowerCase()
+                            ? "border-gray-400 ring-2 ring-gray-200"
+                            : "border-gray-200 hover:border-gray-300"
+                        }`}
+                        title={preset.name}
+                        aria-label={preset.name}
+                      >
+                        <span
+                          className="absolute inset-1 rounded-[4px]"
+                          style={{ backgroundColor: preset.value }}
+                        />
+                      </button>
+                    ))}
                   </div>
                 </div>
 
