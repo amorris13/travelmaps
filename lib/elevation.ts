@@ -6,6 +6,9 @@ import {
   KEY_ELEVATIONS_HEIGHT,
   STAGE_MARKERS_HEIGHT,
   PROMINENT_ELEVATION_LABELS_HEIGHT,
+  PROMINENT_LABEL_FONT_SIZE,
+  PROMINENT_LABEL_LETTER_SPACING_BUFFER,
+  PROMINENT_LABEL_PADDING,
   ACCENT_COLOR,
 } from "./constants.js";
 
@@ -475,10 +478,15 @@ export function computeElevationProfile(
     })[] = [];
 
     for (const cand of candidates) {
-      // Estimate width: Helvetica size 16, 0.05em letter-spacing buffer, 4px padding
+      // Estimate width: Helvetica, size 16, 0.05em letter-spacing buffer, 4px padding
       const textWidth =
-        pixelWidth(cand.label, { font: "helvetica", size: 16 }) * 1.05 + 4;
-      const textHeight = 16;
+        pixelWidth(cand.label, {
+          font: "helvetica",
+          size: PROMINENT_LABEL_FONT_SIZE,
+        }) *
+          PROMINENT_LABEL_LETTER_SPACING_BUFFER +
+        PROMINENT_LABEL_PADDING;
+      const textHeight = PROMINENT_LABEL_FONT_SIZE;
       let left = cand.x;
       if (cand.anchor === "middle") left -= textWidth / 2;
       else if (cand.anchor === "end") left -= textWidth;
@@ -643,7 +651,7 @@ export function renderElevationProfileAsSvg(
     ${prominentLabels
       .map(
         (label) => `
-      <text x="${label.x}" y="${label.y}" text-anchor="${label.anchor}" font-family="Helvetica Neue, sans-serif" font-size="16" font-weight="300" letter-spacing="0.05em" dominant-baseline="alphabetic">${label.label}</text>
+      <text x="${label.x}" y="${label.y}" text-anchor="${label.anchor}" font-family="Helvetica Neue, sans-serif" font-size="${PROMINENT_LABEL_FONT_SIZE}" font-weight="300" letter-spacing="0.05em" dominant-baseline="alphabetic">${label.label}</text>
     `
       )
       .join("")}

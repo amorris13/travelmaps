@@ -105,11 +105,13 @@ describe("computeElevationProfile", () => {
   });
 
   it("should omit overlapping labels and prioritize higher prominence", () => {
-    // Peak A at 300m (distance), elevation 500m
-    // Peak B at 320m (distance), elevation 490m
-    // These are very close horizontally and vertically and should overlap
-    const elevation = [0, 500, 480, 490, 0];
-    const distance = [0, 300, 310, 320, 600];
+    // Peak A at 300m (distance), elevation 600m
+    // Peak B at 310m (distance), elevation 590m
+    // Both are prominent and very close horizontally and vertically
+    // A: 0 → 600 → 400 → 590 → 0
+    // Prominence: 600 is Infinity, 590 is 190 (590 - 400)
+    const elevation = [0, 600, 400, 590, 0];
+    const distance = [0, 300, 305, 310, 600];
     const result = computeElevationProfile(
       [{ elevationStream: elevation, distanceStream: distance }],
       600,
@@ -119,11 +121,11 @@ describe("computeElevationProfile", () => {
       }
     );
 
-    // Before fix: both might be present
-    // After fix: only the 500m peak should be present because it has higher prominence (Infinity vs 50)
+    // Both peaks are above the minProminence threshold (190 >= 30)
+    // but they should overlap and only the more prominent (600m) should be kept.
     const labels = result.prominentLabels.map((l) => l.elevation);
-    expect(labels).toContain(500);
-    expect(labels).not.toContain(450);
+    expect(labels).toContain(600);
+    expect(labels).not.toContain(590);
   });
 
   it("should clamp negative elevations to 0", () => {
