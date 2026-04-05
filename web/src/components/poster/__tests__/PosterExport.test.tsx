@@ -34,11 +34,14 @@ describe("Poster Visual Regression", () => {
           "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVQYlWNk+M/wn4EYwMjIisv9AAL9CBVf3KviAAAAAElFTkSuQmCC",
           "base64"
         );
-        return Promise.resolve({
+        const res = {
           ok: true,
           blob: () => Promise.resolve(new Blob([lightGreenPng], { type: "image/png" })),
           arrayBuffer: () => Promise.resolve(lightGreenPng.buffer),
-        } as any);
+        } as any;
+        // Mocking for Node.js environment where response might not be a real Fetch Response
+        res.arrayBuffer = () => Promise.resolve(lightGreenPng.buffer);
+        return Promise.resolve(res);
       }
       return Promise.resolve({
         ok: true,

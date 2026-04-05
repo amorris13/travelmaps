@@ -65,7 +65,7 @@ export function PosterStatsHtml({
         style={{
           display: "flex",
           width: "88%",
-          height: "1px",
+          height: "0.5px",
           backgroundColor: "#d0d0d0",
         }}
       />
@@ -119,7 +119,7 @@ export function PosterStatsHtml({
         style={{
           display: "flex",
           width: "88%",
-          height: "1px",
+          height: "0.5px",
           backgroundColor: "#d0d0d0",
         }}
       />

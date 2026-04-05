@@ -166,6 +166,45 @@ function PosterMapInternal({
   const mapImageUrl = passedMapTileUrl || mapImageUrlClient;
   const finalLabelPlacements = isServer ? runLabelAlgorithm() : labelPlacements;
 
+  if (isServer) {
+      // On server, render route graphics as a Data URI to be bulletproof for Satori
+      const scale = Math.min(width / baseMapData.sidePx, height / baseMapData.sidePx);
+      const offsetX = (width - baseMapData.sidePx * scale) / 2;
+      const offsetY = 0;
+
+      const graphicsSvg = `
+        <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(${offsetX}, ${offsetY}) scale(${scale})">
+            ${baseMapData.paths.map((d: any) => `
+              <path d="${d}" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" />
+              <path d="${d}" fill="none" stroke="${accentColor}" stroke-width="3" stroke-linejoin="round" stroke-dasharray="6 6" stroke-linecap="round" />
+            `).join('')}
+            ${baseMapData.waypoints.map((wp: any) => `
+              <circle cx="${wp.point.x}" cy="${wp.point.y}" r="5" fill="${accentColor}" />
+            `).join('')}
+          </g>
+        </svg>
+      `.trim();
+
+      const graphicsDataUri = `data:image/svg+xml;base64,${Buffer.from(graphicsSvg).toString('base64')}`;
+
+      return (
+        <div style={{ display: "flex", width: `${width}px`, height: `${height}px`, position: "relative", overflow: "hidden" }}>
+          {mapImageUrl && (
+            <img src={mapImageUrl} style={{ display: "flex", position: "absolute", left: `${offsetX}px`, top: "0px", width: `${baseMapData.sidePx * scale}px`, height: `${baseMapData.sidePx * scale}px` }} />
+          )}
+          <img src={graphicsDataUri} style={{ display: "flex", position: "absolute", left: "0px", top: "0px", width: `${width}px`, height: `${height}px` }} />
+          <div style={{ display: "flex", position: "absolute", left: `${offsetX}px`, top: "0px", width: `${baseMapData.sidePx * scale}px`, height: `${baseMapData.sidePx * scale}px` }}>
+            {(finalLabelPlacements?.result || []).map((lp: any, i: number) => (
+              <div key={i} style={{ display: "flex", position: "absolute", left: `${lp.offsetPoint.x * scale}px`, top: `${lp.offsetPoint.y * scale}px`, color: accentColor, fontFamily: "Helvetica", fontSize: "14px", fontWeight: 400, whiteSpace: "nowrap", textShadow: "-1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff" }}>
+                {lp.label.name}
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+  }
+
   return (
     <div
       style={{
@@ -191,7 +230,6 @@ function PosterMapInternal({
         />
       )}
 
-      {/* SVG Overlay for Route Lines - Works on server too if we avoid React.Fragment */}
       <svg
         width={width}
         height={height}
@@ -244,6 +282,7 @@ function PosterMapInternal({
         }}
       >
         {(finalLabelPlacements?.result || []).map((lp: any, i: number) => {
+          if (!lp?.label?.name) return null;
           const scale = Math.min(width / baseMapData.sidePx, height / baseMapData.sidePx);
           return (
             <div

@@ -11,9 +11,10 @@ import { PosterStageTableHtml } from "./PosterStageTableHtml";
 interface PosterHtmlProps {
   config: PosterConfig;
   className?: string;
+  mapTileUrl?: string;
 }
 
-export function PosterHtml({ config, className }: PosterHtmlProps) {
+export function PosterHtml({ config, className, mapTileUrl }: PosterHtmlProps) {
   const width = POSTER_WIDTH;
   const height = POSTER_HEIGHT;
   const padding = width * 0.05;
@@ -130,6 +131,7 @@ export function PosterHtml({ config, className }: PosterHtmlProps) {
           y={0}
           width={width - padding * 2}
           height={1000}
+          mapTileUrl={mapTileUrl}
         />
       </div>
 

@@ -25,12 +25,28 @@ export default function CreatePage() {
   const [activeTab, setActiveTab] = useState<"content" | "styling">("content");
   const [loadingDetails, setLoadingDetails] = useState(false);
   const requestIdRef = useRef(0);
+  const [initialScale, setInitialScale] = useState(0.4);
 
   const selectedIds = new Set(selectedActivities.map((a) => a.id));
 
   const handleActivitiesSelected = useCallback(
     async (activities: StravaActivity[]) => {
       setSelectedActivities(activities);
+
+      // Calculate initial zoom based on viewport width and height
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+      const headerHeight = 64;
+      const sidebarWidth = window.innerWidth >= 1024 ? 320 : 0;
+
+      const availableWidth = viewportWidth - sidebarWidth - 48;
+      const availableHeight = viewportHeight - headerHeight - 48;
+
+      const scaleW = availableWidth / POSTER_WIDTH;
+      const scaleH = availableHeight / POSTER_HEIGHT;
+
+      const calculatedScale = Math.min(scaleW, scaleH, 0.9);
+      setInitialScale(Math.max(calculatedScale, 0.1));
 
       if (activities.length === 0) {
         setConfig(createDefaultPosterConfig([]));
@@ -306,11 +322,12 @@ export default function CreatePage() {
               </div>
             ) : (
               <TransformWrapper
-                initialScale={0.4}
+                initialScale={initialScale}
                 minScale={0.1}
                 maxScale={8}
                 centerOnInit
                 limitToBounds={false}
+                key={initialScale} // Force re-mount when scale changes for new selection
               >
                 {({ zoomIn, zoomOut, resetTransform }) => (
                   <>
@@ -346,15 +363,14 @@ export default function CreatePage() {
 
                     <TransformComponent
                       wrapperClass="!w-full !h-full cursor-grab active:cursor-grabbing"
-                      contentClass="!w-full !h-full flex items-center justify-center p-8"
+                      contentClass="!w-full !h-full flex items-center justify-center"
                     >
                       <div
-                        className="shadow-2xl"
+                        className="shadow-[0_20px_60px_rgba(0,0,0,0.2)] bg-white m-12 sm:m-24"
                         style={{
-                          width: "auto",
-                          height: "90%",
-                          aspectRatio: `${POSTER_WIDTH} / ${POSTER_HEIGHT}`,
-                          maxWidth: "100%",
+                          width: `${POSTER_WIDTH}px`,
+                          height: `${POSTER_HEIGHT}px`,
+                          maxWidth: "none",
                         }}
                       >
                         <Poster
