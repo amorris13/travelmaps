@@ -26,6 +26,7 @@ export default function CreatePage() {
   const [loadingDetails, setLoadingDetails] = useState(false);
   const requestIdRef = useRef(0);
   const [initialScale, setInitialScale] = useState(0.4);
+  const mainContentRef = useRef<HTMLDivElement>(null);
 
   const selectedIds = new Set(selectedActivities.map((a) => a.id));
 
@@ -33,20 +34,20 @@ export default function CreatePage() {
     async (activities: StravaActivity[]) => {
       setSelectedActivities(activities);
 
-      // Calculate initial zoom based on viewport width and height
-      const viewportWidth = window.innerWidth;
-      const viewportHeight = window.innerHeight;
-      const headerHeight = 64;
-      const sidebarWidth = window.innerWidth >= 1024 ? 320 : 0;
+      // Calculate initial zoom based on actual container dimensions
+      if (mainContentRef.current) {
+        const { width: availableWidth, height: availableHeight } = mainContentRef.current.getBoundingClientRect();
 
-      const availableWidth = viewportWidth - sidebarWidth - 48;
-      const availableHeight = viewportHeight - headerHeight - 48;
+        // Account for padding (48px on each side)
+        const contentW = availableWidth - 96;
+        const contentH = availableHeight - 96;
 
-      const scaleW = availableWidth / POSTER_WIDTH;
-      const scaleH = availableHeight / POSTER_HEIGHT;
+        const scaleW = contentW / POSTER_WIDTH;
+        const scaleH = contentH / POSTER_HEIGHT;
 
-      const calculatedScale = Math.min(scaleW, scaleH, 0.9);
-      setInitialScale(Math.max(calculatedScale, 0.1));
+        const calculatedScale = Math.min(scaleW, scaleH, 0.9);
+        setInitialScale(Math.max(calculatedScale, 0.1));
+      }
 
       if (activities.length === 0) {
         setConfig(createDefaultPosterConfig([]));
@@ -315,7 +316,7 @@ export default function CreatePage() {
             </aside>
 
             {/* Main content: Poster preview */}
-            <main className="flex-1 overflow-hidden flex flex-col bg-gray-100 relative">
+            <main ref={mainContentRef} className="flex-1 overflow-hidden flex flex-col bg-gray-100 relative">
             {loadingDetails ? (
               <div className="flex-1 flex items-center justify-center text-gray-400 text-sm">
                 Loading activity data…

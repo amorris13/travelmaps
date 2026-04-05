@@ -25,29 +25,40 @@ if (!fs.existsSync(SNAPSHOTS_DIR)) {
 
 describe("Poster Visual Regression", () => {
   beforeAll(() => {
+    // Set a dummy access token for tests to trigger map tile fetching
+    process.env.MAPBOX_ACCESS_TOKEN = "pk.test-token";
+
     // Mock fetch for map tiles and geocoding
-    global.fetch = vi.fn().mockImplementation((url: string) => {
-      if (url.includes("/api/map-tile")) {
-        // Return a 10x10 solid light green PNG buffer
-        // This helps verify that map tiles are being correctly requested and rendered.
-        const lightGreenPng = Buffer.from(
-          "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVQYlWNk+M/wn4EYwMjIisv9AAL9CBVf3KviAAAAAElFTkSuQmCC",
-          "base64"
-        );
-        const res = {
+    vi.stubGlobal("fetch", vi.fn().mockImplementation(async (url: string) => {
+      // Return a 10x10 solid light green PNG buffer for any image-like request
+      const lightGreenPng = Buffer.from(
+        "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVQYlWNk+M/wn4EYwMjIisv9AAL9CBVf3KviAAAAAElFTkSuQmCC",
+        "base64"
+      );
+
+      const mockArrayBuffer = async () => {
+        const ab = new ArrayBuffer(lightGreenPng.length);
+        const view = new Uint8Array(ab);
+        for (let i = 0; i < lightGreenPng.length; ++i) {
+          view[i] = lightGreenPng[i];
+        }
+        return ab;
+      };
+
+      if (url.includes("/api/map-tile") || url.includes("mapbox.com")) {
+        return {
           ok: true,
-          blob: () => Promise.resolve(new Blob([lightGreenPng], { type: "image/png" })),
-          arrayBuffer: () => Promise.resolve(lightGreenPng.buffer),
+          blob: async () => new Blob([lightGreenPng], { type: "image/png" }),
+          arrayBuffer: mockArrayBuffer,
         } as any;
-        // Mocking for Node.js environment where response might not be a real Fetch Response
-        res.arrayBuffer = () => Promise.resolve(lightGreenPng.buffer);
-        return Promise.resolve(res);
       }
-      return Promise.resolve({
+
+      return {
         ok: true,
-        json: () => Promise.resolve({}),
-      } as any);
-    });
+        json: async () => ({}),
+        arrayBuffer: mockArrayBuffer,
+      } as any;
+    }));
 
     // Mock URL methods for JSDOM
     global.URL.createObjectURL = vi.fn();

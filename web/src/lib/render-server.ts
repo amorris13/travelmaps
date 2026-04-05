@@ -78,8 +78,9 @@ export async function renderPosterToSvg(config: PosterConfig): Promise<string> {
 
         const response = await fetch(remoteUrl);
         if (response.ok) {
-          const buffer = await response.arrayBuffer();
-          mapTileUrl = `data:image/png;base64,${Buffer.from(buffer).toString("base64")}`;
+          const arrayBuffer = await response.arrayBuffer();
+          const buffer = Buffer.from(arrayBuffer);
+          mapTileUrl = `data:image/png;base64,${buffer.toString("base64")}`;
         }
       }
     }

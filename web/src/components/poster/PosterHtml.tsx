@@ -27,7 +27,7 @@ export function PosterHtml({ config, className, mapTileUrl }: PosterHtmlProps) {
   const useSideBySide =
     showElevation && showStageTable && config.stages.length < 9;
 
-  const { contentX, contentWidth } = (() => {
+  const { contentX, contentWidth, mapHeight } = (() => {
     const polylines = config.stages.map((s) => s.polyline).filter(Boolean);
     if (polylines.length === 0)
       return { contentX: padding, contentWidth: width - padding * 2 };
@@ -57,13 +57,10 @@ export function PosterHtml({ config, className, mapTileUrl }: PosterHtmlProps) {
     const scale = Math.min(width / sidePx, height / sidePx);
     const offsetX = (width - sidePx * scale) / 2;
 
-    const contentScale = 1 / 1.3;
-    const actualContentWidth = sidePx * contentScale * scale;
-    const actualContentX = offsetX + (sidePx * scale - actualContentWidth) / 2;
-
     return {
-      contentX: actualContentX,
-      contentWidth: actualContentWidth,
+      contentX: offsetX + (sidePx * scale * 0.15),
+      contentWidth: sidePx * scale * 0.7,
+      mapHeight,
     };
   })();
 
@@ -128,9 +125,8 @@ export function PosterHtml({ config, className, mapTileUrl }: PosterHtmlProps) {
           additionalLocations={config.additionalLocations}
           accentColor={config.accentColor}
           mapStyle={config.mapStyle}
-          y={0}
           width={width - padding * 2}
-          height={1000}
+          height={mapHeight}
           mapTileUrl={mapTileUrl}
         />
       </div>
@@ -157,7 +153,6 @@ export function PosterHtml({ config, className, mapTileUrl }: PosterHtmlProps) {
              <PosterElevation
                 stages={config.stages}
                 accentColor={config.accentColor}
-                y={0}
                 width={useSideBySide ? elevationWidth : width}
                 height={height * 0.1}
                 units={config.units}
