@@ -8,6 +8,13 @@
   --foreground: #1a1a1a;
 }
 
+.rdp-root {
+  --rdp-accent-color: var(--accent);
+  --rdp-accent-background-color: #fef2f2; /* Tailwinds red-50 */
+  --rdp-day-height: 36px;
+  --rdp-day-width: 36px;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
