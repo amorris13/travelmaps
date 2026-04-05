@@ -30,7 +30,7 @@ export function PosterHtml({ config, className, mapTileUrl }: PosterHtmlProps) {
   const { contentX, contentWidth, mapHeight } = (() => {
     const polylines = config.stages.map((s) => s.polyline).filter(Boolean);
     if (polylines.length === 0)
-      return { contentX: padding, contentWidth: width - padding * 2 };
+      return { contentX: padding, contentWidth: width - padding * 2, mapHeight: height * 0.5 };
 
     let bounds = computeBoundsFromPolylines(polylines);
     if (config.additionalLocations.length > 0) {
