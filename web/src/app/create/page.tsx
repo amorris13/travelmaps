@@ -306,7 +306,7 @@ export default function CreatePage() {
               </div>
             ) : (
               <TransformWrapper
-                initialScale={1}
+                initialScale={0.4}
                 minScale={0.1}
                 maxScale={8}
                 centerOnInit

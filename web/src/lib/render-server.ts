@@ -49,6 +49,8 @@ export async function renderPosterToSvg(config: PosterConfig): Promise<string> {
   // @ts-ignore
   global.window = undefined;
 
+  // No need to mock URLs here, the components handle it.
+
   return await satori(
     React.createElement(PosterHtml, { config }),
     {

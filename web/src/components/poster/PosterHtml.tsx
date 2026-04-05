@@ -16,7 +16,6 @@ interface PosterHtmlProps {
 export function PosterHtml({ config, className }: PosterHtmlProps) {
   const width = POSTER_WIDTH;
   const height = POSTER_HEIGHT;
-
   const padding = width * 0.05;
 
   const showElevation =
@@ -24,11 +23,9 @@ export function PosterHtml({ config, className }: PosterHtmlProps) {
     config.stages.some((s) => s.elevationStream.length > 0);
   const showStageTable = config.showStageTable && config.stages.length > 1;
 
-  // Side-by-side logic
   const useSideBySide =
     showElevation && showStageTable && config.stages.length < 9;
 
-  // Compute map content alignment for other sections
   const { contentX, contentWidth } = (() => {
     const polylines = config.stages.map((s) => s.polyline).filter(Boolean);
     if (polylines.length === 0)
@@ -56,8 +53,6 @@ export function PosterHtml({ config, className }: PosterHtmlProps) {
       padding * 4;
 
     const sidePx = Math.min(width, mapHeight);
-    const { expandedBbox } = computeMapTransform(bounds, sidePx);
-
     const scale = Math.min(width / sidePx, height / sidePx);
     const offsetX = (width - sidePx * scale) / 2;
 
@@ -85,8 +80,6 @@ export function PosterHtml({ config, className }: PosterHtmlProps) {
       : elevationWidth
     : contentWidth;
 
-  const isServer = typeof window === "undefined";
-
   return (
     <div
       className={className}
@@ -100,13 +93,15 @@ export function PosterHtml({ config, className }: PosterHtmlProps) {
         boxSizing: "border-box",
       }}
     >
-      <PosterTitleHtml
-        title={config.title}
-        dateRange={config.dateRange}
-        accentColor={config.accentColor}
-      />
+      <div style={{ display: "flex", width: "100%", justifyContent: "center" }}>
+        <PosterTitleHtml
+          title={config.title}
+          dateRange={config.dateRange}
+          accentColor={config.accentColor}
+        />
+      </div>
 
-      <div style={{ display: "flex", width: "100%", marginTop: `${padding}px` }}>
+      <div style={{ display: "flex", width: "100%", marginTop: `${padding}px`, justifyContent: "center" }}>
         <PosterStatsHtml
           stages={config.stages}
           accentColor={config.accentColor}
@@ -127,17 +122,15 @@ export function PosterHtml({ config, className }: PosterHtmlProps) {
           boxSizing: "border-box",
         }}
       >
-        {!isServer && (
-          <PosterMap
-            stages={config.stages}
-            additionalLocations={config.additionalLocations}
-            accentColor={config.accentColor}
-            mapStyle={config.mapStyle}
-            y={0}
-            width={width - padding * 2}
-            height={1000}
-          />
-        )}
+        <PosterMap
+          stages={config.stages}
+          additionalLocations={config.additionalLocations}
+          accentColor={config.accentColor}
+          mapStyle={config.mapStyle}
+          y={0}
+          width={width - padding * 2}
+          height={1000}
+        />
       </div>
 
       <div
@@ -151,7 +144,7 @@ export function PosterHtml({ config, className }: PosterHtmlProps) {
           width: "100%",
         }}
       >
-        {showElevation && (
+        {showElevation ? (
           <div
             style={{
               width: useSideBySide ? `${elevationWidth}px` : "100%",
@@ -159,22 +152,20 @@ export function PosterHtml({ config, className }: PosterHtmlProps) {
               justifyContent: useSideBySide ? "flex-start" : "center",
             }}
           >
-             {!isServer && (
-               <PosterElevation
-                  stages={config.stages}
-                  accentColor={config.accentColor}
-                  y={0}
-                  width={useSideBySide ? elevationWidth : width}
-                  height={height * 0.1}
-                  units={config.units}
-                  contentX={elevationContentX}
-                  contentWidth={elevationContentWidth}
-                />
-             )}
+             <PosterElevation
+                stages={config.stages}
+                accentColor={config.accentColor}
+                y={0}
+                width={useSideBySide ? elevationWidth : width}
+                height={height * 0.1}
+                units={config.units}
+                contentX={elevationContentX}
+                contentWidth={elevationContentWidth}
+              />
           </div>
-        )}
+        ) : null}
 
-        {showStageTable && (
+        {showStageTable ? (
           <div
             style={{
               width: useSideBySide ? `${stageTableWidth}px` : "100%",
@@ -192,7 +183,7 @@ export function PosterHtml({ config, className }: PosterHtmlProps) {
               showSeconds={config.showSeconds}
             />
           </div>
-        )}
+        ) : null}
       </div>
     </div>
   );

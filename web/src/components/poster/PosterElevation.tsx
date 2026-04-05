@@ -18,178 +18,134 @@ interface PosterElevationProps {
   contentWidth?: number;
 }
 
-export function PosterElevation({
-  stages,
-  accentColor,
-  y,
-  width,
-  height,
-  units = "metric",
-  contentX,
-  contentWidth,
-}: PosterElevationProps) {
+export function PosterElevation(props: PosterElevationProps) {
   const isServer = typeof window === "undefined";
-
   if (isServer) {
-    const effectiveWidth = contentWidth !== undefined ? contentWidth : width;
-    const profileData = computeElevationProfileFromStages(
-      stages,
+    return <PosterElevationInternal {...props} isServer={true} />;
+  }
+  return <PosterElevationClient {...props} />;
+}
+
+function PosterElevationClient(props: PosterElevationProps) {
+  const effectiveWidth = props.contentWidth !== undefined ? props.contentWidth : props.width;
+  const profileData = useMemo(() => {
+    return computeElevationProfileFromStages(
+      props.stages,
       effectiveWidth,
-      height,
+      props.height,
       {
         labelProminentElevations: { minProminence: 250 },
         showKeyElevations: false,
-        units,
+        units: props.units,
       },
-      accentColor
+      props.accentColor
     );
+  }, [props.stages, props.accentColor, effectiveWidth, props.height, props.units]);
 
-    if (!profileData) return null;
-
-    return (
-      <PosterElevationServerRender
-        width={width}
-        height={height}
-        effectiveWidth={effectiveWidth}
-        contentX={contentX}
-        profileData={profileData}
-      />
-    );
-  }
-
-  return (
-    <PosterElevationClient
-      stages={stages}
-      accentColor={accentColor}
-      y={y}
-      width={width}
-      height={height}
-      units={units}
-      contentX={contentX}
-      contentWidth={contentWidth}
-    />
-  );
+  return <PosterElevationInternal {...props} profileData={profileData} isServer={false} />;
 }
 
-function PosterElevationServerRender({
-  width,
-  height,
-  effectiveWidth,
-  contentX,
-  profileData,
-}: any) {
-  const {
-    segmentPaths,
-    gridlines,
-    stageMarkerPositions,
-    prominentLabels,
-    maxElevationTrianglePoints,
-    accentColor,
-    gradientStartColor,
-    gradientEndColor,
-    plotWidth,
-    plotHeight,
-    plotOffsetY
-  } = profileData;
-  const effectiveX = contentX !== undefined ? contentX : 0;
-  const padding = 5;
-
-  return (
-    <svg
-      width={width}
-      height={height}
-      viewBox={`0 0 ${width} ${height}`}
-      style={{ display: "flex" }}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <g transform={`translate(${effectiveX}, 0)`}>
-        <defs>
-          <linearGradient id="elevation-gradient-server" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor={gradientStartColor} />
-            <stop offset="100%" stopColor={gradientEndColor} />
-          </linearGradient>
-        </defs>
-
-        {/* Grid lines */}
-        {(gridlines || []).map((gy: number, i: number) => (
-          <line key={`grid-${i}`} x1={padding} y1={gy} x2={plotWidth + padding} y2={gy} stroke="#e0e0e0" strokeWidth={1} />
-        ))}
-
-        {/* Segments */}
-        {(segmentPaths || []).map((seg: any, i: number) => (
-          <g key={`seg-group-${i}`}>
-            <path d={seg.fillD} fill="url(#elevation-gradient-server)" stroke="none" />
-            <path d={seg.pathD} fill="none" stroke={accentColor} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-          </g>
-        ))}
-
-        {/* Max elevation triangle */}
-        {maxElevationTrianglePoints && (
-          <polygon points={maxElevationTrianglePoints} fill={accentColor} stroke="white" strokeWidth={2} strokeLinejoin="round" />
-        )}
-
-        {/* Prominent labels */}
-        {(prominentLabels || []).map((label: any, i: number) => (
-          <text key={`prominent-${i}`} x={label.x} y={label.y} textAnchor={label.anchor} fontSize={16} fill="#1a1a1a" fontFamily="Montserrat">{label.label}</text>
-        ))}
-
-        {/* Stage markers */}
-        {(stageMarkerPositions || []).map((marker: any, i: number) => (
-          <g key={`marker-group-${i}`}>
-             <line x1={marker.x} y1={plotOffsetY + plotHeight} x2={marker.x} y2={plotOffsetY + plotHeight + 5} stroke="#808080" strokeWidth={1} />
-             <text x={(marker.x + marker.xNext) / 2} y={plotOffsetY + plotHeight + 15} textAnchor="middle" fontSize={16} fill="#999" fontFamily="Montserrat">{marker.label}</text>
-          </g>
-        ))}
-      </g>
-    </svg>
-  );
-}
-
-function PosterElevationClient({
-  stages,
+function PosterElevationInternal({
   accentColor,
-  y,
   width,
   height,
   units,
   contentX,
   contentWidth,
+  stages,
+  profileData: passedProfileData,
+  isServer
 }: any) {
   const effectiveWidth = contentWidth !== undefined ? contentWidth : width;
-  const profileData = useMemo(() => {
-    return computeElevationProfileFromStages(
-      stages,
-      effectiveWidth,
-      height,
-      {
-        labelProminentElevations: { minProminence: 250 },
-        showKeyElevations: false,
-        units,
-      },
-      accentColor
-    );
-  }, [stages, accentColor, effectiveWidth, height, units]);
+
+  const profileData = isServer
+    ? computeElevationProfileFromStages(
+        stages,
+        effectiveWidth,
+        height,
+        {
+          labelProminentElevations: { minProminence: 250 },
+          showKeyElevations: false,
+          units,
+        },
+        accentColor
+      )
+    : passedProfileData;
 
   if (!profileData) return null;
 
   const effectiveX = contentX !== undefined ? contentX : 0;
+
   return (
     <div
       style={{
+        display: "flex",
         width: `${width}px`,
         height: `${height}px`,
-        display: "flex",
-        justifyContent: "flex-start",
+        position: "relative",
       }}
-      dangerouslySetInnerHTML={{
-        __html: renderElevationProfileAsSvg(profileData, {
-          width: effectiveWidth,
-          height,
-          includeSvgTag: true,
-          x: effectiveX,
-          y: 0,
-        }),
-      }}
-    />
+    >
+      <svg
+        width={width}
+        height={height}
+        viewBox={`0 0 ${width} ${height}`}
+        style={{ display: "flex" }}
+      >
+        <g transform={`translate(${effectiveX}, 0)`}>
+          <defs>
+            <linearGradient id="elevation-gradient-final" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={profileData.gradientStartColor} />
+              <stop offset="100%" stopColor={profileData.gradientEndColor} />
+            </linearGradient>
+          </defs>
+
+          {(profileData.gridlines || []).map((gy: number, i: number) => (
+            <line key={`grid-${i}`} x1={5} y1={gy} x2={profileData.plotWidth + 5} y2={gy} stroke="#e0e0e0" strokeWidth={1} />
+          ))}
+
+          {(profileData.segmentPaths || []).map((seg: any, i: number) => (
+            <g key={`seg-group-${i}`}>
+              <path d={seg.fillD} fill="url(#elevation-gradient-final)" stroke="none" />
+              <path d={seg.pathD} fill="none" stroke={accentColor} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+            </g>
+          ))}
+
+          {profileData.maxElevationTrianglePoints && (
+            <polygon points={profileData.maxElevationTrianglePoints} fill={accentColor} stroke="white" strokeWidth={2} strokeLinejoin="round" />
+          )}
+        </g>
+      </svg>
+
+      <div style={{ display: "flex", position: "absolute", left: `${effectiveX}px`, top: "0px", width: `${effectiveWidth}px`, height: `${height}px`, pointerEvents: "none" }}>
+         {(profileData.prominentLabels || []).map((label: any, i: number) => (
+            <div key={`p-${i}`} style={{
+              display: "flex",
+              position: "absolute",
+              left: `${label.x}px`,
+              top: `${label.y}px`,
+              transform: "translate(-50%, 0)",
+              fontSize: "10px",
+              fontFamily: "Montserrat",
+              color: "#666",
+            }}>
+              {label.label}
+            </div>
+         ))}
+         {(profileData.stageMarkerPositions || []).map((marker: any, i: number) => (
+            <div key={`s-${i}`} style={{
+              display: "flex",
+              position: "absolute",
+              left: `${(marker.x + marker.xNext) / 2}px`,
+              top: `${profileData.plotOffsetY + profileData.plotHeight + 5}px`,
+              transform: "translate(-50%, 0)",
+              fontSize: "10px",
+              fontFamily: "Montserrat",
+              color: "#999",
+            }}>
+              {marker.label}
+            </div>
+         ))}
+      </div>
+    </div>
   );
 }
