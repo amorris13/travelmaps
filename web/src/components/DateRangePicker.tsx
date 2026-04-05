@@ -81,6 +81,13 @@ export function DateRangePicker({
             captionLayout="dropdown"
             startMonth={new Date(1940, 0)}
             endMonth={new Date()}
+            disabled={{ after: new Date() }}
+            reverseYears={true}
+            animate={true}
+            navLayout="around"
+            classNames={{
+              months: "flex flex-col sm:flex-row gap-4",
+            }}
           />
         </div>
       )}
