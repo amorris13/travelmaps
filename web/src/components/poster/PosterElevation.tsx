@@ -105,17 +105,15 @@ function PosterElevationServer(props: PosterElevationProps) {
 
   if (!profileData) return <div style={{ display: "flex", width: `${width}px`, height: `${height}px` }} />;
 
-  // Satori/Yoga don't support translateX(-50%) or text-shadow.
-  // Using direct SVG string to Data URI for elevation graphics to ensure rendering.
   const graphicsSvg = `
     <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="elevation-gradient-server" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="${profileData.gradientStartColor}" />
+          <stop offset="100%" stop-color="${profileData.gradientEndColor}" />
+        </linearGradient>
+      </defs>
       <g transform="translate(${effectiveX}, 0)">
-        <defs>
-          <linearGradient id="elevation-gradient-server" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="${profileData.gradientStartColor}" />
-            <stop offset="100%" stop-color="${profileData.gradientEndColor}" />
-          </linearGradient>
-        </defs>
         ${(profileData.gridlines || []).map((gy: number) => `
           <line x1="5" y1="${gy}" x2="${profileData.plotWidth + 5}" y2="${gy}" stroke="#e0e0e0" stroke-width="1" />
         `).join('')}
@@ -129,17 +127,18 @@ function PosterElevationServer(props: PosterElevationProps) {
       </g>
     </svg>
   `.trim();
+
   const graphicsDataUri = `data:image/svg+xml;base64,${Buffer.from(graphicsSvg).toString('base64')}`;
 
   return (
     <div style={{ display: "flex", width: `${width}px`, height: `${height}px`, position: "relative" }}>
-      <img src={graphicsDataUri} style={{ display: "flex", width: "100%", height: "100%" }} />
+      <img src={graphicsDataUri} style={{ display: "flex", position: "absolute", left: "0px", top: "0px", width: `${width}px`, height: `${height}px` }} />
       <div style={{ display: "flex", position: "absolute", left: `${effectiveX}px`, top: "0px", width: `${effectiveWidth}px`, height: `${height}px` }}>
          {(profileData.prominentLabels || []).map((label: any, i: number) => (
             <div key={i} style={{
               display: "flex",
               position: "absolute",
-              left: `${label.x - 20}px`, // Simple left offset instead of transform
+              left: `${label.x - 20}px`,
               width: "40px",
               justifyContent: "center",
               top: `${label.y}px`,
@@ -154,7 +153,7 @@ function PosterElevationServer(props: PosterElevationProps) {
             <div key={i} style={{
               display: "flex",
               position: "absolute",
-              left: `${(marker.x + marker.xNext) / 2 - 10}px`, // Simple left offset instead of transform
+              left: `${(marker.x + marker.xNext) / 2 - 10}px`,
               width: "20px",
               justifyContent: "center",
               top: `${profileData.plotOffsetY + profileData.plotHeight + 5}px`,
