@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { format, subMonths } from "date-fns";
+import { format } from "date-fns";
 import { DateRange, DayPicker } from "react-day-picker";
 
 interface DateRangePickerProps {
@@ -74,8 +74,8 @@ export function DateRangePicker({
             onSelect={(range) => {
               onChange(range);
             }}
-            defaultMonth={subMonths(value?.from || new Date(), 1)}
-            numberOfMonths={2}
+            defaultMonth={value?.from || new Date()}
+            numberOfMonths={1}
             pagedNavigation={false}
             showOutsideDays={false}
             captionLayout="dropdown"
@@ -85,9 +85,6 @@ export function DateRangePicker({
             reverseYears={true}
             animate={true}
             navLayout="around"
-            classNames={{
-              months: "flex flex-col sm:flex-row gap-4",
-            }}
           />
         </div>
       )}
