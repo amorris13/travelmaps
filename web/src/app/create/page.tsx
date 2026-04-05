@@ -27,8 +27,6 @@ export default function CreatePage() {
   const posterRef = useRef<SVGSVGElement>(null);
   const requestIdRef = useRef(0);
 
-  const selectedIds = new Set(selectedActivities.map((a) => a.id));
-
   const handleActivitiesSelected = useCallback(
     async (activities: StravaActivity[]) => {
       setSelectedActivities(activities);
@@ -160,7 +158,9 @@ export default function CreatePage() {
       } catch (err) {
         console.error("Failed to load activity details:", err);
       } finally {
-        setLoadingDetails(false);
+        if (currentRequestId === requestIdRef.current) {
+          setLoadingDetails(false);
+        }
       }
     },
     []

@@ -81,7 +81,8 @@ export const Poster = forwardRef<SVGSVGElement, PosterProps>(
     // Compute map content alignment for other sections
     const { contentX, contentWidth } = useMemo(() => {
       const polylines = config.stages.map((s) => s.polyline).filter(Boolean);
-      if (polylines.length === 0) return { contentX: padding, contentWidth: width - padding * 2 };
+      if (polylines.length === 0)
+        return { contentX: padding, contentWidth: width - padding * 2 };
 
       let bounds = computeBoundsFromPolylines(polylines);
       if (config.additionalLocations.length > 0) {
@@ -109,14 +110,24 @@ export const Poster = forwardRef<SVGSVGElement, PosterProps>(
       // the expandedBbox is 1.3x larger than the actual content.
       // The actual content width is sidePx / 1.3 * scale.
       const contentScale = 1 / 1.3;
-      const actualContentWidth = (sidePx * contentScale) * scale;
-      const actualContentX = offsetX + (sidePx * scale - actualContentWidth) / 2;
+      const actualContentWidth = sidePx * contentScale * scale;
+      const actualContentX =
+        offsetX + (sidePx * scale - actualContentWidth) / 2;
 
       return {
         contentX: actualContentX,
         contentWidth: actualContentWidth,
       };
-    }, [config.stages, config.additionalLocations, width, mapHeight, padding]);
+    }, [
+      // Only recalculate map alignment when geometric data or map size changes.
+      // Changes to labels or other metadata should not trigger this.
+      config.stages.length,
+      config.stages.map((s) => s.polyline).join("|"),
+      config.additionalLocations.map((l) => `${l.lat},${l.lng}`).join("|"),
+      width,
+      mapHeight,
+      padding,
+    ]);
 
     const elevationY = mapY + mapHeight + padding;
     const stageTableY = useSideBySide ? elevationY : elevationY + elevationHeight + padding;

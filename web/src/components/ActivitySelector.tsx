@@ -164,19 +164,14 @@ export function ActivitySelector({
       };
 
       // Add to visible list and auto-select it.
-      // Use functional updater to avoid reading stale `activities` state.
-      let updatedActivities: StravaActivity[] = [];
       setActivities((prev) => {
         if (prev.some((a) => a.id === Number(id))) {
-          updatedActivities = prev;
           return prev;
         }
-        updatedActivities = [syntheticActivity, ...prev];
-        return updatedActivities;
+        return [syntheticActivity, ...prev];
       });
 
-      const currentSelected = updatedActivities.filter((a) => selectedIds.has(a.id));
-      onSelect([...currentSelected, syntheticActivity]);
+      onSelect([...selectedActivities, syntheticActivity]);
       setActivityIdInput("");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unknown error");

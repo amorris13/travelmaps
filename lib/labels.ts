@@ -303,11 +303,10 @@ export function shapeForLabel(rect: SimpleRect): Shape {
   width += 2 * buf;
   height += 2 * buf;
 
-  const divisions = 3;
-  let d = `M ${x} ${y} L ${x + width} ${y} L ${x + width} ${y + height} L ${x} ${y + height} L ${x} ${y}`;
-  for (let i = 1; i <= divisions; i++) {
-    d += ` L ${x + width} ${y + (height / divisions) * i} L ${x} ${y + (height / divisions) * i}`;
-  }
+  // Use a simple rectangle path to speed up intersection tests.
+  // The 'divisions' lines previously used are unnecessary for basic collision detection
+  // and were significantly slowing down the svg-intersections logic.
+  let d = `M ${x} ${y} L ${x + width} ${y} L ${x + width} ${y + height} L ${x} ${y + height} Z`;
   return shape("path", { d });
 }
 
