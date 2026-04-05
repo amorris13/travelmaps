@@ -32,8 +32,8 @@ describe("Poster Visual Regression", () => {
         // Return a 10x10 solid light green PNG buffer
         // This helps verify that map tiles are being correctly requested and rendered.
         const lightGreenPng = Buffer.from(
-          "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVQYlWNk+M/wn4EYwMjIisv9AAL9CBVf3KviAAAAAElFTkSuQmCC",
-          "base64"
+          "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKAQMAAAC3/F3+AAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAGUExURev16////1jwbYgAAAABYktHRAH/Ai3eAAAAB3RJTUUH6gMdCyUWjqrtgQAAAAtJREFUCNdjYMAHAAAeAAFuhUcyAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDI2LTAzLTI5VDExOjM3OjIyKzAwOjAwOmF3HQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyNi0wMy0yOVQxMTozNzoyMiswMDowMEs8z6EAAAAodEVYdGRhdGU6dGltZXN0YW1wADIwMjYtMDMtMjlUMTE6Mzc6MjIrMDA6MDAcKe5+AAAAAElFTkSuQmCC",
+          "base64",
         );
         return Promise.resolve({
           ok: true,
@@ -57,24 +57,29 @@ describe("Poster Visual Regression", () => {
       const { container } = render(<Poster config={config} />);
 
       // Wait for the labels to be placed and the map image to be requested
-      await waitFor(() => {
-        const svg = container.querySelector("svg");
-        expect(svg).toBeTruthy();
+      await waitFor(
+        () => {
+          const svg = container.querySelector("svg");
+          expect(svg).toBeTruthy();
 
-        // 1. Check for presence of map image
-        const mapImage = svg!.querySelector("image");
-        if (config.stages.length > 0) {
-          expect(mapImage).toBeTruthy();
-          expect(mapImage?.getAttribute("href")).toContain("/api/map-tile");
-        }
+          // 1. Check for presence of map image
+          const mapImage = svg!.querySelector("image");
+          if (config.stages.length > 0) {
+            expect(mapImage).toBeTruthy();
+            expect(mapImage?.getAttribute("href")).toContain("/api/map-tile");
+          }
 
-        // 2. Check for presence of labels if we expect them
-        const hasLabels = config.stages.some(s => s.startLabel || s.endLabel) || config.additionalLocations.length > 0;
-        if (hasLabels) {
-          const labels = svg!.querySelectorAll(".label");
-          expect(labels.length).toBeGreaterThan(0);
-        }
-      }, { timeout: 2000 });
+          // 2. Check for presence of labels if we expect them
+          const hasLabels =
+            config.stages.some((s) => s.startLabel || s.endLabel) ||
+            config.additionalLocations.length > 0;
+          if (hasLabels) {
+            const labels = svg!.querySelectorAll(".label");
+            expect(labels.length).toBeGreaterThan(0);
+          }
+        },
+        { timeout: 2000 },
+      );
 
       const svgElement = container.querySelector("svg")!;
       const svgString = svgElement.outerHTML;
@@ -104,8 +109,8 @@ describe("Poster Visual Regression", () => {
 
         throw new Error(
           `Visual regression failed for "${name}": ${mismatchedPixels} pixels mismatched.\n` +
-          `Difference image saved to ${diffPath}\n` +
-          `Actual image saved to ${actualPath}`
+            `Difference image saved to ${diffPath}\n` +
+            `Actual image saved to ${actualPath}`,
         );
       }
 

@@ -1,10 +1,12 @@
 import { describe, it, expect } from "vitest";
 import {
   computeElevationProfile,
+  computeElevationProfileFromStages,
   mixColors,
   parseToRgb,
   rgbToHex,
 } from "../elevation";
+import type { StageConfig } from "../types";
 
 describe("color helpers", () => {
   it("parseToRgb should parse hex colors", () => {
@@ -102,6 +104,30 @@ describe("computeElevationProfile", () => {
     expect(result.prominentLabels.some((l) => l.elevation === 500)).toBe(true);
   });
 
+  it("should omit overlapping labels and prioritize higher prominence", () => {
+    // Peak A at 300m (distance), elevation 600m
+    // Peak B at 310m (distance), elevation 590m
+    // Both are prominent and very close horizontally and vertically
+    // A: 0 → 600 → 400 → 590 → 0
+    // Prominence: 600 is Infinity, 590 is 190 (590 - 400)
+    const elevation = [0, 600, 400, 590, 0];
+    const distance = [0, 300, 305, 310, 600];
+    const result = computeElevationProfile(
+      [{ elevationStream: elevation, distanceStream: distance }],
+      600,
+      200,
+      {
+        labelProminentElevations: { minProminence: 30 },
+      }
+    );
+
+    // Both peaks are above the minProminence threshold (190 >= 30)
+    // but they should overlap and only the more prominent (600m) should be kept.
+    const labels = result.prominentLabels.map((l) => l.elevation);
+    expect(labels).toContain(600);
+    expect(labels).not.toContain(590);
+  });
+
   it("should clamp negative elevations to 0", () => {
     const elevation = [-50, 100, 200];
     const distance = [0, 100, 200];
@@ -136,5 +162,38 @@ describe("computeElevationProfile", () => {
     expect(result.gradientStartColor).toBeTruthy();
     expect(result.gradientEndColor).toBeTruthy();
     expect(result.accentColor).toBe("#C61016");
+  });
+});
+
+describe("computeElevationProfileFromStages", () => {
+  const sampleStage: StageConfig = {
+    activityId: "1",
+    name: "Stage 1",
+    startLabel: "A",
+    endLabel: "B",
+    polyline: "",
+    distance: 5000,
+    movingTime: 3600,
+    elevationGain: 100,
+    averageSpeed: 5,
+    elevationStream: [100, 200, 100],
+    distanceStream: [0, 2500, 5000],
+    activityType: "Ride",
+  };
+
+  it("should NOT show stage markers for a single stage", () => {
+    const result = computeElevationProfileFromStages([sampleStage], 600, 200);
+    expect(result?.stageMarkerPositions).toHaveLength(0);
+  });
+
+  it("should show stage markers for multiple stages", () => {
+    const result = computeElevationProfileFromStages(
+      [sampleStage, { ...sampleStage, activityId: "2", name: "Stage 2" }],
+      600,
+      200
+    );
+    expect(result?.stageMarkerPositions).toHaveLength(2);
+    expect(result?.stageMarkerPositions[0].label).toBe("1");
+    expect(result?.stageMarkerPositions[1].label).toBe("2");
   });
 });

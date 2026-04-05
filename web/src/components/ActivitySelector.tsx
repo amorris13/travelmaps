@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import type { StravaActivity } from "@lib/strava";
 import { DateRangePicker } from "./DateRangePicker";
 import { DateRange } from "react-day-picker";
@@ -15,12 +15,20 @@ export function ActivitySelector({
   onSelect,
   selectedActivities,
 }: ActivitySelectorProps) {
-  const selectedIds = useMemo(() => new Set(selectedActivities.map(a => a.id)), [selectedActivities]);
+  const selectedIds = useMemo(
+    () => new Set(selectedActivities.map((a) => a.id)),
+    [selectedActivities]
+  );
   const [activities, setActivities] = useState<StravaActivity[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+
+  // Selection states
+  const [lastSelectedIndex, setLastSelectedIndex] = useState<number | null>(null);
+  const [dragSelectMode, setDragSelectMode] = useState<"selecting" | "deselecting" | null>(null);
+  const longPressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Date range filter
   const [dateRange, setDateRange] = useState<DateRange | undefined>();
@@ -172,13 +180,68 @@ export function ActivitySelector({
     }
   }
 
-  function toggleActivity(activity: StravaActivity) {
-    if (selectedIds.has(activity.id)) {
-      onSelect(selectedActivities.filter((a) => a.id !== activity.id));
+  function toggleActivity(activity: StravaActivity, shiftKey = false) {
+    const currentIndex = filteredActivities.findIndex((a) => a.id === activity.id);
+    const newSelectedMap = new Map(selectedActivities.map((a) => [a.id, a]));
+
+    if (shiftKey && lastSelectedIndex !== null) {
+      const start = Math.min(lastSelectedIndex, currentIndex);
+      const end = Math.max(lastSelectedIndex, currentIndex);
+      const range = filteredActivities.slice(start, end + 1);
+
+      // Determine if we are selecting or deselecting the range based on the target item's current state.
+      const isSelecting = !selectedIds.has(activity.id);
+
+      range.forEach((a) => {
+        if (isSelecting) {
+          newSelectedMap.set(a.id, a);
+        } else {
+          newSelectedMap.delete(a.id);
+        }
+      });
     } else {
-      onSelect([...selectedActivities, activity]);
+      if (newSelectedMap.has(activity.id)) {
+        newSelectedMap.delete(activity.id);
+      } else {
+        newSelectedMap.set(activity.id, activity);
+      }
+    }
+
+    setLastSelectedIndex(currentIndex);
+    onSelect(Array.from(newSelectedMap.values()));
+  }
+
+  function onPointerDown(activity: StravaActivity) {
+    if (longPressTimerRef.current) clearTimeout(longPressTimerRef.current);
+    longPressTimerRef.current = setTimeout(() => {
+      setDragSelectMode(selectedIds.has(activity.id) ? "deselecting" : "selecting");
+      toggleActivity(activity);
+    }, 500);
+  }
+
+  function onPointerEnter(activity: StravaActivity) {
+    if (dragSelectMode === "selecting" && !selectedIds.has(activity.id)) {
+      toggleActivity(activity);
+    } else if (dragSelectMode === "deselecting" && selectedIds.has(activity.id)) {
+      toggleActivity(activity);
     }
   }
+
+  useEffect(() => {
+    function handleGlobalPointerUp() {
+      if (longPressTimerRef.current) {
+        clearTimeout(longPressTimerRef.current);
+        longPressTimerRef.current = null;
+      }
+      setDragSelectMode(null);
+    }
+    window.addEventListener("pointerup", handleGlobalPointerUp);
+    window.addEventListener("pointercancel", handleGlobalPointerUp);
+    return () => {
+      window.removeEventListener("pointerup", handleGlobalPointerUp);
+      window.removeEventListener("pointercancel", handleGlobalPointerUp);
+    };
+  }, []);
 
   function formatDate(dateStr: string) {
     if (!dateStr) return "";
@@ -192,13 +255,21 @@ export function ActivitySelector({
   return (
     <div className="space-y-3">
       <div className="sticky top-0 bg-white sm:bg-gray-50 pt-1 pb-3 space-y-3 z-20">
-        <h3 className="text-sm font-medium text-gray-700">Select Activities</h3>
-
         {/* Direct activity ID input */}
         <div>
-          <label className="block text-xs text-gray-500 mb-1">
-            Add by Activity ID
-          </label>
+          <div className="flex items-center justify-between mb-1">
+            <label className="block text-xs text-gray-500">
+              Add by Activity ID
+            </label>
+            {selectedActivities.length > 0 && (
+              <button
+                onClick={() => onSelect([])}
+                className="text-xs text-accent hover:underline"
+              >
+                Clear all
+              </button>
+            )}
+          </div>
           <div className="flex gap-2">
             <input
               type="text"
@@ -287,15 +358,21 @@ export function ActivitySelector({
 
       {/* Activity list */}
       <div className="rounded-lg border border-gray-200">
-        {filteredActivities.map((activity) => {
+        {filteredActivities.map((activity, index) => {
           const isSelected = selectedIds.has(activity.id);
           return (
             <button
               key={activity.id}
-              onClick={() => toggleActivity(activity)}
+              onClick={(e) => toggleActivity(activity, e.shiftKey)}
+              onPointerDown={() => onPointerDown(activity)}
+              onPointerEnter={() => onPointerEnter(activity)}
+              onContextMenu={(e) => e.preventDefault()}
               className={`w-full px-4 py-3 text-left border-b border-gray-100 last:border-0 ${
                 isSelected ? "bg-red-50 border-l-2 border-l-accent" : ""
               }`}
+              style={{
+                touchAction: dragSelectMode ? "none" : "auto",
+              }}
             >
               <div className="flex items-center justify-between">
                 <div>

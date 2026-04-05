@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { format } from "date-fns";
+import { format, subMonths } from "date-fns";
 import { DateRange, DayPicker } from "react-day-picker";
 
 interface DateRangePickerProps {
@@ -68,44 +68,49 @@ export function DateRangePicker({
 
       {isOpen && (
         <div className="absolute left-0 top-full z-50 mt-2 rounded-md border border-gray-200 bg-white p-2 shadow-lg">
-          <DayPicker
-            mode="range"
-            selected={value}
-            onSelect={(range) => {
-              onChange(range);
-            }}
-            numberOfMonths={2}
-            captionLayout="dropdown"
-            startMonth={new Date(1940, 0)}
-            endMonth={new Date(new Date().getFullYear() + 10, 11)}
-            classNames={{
-              months: "flex flex-col sm:flex-row gap-4",
-              selected: "bg-accent text-white rounded-md",
-              range_start: "rounded-l-md",
-              range_end: "rounded-r-md",
-              range_middle: "bg-red-50 text-accent",
-              today: "font-bold text-accent underline",
-              outside: "text-gray-300 opacity-50",
-              disabled: "text-gray-300 opacity-50",
-              chevron: "fill-gray-400 h-4 w-4",
-              month_caption: "flex justify-center text-sm font-medium pt-1 px-10 mb-2 capitalize relative",
-              caption_label: "hidden",
-              dropdowns: "flex items-center gap-1 mx-1",
-              dropdown: "p-1 bg-transparent hover:bg-gray-100 rounded cursor-pointer text-sm font-medium focus:outline-none",
-              dropdown_root: "relative flex items-center",
-              month: "space-y-4",
-              month_grid: "w-full border-collapse",
-              weekdays: "flex",
-              weekday: "text-gray-400 rounded-md w-9 font-normal text-[0.8rem]",
-              weeks: "space-y-1",
-              week: "flex w-full mt-2",
-              day: "h-9 w-9 text-center text-sm p-0 relative focus-within:relative focus-within:z-20 cursor-pointer hover:bg-gray-100 rounded-md flex items-center justify-center",
-              day_button: "h-full w-full",
-              nav: "flex items-center",
-              button_previous: "absolute left-3 top-3 h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100",
-              button_next: "absolute right-3 top-3 h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100",
-            }}
-          />
+          <div className="relative">
+            <DayPicker
+              mode="range"
+              selected={value}
+              onSelect={(range) => {
+                onChange(range);
+              }}
+              defaultMonth={subMonths(value?.from || new Date(), 1)}
+              numberOfMonths={2}
+              pagedNavigation={false}
+              showOutsideDays={false}
+              captionLayout="dropdown"
+              startMonth={new Date(1940, 0)}
+              endMonth={new Date()}
+              classNames={{
+                months: "flex flex-col sm:flex-row gap-4",
+                selected: "bg-accent text-white rounded-md",
+                range_start: "rounded-l-md",
+                range_end: "rounded-r-md",
+                range_middle: "bg-red-50 text-accent",
+                today: "font-bold text-accent underline",
+                outside: "text-gray-300 opacity-50",
+                disabled: "text-gray-300 opacity-50",
+                chevron: "fill-gray-400 h-4 w-4",
+                month_caption: "flex justify-center text-sm font-medium pt-1 px-10 mb-2 capitalize relative",
+                caption_label: "hidden",
+                dropdowns: "flex items-center gap-1 mx-1",
+                dropdown: "p-1 bg-transparent hover:bg-gray-100 rounded cursor-pointer text-sm font-medium focus:outline-none",
+                dropdown_root: "relative flex items-center",
+                month: "space-y-4",
+                month_grid: "w-full border-collapse",
+                weekdays: "flex",
+                weekday: "text-gray-400 rounded-md w-9 font-normal text-[0.8rem]",
+                weeks: "space-y-1",
+                week: "flex w-full mt-2",
+                day: "h-9 w-9 text-center text-sm p-0 relative focus-within:relative focus-within:z-20 cursor-pointer hover:bg-gray-100 rounded-md flex items-center justify-center",
+                day_button: "h-full w-full",
+                nav: "flex items-center",
+                button_previous: "absolute left-2 top-1 h-7 w-7 bg-transparent p-0 hover:bg-gray-100 rounded-md disabled:opacity-20 disabled:cursor-not-allowed z-20 pointer-events-auto",
+                button_next: "absolute right-2 top-1 h-7 w-7 bg-transparent p-0 hover:bg-gray-100 rounded-md disabled:opacity-20 disabled:cursor-not-allowed z-20 pointer-events-auto",
+              }}
+            />
+          </div>
         </div>
       )}
     </div>

@@ -1,4 +1,16 @@
 export const ACCENT_COLOR = "#C61016";
+
+export const ACCENT_COLOR_PRESETS = [
+  { name: "Veloprint Red", value: "#C61016" },
+  { name: "Deep Navy", value: "#1E3A8A" },
+  { name: "Forest Green", value: "#064E3B" },
+  { name: "Charcoal", value: "#374151" },
+  { name: "Terracotta", value: "#9A3412" },
+  { name: "Plum", value: "#581C87" },
+  { name: "Teal", value: "#0F766E" },
+  { name: "Ochre", value: "#92400E" },
+];
+
 export const FONT_FAMILY = "Helvetica";
 export const FONT_FAMILY_LIGHT = "Helvetica Neue, sans-serif";
 export const LABEL_FONT_SIZE_PX = 18;
@@ -16,6 +28,9 @@ export const ELEVATION_PADDING = 5;
 export const KEY_ELEVATIONS_HEIGHT = 20;
 export const STAGE_MARKERS_HEIGHT = 15;
 export const PROMINENT_ELEVATION_LABELS_HEIGHT = 40;
+export const PROMINENT_LABEL_FONT_SIZE = 16;
+export const PROMINENT_LABEL_LETTER_SPACING_BUFFER = 1.05;
+export const PROMINENT_LABEL_PADDING = 4;
 
 // Map styles
 export const MAP_STYLES: Record<string, { id: string; label: string }> = {
