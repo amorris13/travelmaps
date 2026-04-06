@@ -1,15 +1,21 @@
 {
   "compilerOptions": {
     "target": "ES2020", // Or newer
-    "module": "NodeNext", // Use modern Node.js module system
-    "moduleResolution": "NodeNext",
+    "module": "ESNext", // Use modern Node.js module system
+    "moduleResolution": "Bundler",
     "outDir": "./dist", // Output directory for compiled JS
     "rootDir": "./", // Source directory
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@lib/*": ["lib/*"],
+      "@/*": ["web/src/*"]
+    }
   },
-  "include": ["*.ts"], // Include all .ts files in the root
-  "exclude": ["node_modules", "dist"]
+  "include": ["*.ts", "lib/**/*.ts", "generate_elevation_svg.ts", "generate_svg.ts"],
+  "exclude": ["node_modules", "dist", "web"]
 }
