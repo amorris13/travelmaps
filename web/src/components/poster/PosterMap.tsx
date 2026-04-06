@@ -11,7 +11,7 @@ import {
   applyTransform,
   roundPoint,
 } from "@lib/geo";
-import { EXPORT_PRECISION, SIDE_PX } from "@lib/constants";
+import { EXPORT_PRECISION, SIDE_PX, MAP_TINTS } from "@lib/constants";
 import { calculateBestLabelPositions, type LabelPlacementResult } from "@lib/labels";
 import { shape } from "svg-intersections";
 import type { Shape } from "svg-intersections";
@@ -21,6 +21,7 @@ interface PosterMapProps {
   additionalLocations?: { name: string; lat: number; lng: number }[];
   accentColor: string;
   mapStyle?: string;
+  mapTint?: string;
   y: number;
   width: number;
   height: number;
@@ -31,6 +32,7 @@ export function PosterMap({
   additionalLocations = [],
   accentColor,
   mapStyle,
+  mapTint = "none",
   y,
   width,
   height,
@@ -224,6 +226,13 @@ export function PosterMap({
     <g transform={`translate(0, ${y})`}>
       {/* SVG filter for white outline behind text labels */}
       <defs>
+        {Object.entries(MAP_TINTS).map(([key, tint]) => (
+          key !== "none" && (
+            <filter key={key} id={`tint-${key}`}>
+              <feColorMatrix type="matrix" values={tint.filterValues} />
+            </filter>
+          )
+        ))}
         <filter
           id={filterId}
           width="200%"
@@ -260,6 +269,7 @@ export function PosterMap({
           width={sidePx * scale}
           height={sidePx * scale}
           preserveAspectRatio="xMidYMid meet"
+          filter={mapTint && mapTint !== "none" ? `url(#tint-${mapTint})` : undefined}
         />
       )}
 

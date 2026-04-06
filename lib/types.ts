@@ -61,6 +61,7 @@ export interface PosterConfig {
   accentColor: string;
   fontFamily: string;
   mapStyle: string;
+  mapTint?: string;
   showElevation: boolean;
   showStageTable: boolean;
   stages: StageConfig[];

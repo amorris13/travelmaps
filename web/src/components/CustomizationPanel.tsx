@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import type { PosterConfig, StageConfig, LatLng } from "@lib/types";
-import { MAP_STYLES, ACCENT_COLOR_PRESETS } from "@lib/constants";
+import { MAP_STYLES, MAP_TINTS, ACCENT_COLOR_PRESETS } from "@lib/constants";
 import { computeBoundsFromPoints } from "@lib/geo";
 
 interface CustomizationPanelProps {
@@ -320,6 +320,27 @@ export function CustomizationPanel({
                         }`}
                       >
                         {style.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">
+                    Map Tint
+                  </label>
+                  <div className="grid grid-cols-3 gap-2">
+                    {Object.entries(MAP_TINTS).map(([key, tint]) => (
+                      <button
+                        key={key}
+                        onClick={() => update({ mapTint: key })}
+                        className={`rounded-md border px-3 py-2 text-xs transition-colors ${
+                          config.mapTint === key
+                            ? "border-accent bg-red-50 text-accent"
+                            : "border-gray-200 text-gray-600 hover:border-gray-300"
+                        }`}
+                      >
+                        {tint.label}
                       </button>
                     ))}
                   </div>
