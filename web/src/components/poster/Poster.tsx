@@ -179,6 +179,7 @@ export const Poster = forwardRef<SVGSVGElement, PosterProps>(
           additionalLocations={config.additionalLocations}
           accentColor={config.accentColor}
           mapStyle={config.mapStyle}
+          mapTint={config.mapTint}
           y={mapY}
           width={width}
           height={mapHeight}

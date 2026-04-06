@@ -38,17 +38,30 @@ export const MAP_STYLES: Record<string, { id: string; label: string }> = {
     id: "amorris13/clyk5oa2u01dw01rba38pe12t",
     label: "Muted",
   },
-  outdoors: {
-    id: "mapbox/outdoors-v12",
-    label: "Outdoors",
-  },
   satellite: {
-    id: "mapbox/satellite-streets-v12",
+    id: "mapbox/satellite-v9",
     label: "Satellite",
   },
-  dark: {
-    id: "mapbox/dark-v11",
-    label: "Dark",
+};
+
+// Map tints
+export const MAP_TINTS: Record<string, { label: string; filterValues: string }> = {
+  none: { label: "None", filterValues: "" },
+  grayscale: {
+    label: "Grayscale",
+    filterValues: "0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0 0 0 1 0",
+  },
+  sepia: {
+    label: "Sepia",
+    filterValues: "0.393 0.769 0.189 0 0 0.349 0.686 0.168 0 0 0.272 0.534 0.131 0 0 0 0 0 1 0",
+  },
+  warm: {
+    label: "Warm",
+    filterValues: "1.1 0 0 0 0 0 1 0 0 0 0 0 0.8 0 0 0 0 0 1 0",
+  },
+  cool: {
+    label: "Cool",
+    filterValues: "0.9 0 0 0 0 0 1 0 0 0 0 0 1.2 0 0 0 0 0 1 0",
   },
 };
 

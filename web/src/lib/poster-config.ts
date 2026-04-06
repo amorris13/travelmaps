@@ -11,6 +11,7 @@ export function createDefaultPosterConfig(
     accentColor: ACCENT_COLOR,
     fontFamily: "Helvetica Neue",
     mapStyle: "muted",
+    mapTint: "none",
     showElevation: true,
     showStageTable: stages.length > 1,
     stages,
