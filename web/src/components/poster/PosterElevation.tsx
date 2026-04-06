@@ -105,34 +105,56 @@ function PosterElevationServer(props: PosterElevationProps) {
 
   if (!profileData) return <div style={{ display: "flex", width: `${width}px`, height: `${height}px` }} />;
 
-  const graphicsSvg = `
-    <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="elevation-gradient-server" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="${profileData.gradientStartColor}" />
-          <stop offset="100%" stop-color="${profileData.gradientEndColor}" />
-        </linearGradient>
-      </defs>
-      <g transform="translate(${effectiveX}, 0)">
-        ${(profileData.gridlines || []).map((gy: number) => `
-          <line x1="5" y1="${gy}" x2="${profileData.plotWidth + 5}" y2="${gy}" stroke="#e0e0e0" stroke-width="1" />
-        `).join('')}
-        ${(profileData.segmentPaths || []).map((seg: any) => `
-          <path d="${seg.fillD}" fill="url(#elevation-gradient-server)" stroke="none" />
-          <path d="${seg.pathD}" fill="none" stroke="${accentColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-        `).join('')}
-        ${profileData.maxElevationTrianglePoints ? `
-          <polygon points="${profileData.maxElevationTrianglePoints}" fill="${accentColor}" stroke="white" stroke-width="2" stroke-linejoin="round" />
-        ` : ''}
-      </g>
-    </svg>
-  `.trim();
-
-  const graphicsDataUri = `data:image/svg+xml;base64,${Buffer.from(graphicsSvg).toString('base64')}`;
-
   return (
     <div style={{ display: "flex", width: `${width}px`, height: `${height}px`, position: "relative" }}>
-      <img src={graphicsDataUri} style={{ display: "flex", position: "absolute", left: "0px", top: "0px", width: `${width}px`, height: `${height}px` }} />
+      <svg
+        width={width}
+        height={height}
+        viewBox={`0 0 ${width} ${height}`}
+        style={{ display: "flex", position: "absolute", left: "0px", top: "0px" }}
+      >
+        <defs>
+          <linearGradient id="elevation-gradient-server" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor={profileData.gradientStartColor} />
+            <stop offset="100%" stopColor={profileData.gradientEndColor} />
+          </linearGradient>
+        </defs>
+        <g transform={`translate(${effectiveX}, 0)`}>
+          {(profileData.gridlines || []).map((gy: number, i: number) => (
+            <line
+              key={`grid-${i}`}
+              x1={5}
+              y1={gy}
+              x2={profileData.plotWidth + 5}
+              y2={gy}
+              stroke="#e0e0e0"
+              strokeWidth={1}
+            />
+          ))}
+          {(profileData.segmentPaths || []).map((seg: any, i: number) => (
+            <g key={`seg-${i}`}>
+              <path d={seg.fillD} fill="url(#elevation-gradient-server)" stroke="none" />
+              <path
+                d={seg.pathD}
+                fill="none"
+                stroke={accentColor}
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </g>
+          ))}
+          {profileData.maxElevationTrianglePoints && (
+            <polygon
+              points={profileData.maxElevationTrianglePoints}
+              fill={accentColor}
+              stroke="white"
+              strokeWidth={2}
+              strokeLinejoin="round"
+            />
+          )}
+        </g>
+      </svg>
       <div style={{ display: "flex", position: "absolute", left: `${effectiveX}px`, top: "0px", width: `${effectiveWidth}px`, height: `${height}px` }}>
          {(profileData.prominentLabels || []).map((label: any, i: number) => (
             <div key={i} style={{

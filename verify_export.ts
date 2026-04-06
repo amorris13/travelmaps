@@ -1,7 +1,6 @@
 import { renderPosterToSvg, renderSvgToPng } from "./web/src/lib/render-server.js";
 import { testConfigs } from "./web/src/components/poster/__tests__/test-configs.js";
 import fs from "fs";
-import path from "path";
 
 async function verify() {
   const config = testConfigs.multi_stage;
