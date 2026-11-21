@@ -242,7 +242,7 @@ async function main(): Promise<void> {
 
   // Calculate all years covered by trips. Ignore home. Dedupe.
   const years = new Set(
-    trips.filter((trip) => !trip.isHome).map((trip) => new Date(trip.startDate).getFullYear())
+    trips.filter((trip) => !trip.isHome).map((trip) => new Date(trip.startDate).getFullYear()),
   );
 
   for (const year of years) {
@@ -250,7 +250,7 @@ async function main(): Promise<void> {
     const tripsForYear = trips.filter(
       (trip) =>
         new Date(trip.startDate).getFullYear() <= year &&
-        new Date(trip.endDate).getFullYear() >= year
+        new Date(trip.endDate).getFullYear() >= year,
     );
 
     // Group trips by region - Map.groupBy requires ES2022+ target or polyfill
@@ -290,7 +290,7 @@ async function main(): Promise<void> {
 async function processTrip(
   filename: string,
   tripJson: Trip,
-  fetchStaticMap: boolean
+  fetchStaticMap: boolean,
 ): Promise<void> {
   if (!tripJson.stages || tripJson.stages.length < 2) {
     // Need at least 2 stages for bounds/lines
@@ -303,7 +303,7 @@ async function processTrip(
   const tripSvgResult = generateTripSvg(tripJson);
   await writeFileAndLog(
     "output/" + filename + ".svg",
-    pretty(tripSvgResult.svgCanvas.svg(svgExportModifier))
+    pretty(tripSvgResult.svgCanvas.svg(svgExportModifier)),
   );
 
   const mapFileName = "output/" + filename + ".png";
@@ -324,7 +324,7 @@ async function processTrip(
     .back();
   await writeFileAndLog(
     "output/" + filename + "-withmap.svg",
-    pretty(tripSvgResult.svgCanvas.svg(svgExportModifier))
+    pretty(tripSvgResult.svgCanvas.svg(svgExportModifier)),
   );
 }
 
@@ -332,7 +332,7 @@ async function processRegion(
   name: string,
   regionName: string,
   regionBounds: RegionBounds,
-  trips: Trip[]
+  trips: Trip[],
 ): Promise<void> {
   await fs.mkdir("output", { recursive: true });
 
@@ -349,11 +349,11 @@ async function processRegion(
       .back();
     await writeFileAndLog(
       "output/" + name + "-withmap.svg",
-      pretty(regionSvg.svg(svgExportModifier))
+      pretty(regionSvg.svg(svgExportModifier)),
     );
   } else {
     console.warn(
-      `Static map file ${mapFileName} not found for region ${regionName}. Skipping map background.`
+      `Static map file ${mapFileName} not found for region ${regionName}. Skipping map background.`,
     );
   }
 }
@@ -372,17 +372,17 @@ function generateTripSvg(trip: Trip): TripSvgResult {
   const scaleY = boundingBox.height === 0 ? 1 : maxSize / boundingBox.height;
 
   const squareBoundingBox = boundingBox.transform(
-    new SVG.Matrix().scale(scaleX, scaleY, boundingBox.cx, boundingBox.cy)
+    new SVG.Matrix().scale(scaleX, scaleY, boundingBox.cx, boundingBox.cy),
   );
   const expandedBoundingBox = squareBoundingBox.transform(
-    new SVG.Matrix().scale(1.3, squareBoundingBox.cx, squareBoundingBox.cy)
+    new SVG.Matrix().scale(1.3, squareBoundingBox.cx, squareBoundingBox.cy),
   );
 
   // Ensure no division by zero for transform scale
   const sidePx = SIDE_PX;
   const transformScale = Math.min(
     expandedBoundingBox.width === 0 ? 1 : sidePx / expandedBoundingBox.width,
-    expandedBoundingBox.height === 0 ? 1 : sidePx / expandedBoundingBox.height
+    expandedBoundingBox.height === 0 ? 1 : sidePx / expandedBoundingBox.height,
   );
 
   const transform = new SVG.Matrix()
@@ -434,7 +434,7 @@ function generateTripSvg(trip: Trip): TripSvgResult {
       continue;
     }
     const point = toMercator(shiftLatLng(stage.endLocation.latlng, stage.lngShift || 0)).transform(
-      transform
+      transform,
     );
     const marker = canvas.circle().radius(markerRadius).centerAt(point);
     markerMask.add(marker.clone().fill("black"));
@@ -457,27 +457,27 @@ function generateTripSvg(trip: Trip): TripSvgResult {
     }
 
     // Add markers for stops in this stage
-    if (stage.stops && stage.stops.length > 0) {
-      for (const stop of stage.stops) {
-        if (stop.latlng) {
-          const point = toMercator(stop.latlng).transform(transform);
-          const marker = canvas
-            .circle()
-            .radius(markerRadius * 0.7)
-            .centerAt(point);
-          markerMask.add(marker.clone().fill("black"));
-          marker.addClass("dayStop");
-          // Create shape for intersection testing
-          shapes.push(shape("circle", { cx: point.x, cy: point.y, r: markerRadius * 0.7 }));
-          if (stop.name) {
-            labelPoints.push({
-              name: stop.name,
-              point,
-            });
-          }
-        }
-      }
-    }
+    // if (stage.stops && stage.stops.length > 0) {
+    //   for (const stop of stage.stops) {
+    //     if (stop.latlng) {
+    //       const point = toMercator(stop.latlng).transform(transform);
+    //       const marker = canvas
+    //         .circle()
+    //         .radius(markerRadius * 0.7)
+    //         .centerAt(point);
+    //       markerMask.add(marker.clone().fill("black"));
+    //       marker.addClass("dayStop");
+    //       // Create shape for intersection testing
+    //       shapes.push(shape("circle", { cx: point.x, cy: point.y, r: markerRadius * 0.7 }));
+    //       if (stop.name) {
+    //         labelPoints.push({
+    //           name: stop.name,
+    //           point,
+    //         });
+    //       }
+    //     }
+    //   }
+    // }
   }
 
   const bestLabelPlacement = calculateBestLabelPositions(
@@ -486,7 +486,7 @@ function generateTripSvg(trip: Trip): TripSvgResult {
     labelFontSizePx,
     shapes,
     sidePx,
-    sidePx
+    sidePx,
   );
 
   for (const labelPlacement of bestLabelPlacement.result) {
@@ -529,17 +529,17 @@ function generateStageSvg(tripName: string, stage: Stage): TripSvgResult {
   const scaleY = boundingBox.height === 0 ? 1 : maxSize / boundingBox.height;
 
   const squareBoundingBox = boundingBox.transform(
-    new SVG.Matrix().scale(scaleX, scaleY, boundingBox.cx, boundingBox.cy)
+    new SVG.Matrix().scale(scaleX, scaleY, boundingBox.cx, boundingBox.cy),
   );
   const expandedBoundingBox = squareBoundingBox.transform(
-    new SVG.Matrix().scale(1.3, squareBoundingBox.cx, squareBoundingBox.cy)
+    new SVG.Matrix().scale(1.3, squareBoundingBox.cx, squareBoundingBox.cy),
   );
 
   // Ensure no division by zero for transform scale
-  const sidePx = 800;
+  const sidePx = 480;
   const transformScale = Math.min(
     expandedBoundingBox.width === 0 ? 1 : sidePx / expandedBoundingBox.width,
-    expandedBoundingBox.height === 0 ? 1 : sidePx / expandedBoundingBox.height
+    expandedBoundingBox.height === 0 ? 1 : sidePx / expandedBoundingBox.height,
   );
 
   const transform = new SVG.Matrix()
@@ -565,7 +565,7 @@ function generateStageSvg(tripName: string, stage: Stage): TripSvgResult {
   const decodedPolyline = stage.polyline
     ? decodePolyline(stage.polyline)
     : [stage.startLocation?.latlng, stage.endLocation.latlng].filter(
-        (latlng) => latlng !== undefined
+        (latlng) => latlng !== undefined,
       );
 
   // Add polyline for this stage if it exists
@@ -656,7 +656,7 @@ function generateStageSvg(tripName: string, stage: Stage): TripSvgResult {
 
     if (maxElevationLatLng) {
       const point = toMercator(maxElevationLatLng).transform(transform);
-      const triangleSize = markerRadius * 3;
+      const triangleSize = markerRadius * 2.5;
       // Points for an upward-pointing equilateral triangle centered at (0,0)
       const points = [
         [0, -triangleSize * (Math.sqrt(3) / 3)], // Top vertex
@@ -682,7 +682,7 @@ function generateStageSvg(tripName: string, stage: Stage): TripSvgResult {
     labelFontSizePx,
     shapes,
     sidePx,
-    sidePx
+    sidePx,
   );
 
   for (const labelPlacement of bestLabelPlacement.result) {
@@ -713,7 +713,7 @@ function generateStageSvg(tripName: string, stage: Stage): TripSvgResult {
 async function processStageMaps(
   tripFilename: string,
   tripJson: Trip,
-  fetchStaticMap: boolean
+  fetchStaticMap: boolean,
 ): Promise<void> {
   if (!tripJson.stages || tripJson.stages.length === 0) {
     console.info(`Skipping stage maps for trip "${tripJson.name}" as it has no stages.`);
@@ -738,7 +738,7 @@ async function processStage(
   filename: string,
   tripName: string,
   stage: Stage,
-  fetchStaticMap: boolean
+  fetchStaticMap: boolean,
 ): Promise<void> {
   if (!stage.endLocation.latlng) {
     console.info(`Skipping stage "${stage.endLocation.name}" as it has no coordinates.`);
@@ -748,7 +748,7 @@ async function processStage(
   const stageSvgResult = generateStageSvg(tripName, stage);
   await writeFileAndLog(
     "output/" + filename + ".svg",
-    pretty(stageSvgResult.svgCanvas.svg(svgExportModifier))
+    pretty(stageSvgResult.svgCanvas.svg(svgExportModifier)),
   );
 
   const mapFileName = "output/" + filename + ".png";
@@ -770,7 +770,7 @@ async function processStage(
     .back();
   await writeFileAndLog(
     "output/" + filename + "-withmap.svg",
-    pretty(stageSvgResult.svgCanvas.svg(svgExportModifier))
+    pretty(stageSvgResult.svgCanvas.svg(svgExportModifier)),
   );
 }
 
@@ -778,7 +778,7 @@ function generateRegionSvg(
   name: string,
   regionName: string,
   regionBounds: RegionBounds,
-  trips: Trip[]
+  trips: Trip[],
 ): SVG.Svg {
   console.log(`Generating Overview SVG for ${name}`);
 
@@ -837,7 +837,7 @@ function generateRegionSvg(
             y: point.y - markerRadius,
             width: 2 * markerRadius,
             height: 2 * markerRadius,
-          })
+          }),
         );
       } else {
         marker = canvas.circle().radius(markerRadius).centerAt(point).addClass("stage");
@@ -907,7 +907,7 @@ function generateRegionSvg(
         name: stage.endLocation.name,
         point: toMercator(stage.endLocation.latlng).transform(transform),
         partialAttendance: stage.partialAttendance,
-      }))
+      })),
   );
   const labelPoints = [...tripLabels, ...stageLabels];
 
@@ -917,7 +917,7 @@ function generateRegionSvg(
     labelFontSizePx,
     shapes,
     widthPx,
-    heightPx
+    heightPx,
   );
 
   for (const labelPlacement of bestLabelPlacement.result) {
@@ -959,14 +959,14 @@ function addCanvasStyles(canvas: SVG.Svg): { markerRadius: number; labelFontSize
     "stroke-width": 3,
     stroke: color,
     "stroke-linejoin": "round",
-    "stroke-dasharray": "6 6",
+    // "stroke-dasharray": "6 6",
     "stroke-linecap": "round",
   });
   canvas.style().rule(".flying", {
     "stroke-dasharray": "2 8",
   });
   canvas.style().rule(".ferry", {
-    "stroke-dasharray": "2 12",
+    "stroke-dasharray": "2 8",
   });
   const markerRadius = 5;
   canvas.style().rule(".stage", {
@@ -993,7 +993,7 @@ function addCanvasStyles(canvas: SVG.Svg): { markerRadius: number; labelFontSize
 
     const morphology = add.morphology("dilate", 1).in(add.$sourceAlpha);
     const matrix = add
-        .colorMatrix("matrix", [-1, 0, 0, 0, 1, 0, -1, 0, 0, 1, 0, 0, -1, 0, 1, 0, 0, 0, 1, 0] as any)
+      .colorMatrix("matrix", [-1, 0, 0, 0, 1, 0, -1, 0, 0, 1, 0, 0, -1, 0, 1, 0, 0, 0, 1, 0] as any)
       .in(morphology);
 
     add.merge([matrix, add.$source] as any);
@@ -1119,7 +1119,7 @@ function fromMercator(p: { x: number; y: number }): LatLng {
 function pathFromPolyline(
   decodedPolyline: LatLng[],
   transform: SVG.Matrix,
-  lngShift = 0
+  lngShift = 0,
 ): SVG.PathArray {
   if (!decodedPolyline) return new SVG.PathArray();
 
@@ -1132,27 +1132,27 @@ function pathFromPolyline(
       decodedPolyline[1].lng += dir * 360;
 
       const transformedPolyline1 = decodedPolyline.map((latlng) =>
-        toMercator(shiftLatLng(latlng, lngShift)).transform(transform).round(EXPORT_PRECISION)
+        toMercator(shiftLatLng(latlng, lngShift)).transform(transform).round(EXPORT_PRECISION),
       );
       path.push(...arcPathBetweenPoints(transformedPolyline1[0], transformedPolyline1[1]));
 
       const transformedPolyline2 = decodedPolyline.map((latlng) =>
         toMercator(shiftLatLng(latlng, lngShift - dir * 360))
           .transform(transform)
-          .round(EXPORT_PRECISION)
+          .round(EXPORT_PRECISION),
       );
       path.push(...arcPathBetweenPoints(transformedPolyline2[0], transformedPolyline2[1]));
 
       return path;
     } else {
       const transformedPolyline = decodedPolyline.map((latlng) =>
-        toMercator(shiftLatLng(latlng, lngShift)).transform(transform).round(EXPORT_PRECISION)
+        toMercator(shiftLatLng(latlng, lngShift)).transform(transform).round(EXPORT_PRECISION),
       );
       return arcPathBetweenPoints(transformedPolyline[0], transformedPolyline[1]);
     }
   } else {
     const transformedPolyline = decodedPolyline.map((latlng) =>
-      toMercator(shiftLatLng(latlng, lngShift)).transform(transform).round(EXPORT_PRECISION)
+      toMercator(shiftLatLng(latlng, lngShift)).transform(transform).round(EXPORT_PRECISION),
     );
     const simplifiedPolyline = simplify(transformedPolyline, 0.5, false);
     const polylinePathArray: SVG.PathCommand[] = simplifiedPolyline.map((point) => [
@@ -1230,7 +1230,7 @@ function calculateBestLabelPositions(
   labelFontSizePx: number,
   shapesToAvoid: Shape[], // Updated type
   maxWidth: number,
-  maxHeight: number
+  maxHeight: number,
 ): LabelPlacementResult {
   // First calculate potential positions for each label with no intersections (with lines) and sufficient prominence
   const labelOffsetOptions: Map<LabelPoint, LabelOffsetOption[]> = new Map();
@@ -1252,7 +1252,7 @@ function calculateBestLabelPositions(
         labelWidth,
         labelHeight,
         maxWidth,
-        maxHeight
+        maxHeight,
       );
 
       for (const offsetPoint of labelOffsetOptions) {
@@ -1270,7 +1270,7 @@ function calculateBestLabelPositions(
         const prominence = calculateIndividualLabelProminence(
           label,
           labelRect,
-          labelPoints.filter((_, index) => index !== i)
+          labelPoints.filter((_, index) => index !== i),
         );
         if (!intersects) {
           options.push({
@@ -1289,7 +1289,7 @@ function calculateBestLabelPositions(
       filteredOptions.push(
         ...options
           .sort((a, b) => b.prominence.prominence - a.prominence.prominence)
-          .slice(0, 5 - filteredOptions.length)
+          .slice(0, 5 - filteredOptions.length),
       );
     }
     labelOffsetOptions.set(label, filteredOptions);
@@ -1304,7 +1304,7 @@ function calculateBestLabelPositions(
       rng,
       labelPoints,
       labelOffsetOptions,
-      shapesToAvoid
+      shapesToAvoid,
     );
     if (!bestLabelPlacement || compareLabelPlacement(currentPlacement, bestLabelPlacement) > 0) {
       bestLabelPlacement = currentPlacement;
@@ -1312,10 +1312,10 @@ function calculateBestLabelPositions(
         `Chose better placement with ${
           bestLabelPlacement.numberOfIntersections
         } intersections, offset ${bestLabelPlacement.averageOffset.toFixed(
-          2
+          2,
         )}, separation ${bestLabelPlacement.labelSeparationScore.toFixed(
-          2
-        )}, prominence ${bestLabelPlacement.labelProminenceScore.toFixed(2)} on attempt ${attempt}`
+          2,
+        )}, prominence ${bestLabelPlacement.labelProminenceScore.toFixed(2)} on attempt ${attempt}`,
       );
     }
   }
@@ -1339,7 +1339,7 @@ function calculateLabelPositions(
   rng: seedrandom.PRNG,
   labels: LabelPoint[],
   labelOffsetOptionsMap: Map<LabelPoint, LabelOffsetOption[]>,
-  existingShapes: Shape[] // Updated type
+  existingShapes: Shape[], // Updated type
 ): LabelPlacementResult {
   const shapes = [...existingShapes];
   const shuffledLabels = [...labels];
@@ -1416,7 +1416,7 @@ function calculateOffsetScore(labelPlacements: LabelPlacement[]): number {
   // Use generalized mean (p=2, quadratic mean) to penalize larger offsets more
   return generalizedMean(
     labelPlacements.map((label) => label.offset),
-    2
+    2,
   );
 }
 
@@ -1429,7 +1429,7 @@ function calculateLabelSeparation(labelPlacements: LabelPlacement[]): number {
       if (i !== j) {
         minDistanceToOtherLabel = Math.min(
           minDistanceToOtherLabel,
-          distanceBetweenRectangles(labelPlacements[i].labelRect, labelPlacements[j].labelRect)
+          distanceBetweenRectangles(labelPlacements[i].labelRect, labelPlacements[j].labelRect),
         );
       }
     }
@@ -1471,7 +1471,7 @@ function calculateLabelProminenceScore(labelPlacements: LabelPlacement[]): numbe
   if (labelPlacements.length === 0) return 0;
   const minProminence = labelPlacements.reduce(
     (min, current) => (current.prominence.prominence < min.prominence.prominence ? current : min),
-    labelPlacements[0]
+    labelPlacements[0],
   );
   // console.log(
   //   `Label prominence score: ${minProminence.prominence.prominence.toFixed(2)} for ${
@@ -1484,7 +1484,7 @@ function calculateLabelProminenceScore(labelPlacements: LabelPlacement[]): numbe
 function calculateIndividualLabelProminence(
   labelPoint: LabelPoint,
   labelRect: SimpleRect,
-  otherPoints: LabelPoint[]
+  otherPoints: LabelPoint[],
 ) {
   let minDistanceToOtherLabelPoint = Infinity;
   let closestPoint = undefined;
@@ -1534,7 +1534,7 @@ function generalizedMean(array: number[], exponent: number): number {
     if (value < 0 && !Number.isInteger(exponent)) {
       // Option 1: Return NaN or throw error
       console.warn(
-        `Cannot calculate generalized mean with negative base (${value}) and non-integer exponent (${exponent}). Returning NaN.`
+        `Cannot calculate generalized mean with negative base (${value}) and non-integer exponent (${exponent}). Returning NaN.`,
       );
       return NaN;
       // Option 2: Use absolute value (might change meaning)
@@ -1551,7 +1551,7 @@ function generalizedMean(array: number[], exponent: number): number {
     console.warn(
       `Cannot calculate generalized mean resulting in negative base (${meanOfPowers}) with non-integer root (${
         1 / exponent
-      }). Returning NaN.`
+      }). Returning NaN.`,
     );
     return NaN;
     // Or use Math.sign and absolute value if appropriate for the context
@@ -1567,7 +1567,7 @@ function generateLabelOffsetOptions(
   labelWidth: number,
   labelHeight: number,
   maxWidth: number,
-  maxHeight: number
+  maxHeight: number,
 ): SVG.Point[] {
   const diagonalOffset = offset / Math.SQRT2;
   const buffer = 0.02; // Percentage buffer from edges
@@ -1594,7 +1594,7 @@ function generateLabelOffsetOptions(
         p.x >= maxWidth * buffer &&
         p.y >= maxHeight * buffer &&
         p.x + labelWidth <= maxWidth * (1 - buffer) &&
-        p.y + labelHeight <= maxHeight * (1 - buffer)
+        p.y + labelHeight <= maxHeight * (1 - buffer),
     );
 }
 
@@ -1683,7 +1683,7 @@ async function fetchStaticMapMapbox(boundingBox: SVG.Box): Promise<Buffer> {
   // Ensure longitude is within Mapbox's expected range if needed (often handles wrapping)
   // Mapbox static API usually takes [lon,lat,lon,lat] or auto bounds
 
-  const style = "amorris13/clyk5oa2u01dw01rba38pe12t"; // muted, no labels (or choose another)
+  const style = "amorris13/cmwqbb7m8006201sr3pfl1r0t"; // muted, no labels (or choose another)
   const accessToken = process.env.MAPBOX_ACCESS_TOKEN!; // Checked in main()
 
   // Construct URL - using bounds [west,south,east,north]
@@ -1697,7 +1697,7 @@ async function fetchStaticMapMapbox(boundingBox: SVG.Box): Promise<Buffer> {
     if (!response.ok) {
       const errorBody = await response.text();
       console.error(
-        `Error fetching static map (${response.status} ${response.statusText}): ${errorBody}`
+        `Error fetching static map (${response.status} ${response.statusText}): ${errorBody}`,
       );
       throw new Error(`Mapbox API request failed with status ${response.status}`);
     }
