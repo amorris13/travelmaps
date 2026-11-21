@@ -39,7 +39,7 @@
         "--filename=travels.json",
         "--staticmap=true",
         "--stageMaps=true",
-        "--specificMap=2025-tauernradweg"
+        "--specificMap=2018-london_to_rome"
       ],
       "program": "${workspaceFolder}/generate_svg.ts",
       "envFile": "${workspaceFolder}/.env"
