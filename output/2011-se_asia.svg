@@ -14,7 +14,6 @@
       stroke-width: 3;
       stroke: #C61016;
       stroke-linejoin: round;
-      stroke-dasharray: 6 6;
       stroke-linecap: round;
     }
   </style>
@@ -25,7 +24,7 @@
   </style>
   <style>
     .ferry {
-      stroke-dasharray: 2 12;
+      stroke-dasharray: 2 8;
     }
   </style>
   <style>
@@ -81,7 +80,7 @@
   </defs>
   <style>
     .label {
-      font-family: Helvetica;
+      font-family: Helvetica Neue, Helvetica, sans-serif;
       font-size: 18px;
       fill: #C61016;
       filter: url(#whiteOutlineEffect);

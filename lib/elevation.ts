@@ -100,27 +100,14 @@ export function parseToRgb(hexColor: string): {
   return { r, g, b };
 }
 
-export function rgbToHex({
-  r,
-  g,
-  b,
-}: {
-  r: number;
-  g: number;
-  b: number;
-}): string {
+export function rgbToHex({ r, g, b }: { r: number; g: number; b: number }): string {
   return `#${r.toString(16).padStart(2, "0")}${g.toString(16).padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
 }
 
-export function mixColors(
-  hexColor1: string,
-  hexColor2: string,
-  ratio: number
-): string {
+export function mixColors(hexColor1: string, hexColor2: string, ratio: number): string {
   const rgb1 = parseToRgb(hexColor1);
   const rgb2 = parseToRgb(hexColor2);
-  const mix = (c1: number, c2: number) =>
-    Math.round(c1 * ratio + c2 * (1 - ratio));
+  const mix = (c1: number, c2: number) => Math.round(c1 * ratio + c2 * (1 - ratio));
   return rgbToHex({
     r: mix(rgb1.r, rgb2.r),
     g: mix(rgb1.g, rgb2.g),
@@ -148,7 +135,7 @@ export function computeElevationProfileFromStages(
   width: number,
   height: number,
   options: ElevationProfileOptions = {},
-  accentColor: string = ACCENT_COLOR
+  accentColor: string = ACCENT_COLOR,
 ): ElevationProfileData | null {
   // Prepare segments with continuity info
   const segments = stages.map((stage, i) => ({
@@ -173,11 +160,7 @@ export function computeElevationProfileFromStages(
     let currentCumulative = 0;
     for (let i = 0; i < stages.length; i++) {
       const stage = stages[i];
-      if (
-        stage.elevationStream.length === 0 ||
-        stage.distanceStream.length === 0
-      )
-        continue;
+      if (stage.elevationStream.length === 0 || stage.distanceStream.length === 0) continue;
 
       correctStageMarkers.push({
         distance: currentCumulative,
@@ -206,10 +189,9 @@ export function computeElevationProfileFromStages(
     plotHeight,
     {
       ...options,
-      stageMarkers:
-        correctStageMarkers.length > 0 ? correctStageMarkers : undefined,
+      stageMarkers: correctStageMarkers.length > 0 ? correctStageMarkers : undefined,
     },
-    accentColor
+    accentColor,
   );
 }
 
@@ -222,7 +204,7 @@ export function computeElevationProfile(
   plotWidth: number,
   plotHeight: number,
   options?: ElevationProfileOptions,
-  accentColor: string = ACCENT_COLOR
+  accentColor: string = ACCENT_COLOR,
 ): ElevationProfileData {
   const padding = ELEVATION_PADDING;
   const svgWidth = padding + plotWidth + padding;
@@ -264,8 +246,8 @@ export function computeElevationProfile(
     }
   }
 
-  const gradientStartColor = mixColors(accentColor, "#ffffff", 0.5);
-  const gradientEndColor = mixColors(accentColor, "#ffffff", 0.05);
+  const gradientStartColor = mixColors(accentColor, "#ffffff", 0.4);
+  const gradientEndColor = mixColors(accentColor, "#ffffff", 0.1);
   const units = options?.units ?? "metric";
   const mToFt = 3.28084;
   const unitLabel = units === "imperial" ? "ft" : "m";
@@ -355,7 +337,7 @@ export function computeElevationProfile(
 
   const allPoints = clamped.map((elevation, index) => ({
     x: (combinedDistance[index] / maxDistance) * plotWidth + padding,
-    y: ((1 - (elevation - minElevation) / elevationRange) * plotHeight) + plotOffsetY,
+    y: (1 - (elevation - minElevation) / elevationRange) * plotHeight + plotOffsetY,
   }));
 
   // Re-split into segments for path rendering
@@ -366,16 +348,14 @@ export function computeElevationProfile(
     if (len === 0) continue;
     const segmentPoints = allPoints.slice(currentOffset, currentOffset + len);
     if (segmentPoints.length > 0) {
-      profileSegments.push(simplify(segmentPoints, 0.1, true));
+      profileSegments.push(simplify(segmentPoints, 1.0, true));
     }
     currentOffset += len;
   }
 
   const segmentPaths = profileSegments.map((points) => {
     if (points.length === 0) return { pathD: "", fillD: "" };
-    const pathD = points
-      .map((p, j) => `${j === 0 ? "M" : "L"} ${p.x} ${p.y}`)
-      .join(" ");
+    const pathD = points.map((p, j) => `${j === 0 ? "M" : "L"} ${p.x} ${p.y}`).join(" ");
     const firstPt = points[0];
     const lastPt = points[points.length - 1];
     const fillD = `${pathD} L ${lastPt.x} ${plotOffsetY + plotHeight} L ${firstPt.x} ${plotOffsetY + plotHeight} Z`;
@@ -519,8 +499,7 @@ export function computeElevationProfile(
     for (const [i, marker] of options.stageMarkers.entries()) {
       const x = (marker.distance / maxDistance) * plotWidth + padding;
       const xNext =
-        ((options.stageMarkers[i + 1]?.distance || maxDistance) / maxDistance) *
-          plotWidth +
+        ((options.stageMarkers[i + 1]?.distance || maxDistance) / maxDistance) * plotWidth +
         padding;
       const elevIdx = combinedDistance.findIndex((v) => v >= marker.distance);
       const elevationY = allPoints[elevIdx >= 0 ? elevIdx : 0].y;
@@ -584,7 +563,7 @@ export function renderElevationProfileAsSvg(
     viewBox?: string;
     x?: number;
     y?: number;
-  }
+  },
 ): string {
   const {
     segmentPaths,
@@ -630,7 +609,7 @@ export function renderElevationProfileAsSvg(
       .map(
         (gy) => `
       <line x1="${padding}" y1="${gy}" x2="${plotWidth + padding}" y2="${gy}" stroke="#e0e0e0" stroke-width="1" />
-    `
+    `,
       )
       .join("")}
 
@@ -640,7 +619,7 @@ export function renderElevationProfileAsSvg(
         (segment) => `
       <path d="${segment.fillD}" fill="url(#${gradientId})" stroke="none" />
       <path d="${segment.pathD}" fill="none" stroke="${accentColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-    `
+    `,
       )
       .join("")}
 
@@ -651,8 +630,8 @@ export function renderElevationProfileAsSvg(
     ${prominentLabels
       .map(
         (label) => `
-      <text x="${label.x}" y="${label.y}" text-anchor="${label.anchor}" font-family="Helvetica Neue, sans-serif" font-size="${PROMINENT_LABEL_FONT_SIZE}" font-weight="300" letter-spacing="0.05em" dominant-baseline="alphabetic">${label.label}</text>
-    `
+      <text x="${label.x}" y="${label.y}" text-anchor="${label.anchor}" font-family="Helvetica Neue, sans-serif" font-size="${PROMINENT_LABEL_FONT_SIZE}" font-weight="400" letter-spacing="0.05em" dominant-baseline="alphabetic">${label.label}</text>
+    `,
       )
       .join("")}
 
@@ -662,8 +641,8 @@ export function renderElevationProfileAsSvg(
         (marker) => `
       <line x1="${marker.x}" y1="${plotOffsetY + plotHeight}" x2="${marker.x}" y2="${plotOffsetY + plotHeight + 5}" stroke="#808080" stroke-width="1" />
       <line x1="${marker.x}" y1="${plotOffsetY + plotHeight}" x2="${marker.x}" y2="${marker.elevationY}" stroke="#808080" stroke-width="1" stroke-dasharray="2 4" />
-      <text x="${(marker.x + marker.xNext) / 2}" y="${plotOffsetY + plotHeight + 15}" text-anchor="middle" font-family="Helvetica Neue, sans-serif" font-size="16" font-weight="300" letter-spacing="0.05em" dominant-baseline="alphabetic">${marker.label}</text>
-    `
+      <text x="${(marker.x + marker.xNext) / 2}" y="${plotOffsetY + plotHeight + 15}" text-anchor="middle" font-family="Helvetica Neue, sans-serif" font-size="16" font-weight="400" letter-spacing="0.05em" dominant-baseline="alphabetic">${marker.label}</text>
+    `,
       )
       .join("")}
     ${
@@ -676,9 +655,9 @@ export function renderElevationProfileAsSvg(
       showKeyElevations
         ? `
       <!-- Key elevations -->
-      <text x="${padding}" y="${plotOffsetY + plotHeight + (stageMarkerPositions.length > 0 ? 15 : 0) + 20}" text-anchor="start" font-family="Helvetica Neue, sans-serif" font-size="16" font-weight="300" letter-spacing="0.05em" dominant-baseline="alphabetic">${keyElevations.startLabel}</text>
-      <text x="${plotWidth / 2}" y="${plotOffsetY + plotHeight + (stageMarkerPositions.length > 0 ? 15 : 0) + 20}" text-anchor="middle" font-family="Helvetica Neue, sans-serif" font-size="16" font-weight="300" letter-spacing="0.05em" dominant-baseline="alphabetic">⏶ ${keyElevations.peakLabel}</text>
-      <text x="${plotWidth - padding}" y="${plotOffsetY + plotHeight + (stageMarkerPositions.length > 0 ? 15 : 0) + 20}" text-anchor="end" font-family="Helvetica Neue, sans-serif" font-size="16" font-weight="300" letter-spacing="0.05em" dominant-baseline="alphabetic">${keyElevations.endLabel}</text>
+      <text x="${padding}" y="${plotOffsetY + plotHeight + (stageMarkerPositions.length > 0 ? 15 : 0) + 20}" text-anchor="start" font-family="Helvetica Neue, sans-serif" font-size="16" font-weight="400" letter-spacing="0.05em" dominant-baseline="alphabetic">${keyElevations.startLabel}</text>
+      <text x="${plotWidth / 2}" y="${plotOffsetY + plotHeight + (stageMarkerPositions.length > 0 ? 15 : 0) + 20}" text-anchor="middle" font-family="Helvetica Neue, sans-serif" font-size="16" font-weight="400" letter-spacing="0.05em" dominant-baseline="alphabetic">⏶ ${keyElevations.peakLabel}</text>
+      <text x="${plotWidth - padding}" y="${plotOffsetY + plotHeight + (stageMarkerPositions.length > 0 ? 15 : 0) + 20}" text-anchor="end" font-family="Helvetica Neue, sans-serif" font-size="16" font-weight="400" letter-spacing="0.05em" dominant-baseline="alphabetic">${keyElevations.endLabel}</text>
     `
         : ""
     }

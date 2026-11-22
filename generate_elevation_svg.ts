@@ -24,13 +24,13 @@ function generateElevationSvg(
       minProminence?: number;
     };
     showKeyElevations?: boolean;
-  }
+  },
 ): string {
   const profileData = computeElevationProfile(
     [{ elevationStream, distanceStream }],
     plotWidth,
     plotHeight,
-    options
+    options,
   );
 
   return renderElevationProfileAsSvg(profileData, {
@@ -78,16 +78,10 @@ async function main() {
         const elevationStream = parseStream(stage.strava_data.elevation_stream);
         const distanceStream = parseStream(stage.strava_data.distance_stream);
 
-        const svgContent = generateElevationSvg(
-          elevationStream,
-          distanceStream,
-          600,
-          180,
-          {
-            horizontalGridlines: true,
-            labelProminentElevations: { minProminence: 100 },
-          }
-        );
+        const svgContent = generateElevationSvg(elevationStream, distanceStream, 600, 80, {
+          horizontalGridlines: true,
+          labelProminentElevations: { minProminence: 100 },
+        });
 
         const tripYear = new Date(trip.startDate).getFullYear();
         const filename = `${tripYear}-${toSnakeCase(trip.name)}-stage-${i + 1}-elevation.svg`;
@@ -102,11 +96,9 @@ async function main() {
 
         tripElevationData = tripElevationData.concat(elevationStream);
         const lastDistance =
-          distanceStream.length > 0
-            ? distanceStream[distanceStream.length - 1]
-            : 0;
+          distanceStream.length > 0 ? distanceStream[distanceStream.length - 1] : 0;
         tripDistanceData = tripDistanceData.concat(
-          distanceStream.map((d) => d + cumulativeDistance)
+          distanceStream.map((d) => d + cumulativeDistance),
         );
         stageMarkers.push({ distance: cumulativeDistance, label: `${i + 1}` });
         cumulativeDistance += lastDistance;
@@ -114,16 +106,10 @@ async function main() {
     }
 
     if (tripElevationData.length > 0) {
-      const svgContent = generateElevationSvg(
-        tripElevationData,
-        tripDistanceData,
-        1600,
-        200,
-        {
-          stageMarkers,
-          labelProminentElevations: { minProminence: 250 },
-        }
-      );
+      const svgContent = generateElevationSvg(tripElevationData, tripDistanceData, 800, 100, {
+        stageMarkers,
+        labelProminentElevations: { minProminence: 250 },
+      });
       const tripYear = new Date(trip.startDate).getFullYear();
       const filename = `${tripYear}-${toSnakeCase(trip.name)}-elevation.svg`;
       const filepath = `${OUTPUT_DIR}/${filename}`;

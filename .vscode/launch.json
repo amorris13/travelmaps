@@ -9,6 +9,7 @@
       "request": "launch",
       "name": "Generate Data",
       "skipFiles": ["<node_internals>/**"],
+      "runtimeArgs": ["--import", "tsx"],
       "program": "${workspaceFolder}/generate_data.ts",
       "envFile": "${workspaceFolder}/.env"
     },
@@ -17,6 +18,7 @@
       "request": "launch",
       "name": "Generate SVG",
       "skipFiles": ["<node_internals>/**"],
+      "runtimeArgs": ["--import", "tsx"],
       "args": ["--filename=travels.json"],
       "program": "${workspaceFolder}/generate_svg.ts",
       "envFile": "${workspaceFolder}/.env"
@@ -26,6 +28,7 @@
       "request": "launch",
       "name": "Generate SVG and Map",
       "skipFiles": ["<node_internals>/**"],
+      "runtimeArgs": ["--import", "tsx"],
       "args": ["--filename=travels.json", "--staticmap=true"],
       "program": "${workspaceFolder}/generate_svg.ts",
       "envFile": "${workspaceFolder}/.env"
@@ -35,6 +38,7 @@
       "request": "launch",
       "name": "Generate Cycling Stage Maps",
       "skipFiles": ["<node_internals>/**"],
+      "runtimeArgs": ["--import", "tsx"],
       "args": [
         "--filename=travels.json",
         "--staticmap=true",
@@ -49,6 +53,7 @@
       "request": "launch",
       "name": "Print Strava Activity IDs",
       "skipFiles": ["<node_internals>/**"],
+      "runtimeArgs": ["--import", "tsx"],
       "args": ["--from=2025-05-30", "--to=2025-06-03"],
       "program": "${workspaceFolder}/print_strava_ids.ts",
       "envFile": "${workspaceFolder}/.env"
@@ -58,6 +63,7 @@
       "request": "launch",
       "name": "Generate Elevation Profiles",
       "skipFiles": ["<node_internals>/**"],
+      "runtimeArgs": ["--import", "tsx"],
       "program": "${workspaceFolder}/generate_elevation_svg.ts",
       "envFile": "${workspaceFolder}/.env"
     }
